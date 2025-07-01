@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GenderHealthcareServiceManagementSystemPages")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3df3eb8323f4e63734b7d17e789b2764023f4288")]
 [assembly: System.Reflection.AssemblyProductAttribute("GenderHealthcareServiceManagementSystemPages")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GenderHealthcareServiceManagementSystemPages")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

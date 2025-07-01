@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\MAIN\\FPTU\\sem8\\prn222\\LAB\\lab2\\GenderHealthcareServiceManagementSystem\\GenderHealthcareServiceManagementSystemPages\\GenderHealthcareServiceManagementSystemPages.csproj": {}
+    "E:\\MAIN\\FPTU\\sem8\\prn222\\project\\GenderHealthcareServiceManagementSystem\\GenderHealthcareServiceManagementSystemPages\\GenderHealthcareServiceManagementSystemPages.csproj": {}
   },
   "projects": {
-    "E:\\MAIN\\FPTU\\sem8\\prn222\\LAB\\lab2\\GenderHealthcareServiceManagementSystem\\GenderHealthcareServiceManagementSystemPages\\GenderHealthcareServiceManagementSystemPages.csproj": {
+    "E:\\MAIN\\FPTU\\sem8\\prn222\\project\\GenderHealthcareServiceManagementSystem\\GenderHealthcareServiceManagementSystemPages\\GenderHealthcareServiceManagementSystemPages.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\MAIN\\FPTU\\sem8\\prn222\\LAB\\lab2\\GenderHealthcareServiceManagementSystem\\GenderHealthcareServiceManagementSystemPages\\GenderHealthcareServiceManagementSystemPages.csproj",
+        "projectUniqueName": "E:\\MAIN\\FPTU\\sem8\\prn222\\project\\GenderHealthcareServiceManagementSystem\\GenderHealthcareServiceManagementSystemPages\\GenderHealthcareServiceManagementSystemPages.csproj",
         "projectName": "GenderHealthcareServiceManagementSystemPages",
-        "projectPath": "E:\\MAIN\\FPTU\\sem8\\prn222\\LAB\\lab2\\GenderHealthcareServiceManagementSystem\\GenderHealthcareServiceManagementSystemPages\\GenderHealthcareServiceManagementSystemPages.csproj",
+        "projectPath": "E:\\MAIN\\FPTU\\sem8\\prn222\\project\\GenderHealthcareServiceManagementSystem\\GenderHealthcareServiceManagementSystemPages\\GenderHealthcareServiceManagementSystemPages.csproj",
         "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "E:\\MAIN\\FPTU\\sem8\\prn222\\LAB\\lab2\\GenderHealthcareServiceManagementSystem\\GenderHealthcareServiceManagementSystemPages\\obj\\",
+        "outputPath": "E:\\MAIN\\FPTU\\sem8\\prn222\\project\\GenderHealthcareServiceManagementSystem\\GenderHealthcareServiceManagementSystemPages\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

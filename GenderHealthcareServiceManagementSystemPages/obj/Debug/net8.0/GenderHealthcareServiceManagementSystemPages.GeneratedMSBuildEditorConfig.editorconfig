@@ -9,39 +9,39 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = GenderHealthcareServiceManagementSystemPages
 build_property.RootNamespace = GenderHealthcareServiceManagementSystemPages
-build_property.ProjectDir = E:\MAIN\FPTU\sem8\prn222\LAB\lab2\GenderHealthcareServiceManagementSystem\GenderHealthcareServiceManagementSystemPages\
+build_property.ProjectDir = E:\MAIN\FPTU\sem8\prn222\project\GenderHealthcareServiceManagementSystem\GenderHealthcareServiceManagementSystemPages\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = E:\MAIN\FPTU\sem8\prn222\LAB\lab2\GenderHealthcareServiceManagementSystem\GenderHealthcareServiceManagementSystemPages
+build_property.MSBuildProjectDirectory = E:\MAIN\FPTU\sem8\prn222\project\GenderHealthcareServiceManagementSystem\GenderHealthcareServiceManagementSystemPages
 build_property._RazorSourceGeneratorDebug = 
 
-[E:/MAIN/FPTU/sem8/prn222/LAB/lab2/GenderHealthcareServiceManagementSystem/GenderHealthcareServiceManagementSystemPages/Pages/Error.cshtml]
+[E:/MAIN/FPTU/sem8/prn222/project/GenderHealthcareServiceManagementSystem/GenderHealthcareServiceManagementSystemPages/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/MAIN/FPTU/sem8/prn222/LAB/lab2/GenderHealthcareServiceManagementSystem/GenderHealthcareServiceManagementSystemPages/Pages/Index.cshtml]
+[E:/MAIN/FPTU/sem8/prn222/project/GenderHealthcareServiceManagementSystem/GenderHealthcareServiceManagementSystemPages/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/MAIN/FPTU/sem8/prn222/LAB/lab2/GenderHealthcareServiceManagementSystem/GenderHealthcareServiceManagementSystemPages/Pages/Privacy.cshtml]
+[E:/MAIN/FPTU/sem8/prn222/project/GenderHealthcareServiceManagementSystem/GenderHealthcareServiceManagementSystemPages/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/MAIN/FPTU/sem8/prn222/LAB/lab2/GenderHealthcareServiceManagementSystem/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[E:/MAIN/FPTU/sem8/prn222/project/GenderHealthcareServiceManagementSystem/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/MAIN/FPTU/sem8/prn222/LAB/lab2/GenderHealthcareServiceManagementSystem/GenderHealthcareServiceManagementSystemPages/Pages/_ViewImports.cshtml]
+[E:/MAIN/FPTU/sem8/prn222/project/GenderHealthcareServiceManagementSystem/GenderHealthcareServiceManagementSystemPages/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/MAIN/FPTU/sem8/prn222/LAB/lab2/GenderHealthcareServiceManagementSystem/GenderHealthcareServiceManagementSystemPages/Pages/_ViewStart.cshtml]
+[E:/MAIN/FPTU/sem8/prn222/project/GenderHealthcareServiceManagementSystem/GenderHealthcareServiceManagementSystemPages/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/MAIN/FPTU/sem8/prn222/LAB/lab2/GenderHealthcareServiceManagementSystem/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml]
+[E:/MAIN/FPTU/sem8/prn222/project/GenderHealthcareServiceManagementSystem/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-apie28fxn5
