@@ -20,3 +20,122 @@ html {
 body {
   margin-bottom: 60px;
 }
+body {
+    background: linear-gradient(to bottom right, #f9f3ff, #ffeaf7, #ebf0ff);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.navbar {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #eee;
+}
+
+.footer {
+    background-color: #212529;
+    color: #fff;
+    padding: 1.5rem 0;
+}
+
+.gradient-text {
+    background: linear-gradient(to right, #9333ea, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-badge {
+    background-color: #f3e8ff;
+    color: #7e22ce;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-weight: 500;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+.hero-badge {
+    background-color: #f3e8ff;
+    color: #7e22ce;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-weight: 500;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.gradient-text {
+    background: linear-gradient(to right, #9333ea, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.icon-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.purple-pink {
+    background: linear-gradient(to bottom right, #9333ea, #ec4899);
+}
+
+.blue-purple {
+    background: linear-gradient(to bottom right, #3b82f6, #9333ea);
+}
+
+.pink-purple {
+    background: linear-gradient(to bottom right, #ec4899, #9333ea);
+}
+
+.text-purple {
+    color: #9333ea;
+}
+
+.text-pink {
+    color: #ec4899;
+}
+
+.text-blue {
+    color: #3b82f6;
+}
+
+.feature-card {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(6px);
+    border: none;
+}
+.form-control:focus {
+    border-color: #9333ea;
+    box-shadow: 0 0 0 0.2rem rgba(147, 51, 234, 0.25);
+}
+
+.card {
+    border-radius: 1rem;
+}
+
+.btn:focus, .btn:active:focus {
+    box-shadow: 0 0 0 0.2rem rgba(147, 51, 234, 0.5);
+}
+
+.text-purple-600 {
+    color: #9333ea;
+}
+
+.gradient-text {
+    background: linear-gradient(to right, #9333ea, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.needs-validation {
+}
+
+    .needs-validation label {
+        font-weight: 500;
+        color: #7e22ce;
+    }
+
