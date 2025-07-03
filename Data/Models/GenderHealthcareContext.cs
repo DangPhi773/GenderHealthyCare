@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace Data.Models;
+namespace BusinessObjects.Models;
 
 public partial class GenderHealthcareContext : DbContext
 {

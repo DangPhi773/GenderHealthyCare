@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Data.Models;
+using BusinessObjects.Models;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.Services
 {
     public class DetailsModel : PageModel
     {
-        private readonly Data.Models.GenderHealthcareContext _context;
+        private readonly GenderHealthcareContext _context;
 
-        public DetailsModel(Data.Models.GenderHealthcareContext context)
+        public DetailsModel(GenderHealthcareContext context)
         {
             _context = context;
         }
