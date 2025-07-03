@@ -1,0 +1,66 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.Clinics.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Clinic[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clinic[0].Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clinic[0].Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clinic[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clinic[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clinic[0].CreatedAt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Clinic) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ClinicId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ClinicId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ClinicId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
