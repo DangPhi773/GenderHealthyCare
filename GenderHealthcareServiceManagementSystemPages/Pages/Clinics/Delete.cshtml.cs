@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Data.Models;
+using BusinessObjects.Models;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.Clinics
 {
     public class DeleteModel : PageModel
     {
-        private readonly Data.Models.GenderHealthcareContext _context;
+        private readonly GenderHealthcareContext _context;
 
-        public DeleteModel(Data.Models.GenderHealthcareContext context)
+        public DeleteModel(GenderHealthcareContext context)
         {
             _context = context;
         }

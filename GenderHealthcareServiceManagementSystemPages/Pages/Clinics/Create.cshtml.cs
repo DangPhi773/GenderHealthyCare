@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Data.Models;
+using BusinessObjects.Models;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.Clinics
 {
     public class CreateModel : PageModel
     {
-        private readonly Data.Models.GenderHealthcareContext _context;
+        private readonly GenderHealthcareContext _context;
 
-        public CreateModel(Data.Models.GenderHealthcareContext context)
+        public CreateModel(GenderHealthcareContext context)
         {
             _context = context;
         }

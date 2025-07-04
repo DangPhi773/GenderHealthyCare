@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Data.Models;
+using BusinessObjects.Models;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.Services
 {
     public class EditModel : PageModel
     {
-        private readonly Data.Models.GenderHealthcareContext _context;
+        private readonly GenderHealthcareContext _context;
 
-        public EditModel(Data.Models.GenderHealthcareContext context)
+        public EditModel(GenderHealthcareContext context)
         {
             _context = context;
         }

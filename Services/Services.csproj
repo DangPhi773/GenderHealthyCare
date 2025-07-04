@@ -12,6 +12,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Repo\Repository.csproj" />
+    <ProjectReference Include="..\Repo\Repositories.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 
 </Project>
