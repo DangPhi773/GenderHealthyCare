@@ -61,7 +61,7 @@ nunit-*.xml
 *.sln.docstates
 
 # Secret configs
-appsettings.Development.json
+**/appsettings.Development.json
 secrets.json
 
 # Databases
