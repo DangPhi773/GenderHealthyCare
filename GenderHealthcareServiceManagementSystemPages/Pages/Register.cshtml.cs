@@ -1,4 +1,4 @@
-using Data.Models;
+﻿using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.Interfaces;
@@ -18,27 +18,41 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
         [BindProperty]
         public User User { get; set; } = new User();
 
-        [TempData]
-        public string Message { get; set; }
+        [BindProperty]
+        public string? Message { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
-                Message = "Please correct the input errors.";
+                foreach (var key in ModelState.Keys)
+                {
+                    var state = ModelState[key];
+                    foreach (var error in state.Errors)
+                    {
+                        Console.WriteLine($"❌ Model Error: {key} - {error.ErrorMessage}");
+                    }
+                }
+
+                Message = "Vui lòng kiểm tra lại thông tin.";
                 return Page();
             }
 
+            User.Role = "Customer";
+            User.CreatedAt = DateTime.Now;
+            User.UpdatedAt = DateTime.Now;
+
             if (await _accountService.RegisterAsync(User))
             {
-                Message = "Registration successful! Please log in.";
                 return RedirectToPage("/Login");
             }
-            Message = "Username or email already exists.";
+
+            Message = "Tên đăng nhập hoặc email đã tồn tại.";
             return Page();
         }
     }
