@@ -1,0 +1,62 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting.ConfirmBookingTestingModel
+@{
+    ViewData["Title"] = "Xác nhận đặt lịch";
+}
+
+<h2 class="text-primary mb-4">Xác nhận đặt lịch xét nghiệm</h2>
+
+@if (!Model.IsLoggedIn)
+{
+    <div class="alert alert-warning">
+        Bạn chưa đăng nhập! <a href="/login-test">Đăng nhập tạm thời</a>
+    </div>
+}
+
+<!-- ĐOẠN KIỂM TRA SESSION -->
+<pre class="bg-light p-3 border mt-3">
+<b>Debug Session Values:</b>
+SelectedServiceIds: @Model.HttpContext.Session.GetString("SelectedServiceIds")
+<br />
+AppointmentTime: @Model.HttpContext.Session.GetString("AppointmentTime")
+<br />
+UserId: @Model.HttpContext.Session.GetInt32("UserId")
+</pre>
+
+
+@if (Model.User != null)
+{
+    <div class="card mb-4 p-3">
+        <h4 class="text-secondary">Thông tin người dùng</h4>
+        <p><strong>Họ tên:</strong> @Model.User.FullName</p>
+        <p><strong>Email:</strong> @Model.User.Email</p>
+        <p><strong>Điện thoại:</strong> @Model.User.Phone</p>
+        <p><strong>Giới tính:</strong> @Model.User.Gender</p>
+        <p><strong>Ngày sinh:</strong> @Model.User.Dob?.ToString("dd/MM/yyyy")</p>
+    </div>
+}
+
+@if (Model.SelectedServiceNames != null && Model.SelectedServiceNames.Any())
+{
+    <div class="card mb-4 p-3">
+        <h4 class="text-secondary">Dịch vụ đã chọn</h4>
+        <ul>
+            @foreach (var name in Model.SelectedServiceNames)
+            {
+                <li>@name</li>
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.AppointmentTime != default(DateTime))
+{
+    <div class="card mb-4 p-3">
+        <h4 class="text-secondary">Thời gian xét nghiệm</h4>
+        <p><strong>@Model.AppointmentTime.ToString("HH:mm dd/MM/yyyy")</strong></p>
+    </div>
+}
+
+<form method="post">
+    <button type="submit" class="btn btn-success">Xác nhận đặt lịch</button>
+</form>

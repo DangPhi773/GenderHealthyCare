@@ -1,15 +1,41 @@
 using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
+using Services.Interfaces;
+using Services;
+using Repositories.Interfaces;
+using Repositories;
+using DataAccessObjects;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+builder.Services.AddSession();
+
 builder.Services.AddDbContext<GenderHealthcareContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+// Register DAO
+builder.Services.AddScoped<TestDAO>();
+builder.Services.AddScoped<UserDAO>();
+builder.Services.AddScoped<ServiceDAO>();
+builder.Services.AddScoped<FeedbackDAO>();
+
+// Register Repositories
+builder.Services.AddScoped<ITestRepository, TestRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+
+// Register Services
+builder.Services.AddScoped<ITestService, TestService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
+builder.Services.AddScoped<IFeedbackService, FeedbackService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,8 +51,17 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseSession();
+
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+//Chưa có login thì xài đỡ dị 
+app.MapGet("/login-test", async context =>
+{
+    context.Session.SetInt32("UserId", 2);
+    await context.Response.WriteAsync("Đã login tạm thời! Truy cập /CustomerTesting/SelectService để tiếp tục.");
+});
 
 app.Run();

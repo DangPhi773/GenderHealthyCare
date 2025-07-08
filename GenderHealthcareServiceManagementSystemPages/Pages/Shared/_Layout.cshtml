@@ -47,5 +47,12 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        // Redirect về trang đặt dịch vụ nếu đang ở trang gốc
+        if (window.location.pathname === "/" || window.location.pathname.toLowerCase() === "/index") {
+            window.location.href = "/CustomerTesting/SelectService";
+        }
+    </script>
 </body>
 </html>

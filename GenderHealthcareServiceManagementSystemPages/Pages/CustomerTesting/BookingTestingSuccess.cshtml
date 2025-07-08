@@ -1,0 +1,52 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting.BookingTestingSuccessModel
+@{
+    ViewData["Title"] = "Đặt lịch thành công";
+}
+
+<h2 class="text-success mb-4">🎉 Bạn đã đặt lịch xét nghiệm thành công!</h2>
+
+@if (!Model.IsLoggedIn)
+{
+    <div class="alert alert-warning">
+        Bạn chưa đăng nhập! <a href="/login-test">Đăng nhập tạm thời</a>
+    </div>
+}
+
+@if (Model.User != null)
+{
+    <div class="card mb-4 p-3">
+        <h4 class="text-secondary">Thông tin người dùng</h4>
+        <p><strong>Họ tên:</strong> @Model.User.FullName</p>
+        <p><strong>Email:</strong> @Model.User.Email</p>
+        <p><strong>Điện thoại:</strong> @Model.User.Phone</p>
+        <p><strong>Giới tính:</strong> @Model.User.Gender</p>
+        <p><strong>Ngày sinh:</strong> @Model.User.Dob?.ToString("dd/MM/yyyy")</p>
+    </div>
+}
+
+@if (Model.SelectedServiceNames.Any())
+{
+    <div class="card mb-4 p-3">
+        <h4 class="text-secondary">Dịch vụ đã đặt</h4>
+        <ul>
+            @foreach (var name in Model.SelectedServiceNames)
+            {
+                <li>@name</li>
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.AppointmentTime != default)
+{
+    <div class="card mb-4 p-3">
+        <h4 class="text-secondary">Thời gian xét nghiệm</h4>
+        <p><strong>@Model.AppointmentTime.ToString("HH:mm dd/MM/yyyy")</strong></p>
+    </div>
+}
+
+<div class="mt-4 d-flex gap-3">
+    <a class="btn btn-outline-primary" asp-page="/Index">🏠 Về trang chủ</a>
+    <a class="btn btn-success" asp-page="TrackingTesting">📋 Theo dõi xét nghiệm</a>
+</div>
