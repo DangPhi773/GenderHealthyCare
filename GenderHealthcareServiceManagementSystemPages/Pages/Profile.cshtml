@@ -4,8 +4,8 @@
     ViewData["Title"] = "Hồ sơ cá nhân";
 }
 
-<main class="py-5" style="background: linear-gradient(to bottom right, #f5f3ff, #fdf2f8, #e0f2fe); min-height: 100vh;">
-    <div class="container px-4 mx-auto">
+<main class="zpy-5 px-4 px-md-5" style="background: linear-gradient(to bottom right, #f5f3ff, #fdf2f8, #e0f2fe); min-height: 100vh;">
+    <div class="container px-4 mx-auto" style="max-width: 1400px;">
         <div class="max-w-4xl mx-auto">
             @if (TempData["SuccessMessage"] != null)
             {
@@ -56,6 +56,9 @@
 
                                     <!-- Action Buttons -->
                                     <div class="d-grid gap-2">
+                                        <a href="/MenstrualCycle" class="btn w-100 text-white" style="background: linear-gradient(to right, #ec4899, #f472b6); border: none;">
+                                            <i class="bi bi-droplet-half me-2"></i> Quản lý chu kỳ kinh nguyệt
+                                        </a>
                                         <button type="submit" class="btn btn-primary w-100" style="background: linear-gradient(to right, #9333ea, #ec4899); border: none;">
                                             <i class="bi bi-pencil-square me-2"></i> Lưu hồ sơ
                                         </button>
@@ -133,8 +136,8 @@
                             </div>
 
                             <!-- Account Information -->
-                            <div class="card border-0 shadow-lg bg-white bg-opacity-80 mb-4" style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
-                                <div class="card-header bg-transparent pb-0">
+                            <div class="card border-0 shadow-lg bg-white bg-opacity-80 mb-4" style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); margin-bottom: 1rem;">
+                               <div class="card-header bg-transparent pb-0">
                                     <h3 class="h6 font-semibold text-gray-900 d-flex align-items-center">
                                         <i class="bi bi-shield-fill-check me-2 text-purple-600"></i> Thông tin tài khoản
                                     </h3>
@@ -183,8 +186,8 @@
                             </div>
 
                             <!-- Quick Stats -->
-                            <div class="card border-0 shadow-lg text-white" style="background: linear-gradient(to right, #9333ea, #ec4899);">
-                                <div class="card-body p-4">
+                            <div class="card border-0 shadow-lg text-white mt-4" style="background: linear-gradient(to right, #9333ea, #ec4899);">
+                                <div class="card-body p-5">
                                     <h3 class="h6 font-semibold text-white mb-4 d-flex align-items-center">
                                         <i class="bi bi-heart-fill me-2"></i> Thống kê nhanh
                                     </h3>

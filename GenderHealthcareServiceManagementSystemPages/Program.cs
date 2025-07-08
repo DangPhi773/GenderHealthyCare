@@ -12,6 +12,14 @@ builder.Services.AddScoped<UserDAO>();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IClinicRepository, ClinicRepository>();
+builder.Services.AddScoped<IClinicService, ClinicService>();
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
+builder.Services.AddScoped<IMenstrualCycleRepository, MenstrualCycleRepository>();
+builder.Services.AddScoped<IMenstrualCycleService, MenstrualCycleService>();
+
+
 builder.Services.AddDbContext<GenderHealthcareContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -26,7 +34,6 @@ builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
