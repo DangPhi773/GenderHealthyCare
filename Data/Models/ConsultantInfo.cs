@@ -13,6 +13,8 @@ public partial class ConsultantInfo
 
     public string? Specialization { get; set; }
 
+    public byte[]? ProfileImage { get; set; }
+
     public DateTime? CreatedAt { get; set; }
 
     public virtual User Consultant { get; set; } = null!;
