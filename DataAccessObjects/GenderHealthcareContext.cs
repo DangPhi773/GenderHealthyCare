@@ -57,7 +57,7 @@ public partial class GenderHealthcareContext : DbContext
     {
         modelBuilder.Entity<Blog>(entity =>
         {
-            entity.HasKey(e => e.BlogId).HasName("PK__Blog__2975AA28C402399D");
+            entity.HasKey(e => e.BlogId).HasName("PK__Blog__2975AA2849F7A4FE");
 
             entity.ToTable("Blog");
 
@@ -83,7 +83,7 @@ public partial class GenderHealthcareContext : DbContext
 
         modelBuilder.Entity<Clinic>(entity =>
         {
-            entity.HasKey(e => e.ClinicId).HasName("PK__Clinic__A0C8D19B37688846");
+            entity.HasKey(e => e.ClinicId).HasName("PK__Clinic__A0C8D19B9D0B187E");
 
             entity.ToTable("Clinic");
 
@@ -107,7 +107,7 @@ public partial class GenderHealthcareContext : DbContext
 
         modelBuilder.Entity<ConsultantInfo>(entity =>
         {
-            entity.HasKey(e => e.ConsultantId).HasName("PK__Consulta__680695C49E362885");
+            entity.HasKey(e => e.ConsultantId).HasName("PK__Consulta__680695C48048D0A4");
 
             entity.ToTable("ConsultantInfo");
 
@@ -119,6 +119,7 @@ public partial class GenderHealthcareContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.ExperienceYears).HasColumnName("experience_years");
+            entity.Property(e => e.ProfileImage).HasColumnName("profile_image");
             entity.Property(e => e.Qualifications).HasColumnName("qualifications");
             entity.Property(e => e.Specialization)
                 .HasMaxLength(100)
@@ -132,7 +133,7 @@ public partial class GenderHealthcareContext : DbContext
 
         modelBuilder.Entity<Consultation>(entity =>
         {
-            entity.HasKey(e => e.ConsultationId).HasName("PK__Consulta__650FE0FBFF751720");
+            entity.HasKey(e => e.ConsultationId).HasName("PK__Consulta__650FE0FBB43EB8B4");
 
             entity.Property(e => e.ConsultationId).HasColumnName("consultation_id");
             entity.Property(e => e.AppointmentTime)
@@ -146,6 +147,7 @@ public partial class GenderHealthcareContext : DbContext
             entity.Property(e => e.MeetingLink)
                 .HasMaxLength(255)
                 .HasColumnName("meeting_link");
+            entity.Property(e => e.Notes).HasColumnName("notes");
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
                 .HasDefaultValue("Pending")
@@ -165,7 +167,7 @@ public partial class GenderHealthcareContext : DbContext
 
         modelBuilder.Entity<Feedback>(entity =>
         {
-            entity.HasKey(e => e.FeedbackId).HasName("PK__Feedback__7A6B2B8C6B6F0CB6");
+            entity.HasKey(e => e.FeedbackId).HasName("PK__Feedback__7A6B2B8C73DE0888");
 
             entity.ToTable("Feedback");
 
@@ -196,7 +198,7 @@ public partial class GenderHealthcareContext : DbContext
 
         modelBuilder.Entity<MenstrualCycle>(entity =>
         {
-            entity.HasKey(e => e.CycleId).HasName("PK__Menstrua__5D9558815729D6DD");
+            entity.HasKey(e => e.CycleId).HasName("PK__Menstrua__5D955881C4465051");
 
             entity.ToTable("MenstrualCycle");
 
@@ -220,7 +222,7 @@ public partial class GenderHealthcareContext : DbContext
 
         modelBuilder.Entity<Question>(entity =>
         {
-            entity.HasKey(e => e.QuestionId).HasName("PK__Question__2EC21549412B4FF0");
+            entity.HasKey(e => e.QuestionId).HasName("PK__Question__2EC2154903394F92");
 
             entity.Property(e => e.QuestionId).HasColumnName("question_id");
             entity.Property(e => e.AnswerText).HasColumnName("answer_text");
@@ -248,7 +250,7 @@ public partial class GenderHealthcareContext : DbContext
 
         modelBuilder.Entity<Reminder>(entity =>
         {
-            entity.HasKey(e => e.ReminderId).HasName("PK__Reminder__E27A36282D459EFB");
+            entity.HasKey(e => e.ReminderId).HasName("PK__Reminder__E27A362831954370");
 
             entity.Property(e => e.ReminderId).HasColumnName("reminder_id");
             entity.Property(e => e.CycleId).HasColumnName("cycle_id");
@@ -277,7 +279,7 @@ public partial class GenderHealthcareContext : DbContext
 
         modelBuilder.Entity<Report>(entity =>
         {
-            entity.HasKey(e => e.ReportId).HasName("PK__Reports__779B7C58911EC673");
+            entity.HasKey(e => e.ReportId).HasName("PK__Reports__779B7C58D022B354");
 
             entity.Property(e => e.ReportId).HasColumnName("report_id");
             entity.Property(e => e.CreatedAt)
@@ -297,7 +299,7 @@ public partial class GenderHealthcareContext : DbContext
 
         modelBuilder.Entity<Service>(entity =>
         {
-            entity.HasKey(e => e.ServiceId).HasName("PK__Services__3E0DB8AFE5F63A5F");
+            entity.HasKey(e => e.ServiceId).HasName("PK__Services__3E0DB8AF19551F50");
 
             entity.Property(e => e.ServiceId).HasColumnName("service_id");
             entity.Property(e => e.CreatedAt)
@@ -315,12 +317,13 @@ public partial class GenderHealthcareContext : DbContext
 
         modelBuilder.Entity<Test>(entity =>
         {
-            entity.HasKey(e => e.TestId).HasName("PK__Tests__F3FF1C0258C1CB21");
+            entity.HasKey(e => e.TestId).HasName("PK__Tests__F3FF1C026A3B788C");
 
             entity.Property(e => e.TestId).HasColumnName("test_id");
             entity.Property(e => e.AppointmentTime)
                 .HasColumnType("datetime")
                 .HasColumnName("appointment_time");
+            entity.Property(e => e.CancelReason).HasColumnName("cancel_reason");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
@@ -346,11 +349,11 @@ public partial class GenderHealthcareContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__B9BE370F471BD145");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__B9BE370F4F19A88E");
 
-            entity.HasIndex(e => e.Email, "UQ__Users__AB6E6164C7FBC9EB").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Users__AB6E6164289B1418").IsUnique();
 
-            entity.HasIndex(e => e.Username, "UQ__Users__F3DBC57277693703").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__Users__F3DBC57270882F4A").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.CreatedAt)
@@ -387,7 +390,7 @@ public partial class GenderHealthcareContext : DbContext
 
         modelBuilder.Entity<UserHistory>(entity =>
         {
-            entity.HasKey(e => e.HistoryId).HasName("PK__UserHist__096AA2E9066E356A");
+            entity.HasKey(e => e.HistoryId).HasName("PK__UserHist__096AA2E9F19E0CB4");
 
             entity.ToTable("UserHistory");
 
