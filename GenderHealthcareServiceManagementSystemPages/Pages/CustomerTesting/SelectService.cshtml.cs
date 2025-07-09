@@ -22,7 +22,13 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
 
         public async Task<IActionResult> OnGetAsync()
         {
-            int? userId = HttpContext.Session.GetInt32("UserId");
+            string? userIdStr = HttpContext.Session.GetString("UserId");
+            int? userId = null;
+
+            if (!string.IsNullOrEmpty(userIdStr) && int.TryParse(userIdStr, out int parsedUserId))
+            {
+                userId = parsedUserId;
+            }
 
             if (userId == null)
             {
@@ -37,7 +43,13 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
 
         public IActionResult OnPost()
         {
-            int? userId = HttpContext.Session.GetInt32("UserId");
+            string? userIdStr = HttpContext.Session.GetString("UserId");
+            int? userId = null;
+
+            if (!string.IsNullOrEmpty(userIdStr) && int.TryParse(userIdStr, out int parsedUserId))
+            {
+                userId = parsedUserId;
+            }
 
             if (userId == null)
                 return RedirectToPage("/Login");
