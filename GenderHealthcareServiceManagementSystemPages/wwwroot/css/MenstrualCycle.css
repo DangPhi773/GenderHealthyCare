@@ -1,0 +1,786 @@
+﻿/* Đảm bảo Tailwind CSS được tích hợp */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Main Layout */
+.menstrual-cycle-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #f3e8ff 100%);
+    padding: 2rem 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Status Text Styles */
+.status-text {
+    font-weight: bold;
+    display: inline-block;
+}
+
+    .status-text.tre {
+        color: #dc2626; /* Red for late */
+    }
+
+    .status-text.som {
+        color: #f59e0b; /* Yellow for early */
+    }
+
+    .status-text.binh-thuong {
+        color: #10b981; /* Green for normal */
+    }
+
+    .status-text.keo-dai-bat-thuong {
+        color: #7c3aed; /* Purple for abnormally long */
+    }
+
+    .status-text.default {
+        color: #6b7280; /* Gray for unknown statuses */
+    }
+
+/* Header Section */
+.page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #fce7f3, #f3e8ff);
+    color: #be185d;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #ec4899, #f43f5e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page-subtitle {
+    font-size: 1.125rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Current Phase Card */
+.current-phase-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.phase-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.phase-icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+    .phase-icon.red-gradient {
+        background: linear-gradient(135deg, #f87171, #ec4899);
+    }
+
+    .phase-icon.yellow-gradient {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    }
+
+    .phase-icon.purple-gradient {
+        background: linear-gradient(135deg, #a855f7, #ec4899);
+    }
+
+    .phase-icon.blue-gradient {
+        background: linear-gradient(135deg, #3b82f6, #6366f1);
+    }
+
+.phase-details h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+.phase-name {
+    font-size: 1.125rem;
+    color: #ec4899;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.phase-description {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+.reminder-info {
+    text-align: right;
+}
+
+.reminder-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+    justify-content: flex-end;
+}
+
+.reminder-time {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+.reminder-desc {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* Phases Overview */
+.phases-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.phase-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+    .phase-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .phase-card.active {
+        border: 2px solid #ec4899;
+        box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.1);
+    }
+
+.phase-icon-small {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: white;
+    background: linear-gradient(135deg, #f87171, #ec4899);
+    margin: 0 auto;
+}
+
+.phase-card h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+.phase-card p {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* Add Cycle Section */
+.add-cycle-section {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+.btn-add-cycle {
+    background: linear-gradient(135deg, #ec4899, #f43f5e);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+    .btn-add-cycle:hover {
+        background: linear-gradient(135deg, #db2777, #e11d48);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(236, 72, 153, 0.3);
+    }
+
+/* Cycles List */
+.cycles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.cycle-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+    .cycle-card:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+.cycle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.cycle-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.cycle-icon {
+    width: 3rem;
+    height: 3rem;
+    background: linear-gradient(135deg, #ec4899, #f43f5e);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+}
+
+.cycle-details h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+.cycle-details p {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+.cycle-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+    .status-badge.current {
+        background: linear-gradient(135deg, #ec4899, #f43f5e);
+        color: white;
+    }
+
+    .status-badge.completed {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+    }
+
+.btn-edit, .btn-delete {
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.btn-edit {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+    .btn-edit:hover {
+        background: #3b82f6;
+        color: white;
+    }
+
+.btn-delete {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+    .btn-delete:hover {
+        background: #ef4444;
+        color: white;
+    }
+
+/* Cycle Data */
+.cycle-data {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.data-item {
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    border: 1px solid;
+}
+
+    .data-item.start-date {
+        background: linear-gradient(135deg, #fef2f2, #fce7f3);
+        border-color: #fecaca;
+    }
+
+    .data-item.end-date {
+        background: linear-gradient(135deg, #f3e8ff, #fce7f3);
+        border-color: #e9d5ff;
+    }
+
+    .data-item.ovulation-date {
+        background: linear-gradient(135deg, #fef3c7, #fed7aa);
+        border-color: #fde68a;
+    }
+
+    .data-item.pill-time {
+        background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+        border-color: #bfdbfe;
+    }
+
+.data-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.data-item p {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+}
+
+/* Cycle Notes */
+.cycle-notes {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+}
+
+.notes-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.cycle-notes p {
+    color: #6b7280;
+    margin: 0;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 3rem;
+}
+
+.empty-icon {
+    width: 6rem;
+    height: 6rem;
+    background: #fce7f3;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 3rem;
+    color: #ec4899;
+}
+
+.empty-state h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.btn-add-first {
+    background: linear-gradient(135deg, #ec4899, #f43f5e);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+    .btn-add-first:hover {
+        background: linear-gradient(135deg, #db2777, #e11d48);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(236, 72, 153, 0.3);
+    }
+
+/* Health Tips */
+.health-tips {
+    background: linear-gradient(135deg, #ec4899, #f43f5e);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    color: white;
+    text-align: center;
+}
+
+.tips-header {
+    margin-bottom: 1.5rem;
+}
+
+    .tips-header i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        opacity: 0.9;
+    }
+
+    .tips-header h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .tips-header p {
+        opacity: 0.9;
+        margin: 0;
+    }
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.tip-item {
+    text-align: center;
+}
+
+.tip-icon {
+    width: 3rem;
+    height: 3rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.75rem;
+    font-size: 1.5rem;
+}
+
+.tip-item h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.tip-item p {
+    font-size: 0.875rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* Modal Styles */
+.cycle-modal .modal-header {
+    background: linear-gradient(135deg, #ec4899, #f43f5e);
+    color: white;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.cycle-modal .modal-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+}
+
+.cycle-modal .btn-close {
+    filter: invert(1);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
+
+.form-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+    .form-label.required::after {
+        content: "*";
+        color: #ef4444;
+        margin-left: 0.25rem;
+    }
+
+.form-control {
+    border: 2px solid #fce7f3;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: #ec4899;
+        box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.1);
+        outline: none;
+    }
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding-top: 1rem;
+}
+
+.btn-cancel {
+    background: #f3f4f6;
+    color: #374151;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+    .btn-cancel:hover {
+        background: #e5e7eb;
+    }
+
+.btn-save {
+    background: linear-gradient(135deg, #ec4899, #f43f5e);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #db2777, #e11d48);
+    }
+
+/* Cycle Calendar (Tailwind CSS) */
+#cycleCalendar {
+    @apply bg-white/80 backdrop-blur-lg rounded-xl shadow-lg p-4 mx-auto max-w-full mb-5;
+}
+
+.fc {
+    @apply font-sans;
+}
+
+    .fc .fc-toolbar-title {
+        @apply text-xl md:text-2xl font-semibold text-gray-900;
+    }
+
+    .fc .fc-button {
+        @apply bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-lg px-3 py-1.5 text-sm font-medium hover:from-pink-600 hover:to-rose-600 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300;
+    }
+
+    .fc .fc-daygrid-day-number {
+        @apply text-gray-900 text-sm font-medium p-1;
+    }
+
+    .fc .fc-daygrid-day.fc-day-today {
+        @apply bg-pink-100/50 rounded-lg;
+    }
+
+        .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+            @apply text-pink-500 font-bold;
+        }
+
+    .fc .fc-daygrid-event {
+        @apply bg-gradient-to-r from-red-400 to-pink-500 text-white rounded text-xs p-1 m-0.5 hover:scale-105 hover:shadow transition-all duration-200;
+    }
+
+    .fc .fc-daygrid-day.tre .fc-daygrid-day-number {
+        @apply text-red-600 font-bold;
+    }
+
+    .fc .fc-daygrid-day.som .fc-daygrid-day-number {
+        @apply text-yellow-500 font-bold;
+    }
+
+    .fc .fc-daygrid-day.binh-thuong .fc-daygrid-day-number {
+        @apply text-green-500 font-bold;
+    }
+
+    .fc .fc-daygrid-day.keo-dai-bat-thuong .fc-daygrid-day-number {
+        @apply text-purple-600 font-bold;
+    }
+
+    .fc .fc-toolbar {
+        @apply flex flex-wrap gap-2 p-2;
+    }
+
+    .fc .fc-daygrid-day {
+        @apply rounded;
+    }
+
+        .fc .fc-daygrid-day:hover {
+            @apply bg-pink-50/50;
+        }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .page-title {
+        @apply text-2xl;
+    }
+
+    .current-phase-card {
+        @apply flex flex-col gap-4 text-center;
+    }
+
+    .reminder-info {
+        @apply text-center;
+    }
+
+    .cycle-header {
+        @apply flex flex-col gap-4 items-start;
+    }
+
+    .cycle-actions {
+        @apply self-end;
+    }
+
+    .form-grid {
+        @apply grid grid-cols-1;
+    }
+
+    /* Cycle Calendar (Responsive) */
+    #cycleCalendar {
+        @apply text-sm p-2 mb-5;
+    }
+
+    .fc .fc-toolbar-title {
+        @apply text-lg;
+    }
+
+    .fc .fc-button {
+        @apply px-2 py-1 text-xs;
+    }
+
+    .fc .fc-daygrid-event {
+        @apply text-[0.65rem] p-0.5;
+    }
+}
+
+@media (max-width: 576px) {
+    #cycleCalendar {
+        @apply text-xs p-1;
+    }
+
+    .fc .fc-toolbar-title {
+        @apply text-base;
+    }
+
+    .fc .fc-button {
+        @apply px-2 py-1 text-xs;
+    }
+
+    .fc .fc-daygrid-event {
+        @apply text-[0.6rem] p-0.5;
+    }
+}
+
