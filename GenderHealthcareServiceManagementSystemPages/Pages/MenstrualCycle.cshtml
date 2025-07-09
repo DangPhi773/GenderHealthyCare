@@ -1,0 +1,247 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.MenstrualCycleModel
+@{
+    ViewData["Title"] = "Quản lý chu kỳ kinh nguyệt";
+}
+
+<main class="py-5 bg-gradient-to-br from-pink-50 via-rose-50 to-purple-50 min-vh-100">
+    <div class="container px-4">
+
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <div class="d-inline-flex align-items-center px-4 py-2 bg-pink-100 rounded-pill text-pink-700 fw-medium small mb-3">
+                <i class="bi bi-flower1 me-2"></i> Sức khỏe phụ nữ
+            </div>
+            <h1 class="display-5 fw-bold text-pink-700">Quản lý chu kỳ kinh nguyệt</h1>
+            <p class="text-muted">Theo dõi và quản lý chu kỳ của bạn một cách khoa học và dễ dàng.</p>
+        </div>
+
+        <!-- Current Phase (optional logic render) -->
+        @* Nếu muốn hiện giai đoạn hiện tại thì render block tại đây *@
+
+        <!-- Add button -->
+        <div class="text-end mb-4">
+            <button class="btn btn-pink" data-bs-toggle="modal" data-bs-target="#cycleModal">
+                <i class="bi bi-plus-circle me-1"></i> Thêm chu kỳ mới
+            </button>
+        </div>
+
+        <!-- Cycle List -->
+        @if (Model.MenstrualCycles != null && Model.MenstrualCycles.Any())
+        {
+            <div class="row g-4">
+                @foreach (var cycle in Model.MenstrualCycles)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card shadow border-0 bg-white bg-opacity-75">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-gradient rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px; background: linear-gradient(to bottom right, #ec4899, #f472b6);">
+                                            <i class="bi bi-calendar2-heart text-white fs-4"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="mb-1">Chu kỳ @cycle.StartDate?.ToString("dd/MM/yyyy")</h5>
+                                            <small class="text-muted">Độ dài: @cycle.CycleLength ngày</small>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        @if (cycle.EndDate == null || cycle.EndDate.Value.ToDateTime(TimeOnly.MinValue) >= DateTime.Today)
+                                        {
+                                            <span class="badge text-bg-danger">Hiện tại</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge text-bg-success">Hoàn thành</span>
+                                        }
+                                        <button class="btn btn-sm btn-outline-primary" onclick="editCycle(@cycle.CycleId)">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger" onclick="deleteCycle(@cycle.CycleId)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="row g-2 mb-2">
+                                    <div class="col-6">
+                                        <div class="small text-muted">Bắt đầu</div>
+                                        <div class="fw-semibold">@cycle.StartDate?.ToString("dd/MM/yyyy")</div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="small text-muted">Kết thúc</div>
+                                        <div class="fw-semibold">@(cycle.EndDate?.ToString("dd/MM/yyyy") ?? "-")</div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="small text-muted">Rụng trứng</div>
+                                        <div class="fw-semibold">@(cycle.OvulationDate?.ToString("dd/MM/yyyy") ?? "-")</div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="small text-muted">Nhắc thuốc</div>
+                                        <div class="fw-semibold">@(cycle.PillReminderTime?.ToString("hh:mm") ?? "-")</div>
+                                    </div>
+                                </div>
+                                @if (!string.IsNullOrEmpty(cycle.Notes))
+                                {
+                                    <div class="bg-light rounded p-2 mt-2">
+                                        <small class="text-muted">Ghi chú</small>
+                                        <div>@cycle.Notes</div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="card text-center shadow bg-white bg-opacity-75">
+                <div class="card-body py-5">
+                    <i class="bi bi-calendar2-x fs-1 text-pink-400"></i>
+                    <h5 class="mt-3">Chưa có chu kỳ nào được ghi lại</h5>
+                    <p class="text-muted">Hãy bắt đầu ghi lại chu kỳ đầu tiên để theo dõi sức khỏe của bạn</p>
+                    <button class="btn btn-pink" data-bs-toggle="modal" data-bs-target="#cycleModal">
+                        <i class="bi bi-plus-circle me-1"></i> Thêm chu kỳ đầu tiên
+                    </button>
+                </div>
+            </div>
+        }
+
+        <!-- Modal -->
+        <div class="modal fade" id="cycleModal" tabindex="-1" aria-labelledby="cycleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <form method="post" asp-page-handler="SaveCycle">
+                        <div class="modal-header bg-pink text-white">
+                            <h5 class="modal-title" id="cycleModalLabel">📝 @((Model.CycleModel.CycleId > 0) ? "Cập nhật chu kỳ" : "Thêm chu kỳ mới")</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body row g-3">
+                            <input type="hidden" asp-for="CycleModel.CycleId" />
+                            <div class="col-md-6">
+                                <label class="form-label">Ngày bắt đầu *</label>
+                                <input type="date" class="form-control" asp-for="CycleModel.StartDate" required />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Ngày kết thúc</label>
+                                <input type="date" class="form-control" asp-for="CycleModel.EndDate" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Ngày rụng trứng</label>
+                                <input type="date" class="form-control" asp-for="CycleModel.OvulationDate" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Nhắc uống thuốc</label>
+                                <input type="time" class="form-control" asp-for="CycleModel.PillReminderTime" />
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Ghi chú</label>
+                                <textarea class="form-control" asp-for="CycleModel.Notes" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-pink">Lưu</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- Health Tips -->
+    <div class="mt-12">
+        <div class="health-tips border-0 shadow-xl bg-gradient-to-br from-pink-400 via-rose-400 to-purple-400 text-white rounded-xl">
+            <div class="p-8">
+                <div class="text-center mb-6">
+                    <i class="bi bi-heart-fill h-12 w-12 mx-auto mb-4 opacity-90 text-white"></i>
+                    <h2 class="text-2xl font-bold mb-2">Mẹo chăm sóc sức khỏe</h2>
+                    <p class="opacity-90">Những lời khuyên hữu ích cho chu kỳ kinh nguyệt khỏe mạnh</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="bi bi-droplet h-6 w-6 text-white"></i>
+                        </div>
+                        <h3 class="font-semibold mb-2">Uống đủ nước</h3>
+                        <p class="text-sm opacity-90">Duy trì 8-10 ly nước mỗi ngày để giảm thiểu chuột rút</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="bi bi-sun h-6 w-6 text-white"></i>
+                        </div>
+                        <h3 class="font-semibold mb-2">Tập thể dục nhẹ</h3>
+                        <p class="text-sm opacity-90">Yoga và đi bộ giúp giảm đau và cải thiện tâm trạng</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="bi bi-moon h-6 w-6 text-white"></i>
+                        </div>
+                        <h3 class="font-semibold mb-2">Ngủ đủ giấc</h3>
+                        <p class="text-sm opacity-90">7-9 tiếng ngủ mỗi đêm để cân bằng hormone tự nhiên</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    .btn-pink {
+        background: linear-gradient(to right, #ec4899, #f472b6) !important;
+        color: white;
+        border: none;
+    }
+
+        .btn-pink:hover {
+            background: linear-gradient(to right, #db2777, #f472b6);
+        }
+
+    .bg-pink {
+        background-color: #f472b6 !important;
+    }
+</style>
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function editCycle(id) {
+                fetch(`?handler=GetCycle&id=${id}`)
+                    .then(response => response.json())
+                    .then(res => {
+                        if (res.success) {
+                            alert("Sửa chu kỳ chưa triển khai full trong demo");
+                        }
+                    });
+            }
+
+            function deleteCycle(id) {
+                if (confirm("Bạn có chắc chắn muốn xoá chu kỳ này?")) {
+                    window.location.href = `?handler=Delete&id=${id}`;
+                }
+            }
+
+            const form = document.querySelector('form[asp-page-handler="SaveCycle"]');
+            if (form) {
+                form.addEventListener('submit', function (event) {
+                    console.log("Form submitted");
+                    if (!this.checkValidity()) {
+                        event.preventDefault();
+                        console.log("Form invalid");
+                        return;
+                    }
+                    setTimeout(() => {
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('cycleModal'));
+                        if (modal) modal.hide();
+                    }, 500);
+                });
+            } else {
+                console.log("Form not found");
+            }
+        });
+    </script>
+}
