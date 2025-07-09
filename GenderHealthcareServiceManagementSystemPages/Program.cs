@@ -23,6 +23,7 @@ builder.Services.AddScoped<UserDAO>();
 builder.Services.AddScoped<ClinicDAO>();
 builder.Services.AddScoped<ServiceDAO>();
 builder.Services.AddScoped<FeedbackDAO>();
+
 builder.Services.AddScoped<MenstrualCycleDAO>();
 builder.Services.AddScoped<ConsultantInfoDAO>();
 builder.Services.AddScoped<ConsultationDAO>();
@@ -41,7 +42,7 @@ builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
 // Register Services
 builder.Services.AddScoped<ITestService, TestService>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IServiceService, Services.ServiceService>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IClinicService, ClinicService>();
