@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages
 {
