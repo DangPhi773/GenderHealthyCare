@@ -17,6 +17,8 @@ public partial class Consultation
 
     public string? MeetingLink { get; set; }
 
+    public string? Notes { get; set; }
+
     public DateTime? CreatedAt { get; set; }
 
     public virtual User Consultant { get; set; } = null!;

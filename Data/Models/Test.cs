@@ -17,6 +17,8 @@ public partial class Test
 
     public string? Result { get; set; }
 
+    public string? CancelReason { get; set; }
+
     public DateTime? CreatedAt { get; set; }
 
     public virtual Service Service { get; set; } = null!;
