@@ -45,7 +45,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
             {
                 var serviceIds = selectedIdsRaw.Split(',').Select(int.Parse).ToList();
 
-                var allServices = await _serviceService.GetAllServices();
+                var allServices = await _serviceService.GetAllAsync();
 
                 var selectedServices = allServices
                     .Where(s => serviceIds.Contains(s.ServiceId))

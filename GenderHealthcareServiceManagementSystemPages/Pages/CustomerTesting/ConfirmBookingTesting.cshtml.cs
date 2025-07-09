@@ -40,7 +40,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
             if (!string.IsNullOrEmpty(serviceIdsRaw))
             {
                 var serviceIds = serviceIdsRaw.Split(',').Select(int.Parse).ToList();
-                var allServices = await _serviceService.GetAllServices();
+                var allServices = await _serviceService.GetAllAsync();
                 SelectedServiceNames = allServices
                     .Where(s => serviceIds.Contains(s.ServiceId))
                     .Select(s => s.Name)

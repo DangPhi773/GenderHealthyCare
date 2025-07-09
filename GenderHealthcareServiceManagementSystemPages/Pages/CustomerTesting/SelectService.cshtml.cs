@@ -31,7 +31,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
             }
 
             IsLoggedIn = true;
-            Services = (await _serviceService.GetAllServices()).ToList();
+            Services = (await _serviceService.GetAllAsync()).ToList();
             return Page();
         }
 

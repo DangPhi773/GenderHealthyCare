@@ -44,7 +44,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
             SelectedServiceIds = selectedIdsRaw.Split(',').Select(int.Parse).ToList();
             TempData["SelectedServiceIds"] = selectedIdsRaw; // Preserve for next page
 
-            var allServices = await _serviceService.GetAllServices();
+            var allServices = await _serviceService.GetAllAsync();
             SelectedServiceNames = allServices
                 .Where(s => SelectedServiceIds.Contains(s.ServiceId))
                 .Select(s => s.Name)
