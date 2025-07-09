@@ -41,8 +41,9 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
             var user = await _accountService.LoginAsync(Username, Password);
             if (user != null)
             {
+                HttpContext.Session.SetInt32("UserId", user.UserId);
                 Message = "Login successful!";
-                return RedirectToPage("/Index");
+                return RedirectToPage("/CustomerTesting/SelectService");
             }
             Message = "Invalid username or password.";
             return Page();

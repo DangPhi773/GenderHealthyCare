@@ -4,49 +4,73 @@
     ViewData["Title"] = "Đặt lịch thành công";
 }
 
-<h2 class="text-success mb-4">🎉 Bạn đã đặt lịch xét nghiệm thành công!</h2>
+<main class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="card shadow-lg p-4" style="backdrop-filter: blur(8px); background-color: rgba(255, 255, 255, 0.9);">
+                    <div class="text-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#22c55e" viewBox="0 0 24 24">
+                            <path d="M12 0a12 12 0 1 0 12 12A12.014 12.014 0 0 0 12 0zm5.707 8.293-6.414 6.414a1 1 0 0 1-1.414 0l-3.414-3.414a1 1 0 0 1 1.414-1.414l2.707 2.707 5.707-5.707a1 1 0 0 1 1.414 1.414z" />
+                        </svg>
+                        <h2 class="h4 fw-bold text-success mt-3">🎉 Bạn đã đặt lịch xét nghiệm thành công!</h2>
+                        <p class="text-muted">Hãy kiểm tra lại thông tin bên dưới.</p>
+                    </div>
 
-@if (!Model.IsLoggedIn)
-{
-    <div class="alert alert-warning">
-        Bạn chưa đăng nhập! <a href="/login-test">Đăng nhập tạm thời</a>
+                    @if (!Model.IsLoggedIn)
+                    {
+                        <div class="alert alert-warning text-center fw-semibold">
+                            Bạn chưa đăng nhập! <a href="/login-test" class="text-primary text-decoration-underline">Đăng nhập tạm thời</a>
+                        </div>
+                    }
+
+                    @if (Model.User != null)
+                    {
+                        <div class="mb-4">
+                            <h5 class="text-purple-700 fw-bold mb-2">👤 Thông tin người dùng</h5>
+                            <ul class="list-group">
+                                <li class="list-group-item"><strong>Họ tên:</strong> @Model.User.FullName</li>
+                                <li class="list-group-item"><strong>Email:</strong> @Model.User.Email</li>
+                                <li class="list-group-item"><strong>Điện thoại:</strong> @Model.User.Phone</li>
+                                <li class="list-group-item"><strong>Giới tính:</strong> @Model.User.Gender</li>
+                                <li class="list-group-item"><strong>Ngày sinh:</strong> @Model.User.Dob?.ToString("dd/MM/yyyy")</li>
+                            </ul>
+                        </div>
+                    }
+
+                    @if (Model.SelectedServiceNames.Any())
+                    {
+                        <div class="mb-4">
+                            <h5 class="text-purple-700 fw-bold mb-2">🧪 Dịch vụ đã đặt</h5>
+                            <ul class="list-group">
+                                @foreach (var name in Model.SelectedServiceNames)
+                                {
+                                    <li class="list-group-item">@name</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    @if (Model.AppointmentTime != default)
+                    {
+                        <div class="mb-4">
+                            <h5 class="text-purple-700 fw-bold mb-2">⏰ Thời gian xét nghiệm</h5>
+                            <div class="border p-2 rounded text-center bg-light">
+                                <strong>@Model.AppointmentTime.ToString("HH:mm dd/MM/yyyy")</strong>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="d-flex flex-column flex-md-row justify-content-center gap-3 mt-4">
+                        <a class="btn btn-outline-primary w-100" asp-page="/Index">
+                            🏠 Về trang chủ
+                        </a>
+                        <a class="btn btn-success w-100" asp-page="TrackingTesting">
+                            📋 Theo dõi xét nghiệm
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-}
-
-@if (Model.User != null)
-{
-    <div class="card mb-4 p-3">
-        <h4 class="text-secondary">Thông tin người dùng</h4>
-        <p><strong>Họ tên:</strong> @Model.User.FullName</p>
-        <p><strong>Email:</strong> @Model.User.Email</p>
-        <p><strong>Điện thoại:</strong> @Model.User.Phone</p>
-        <p><strong>Giới tính:</strong> @Model.User.Gender</p>
-        <p><strong>Ngày sinh:</strong> @Model.User.Dob?.ToString("dd/MM/yyyy")</p>
-    </div>
-}
-
-@if (Model.SelectedServiceNames.Any())
-{
-    <div class="card mb-4 p-3">
-        <h4 class="text-secondary">Dịch vụ đã đặt</h4>
-        <ul>
-            @foreach (var name in Model.SelectedServiceNames)
-            {
-                <li>@name</li>
-            }
-        </ul>
-    </div>
-}
-
-@if (Model.AppointmentTime != default)
-{
-    <div class="card mb-4 p-3">
-        <h4 class="text-secondary">Thời gian xét nghiệm</h4>
-        <p><strong>@Model.AppointmentTime.ToString("HH:mm dd/MM/yyyy")</strong></p>
-    </div>
-}
-
-<div class="mt-4 d-flex gap-3">
-    <a class="btn btn-outline-primary" asp-page="/Index">🏠 Về trang chủ</a>
-    <a class="btn btn-success" asp-page="TrackingTesting">📋 Theo dõi xét nghiệm</a>
-</div>
+</main>

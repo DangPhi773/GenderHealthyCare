@@ -45,24 +45,20 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
             {
                 var serviceIds = selectedIdsRaw.Split(',').Select(int.Parse).ToList();
 
-                // Lấy tất cả services
                 var allServices = await _serviceService.GetAllServices();
 
-                // Lọc dịch vụ đã chọn và hiển thị
                 var selectedServices = allServices
                     .Where(s => serviceIds.Contains(s.ServiceId))
                     .ToList();
 
                 SelectedServiceNames = selectedServices.Select(s => s.Name).ToList();
 
-                // Parse thời gian đặt lịch
                 var appointmentRaw = HttpContext.Session.GetString("AppointmentTime");
                 if (!string.IsNullOrEmpty(appointmentRaw))
                 {
                     AppointmentTime = DateTime.Parse(appointmentRaw);
                 }
 
-                // Lưu từng dịch vụ vào bảng Tests
                 foreach (var service in selectedServices)
                 {
                     var test = new Test

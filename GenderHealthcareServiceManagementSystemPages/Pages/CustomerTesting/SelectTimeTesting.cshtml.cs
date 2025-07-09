@@ -33,7 +33,9 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
 
             IsLoggedIn = true;
 
-            var selectedIdsRaw = TempData["SelectedServiceIds"] as string;
+            AppointmentTime = new DateTime(DateTime.Now.Year, 1, 1, 8, 0, 0);
+
+            var selectedIdsRaw = HttpContext.Session.GetString("SelectedServiceIds");
             if (string.IsNullOrEmpty(selectedIdsRaw))
             {
                 return RedirectToPage("SelectService");

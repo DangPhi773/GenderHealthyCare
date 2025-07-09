@@ -22,13 +22,13 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
 
         public async Task<IActionResult> OnGetAsync()
         {
-            //int? userId = HttpContext.Session.GetInt32("UserId");
+            int? userId = HttpContext.Session.GetInt32("UserId");
 
-            //if (userId == null)
-            //{
-            //    IsLoggedIn = false;
-            //    return Page(); // Cho hiển thông báo chưa login
-            //}
+            if (userId == null)
+            {
+                IsLoggedIn = false;
+                return Page(); // Cho hiển thông báo chưa login
+            }
 
             IsLoggedIn = true;
             Services = (await _serviceService.GetAllServices()).ToList();
@@ -39,8 +39,8 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
 
-            // if (userId == null)
-            //     return RedirectToPage("/Account/Login");
+            if (userId == null)
+                return RedirectToPage("/Login");
 
             if (SelectedServiceIds == null || !SelectedServiceIds.Any())
             {
