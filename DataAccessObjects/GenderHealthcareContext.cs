@@ -46,7 +46,8 @@ public partial class GenderHealthcareContext : DbContext
     {
         IConfiguration configuration = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsettings.Development.json")
+            .AddJsonFile("appsettings.json")
+            .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
             .Build();
         return configuration.GetConnectionString("DefaultConnection");
     }

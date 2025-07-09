@@ -11,9 +11,9 @@ namespace Repositories
     {
         private readonly MenstrualCycleDAO _cycleDAO;
 
-        public MenstrualCycleRepository(GenderHealthcareContext context)
+        public MenstrualCycleRepository(MenstrualCycleDAO cycleDAO)
         {
-            _cycleDAO = new MenstrualCycleDAO(context);
+            _cycleDAO = cycleDAO;
         }
 
         public Task<List<MenstrualCycle>> GetAllAsync() => _cycleDAO.GetAllAsync();

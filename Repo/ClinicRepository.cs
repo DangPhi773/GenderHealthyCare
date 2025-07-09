@@ -12,9 +12,9 @@ namespace Repositories
     {
         private readonly ClinicDAO _clinicDAO;
 
-        public ClinicRepository(GenderHealthcareContext context)
+        public ClinicRepository(ClinicDAO clinicDAO)
         {
-            _clinicDAO = new ClinicDAO(context);
+            _clinicDAO = clinicDAO;
         }
 
         public async Task<List<Clinic>> GetAllAsync()

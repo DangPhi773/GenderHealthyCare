@@ -1,24 +1,39 @@
 ﻿using BusinessObjects.Models;
+using DataAccessObjects;
+using GenderHealthcareServiceManagementSystemPages.Hubs;
 using Microsoft.EntityFrameworkCore;
 using Services.Interfaces;
 using Services.Services;
 using Repositories;
 using Repositories.Interfaces;
 using DataAccessObjects;
+using Repositories;
+using Repositories.Interfaces;
+using Services;
+using Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<UserDAO>();
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddSignalR();
+builder.Services.AddScoped<UserDAO>();
+builder.Services.AddScoped<ClinicDAO>();
+builder.Services.AddScoped<ServiceDAO>();
+builder.Services.AddScoped<MenstrualCycleDAO>();
+builder.Services.AddScoped<ConsultantInfoDAO>();
+builder.Services.AddScoped<ConsultationDAO>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IClinicRepository, ClinicRepository>();
-builder.Services.AddScoped<IClinicService, ClinicService>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
-builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IMenstrualCycleRepository, MenstrualCycleRepository>();
+builder.Services.AddScoped<IConsultantInfoRepository, ConsultantInfoRepository>();
+builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IClinicService, ClinicService>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IMenstrualCycleService, MenstrualCycleService>();
-
+builder.Services.AddScoped<IConsultantInfoService, ConsultantInfoService>();
+builder.Services.AddScoped<IConsultationService, ConsultationService>();
 
 builder.Services.AddDbContext<GenderHealthcareContext>(options =>
 {
@@ -32,6 +47,7 @@ builder.Services.AddSession(options =>
 });
 builder.Services.AddHttpContextAccessor();
 
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -40,11 +56,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 app.UseSession();
+app.MapHub<SignalRServer>("/SignalRServer");
+
 app.MapRazorPages();
 
 app.Run();

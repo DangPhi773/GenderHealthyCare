@@ -12,9 +12,9 @@ namespace Repositories
     {
         private readonly UserDAO _userDAO;
 
-        public AccountRepository(GenderHealthcareContext context)
+        public AccountRepository(UserDAO userDAO)
         {
-            _userDAO = new UserDAO(context);
+            _userDAO = userDAO;
         }
 
         public async Task<bool> RegisterAsync(User user)

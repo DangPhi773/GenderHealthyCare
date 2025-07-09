@@ -11,9 +11,9 @@ namespace Repositories
     {
         private readonly ServiceDAO _serviceDAO;
 
-        public ServiceRepository(GenderHealthcareContext context)
+        public ServiceRepository(ServiceDAO serviceDAO)
         {
-            _serviceDAO = new ServiceDAO(context);
+            _serviceDAO = serviceDAO;
         }
 
         public Task<List<Service>> GetAllAsync() => _serviceDAO.GetAllAsync();

@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class ServiceService : IServiceService
+    public class ServiceService(IServiceRepository serviceRepository) : IServiceService
     {
-        private readonly IServiceRepository _serviceRepository;
-
-        public ServiceService(IServiceRepository serviceRepository)
-        {
-            _serviceRepository = serviceRepository;
-        }
+        private readonly IServiceRepository _serviceRepository = serviceRepository;
 
         public Task<List<Service>> GetAllAsync() => _serviceRepository.GetAllAsync();
 
