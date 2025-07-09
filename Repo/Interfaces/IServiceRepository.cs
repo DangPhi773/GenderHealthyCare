@@ -9,7 +9,10 @@ namespace Repositories.Interfaces
 {
     public interface IServiceRepository
     {
-        Task<Service?> GetServiceById(int id);
-        Task<IEnumerable<Service>> GetAllServices();
+        Task<List<Service>> GetAllAsync();
+        Task<Service?> GetByIdAsync(int id);
+        Task<bool> AddAsync(Service service);
+        Task<bool> UpdateAsync(Service service);
+        Task<bool> DeleteAsync(int id);
     }
 }

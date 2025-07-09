@@ -9,7 +9,7 @@ namespace Services.Interfaces
 {
     public interface IAccountService
     {
-        Task<bool> RegisterAsync(User user);
-        Task<User?> LoginAsync(string username, string password);
+            Task<bool> RegisterAsync(User user);
+            Task<User?> LoginAsync(string username, string password);
     }
 }
