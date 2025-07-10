@@ -79,6 +79,38 @@
     max-width: 600px;
     margin: 0 auto;
 }
+/*All Phases*/
+.phase-card {
+    position: relative;
+}
+
+    .phase-card .phase-tooltip {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: max-content;
+        max-width: 220px;
+        padding: 0.5rem;
+        font-size: 0.875rem;
+        background-color: #f9fafb;
+        color: #374151;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        z-index: 10;
+        white-space: normal;
+        font-style: italic; 
+        font-weight: 400; 
+        background-color: #fef2f8; 
+        color: #9f1239; 
+    }
+
+    .phase-card:hover .phase-tooltip {
+        display: block;
+    }
+
 
 /* Current Phase Card */
 .current-phase-card {

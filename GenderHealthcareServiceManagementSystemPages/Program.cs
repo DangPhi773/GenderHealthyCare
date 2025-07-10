@@ -22,18 +22,21 @@ builder.Services.AddScoped<ServiceDAO>();
 builder.Services.AddScoped<MenstrualCycleDAO>();
 builder.Services.AddScoped<ConsultantInfoDAO>();
 builder.Services.AddScoped<ConsultationDAO>();
+builder.Services.AddScoped<ReminderDAO>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IClinicRepository, ClinicRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IMenstrualCycleRepository, MenstrualCycleRepository>();
 builder.Services.AddScoped<IConsultantInfoRepository, ConsultantInfoRepository>();
 builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
+builder.Services.AddScoped<IReminderRepository, ReminderRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IClinicService, ClinicService>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IMenstrualCycleService, MenstrualCycleService>();
 builder.Services.AddScoped<IConsultantInfoService, ConsultantInfoService>();
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
+builder.Services.AddScoped<IReminderService, ReminderService>();
 
 builder.Services.AddDbContext<GenderHealthcareContext>(options =>
 {

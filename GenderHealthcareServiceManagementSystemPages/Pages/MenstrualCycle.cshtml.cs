@@ -3,22 +3,28 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.Interfaces;
 using BusinessObjects.Models.DTOs;
+using Services;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages
 {
     public class MenstrualCycleModel : PageModel
     {
         private readonly IMenstrualCycleService _cycleService;
+        private readonly IReminderService _reminderService;
 
-        public MenstrualCycleModel(IMenstrualCycleService cycleService)
+
+        public MenstrualCycleModel(IMenstrualCycleService cycleService,IReminderService reminderService)
         {
             _cycleService = cycleService;
+            _reminderService = reminderService;
+
         }
 
         [BindProperty]
         public MenstrualCycle CycleModel { get; set; } = new();
 
         public List<MenstrualCycleDTO> CycleDTOs { get; set; } = new();
+        public List<Reminder> Reminders { get; set; } = new();
 
         public DateOnly? PredictedNextCycle { get; set; }
 
@@ -53,6 +59,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
                     PillReminderTime = c.PillReminderTime,
                     Notes = c.Notes
                 }).ToList();
+                Reminders = await _reminderService.GetByUserIdAsync(CurrentUserId);
 
                 PredictedNextCycle = await _cycleService.PredictNextCycleStartAsync(CurrentUserId);
 
@@ -184,5 +191,82 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
                 return new JsonResult(new { success = false, message = "Vui lòng đăng nhập để tiếp tục." });
             }
         }
+        public async Task<IActionResult> OnPostSaveReminderAsync()
+        {
+            try
+            {
+                var form = Request.Form;
+                int.TryParse(form["ReminderId"], out var reminderId);
+                string reminderType = form["ReminderType"];
+                string message = form["Message"];
+                DateTime reminderTime = DateTime.Parse(form["ReminderTime"]);
+                int.TryParse(form["CycleId"], out var cycleId);
+
+
+                var reminder = new Reminder
+                {
+                    ReminderId = reminderId,
+                    ReminderType = reminderType,
+                    ReminderTime = reminderTime,
+                    Message = message,
+                    Status = "Pending",
+                    UserId = CurrentUserId,
+                    CycleId = cycleId > 0 ? cycleId : null
+
+
+                };
+
+                if (reminderId > 0)
+                    await _reminderService.UpdateAsync(reminder);
+                else
+                    await _reminderService.AddAsync(reminder);
+
+                return RedirectToPage();
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Lỗi khi lưu nhắc nhở: " + ex.Message;
+                return RedirectToPage();
+            }
+        }
+
+        public async Task<IActionResult> OnGetDeleteReminderAsync(int id)
+        {
+            var reminder = await _reminderService.GetByIdAsync(id);
+            if (reminder == null || reminder.UserId != CurrentUserId)
+            {
+                TempData["ErrorMessage"] = "Không thể xóa nhắc nhở.";
+            }
+            else
+            {
+                await _reminderService.DeleteAsync(id);
+                TempData["SuccessMessage"] = "Đã xóa nhắc nhở.";
+            }
+            return RedirectToPage();
+        }
+        public async Task<JsonResult> OnGetGetReminderAsync(int id)
+        {
+            var reminder = await _reminderService.GetByIdAsync(id);
+            if (reminder == null || reminder.UserId != CurrentUserId)
+            {
+                return new JsonResult(new { success = false, message = "Không tìm thấy nhắc nhở." });
+            }
+
+            return new JsonResult(new
+            {
+                success = true,
+                data = new
+                {
+                    reminder.ReminderId,
+                    reminder.ReminderType,
+                    ReminderTime = reminder.ReminderTime.ToString("yyyy-MM-ddTHH:mm"),
+                    reminder.Message,
+                    reminder.CycleId
+
+                }
+            });
+        }
+
+
     }
 }
