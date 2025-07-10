@@ -39,7 +39,8 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
 
             IsLoggedIn = true;
 
-            AppointmentTime = new DateTime(DateTime.Now.Year, 1, 1, 8, 0, 0);
+            AppointmentTime = DateTime.Today.AddDays(1).AddHours(8); 
+
 
             var selectedIdsRaw = HttpContext.Session.GetString("SelectedServiceIds");
             if (string.IsNullOrEmpty(selectedIdsRaw))
@@ -76,6 +77,12 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
             if (AppointmentTime == default)
             {
                 ModelState.AddModelError(nameof(AppointmentTime), "Vui lòng chọn thời gian xét nghiệm.");
+                return Page();
+            }
+
+            if (AppointmentTime < DateTime.Today.AddDays(1))
+            {
+                ModelState.AddModelError(nameof(AppointmentTime), "Vui lòng chọn ngày hẹn bắt đầu từ ngày mai.");
                 return Page();
             }
 
