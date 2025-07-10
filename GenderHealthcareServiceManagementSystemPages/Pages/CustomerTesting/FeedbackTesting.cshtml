@@ -1,0 +1,44 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting.FeedbackTestingModel
+@{
+    ViewData["Title"] = "Đánh giá dịch vụ";
+}
+
+<main class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg p-4">
+                    <h3 class="text-center text-primary mb-4">Đánh giá dịch vụ: @Model.CurrentService?.Name</h3>
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Đánh giá (1-5 sao)</label>
+                            <select asp-for="Rating" class="form-select">
+                                <option value="">-- Chọn điểm đánh giá --</option>
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <option value="@i">@i sao</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Rating" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Nhận xét</label>
+                            <textarea asp-for="FeedbackText" class="form-control" rows="4"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            Gửi đánh giá
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
