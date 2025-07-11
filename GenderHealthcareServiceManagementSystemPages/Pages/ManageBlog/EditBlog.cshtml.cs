@@ -1,0 +1,46 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using BusinessObjects.Models;
+using Services.Interfaces;
+
+namespace GenderHealthcareServiceManagementSystemPages.Pages.ManageBlog
+{
+    public class EditBlogModel : PageModel
+    {
+        private readonly IBlogService _blogService;
+
+        public EditBlogModel(IBlogService blogService)
+        {
+            _blogService = blogService;
+        }
+
+        [BindProperty]
+        public Blog Blog { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(int id)
+        {
+            Blog = await _blogService.GetByIdAsync(id);
+            if (Blog == null) return NotFound();
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+                return Page();
+
+            Blog.UpdatedAt = DateTime.Now;
+
+            string? userIdStr = HttpContext.Session.GetString("UserId");
+            if (int.TryParse(userIdStr, out int userId))
+            {
+                Blog.AuthorId = userId;
+            }
+
+            await _blogService.UpdateAsync(Blog);
+
+            TempData["Message"] = "Đã cập nhật blog thành công.";
+            return RedirectToPage("/ManageBlog/AdminManagerBlogs");
+        }
+    }
+}

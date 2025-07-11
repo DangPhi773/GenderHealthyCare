@@ -1,0 +1,35 @@
+﻿@page "{id:int}"
+@model GenderHealthcareServiceManagementSystemPages.Pages.ConsultantQuestion.AnswerCustomerQuestionModel
+@{
+    ViewData["Title"] = "Trả lời câu hỏi";
+}
+<main class="py-4">
+    <div class="container">
+        <h2 class="h4 text-primary mb-4">✍️ Trả lời câu hỏi từ khách hàng</h2>
+
+        @if (Model.Question != null)
+        {
+            <div class="mb-3">
+                <strong>Khách hàng:</strong> @Model.Question.User?.Username
+            </div>
+            <div class="mb-3">
+                <strong>Câu hỏi:</strong>
+                <p>@Model.Question.QuestionText</p>
+            </div>
+
+            <form method="post">
+                <div class="mb-3">
+                    <label for="AnswerText" class="form-label">Nội dung trả lời:</label>
+                    <textarea class="form-control" id="AnswerText" name="AnswerText" rows="5" required>@Model.AnswerText</textarea>
+
+                </div>
+                <button type="submit" class="btn btn-success">Trả lời</button>
+                <a asp-page="QuestionsFromCustomer" class="btn btn-secondary ms-2">Quay lại</a>
+            </form>
+        }
+        else
+        {
+            <div class="alert alert-danger">Không tìm thấy câu hỏi.</div>
+        }
+    </div>
+</main>

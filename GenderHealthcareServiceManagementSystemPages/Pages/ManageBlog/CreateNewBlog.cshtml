@@ -1,0 +1,23 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.ManageBlog.CreateNewBlogModel
+@{
+    ViewData["Title"] = "Tạo bài viết mới";
+}
+<main class="py-4">
+    <div class="container">
+        <h2 class="h4 text-primary mb-4">➕ Tạo bài viết mới</h2>
+
+        <form method="post">
+            <div class="mb-3">
+                <label for="Title" class="form-label">Tiêu đề</label>
+                <input type="text" class="form-control" id="Title" name="Blog.Title" required />
+            </div>
+            <div class="mb-3">
+                <label for="Content" class="form-label">Nội dung</label>
+                <textarea class="form-control" id="Content" name="Blog.Content" rows="8" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Lưu bài viết</button>
+            <a asp-page="AdminManagerBlogs" class="btn btn-secondary ms-2">Quay lại</a>
+        </form>
+    </div>
+</main>

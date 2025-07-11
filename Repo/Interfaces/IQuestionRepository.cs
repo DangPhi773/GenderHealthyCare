@@ -1,0 +1,18 @@
+﻿using BusinessObjects.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Repositories.Interfaces
+{
+    public interface IQuestionRepository
+    {
+        Task<List<Question>> GetQuestionsByConsultantId(int consultantId);
+        Task<Question?> GetQuestionById(int id);
+        Task UpdateQuestion(Question question);
+    }
+}
+
+
