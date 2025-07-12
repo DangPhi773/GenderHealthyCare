@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.Interfaces;
 using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages
 {
@@ -25,6 +23,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+        [TempData]
         public string Message { get; set; }
 
         public async Task<IActionResult> OnGetAsync()

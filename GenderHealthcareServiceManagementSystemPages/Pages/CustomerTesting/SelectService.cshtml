@@ -1,0 +1,59 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting.SelectServiceModel
+
+@{
+    ViewData["Title"] = "Chọn dịch vụ xét nghiệm";
+}
+
+<main class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="card shadow-lg p-4" style="backdrop-filter: blur(8px); background-color: rgba(255, 255, 255, 0.8);">
+                    <div class="text-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#ec4899" viewBox="0 0 24 24">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+                            2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09
+                            C13.09 3.81 14.76 3 16.5 3
+                            19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                        <h2 class="h4 fw-bold gradient-text mt-3">Chọn dịch vụ xét nghiệm</h2>
+                        <p class="text-muted small">Vui lòng chọn một hoặc nhiều dịch vụ bên dưới để tiếp tục.</p>
+                    </div>
+
+                    @if (!Model.IsLoggedIn)
+                    {
+                        <div class="text-danger text-center fw-semibold">
+                            Bạn chưa đăng nhập. Vui lòng <a class="text-decoration-underline text-primary" href="/Login">đăng nhập</a> để tiếp tục đặt lịch xét nghiệm.
+                        </div>
+                    }
+                    else
+                    {
+                        <form method="post">
+                            <div class="row">
+                                @foreach (var service in Model.Services)
+                                {
+                                    <div class="col-md-6 mb-4">
+                                        <div class="border rounded p-3 h-100 shadow-sm">
+                                            <label class="form-check-label w-100">
+                                                <input type="checkbox" class="form-check-input me-2" name="SelectedServiceIds" value="@service.ServiceId" />
+                                                <strong>@service.Name</strong> - @service.Price.ToString("N0") VND
+                                                <p class="text-muted small mt-2">@service.Description</p>
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn w-100" style="background: linear-gradient(to right, #9333ea, #ec4899); color: white;">
+                                    Tiếp tục
+                                </button>
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
