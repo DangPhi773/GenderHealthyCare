@@ -21,6 +21,7 @@ public class ConsultationService(IConsultationRepository repo) : IConsultationSe
             ConsultantId = int.Parse(request.SelectedConsultant),
             AppointmentTime = DateTime.Parse($"{request.AppointmentDate:yyyy-MM-dd} {request.AppointmentTime}"),
             Status = "Pending",
+            Notes = request.Notes,
             CreatedAt = DateTime.Now
         };
 
