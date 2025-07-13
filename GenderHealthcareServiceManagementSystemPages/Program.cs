@@ -6,11 +6,7 @@ using Services.Interfaces;
 using Services.Services;
 using Repositories;
 using Repositories.Interfaces;
-using DataAccessObjects;
-using Repositories;
-using Repositories.Interfaces;
 using Services;
-using Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

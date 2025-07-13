@@ -13,6 +13,7 @@ namespace Repositories.Interfaces
         Task<Feedback?> GetFeedbackById(int id);
         Task AddFeedback(Feedback feedback);
         Task UpdateFeedback(Feedback feedback);
-        Task DeleteFeedback(int id);
+        Task<List<Feedback>> GetFeedbacksById(int id, string task);
+        Task<bool> DeleteFeedback(int id);
     }
 }

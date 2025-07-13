@@ -35,4 +35,56 @@ public class ConsultationService(IConsultationRepository repo) : IConsultationSe
     {
         return await _repo.GetUnavailableSlotsAsync(date);
     }
+
+    public async Task<Consultation?> GetConsultationById(int consultationId)
+    {
+        return await _repo.GetConsultationById(consultationId);
+    }
+
+    public async Task<List<Consultation>> GetConsultationsByUser(int Id, string Role)
+    {
+        return await _repo.GetConsultationsByUser(Id, Role);
+    }
+
+    public async Task<List<Consultation>> GetFilteredConsultations(int userId, string userRole, string? status, string? name)
+    {
+        return await _repo.GetFilteredConsultations(userId, userRole, status, name);
+    }
+
+    public async Task<bool> UpdateMeetingLinkAsync(int ConsultationId, string MeetingLink)
+    {
+        var consultation = await _repo.GetConsultationById(ConsultationId);
+        if (consultation == null)
+        {
+            return false;
+        }
+
+        if (consultation.Status == "Pending"
+            || (consultation.Status == "Confirmed"
+            && consultation.AppointmentTime.Date > DateTime.Today))
+        {
+            consultation.MeetingLink = MeetingLink;
+
+            if (consultation.Status == "Pending")
+                consultation.Status = "Confirmed";
+
+            await _repo.UpdateConsultation(consultation);
+            return true;
+        }
+        return false;
+    }
+
+    public async Task UpdateStatus(Consultation consultation)
+    {
+        var now = DateTime.Now;
+        if (consultation.Status == "Pending" && consultation.AppointmentTime < now)
+        {
+            consultation.Status = "Cancelled";
+        }
+        else if (consultation.Status == "Confirmed" && now > consultation.AppointmentTime.AddMinutes(30))
+        {
+            consultation.Status = "Completed";
+        }
+        await _repo.UpdateConsultation(consultation);
+    }
 }
