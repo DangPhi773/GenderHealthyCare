@@ -4,206 +4,237 @@
     ViewData["Title"] = "Đặt lịch tư vấn - Gender Healthcare";
 }
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/BookingConsultant.css" />
-</head>
-<body>
-    @if (!ViewData.ModelState.IsValid)
-    {
-        <div id="errorModal" class="modal" style="display:block;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title">
-                        <span class="error-icon">⚠️</span>
-                        Có lỗi xảy ra
-                    </h2>
-                    <span class="close" onclick="closeErrorModal()">&times;</span>
+<!-- Error Modal -->  7
+@if (!ViewData.ModelState.IsValid)
+{
+    <div id="errorModal" class="error-modal" style="display:block;">
+        <div class="error-modal-content">
+            <div class="error-modal-header">
+                <div class="error-icon">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
                 </div>
-                <div class="modal-body">
-                    <p class="modal-description">Vui lòng kiểm tra lại thông tin và thử lại.</p>
-                    <div id="errorList" class="error-list">
-                        <ul>
-                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-                            {
-                                <li>@error.ErrorMessage</li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="modal-btn" onclick="closeErrorModal()">Đã hiểu</button>
-                </div>
+                <h3 class="error-title">Có lỗi xảy ra</h3>
+                <button class="error-close" onclick="closeErrorModal()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="error-modal-body">
+                <p class="error-description">Vui lòng kiểm tra lại thông tin và thử lại.</p>
+                <ul class="error-list">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <li class="error-item">
+                            <i class="bi bi-dot"></i>
+                            @error.ErrorMessage
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="error-modal-footer">
+                <button class="error-btn" onclick="closeErrorModal()">Đã hiểu</button>
             </div>
         </div>
-    }
-    <div class="container">
-        <div class="booking-card">
-            <h1 class="page-title">Đặt lịch tư vấn</h1>
-            <p class="page-subtitle">Chọn chuyên gia tư vấn phù hợp với nhu cầu của bạn</p>
-            <form method="post">
-                <div class="form-group">
-                    <label class="form-label">Chọn chuyên gia tư vấn</label>
-                    <div class="consultant-grid">
-                        @foreach (var consultantInf in Model.ConsultantInfos)
-                        {
-                            <div class="consultant-card" onclick="selectConsultant(this, '@consultantInf.ConsultantId')">
-                                <div class="consultant-avatar">
-                                    @(consultantInf.Consultant.Gender == "Female" ? "👩‍⚕️" : "👨‍⚕️")
-                                </div>
-                                <h3>@consultantInf.Consultant.FullName</h3>
-                                <p>@consultantInf.Specialization</p>
-                                <p><strong>@consultantInf.ExperienceYears năm kinh nghiệm</strong></p>
-                            </div>
-                        }
-                    </div>
-                    <input type="hidden" name="SelectedConsultant" id="selectedConsultant" />
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="appointmentDate">Ngày hẹn</label>
-                        <input type="date" id="appointmentDate" name="AppointmentDate" class="form-input" required />
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Giờ hẹn</label>
-
-                        <div class="time-period-section">
-                            <h4 class="period-title">Buổi sáng</h4>
-                            <div class="time-slots-row">
-                                <div class="time-slot" onclick="selectTimeSlot(this, '09:00')">09:00</div>
-                                <div class="time-slot" onclick="selectTimeSlot(this, '10:00')">10:00</div>
-                                <div class="time-slot" onclick="selectTimeSlot(this, '11:00')">11:00</div>
-                            </div>
-                        </div>
-
-                        <div class="time-period-section">
-                            <h4 class="period-title">Buổi chiều</h4>
-                            <div class="time-slots-row">
-                                <div class="time-slot" onclick="selectTimeSlot(this, '14:00')">14:00</div>
-                                <div class="time-slot" onclick="selectTimeSlot(this, '15:00')">15:00</div>
-                                <div class="time-slot" onclick="selectTimeSlot(this, '16:00')">16:00</div>
-                            </div>
-                        </div>
-
-                        <input type="hidden" name="AppointmentTime" id="selectedTime" />
-                    </div>
-                </div>
-@* 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="fullName">Họ và tên *</label>
-                        <input type="text" id="fullName" name="FullName" class="form-input" required />
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="phoneNumber">Số điện thoại *</label>
-                        <div class="phone-input-container">
-                            <div class="country-selector-static">
-                                <img src="https://flagcdn.com/w20/vn.png" alt="VN" class="country-flag-img">
-                                <span class="country-code">+84</span>
-                            </div>
-                            <input type="tel" id="phoneNumber" name="PhoneNumber" class="form-input phone-number-input" placeholder="EX: 0912333123" required />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="email">Email *</label>
-                    <input type="email" id="email" name="Email" class="form-input" required />
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="notes">Ghi chú</label>
-                    <textarea id="notes" name="Notes" class="form-textarea" placeholder="Mô tả chi tiết về tình trạng hoặc câu hỏi bạn muốn tư vấn..."></textarea>
-                </div> *@
-
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    <span class="btn-text">📅 Đặt lịch hẹn</span>
-                    <span class="btn-loading" style="display: none;">
-                        <div class="spinner"></div>
-                        Đang xử lý...
-                    </span>
-                </button>
-            </form>
-        </div>
     </div>
+}
 
-    <script>
-        function closeErrorModal() {
-            const modal = document.getElementById("errorModal");
-            if (modal) modal.style.display = "none";
+<!-- Main Content -->
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="modern-card">
+        <!-- Header -->
+        <div class="modern-card-header">
+            <h1 class="modern-title">Đặt lịch tư vấn</h1>
+            <p class="modern-subtitle">Chọn chuyên gia tư vấn phù hợp với nhu cầu của bạn</p>
+        </div>
+
+        <form method="post" class="modern-form">
+            <!-- Consultant Selection -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-indicator"></div>
+                    <h2 class="section-title">Chọn chuyên gia tư vấn</h2>
+                </div>
+
+                <div class="consultant-grid">
+                    @foreach (var consultantInf in Model.ConsultantInfos)
+                    {
+                        <div class="consultant-card" onclick="selectConsultant(this, '@consultantInf.ConsultantId')">
+                            <div class="consultant-avatar">
+                                @(consultantInf.Consultant.Gender == "Female" ? "👩‍⚕️" : "👨‍⚕️")
+                            </div>
+                            <h3 class="consultant-name">@consultantInf.Consultant.FullName</h3>
+                            <p class="consultant-specialty">@consultantInf.Specialization</p>
+                            <p class="consultant-experience">@consultantInf.ExperienceYears năm kinh nghiệm</p>
+                            <div class="selection-indicator"></div>
+                        </div>
+                    }
+                </div>
+                <input type="hidden" name="SelectedConsultant" id="selectedConsultant" />
+            </div>
+
+            <!-- Date and Time Selection -->
+            <div class="form-row">
+                <!-- Date Selection -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-indicator"></div>
+                        <h3 class="section-title">Ngày hẹn</h3>
+                    </div>
+                    <div class="input-group">
+                        <i class="bi bi-calendar3 input-icon"></i>
+                        <input type="date" id="appointmentDate" name="AppointmentDate" class="modern-input" required />
+                    </div>
+                </div>
+
+                <!-- Time Selection -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-indicator"></div>
+                        <h3 class="section-title">Giờ hẹn</h3>
+                    </div>
+
+                    <!-- Morning Slots -->
+                    <div class="time-period">
+                        <h4 class="period-title">
+                            <i class="bi bi-sun-fill"></i>
+                            Buổi sáng
+                        </h4>
+                        <div class="time-slots">
+                            <div class="time-slot" onclick="selectTimeSlot(this, '09:00')">09:00</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this, '10:00')">10:00</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this, '11:00')">11:00</div>
+                        </div>
+                    </div>
+
+                    <!-- Afternoon Slots -->
+                    <div class="time-period">
+                        <h4 class="period-title">
+                            <i class="bi bi-sun"></i>
+                            Buổi chiều
+                        </h4>
+                        <div class="time-slots">
+                            <div class="time-slot" onclick="selectTimeSlot(this, '14:00')">14:00</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this, '15:00')">15:00</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this, '16:00')">16:00</div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="AppointmentTime" id="selectedTime" />
+                </div>
+            </div>
+
+            <!-- Personal Information -->
+            <div class="form-section">
+                <div class="input-group">
+                    <i class="bi bi-chat-square-text-fill input-icon"></i>
+                    <textarea name="Notes" class="modern-textarea" placeholder="Ghi chú (Mô tả chi tiết về tình trạng hoặc câu hỏi bạn muốn tư vấn...)" rows="4"></textarea>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <span class="btn-content">
+                    <i class="bi bi-calendar-check-fill"></i>
+                    Đặt lịch hẹn
+                </span>
+                <span class="btn-loading" style="display: none;">
+                    <div class="spinner"></div>
+                    Đang xử lý...
+                </span>
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Close error modal
+    function closeErrorModal() {
+        const modal = document.getElementById("errorModal");
+        if (modal) {
+            modal.style.display = "none";
         }
-        function selectConsultant(element, consultantId) {
-            document.querySelectorAll('.consultant-card').forEach(card => {
-                card.classList.remove('selected');
-            });
+    }
 
-            element.classList.add('selected');
-            document.getElementById('selectedConsultant').value = consultantId;
+    // Select consultant
+    function selectConsultant(element, consultantId) {
+        document.querySelectorAll('.consultant-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+        element.classList.add('selected');
+        document.getElementById('selectedConsultant').value = consultantId;
+    }
+
+    // Select time slot
+    function selectTimeSlot(element, time) {
+        if (element.classList.contains('disabled') || element.getAttribute('data-available') === 'false') {
+            return;
         }
 
-        function selectTimeSlot(element, time) {
-            // Nếu slot bị disabled
-            if (element.classList.contains('disabled') || element.getAttribute('data-available') === 'false') {
-                return; // Thoát
-            }
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            slot.classList.remove('selected');
+        });
+        element.classList.add('selected');
+        document.getElementById('selectedTime').value = time;
+    }
 
-            // Bỏ class 'selected' ra
-            document.querySelectorAll('.time-slot').forEach(slot => {
-                slot.classList.remove('selected');
-            });
+    // Set minimum date to today
+    document.getElementById('appointmentDate').min = new Date().toISOString().split('T')[0];
 
-            // Gắn class 'selected' vào slot mà người dùng vừa chọn
-            element.classList.add('selected');
+    // Handle date change for availability
+    document.getElementById('appointmentDate').addEventListener('change', function () {
+        const date = encodeURIComponent(this.value);
+        if (!date) return;
 
-            // Gán giá trị giờ hẹn vào hidden input
-            document.getElementById('selectedTime').value = time;
-        }
-
-        // Chặn ng dùng nhập ngày quá khứ
-        document.getElementById('appointmentDate').min = new Date().toISOString().split('T')[0];
-
-        document.getElementById('appointmentDate').addEventListener('change', function () {
-            const date = encodeURIComponent(this.value);
-            if (!date) return;
-
-            fetch(`/Booking/BookingConsultant?handler=UnavailableSlots&date=${date}`)
-                .then(res => res.json())
-                .then(disabledSlots => {
-                    document.querySelectorAll('.time-slot').forEach(slot => {
-                        const time = slot.textContent.trim();
-                        if (disabledSlots.includes(time)) {
-                            slot.classList.add('disabled');
-                            slot.setAttribute('data-available', 'false');
-                        } else {
-                            slot.classList.remove('disabled');
-                            slot.setAttribute('data-available', 'true');
-                        }
-                    });
+        fetch(`/Booking/BookingConsultant?handler=UnavailableSlots&date=${date}`)
+            .then(res => res.json())
+            .then(disabledSlots => {
+                document.querySelectorAll('.time-slot').forEach(slot => {
+                    const time = slot.textContent.trim();
+                    if (disabledSlots.includes(time)) {
+                        slot.classList.add('disabled');
+                        slot.setAttribute('data-available', 'false');
+                    } else {
+                        slot.classList.remove('disabled');
+                        slot.setAttribute('data-available', 'true');
+                    }
                 });
-        });
+            })
+            .catch(err => console.error('Error fetching availability:', err));
+    });
 
-        // validate form
-        document.querySelector('form').addEventListener('submit', function (e) {
-            const consultant = document.getElementById('selectedConsultant').value;
-            const time = document.getElementById('selectedTime').value;
+    // Form validation
+    document.querySelector('form').addEventListener('submit', function (e) {
+        const consultant = document.getElementById('selectedConsultant').value;
+        const time = document.getElementById('selectedTime').value;
+        const submitBtn = document.getElementById('submitBtn');
 
-            if (!consultant) {
-                alert('Vui lòng chọn chuyên gia tư vấn');
-                e.preventDefault();
-                return;
-            }
+        if (!consultant) {
+            alert('Vui lòng chọn chuyên gia tư vấn');
+            e.preventDefault();
+            return;
+        }
 
-            if (!time) {
-                alert('Vui lòng chọn giờ hẹn');
-                e.preventDefault();
-                return;
-            }
-        });
-    </script>
-</body>
-</html>
+        if (!time) {
+            alert('Vui lòng chọn giờ hẹn');
+            e.preventDefault();
+            return;
+        }
+
+        // Show loading state
+        const btnContent = submitBtn.querySelector('.btn-content');
+        const btnLoading = submitBtn.querySelector('.btn-loading');
+
+        btnContent.style.display = 'none';
+        btnLoading.style.display = 'flex';
+        submitBtn.disabled = true;
+    });
+
+    // Auto-hide error modal after 10 seconds
+    if (document.getElementById('errorModal')) {
+        setTimeout(() => {
+            closeErrorModal();
+        }, 10000);
+    }
+</script>
+@section Styles {
+    <link rel="stylesheet" href="~/css/BookingConsultant.css" />
+}

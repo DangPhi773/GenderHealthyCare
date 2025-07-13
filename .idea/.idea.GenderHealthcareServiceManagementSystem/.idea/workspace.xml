@@ -130,7 +130,8 @@
       <option name="presentableId" value="Default" />
       <updated>1751957156938</updated>
       <workItem from="1751957159346" duration="113000" />
-      <workItem from="1752049779139" duration="338000" />
+      <workItem from="1752049779139" duration="2100000" />
+      <workItem from="1752052281145" duration="2493000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <option name="closed" value="true" />
@@ -156,7 +157,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752049014517</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="commit from workspace file">
+      <option name="closed" value="true" />
+      <created>1752050205124</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1752050205124</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,6 +178,7 @@
     <MESSAGE value="gitignore" />
     <MESSAGE value="merge from develop" />
     <MESSAGE value="fix config appsetting" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix config appsetting" />
+    <MESSAGE value="commit from workspace file" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit from workspace file" />
   </component>
 </project>

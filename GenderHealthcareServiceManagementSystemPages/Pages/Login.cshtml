@@ -3,6 +3,12 @@
 @{
     ViewData["Title"] = "Login";
 }
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
 
 <main class="py-5">
     <div class="container">

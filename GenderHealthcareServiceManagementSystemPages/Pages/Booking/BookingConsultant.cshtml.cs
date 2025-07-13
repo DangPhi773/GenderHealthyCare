@@ -26,10 +26,17 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
         public BookingRequest Booking { get; set; } = new ();
         public List<ConsultantInfo> ConsultantInfos { get; set; } = [];
 
-        public async Task OnGetAsync(DateTime? date)
+        public async Task<IActionResult> OnGetAsync()
         {
+            // Check if user is logged in
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
+            {
+                TempData["ErrorMessage"] = "Vui lòng đăng nhập để đặt lịch hẹn.";
+                return RedirectToPage("/Login");
+            }
             // Initialize page
             ConsultantInfos = await _consultantInfoService.GetAllConsultantInfosAsync();
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -47,11 +54,10 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
                 return Page();
             }
             //Save to database
-            var createdBooking = await _consultationService.CreateBookingAsync(Booking, 1);
+            var createdBooking = await _consultationService.CreateBookingAsync(Booking, GetCurrentUserId());
 
             // Redirect
             //await _hubContext.Clients.All.SendAsync("AppointmentCreated");
-            //TempData["PatientName"] = Booking.FullName;
             TempData["BookingId"] = createdBooking.ConsultationId;
             TempData["AppointmentTime"] = Booking.AppointmentTime;
             TempData["AppointmentDate"] = Booking.AppointmentDate.ToString("dddd, dd/MM/yyyy");
@@ -64,13 +70,12 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
         {
             var parsedDate = DateTime.Parse(date);
             var unavailableSlots = await _consultationService.GetUnavailableSlotsAsync(parsedDate);
-            Console.WriteLine("unavailableSlots nekkkkk", string.Join(", ", unavailableSlots));
             return new JsonResult(unavailableSlots);
         }
 
         private int GetCurrentUserId()
         {
-            return int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
+            return int.Parse(HttpContext.Session.GetString("UserId")!);
         }
     }
 

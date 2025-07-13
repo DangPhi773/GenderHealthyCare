@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BusinessObjects.Models;
+using Repositories.Interfaces;
+using Services.Interfaces;
+
+namespace Services
+{
+    public class UserService : IUserService
+    {
+        private readonly IUserRepository _repo;
+
+        public UserService(IUserRepository repo)
+        {
+            _repo = repo;
+        }
+
+        public Task<User?> GetUserById(int id) => _repo.GetUserById(id);
+    }
+}
+
