@@ -58,7 +58,7 @@
                     {
                         <div class="consultant-card" onclick="selectConsultant(this, '@consultantInf.ConsultantId')">
                             <div class="consultant-avatar">
-                                <img src="/Booking/BookingConsultant?handler=ConsultantImage&consultantId=@consultantInf.ConsultantId" 
+                                <img src="/ExpertConsultation/Booking/BookingConsultant?handler=ConsultantImage&consultantId=@consultantInf.ConsultantId" 
                                      alt="@consultantInf.Consultant.FullName" 
                                      class="consultant-image"
                                      loading="lazy"
@@ -199,7 +199,7 @@
         const date = encodeURIComponent(this.value);
         if (!date) return;
 
-        fetch(`/Booking/BookingConsultant?handler=UnavailableSlots&date=${date}`)
+        fetch(`/ExpertConsultation/Booking/BookingConsultant?handler=UnavailableSlots&date=${date}`)
             .then(res => res.json())
             .then(disabledSlots => {
                 document.querySelectorAll('.time-slot').forEach(slot => {

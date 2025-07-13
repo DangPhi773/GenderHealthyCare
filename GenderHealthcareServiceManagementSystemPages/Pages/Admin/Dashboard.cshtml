@@ -1,0 +1,115 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.Admin.DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="dashboard-grid">
+    <h2>Tổng quan</h2>
+
+    <!-- Metrics -->
+    <div class="metric-grid">
+        @foreach (var metric in Model.Metrics)
+        {
+            <div class="card">
+                <div class="card-header">
+                    <p class="card-title">@metric.Title</p>
+                    <span>@* Replace with icon if needed *@</span>
+                </div>
+                <div class="card-value">@metric.Value</div>
+                <p class="card-description">@metric.Description</p>
+            </div>
+        }
+    </div>
+
+    <!-- Recent Bookings and Feedback -->
+    <div class="metric-grid">
+        <!-- Recent Bookings -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Recent Service Bookings</h3>
+            </div>
+            <div class="card-description">Latest bookings for various services.</div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Service</th>
+                            <th>User</th>
+                            <th>Date</th>
+                            <th class="text-right">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var booking in Model.RecentBookings)
+                        {
+                            var statusClass = booking.Status switch
+                            {
+                                "Completed" => "badge completed",
+                                "Pending" => "badge pending",
+                                _ => "badge cancelled"
+                            };
+
+                            <tr>
+                                <td>@booking.Id</td>
+                                <td>@booking.Service</td>
+                                <td>@booking.User</td>
+                                <td>@booking.Date</td>
+                                <td class="text-right">
+                                    <span class="@statusClass">@booking.Status</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Latest Feedback -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Latest User Feedback</h3>
+            </div>
+            <div class="card-description">Recent comments and ratings from users.</div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Rating</th>
+                            <th>Comment</th>
+                            <th class="text-right">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var feedback in Model.LatestFeedback)
+                        {
+                            <tr>
+                                <td>@feedback.User</td>
+                                <td>
+                                    <div>
+                                        @for (int i = 0; i < feedback.Rating; i++)
+                                        {
+                                            <span class="star"></span>
+                                        }
+                                        @for (int i = feedback.Rating; i < 5; i++)
+                                        {
+                                            <span class="star gray"></span>
+                                        }
+                                    </div>
+                                </td>
+                                <td class="truncate">@feedback.Comment</td>
+                                <td class="text-right">@feedback.Date</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Dashboard.css" />
+}

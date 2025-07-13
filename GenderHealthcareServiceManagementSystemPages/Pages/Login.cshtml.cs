@@ -66,6 +66,10 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
                     Console.WriteLine($"[LoginModel][OnPostAsync] Chuyển hướng đến ReturnUrl: {returnUrl}");
                     return Redirect(returnUrl);
                 }
+                if (user.Role == "Admin")
+                {
+                    return RedirectToPage("/Admin/Dashboard");
+                }
 
                 return RedirectToPage("/Index");
             }

@@ -33,7 +33,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
             if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
             {
                 TempData["ErrorMessage"] = "Vui lòng đăng nhập để đặt lịch hẹn.";
-                return RedirectToPage("/Login", new { returnUrl = "/Booking/BookingConsultant" });
+                return RedirectToPage("/Login", new { returnUrl = "/ExpertConsultation/Booking/BookingConsultant" });
             }
 
             // Initialize page
