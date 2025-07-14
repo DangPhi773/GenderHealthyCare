@@ -20,6 +20,7 @@ public class ConsultantInfoDAO (GenderHealthcareContext context)
     public async Task<ConsultantInfo?> GetConsultantInfoByIdAsync(int consultantId)
     {
         var found = await _context.ConsultantInfos.Where(c => c.ConsultantId == consultantId).Include(c => c.Consultant).FirstOrDefaultAsync();
+        Console.WriteLine($"ConsultantInfoDAO: GetConsultantInfoByIdAsync({consultantId}) => {found?.Consultant?.FullName ?? "null"}");
         return found;
     }
 

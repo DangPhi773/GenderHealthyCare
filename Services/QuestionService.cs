@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BusinessObjects.Models;
+using Repositories.Interfaces;
+using Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,13 +14,14 @@ namespace Services
 {
     public class QuestionService : IQuestionService
     {
-        private readonly IQuestionRepository _repository;
+        private readonly IQuestionRepository _iQuestionRepository;
 
-        public QuestionService(IQuestionRepository repository)
+        public QuestionService(IQuestionRepository iQuestionRepository)
         {
-            _repository = repository;
+            _iQuestionRepository = iQuestionRepository;
         }
 
+        public async Task<List<Question>> GetAllQuestionsAsync() => await _iQuestionRepository.GetAllQuestionsAsync();
         public Task<List<Question>> GetQuestionsByConsultantId(int consultantId)
             => _repository.GetQuestionsByConsultantId(consultantId);
 

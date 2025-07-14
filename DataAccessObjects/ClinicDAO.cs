@@ -54,6 +54,10 @@ namespace DataAccessObjects
             Console.WriteLine($"[ClinicDAO][AddClinicAsync] Thêm phòng khám: {clinic.Name}");
             try
             {
+                if (clinic.CreatedAt == null)
+                {
+                    clinic.CreatedAt = DateTime.Now;
+                }
                 await _context.Clinics.AddAsync(clinic);
                 await _context.SaveChangesAsync();
                 Console.WriteLine($"[ClinicDAO][AddClinicAsync] Thêm phòng khám thành công, ID: {clinic.ClinicId}");
@@ -116,9 +120,23 @@ namespace DataAccessObjects
                 return false;
             }
             catch (Exception ex)
-            {
+            {   
                 Console.WriteLine($"[ClinicDAO][DeleteClinicAsync] Lỗi không xác định: {ex.Message}");
                 return false;
+            }
+        }
+
+        public async Task<List<Clinic>> GetClinicsByClinicName(string name)
+        {
+            try
+            {
+                return await _context.Clinics
+                    .Where(c => c.Name.ToLower().Contains(name.ToLower()))
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }

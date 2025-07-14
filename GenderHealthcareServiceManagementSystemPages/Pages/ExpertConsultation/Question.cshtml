@@ -1,0 +1,167 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.ExpertConsultation.QuestionModel
+@{
+    ViewData["Title"] = "Đặt câu hỏi cho tư vấn viên";
+}
+
+<div class="questions-form">
+    <div class="questions-header">
+        <h1 class="questions-title">💬 Đặt câu hỏi cho tư vấn viên</h1>
+        <p class="questions-description">Gửi câu hỏi của bạn và nhận được phản hồi từ đội ngũ tư vấn viên chuyên nghiệp trong lĩnh vực chăm sóc sức khỏe giới tính</p>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="questions-alert questions-alert-success">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <form method="post" id="questionsForm">
+
+        <div class="questions-form-group">
+            <label class="questions-form-label" for="category">
+                <i class="bi bi-tags-fill"></i>Danh mục câu hỏi *
+            </label>
+            <select id="category" name="Category" class="questions-select" required>
+                <option value="">-- Chọn danh mục --</option>
+                <option value="general">🩺 Tư vấn chung về sức khỏe giới tính</option>
+                <option value="hormone">💊 Liệu pháp hormone</option>
+                <option value="mental-health">🧠 Sức khỏe tâm thần</option>
+                <option value="transition">🔄 Quá trình chuyển giới</option>
+                <option value="family-support">👨‍👩‍👧‍👦 Hỗ trợ gia đình</option>
+                <option value="legal">⚖️ Vấn đề pháp lý</option>
+                <option value="workplace">🏢 Môi trường làm việc</option>
+                <option value="other">📝 Khác</option>
+            </select>
+            <span asp-validation-for="QuestionRequest.Category" class="questions-text-danger"></span>
+        </div>
+
+        <div class="questions-form-group">
+            <label class="questions-form-label" for="subject">
+                <i class="bi bi-chat-square-text-fill"></i>Tiêu đề câu hỏi *
+            </label>
+            <input type="text" id="subject" name="Subject" class="questions-input" required
+                   placeholder="Nhập tiêu đề ngắn gọn và rõ ràng cho câu hỏi của bạn"
+                   value="@Model.QuestionRequest.Subject" />
+            <span asp-validation-for="QuestionRequest.Subject" class="questions-text-danger"></span>
+        </div>
+
+        <div class="questions-form-group">
+            <label class="questions-form-label" for="content">
+                <i class="bi bi-file-text-fill"></i>Nội dung câu hỏi *
+            </label>
+            <textarea id="content" name="Content" class="questions-textarea" required
+                      placeholder="Mô tả chi tiết câu hỏi của bạn:&#10;&#10;• Tình huống hiện tại&#10;• Những lo lắng cụ thể&#10;• Thông tin y tế liên quan (nếu có)&#10;• Mong muốn được hỗ trợ như thế nào&#10;&#10;💡 Lưu ý: Thông tin của bạn sẽ được bảo mật tuyệt đối.">@Model.QuestionRequest.Content</textarea>
+            <span asp-validation-for="QuestionRequest.Content" class="questions-text-danger"></span>
+        </div>
+
+        <div class="questions-form-row">
+            <div class="questions-form-group">
+                <label class="questions-form-label">
+                    <i class="bi bi-gear-fill"></i>Tùy chọn khác
+                </label>
+                <div class="questions-checkbox-group">
+                    <label class="questions-checkbox-label">
+                        <input type="checkbox" name="IsAnonymous" value="true" />
+                        🎭 Gửi câu hỏi ẩn danh (chỉ hiển thị tên viết tắt)
+                    </label>
+                    <label class="questions-checkbox-label">
+                        <input type="checkbox" name="AcceptTerms" value="true" required />
+                        ✅ Tôi đồng ý với <a href="/privacy" target="_blank">chính sách bảo mật</a> và <a href="/terms" target="_blank">điều khoản sử dụng</a> *
+                    </label>
+                </div>
+                <span asp-validation-for="QuestionRequest.AcceptTerms" class="questions-text-danger"></span>
+            </div>
+        </div>
+
+        <div class="questions-form-actions">
+            <button type="submit" class="questions-btn-primary">
+                <i class="bi bi-send-fill"></i>
+                Gửi câu hỏi
+            </button>
+            <a href="/ExpertConsultation/Booking/BookingConsultant" class="questions-btn-secondary">
+                <i class="bi bi-calendar-check"></i>
+                Hoặc đặt lịch tư vấn trực tiếp
+            </a>
+        </div>
+    </form>
+</div>
+
+<div class="questions-tips">
+    <div class="questions-tips-header">
+        <h3 class="questions-tips-title">💡 Hướng dẫn sử dụng dịch vụ</h3>
+        <p class="questions-description">Những thông tin quan trọng bạn cần biết khi sử dụng dịch vụ tư vấn</p>
+    </div>
+    <div class="questions-tips-grid">
+        <div class="questions-tip-item">
+            <h4>🔒 Bảo mật thông tin</h4>
+            <p>Mọi thông tin cá nhân được mã hóa và bảo mật theo tiêu chuẩn y tế quốc tế HIPAA. Chúng tôi cam kết không chia sẻ thông tin với bên thứ ba.</p>
+        </div>
+        <div class="questions-tip-item">
+            <h4>⏰ Thời gian phản hồi</h4>
+            <p>Tư vấn viên sẽ phản hồi trong 24-48 giờ làm việc.</p>
+        </div>
+        <div class="questions-tip-item">
+            <h4>📋 Chất lượng tư vấn</h4>
+            <p>Cung cấp thông tin chi tiết và chính xác giúp tư vấn viên đưa ra lời khuyên phù hợp và hữu ích nhất cho tình huống của bạn.</p>
+        </div>
+        <div class="questions-tip-item">
+            <h4>🚨 Trường hợp khẩn cấp</h4>
+            <p>Nếu bạn đang gặp tình huống khẩn cấp cần hỗ trợ ngay lập tức, vui lòng gọi hotline: <strong>1900-1234</strong> (24/7)</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Form submission handling
+        document.getElementById('questionsForm').addEventListener('submit', function (e) {
+            const form = this;
+            const submitBtn = form.querySelector('.questions-btn-primary');
+
+            // Add loading state
+            form.classList.add('loading');
+            submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Đang gửi...';
+            submitBtn.disabled = true;
+        });
+
+        // Phone number formatting
+        document.getElementById('phone').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 10) {
+                value = value.substring(0, 10);
+                e.target.value = value.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
+            }
+        });
+
+        // Character counter for textarea
+        const textarea = document.getElementById('content');
+        const maxLength = 2000;
+
+        function updateCharCounter() {
+            const remaining = maxLength - textarea.value.length;
+            let counter = document.getElementById('charCounter');
+
+            if (!counter) {
+                counter = document.createElement('small');
+                counter.id = 'charCounter';
+                counter.style.color = 'var(--text-light)';
+                counter.style.fontSize = '0.8rem';
+                textarea.parentNode.appendChild(counter);
+            }
+
+            counter.textContent = `${remaining} ký tự còn lại`;
+            counter.style.color = remaining < 100 ? '#dc3545' : 'var(--text-light)';
+        }
+
+        textarea.addEventListener('input', updateCharCounter);
+        updateCharCounter();
+    </script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Question.css" />
+}
+

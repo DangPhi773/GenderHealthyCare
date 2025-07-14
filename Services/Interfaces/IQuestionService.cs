@@ -9,6 +9,7 @@ namespace Services.Interfaces
 {
     public interface IQuestionService
     {
+        Task<List<Question>> GetAllQuestionsAsync();
         Task<List<Question>> GetQuestionsByConsultantId(int consultantId);
         Task<Question?> GetQuestionById(int id);
         Task UpdateQuestion(Question question);

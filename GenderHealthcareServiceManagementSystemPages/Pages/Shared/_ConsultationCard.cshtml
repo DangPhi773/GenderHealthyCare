@@ -1,0 +1,125 @@
+﻿@model BusinessObjects.Models.Consultation
+<style>
+    .gradient-text {
+        background: linear-gradient(to right, #9333ea, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+    }
+
+    .btn-card:hover{
+        border-color: rgba(0, 0, 0, 0.15);
+        box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+        color: rgba(0, 0, 0, 0.65);
+        transform: translateY(-1px);
+    }
+</style>
+
+@{
+    // Gán màu header theo Status
+    string headerColor = Model.Status switch
+    {
+        "Pending" => "#CEF4FF",
+        "Confirmed" => "#FFCDDE",
+        "Completed" => "#C8B6FF",
+        "Cancelled" => "#D8D8D8",
+        _ => "#f8f9fa"
+    };
+
+    string headerText = @Model.Status switch
+    {
+        "Pending" => "Đang đợi",
+        "Confirmed" => "Xác nhận",
+        "Completed" => "Đã hoàn tất",
+        "Cancelled" => "Đã hủy",
+        _ => "Không rõ"
+    };
+
+    string headerIcon = Model.Status switch
+    {
+        "Pending" => "<i class='bi bi-calendar'></i>",
+        "Confirmed" => "<i class='bi bi-calendar-check'></i>",
+        "Completed" => "<i class= 'bi bi-calendar-heart'></i>",
+        "Cancelled" => "<i class='bi bi-calendar-x'></i>",
+        _ => "<i class='bi bi-hourglass'></i>"
+    };
+
+    bool canEditLink = Model.Status == "Pending" || (Model.Status == "Confirmed" && DateTime.Today < Model.AppointmentTime.Date);
+    bool isEditable = Model.Status == "Pending";
+}
+
+<div class="card shadow mb-4" style="border-radius: 8px">
+    <div class="card-header d-flex justify-content-between align-items-center"
+            style="background-color: @headerColor; border-radius: 8px 8px 0 0;">
+        @if(Model.Status == "Cancelled")
+        {
+            <strong style="font-size:20px;color:gray">@Html.Raw(headerIcon) - @headerText</strong>
+        }
+        else
+        {
+            <strong style="font-size:20px">@Html.Raw(headerIcon) - @headerText</strong>
+        }
+        <span>@Model.AppointmentTime.ToString("dd/MM/yyyy")</span>
+    </div>
+
+    <div class="card-body" style="border: none">
+        <div class="row mb-3 d-flex justify-content-evenly">
+            <div class="col-md-3">
+                <p><strong>Tên khách hàng:</strong> @Model.User?.FullName</p>
+                <p><strong>Số điện thoại:</strong> @Model.User?.Phone</p>
+                <p><strong>Email:</strong> @Model.User?.Email</p>
+            </div>
+            <div class="col-md-3">
+                <p><strong>Tên tư vấn viên:</strong> @Model.Consultant?.FullName</p>
+                <p><strong>Số điện thoại:</strong> @Model.Consultant?.Phone</p>
+                <p><strong>Email:</strong> @Model.Consultant?.Email</p>
+            </div>
+
+            <div class="col-md-4">
+                <p><strong>Thời gian:</strong> @Model.AppointmentTime.ToString("HH:mm dd/MM/yyyy")</p>
+
+                <div class="form-group mb-3">
+                    <label><strong>Link meeting:</strong></label>
+                    @if (canEditLink)
+                    {
+                        <form method="post" asp-page="/Consultations/Index" asp-page-handler="UpdateLink">
+                            <input type="hidden" name="ConsultationId" value="@Model.ConsultationId" />
+                            <div class="d-flex align-items-center gap-2 input-group">
+                                <input 
+                                    type="text" 
+                                    id="MeetingLink_@Model.ConsultationId"
+                                    class="form-control" 
+                                    name="MeetingLink" 
+                                    value="@Model.MeetingLink"
+                                    readonly
+                                    required />
+
+                                <button style="border:none;background-color:@headerColor;color:black"
+                                    type="button" 
+                                        class="btn btn-light btn-card"
+                                    onclick="showButton(@Model.ConsultationId)">
+                                    <i class="bi bi-vector-pen" style="text-align:center"></i>
+                                </button>
+                            </div>
+
+                            <div class="d-grid mt-2">
+                                <button type="submit"
+                                        id="updateBtn_@Model.ConsultationId"
+                                        style="border:none;background-color:@headerColor;display:none"
+                                        class="btn btn-card">
+                                    @(isEditable ? "Cập nhật & xác nhận" : "Cập nhật link họp")
+                                </button>
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        <span>@Model.MeetingLink</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

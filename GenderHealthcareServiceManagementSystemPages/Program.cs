@@ -29,6 +29,7 @@ builder.Services.AddScoped<ConsultantInfoDAO>();
 builder.Services.AddScoped<ConsultationDAO>();
 builder.Services.AddScoped<QuestionDAO>();
 builder.Services.AddScoped<BlogDAO>();
+builder.Services.AddScoped<ReminderDAO>();
 
 // Register Repositories
 builder.Services.AddScoped<ITestRepository, TestRepository>();
@@ -40,6 +41,8 @@ builder.Services.AddScoped<IClinicRepository, ClinicRepository>();
 builder.Services.AddScoped<IMenstrualCycleRepository, MenstrualCycleRepository>();
 builder.Services.AddScoped<IConsultantInfoRepository, ConsultantInfoRepository>();
 builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
+builder.Services.AddScoped<IReminderRepository, ReminderRepository>();
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 
@@ -54,6 +57,8 @@ builder.Services.AddScoped<IClinicService, ClinicService>();
 builder.Services.AddScoped<IMenstrualCycleService, MenstrualCycleService>();
 builder.Services.AddScoped<IConsultantInfoService, ConsultantInfoService>();
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
+builder.Services.AddScoped<IReminderService, ReminderService>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IBlogService, BlogService>();
 

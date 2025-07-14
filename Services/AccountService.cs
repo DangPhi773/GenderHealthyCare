@@ -4,7 +4,7 @@ using Services.Interfaces;
 using System;
 using System.Threading.Tasks;
 
-namespace Services.Services
+namespace Services
 {
     public class AccountService : IAccountService
     {

@@ -1,0 +1,255 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.BookingConsultantModel
+@{
+    ViewData["Title"] = "Đặt lịch tư vấn - Gender Healthcare";
+}
+
+<!-- Error Modal -->
+@if (!ViewData.ModelState.IsValid)
+{
+    <div id="errorModal" class="error-modal" style="display:block;">
+        <div class="error-modal-content">
+            <div class="error-modal-header">
+                <div class="error-icon">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                </div>
+                <h3 class="error-title">Có lỗi xảy ra</h3>
+                <button class="error-close" onclick="closeErrorModal()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="error-modal-body">
+                <p class="error-description">Vui lòng kiểm tra lại thông tin và thử lại.</p>
+                <ul class="error-list">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <li class="error-item">
+                            <i class="bi bi-dot"></i>
+                            @error.ErrorMessage
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="error-modal-footer">
+                <button class="error-btn" onclick="closeErrorModal()">Đã hiểu</button>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Main Content -->
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="modern-card">
+        <!-- Header -->
+        <div class="modern-card-header">
+            <h1 class="modern-title">Đặt lịch tư vấn</h1>
+            <p class="modern-subtitle">Chọn chuyên gia tư vấn phù hợp với nhu cầu của bạn</p>
+        </div>
+
+        <form method="post" class="modern-form">
+            <!-- Consultant Selection -->
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-indicator"></div>
+                    <h2 class="section-title">Chọn chuyên gia tư vấn</h2>
+                </div>
+                <div class="consultant-grid">
+                    @foreach (var consultantInf in Model.ConsultantInfos)
+                    {
+                        <div class="consultant-card" onclick="selectConsultant(this, '@consultantInf.ConsultantId')">
+                            <div class="consultant-avatar">
+                                <img src="/ExpertConsultation/Booking/BookingConsultant?handler=ConsultantImage&consultantId=@consultantInf.ConsultantId" 
+                                     alt="@consultantInf.Consultant.FullName" 
+                                     class="consultant-image"
+                                     loading="lazy"
+                                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4MCcgaGVpZ2h0PSc4MCcgdmlld0JveD0nMCAwIDgwIDgwJz4KPGNpcmNsZSBjeD0nNDAnIGN5PSc0MCcgcj0nNDAnIGZpbGw9JyNkMWQ1ZGInLz4KPHRleHQgeD0nNDAnIHk9JzUwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBmaWxsPSd3aGl0ZScgZm9udC1zaXplPSczMCcgZm9udC1mYW1pbHk9J0FyaWFsJz7wn5GowqDigI3ijJXvuI88L3RleHQ+Cjwvc3ZnPg=='" />
+                                <div class="consultant-badge">
+                                    <i class="bi bi-patch-check-fill"></i>
+                                </div>
+                            </div>
+                            <div class="consultant-info">
+                                <h3 class="consultant-name">@consultantInf.Consultant.FullName</h3>
+                                <div class="consultant-details">
+                                    <span class="consultant-gender">
+                                        <i class="bi @(consultantInf.Consultant.Gender?.ToLower() == "female" ? "bi-gender-female" : "bi-gender-male")"></i>
+                                        @Model.GetGenderDisplayText(consultantInf.Consultant.Gender)
+                                    </span>
+                                    <span class="consultant-specialty">@consultantInf.Specialization</span>
+                                </div>
+                                <p class="consultant-experience">
+                                    <i class="bi bi-award-fill"></i>
+                                    @consultantInf.ExperienceYears năm kinh nghiệm
+                                </p>
+                            </div>
+                            <div class="selection-indicator">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <input type="hidden" name="SelectedConsultant" id="selectedConsultant" />
+            </div>
+
+            <!-- Date and Time Selection -->
+            <div class="form-row">
+                <!-- Date Selection -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-indicator"></div>
+                        <h3 class="section-title">Ngày hẹn</h3>
+                    </div>
+                    <div class="input-group">
+                        <i class="bi bi-calendar3 input-icon"></i>
+                        <input type="date" id="appointmentDate" name="AppointmentDate" class="modern-input" required />
+                    </div>
+                </div>
+
+                <!-- Time Selection -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-indicator"></div>
+                        <h3 class="section-title">Giờ hẹn</h3>
+                    </div>
+                    <!-- Morning Slots -->
+                    <div class="time-period">
+                        <h4 class="period-title">
+                            <i class="bi bi-sun-fill"></i>
+                            Buổi sáng
+                        </h4>
+                        <div class="time-slots">
+                            <div class="time-slot" onclick="selectTimeSlot(this, '09:00')">09:00</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this, '10:00')">10:00</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this, '11:00')">11:00</div>
+                        </div>
+                    </div>
+                    <!-- Afternoon Slots -->
+                    <div class="time-period">
+                        <h4 class="period-title">
+                            <i class="bi bi-sun"></i>
+                            Buổi chiều
+                        </h4>
+                        <div class="time-slots">
+                            <div class="time-slot" onclick="selectTimeSlot(this, '14:00')">14:00</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this, '15:00')">15:00</div>
+                            <div class="time-slot" onclick="selectTimeSlot(this, '16:00')">16:00</div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="AppointmentTime" id="selectedTime" />
+                </div>
+            </div>
+
+            <!-- Personal Information -->
+            <div class="form-section">
+                <div class="input-group">
+                    <i class="bi bi-chat-square-text-fill input-icon"></i>
+                    <textarea name="Notes" class="modern-textarea" placeholder="Ghi chú (Mô tả chi tiết về tình trạng hoặc câu hỏi bạn muốn tư vấn...)" rows="4"></textarea>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <span class="btn-content">
+                    <i class="bi bi-calendar-check-fill"></i>
+                    Đặt lịch hẹn
+                </span>
+                <span class="btn-loading" style="display: none;">
+                    <div class="spinner"></div>
+                    Đang xử lý...
+                </span>
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Close error modal
+    function closeErrorModal() {
+        const modal = document.getElementById("errorModal");
+        if (modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Select consultant
+    function selectConsultant(element, consultantId) {
+        document.querySelectorAll('.consultant-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+        element.classList.add('selected');
+        document.getElementById('selectedConsultant').value = consultantId;
+    }
+
+    // Select time slot
+    function selectTimeSlot(element, time) {
+        if (element.classList.contains('disabled') || element.getAttribute('data-available') === 'false') {
+            return;
+        }
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            slot.classList.remove('selected');
+        });
+        element.classList.add('selected');
+        document.getElementById('selectedTime').value = time;
+    }
+
+    // Set minimum date to today
+    document.getElementById('appointmentDate').min = new Date().toISOString().split('T')[0];
+
+    // Handle date change for availability
+    document.getElementById('appointmentDate').addEventListener('change', function () {
+        const date = encodeURIComponent(this.value);
+        if (!date) return;
+
+        fetch(`/ExpertConsultation/Booking/BookingConsultant?handler=UnavailableSlots&date=${date}`)
+            .then(res => res.json())
+            .then(disabledSlots => {
+                document.querySelectorAll('.time-slot').forEach(slot => {
+                    const time = slot.textContent.trim();
+                    if (disabledSlots.includes(time)) {
+                        slot.classList.add('disabled');
+                        slot.setAttribute('data-available', 'false');
+                    } else {
+                        slot.classList.remove('disabled');
+                        slot.setAttribute('data-available', 'true');
+                    }
+                });
+            })
+            .catch(err => console.error('Error fetching availability:', err));
+    });
+
+    // Form validation
+    document.querySelector('form').addEventListener('submit', function (e) {
+        const consultant = document.getElementById('selectedConsultant').value;
+        const time = document.getElementById('selectedTime').value;
+        const submitBtn = document.getElementById('submitBtn');
+
+        if (!consultant) {
+            alert('Vui lòng chọn chuyên gia tư vấn');
+            e.preventDefault();
+            return;
+        }
+
+        if (!time) {
+            alert('Vui lòng chọn giờ hẹn');
+            e.preventDefault();
+            return;
+        }
+
+        // Show loading state
+        const btnContent = submitBtn.querySelector('.btn-content');
+        const btnLoading = submitBtn.querySelector('.btn-loading');
+        btnContent.style.display = 'none';
+        btnLoading.style.display = 'flex';
+        submitBtn.disabled = true;
+    });
+
+    // Auto-hide error modal after 10 seconds
+    if (document.getElementById('errorModal')) {
+        setTimeout(() => {
+            closeErrorModal();
+        }, 10000);
+    }
+</script>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/BookingConsultant.css?v=20250712" />
+}

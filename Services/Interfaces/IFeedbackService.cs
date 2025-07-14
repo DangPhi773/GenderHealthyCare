@@ -1,9 +1,10 @@
-﻿using System;
+﻿using BusinessObjects.Models;
+using BusinessObjects.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BusinessObjects.Models;
 
 namespace Services.Interfaces
 {
@@ -13,6 +14,7 @@ namespace Services.Interfaces
         Task<Feedback?> GetFeedbackById(int id);
         Task AddFeedback(Feedback feedback);
         Task UpdateFeedback(Feedback feedback);
-        Task DeleteFeedback(int id);
+        Task<(FeedbackStats, List<FeedbackDisplay>)> GetFeedbacksById(int id, string task);
+        Task<bool> DeleteFeedback(int id);
     }
 }
