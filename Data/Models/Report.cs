@@ -15,5 +15,7 @@ public partial class Report
 
     public DateTime? CreatedAt { get; set; }
 
+    public bool? IsDeleted { get; set; }
+
     public virtual User? GeneratedByNavigation { get; set; }
 }

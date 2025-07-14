@@ -68,6 +68,7 @@ public partial class GenderHealthcareContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
                 .HasColumnName("title");
@@ -97,6 +98,7 @@ public partial class GenderHealthcareContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
@@ -119,6 +121,7 @@ public partial class GenderHealthcareContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.ExperienceYears).HasColumnName("experience_years");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.ProfileImage).HasColumnName("profile_image");
             entity.Property(e => e.Qualifications).HasColumnName("qualifications");
             entity.Property(e => e.Specialization)
@@ -144,6 +147,7 @@ public partial class GenderHealthcareContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.MeetingLink)
                 .HasMaxLength(255)
                 .HasColumnName("meeting_link");
@@ -178,6 +182,7 @@ public partial class GenderHealthcareContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.FeedbackText).HasColumnName("feedback_text");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.Rating).HasColumnName("rating");
             entity.Property(e => e.ServiceId).HasColumnName("service_id");
             entity.Property(e => e.UserId).HasColumnName("user_id");
@@ -208,6 +213,7 @@ public partial class GenderHealthcareContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.EndDate).HasColumnName("end_date");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.Notes).HasColumnName("notes");
             entity.Property(e => e.OvulationDate).HasColumnName("ovulation_date");
             entity.Property(e => e.PillReminderTime).HasColumnName("pill_reminder_time");
@@ -226,11 +232,15 @@ public partial class GenderHealthcareContext : DbContext
 
             entity.Property(e => e.QuestionId).HasColumnName("question_id");
             entity.Property(e => e.AnswerText).HasColumnName("answer_text");
+            entity.Property(e => e.AnsweredAt)
+                .HasColumnType("datetime")
+                .HasColumnName("answered_at");
             entity.Property(e => e.ConsultantId).HasColumnName("consultant_id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.QuestionText).HasColumnName("question_text");
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
@@ -254,6 +264,7 @@ public partial class GenderHealthcareContext : DbContext
 
             entity.Property(e => e.ReminderId).HasColumnName("reminder_id");
             entity.Property(e => e.CycleId).HasColumnName("cycle_id");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.Message).HasColumnName("message");
             entity.Property(e => e.ReminderTime)
                 .HasColumnType("datetime")
@@ -287,6 +298,7 @@ public partial class GenderHealthcareContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.GeneratedBy).HasColumnName("generated_by");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.ReportData).HasColumnName("report_data");
             entity.Property(e => e.ReportType)
                 .HasMaxLength(30)
@@ -307,6 +319,7 @@ public partial class GenderHealthcareContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
@@ -328,6 +341,7 @@ public partial class GenderHealthcareContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.Result).HasColumnName("result");
             entity.Property(e => e.ServiceId).HasColumnName("service_id");
             entity.Property(e => e.Status)
@@ -370,6 +384,7 @@ public partial class GenderHealthcareContext : DbContext
             entity.Property(e => e.Gender)
                 .HasMaxLength(10)
                 .HasColumnName("gender");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.PasswordHash)
                 .HasMaxLength(255)
                 .HasColumnName("password_hash");
@@ -403,6 +418,7 @@ public partial class GenderHealthcareContext : DbContext
             entity.Property(e => e.ActionType)
                 .HasMaxLength(20)
                 .HasColumnName("action_type");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.UserHistories)
