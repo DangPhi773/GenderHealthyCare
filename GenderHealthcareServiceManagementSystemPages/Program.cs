@@ -3,7 +3,6 @@ using DataAccessObjects;
 using GenderHealthcareServiceManagementSystemPages.Hubs;
 using Microsoft.EntityFrameworkCore;
 using Services.Interfaces;
-using Services.Services;
 using Repositories;
 using Repositories.Interfaces;
 using DataAccessObjects;
@@ -43,7 +42,6 @@ builder.Services.AddScoped<IConsultantInfoRepository, ConsultantInfoRepository>(
 builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
 builder.Services.AddScoped<IReminderRepository, ReminderRepository>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
-builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 
 
@@ -58,7 +56,6 @@ builder.Services.AddScoped<IMenstrualCycleService, MenstrualCycleService>();
 builder.Services.AddScoped<IConsultantInfoService, ConsultantInfoService>();
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
 builder.Services.AddScoped<IReminderService, ReminderService>();
-builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IBlogService, BlogService>();
 

@@ -23,12 +23,12 @@ namespace Services
 
         public async Task<List<Question>> GetAllQuestionsAsync() => await _iQuestionRepository.GetAllQuestionsAsync();
         public Task<List<Question>> GetQuestionsByConsultantId(int consultantId)
-            => _repository.GetQuestionsByConsultantId(consultantId);
+            => _iQuestionRepository.GetQuestionsByConsultantId(consultantId);
 
         public Task<Question?> GetQuestionById(int id)
-            => _repository.GetQuestionById(id);
+            => _iQuestionRepository.GetQuestionById(id);
 
         public Task UpdateQuestion(Question question)
-            => _repository.UpdateQuestion(question);
+            => _iQuestionRepository.UpdateQuestion(question);
     }
 }
