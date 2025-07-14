@@ -1,5 +1,5 @@
 ﻿using BusinessObjects.Models;
-using BusinessObjects.Models.Request;
+using BusinessObjects.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
