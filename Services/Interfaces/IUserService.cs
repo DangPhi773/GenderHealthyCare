@@ -10,5 +10,6 @@ namespace Services.Interfaces
     public interface IUserService
     {
         Task<User?> GetUserById(int id);
+        Task<List<User>> GetUsersAsync();
     }
 }

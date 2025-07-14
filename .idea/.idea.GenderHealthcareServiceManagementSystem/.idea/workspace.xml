@@ -9,17 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/Manage.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/Manage.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/ScheduleTests.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/ScheduleTests.cshtml.cs" afterDir="false" />
+    <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="staffTestSchedule_funcs">
+      <change afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Admin/ManageUser.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Admin/ManageUser.cshtml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccessObjects/TestDAO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccessObjects/TestDAO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repo/Interfaces/ITestRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repo/Interfaces/ITestRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repo/TestRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repo/TestRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Interfaces/ITestService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Interfaces/ITestService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/TestService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/TestService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccessObjects/UserDAO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccessObjects/UserDAO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repo/Interfaces/IUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repo/Interfaces/IUserRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repo/UserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repo/UserRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Interfaces/IUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Interfaces/IUserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Services.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Services.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/UserService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,13 +49,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/.idea/config/applicationhost.config" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/appsettings.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/appsettings.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/appsettings.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/appsettings.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/appsettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3eab2556a6e1dddc71dd7dd41efa5153ec50a4b7394940f26c808fcbb5dec9d/PageModel.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -150,7 +143,7 @@
       <workItem from="1752409980619" duration="860000" />
       <workItem from="1752479694227" duration="6151000" />
       <workItem from="1752489510321" duration="3969000" />
-      <workItem from="1752495865949" duration="1343000" />
+      <workItem from="1752495865949" duration="4839000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <option name="closed" value="true" />
@@ -192,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752410177025</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="staffTestSchedule_funcs">
+      <option name="closed" value="true" />
+      <created>1752497892571</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1752497892571</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,6 +201,17 @@
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="gitignore" />
@@ -207,6 +219,7 @@
     <MESSAGE value="fix config appsetting" />
     <MESSAGE value="commit from workspace file" />
     <MESSAGE value="merge from dev" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge from dev" />
+    <MESSAGE value="staffTestSchedule_funcs" />
+    <option name="LAST_COMMIT_MESSAGE" value="staffTestSchedule_funcs" />
   </component>
 </project>

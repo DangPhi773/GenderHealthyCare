@@ -19,6 +19,10 @@ namespace Services
         }
 
         public Task<User?> GetUserById(int id) => _repo.GetUserById(id);
+        public async Task<List<User>> GetUsersAsync()
+        {
+            return await _repo.GetUsersAsync();
+        }
     }
 }
 

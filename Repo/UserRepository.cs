@@ -19,5 +19,10 @@ namespace Repositories
         }
 
         public Task<User?> GetUserById(int id) => _dao.GetUserById(id);
+        
+        public async Task<List<User>> GetUsersAsync()
+        {
+            return await _dao.GetUsersAsync();
+        }
     }
 }
