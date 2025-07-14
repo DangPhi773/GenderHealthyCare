@@ -20,4 +20,6 @@ public partial class Clinic
     public DateTime? CreatedAt { get; set; }
 
     public bool? IsDeleted { get; set; }
+
+    public byte[]? Image { get; set; }
 }

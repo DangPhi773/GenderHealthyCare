@@ -98,6 +98,7 @@ public partial class GenderHealthcareContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");
+            entity.Property(e => e.Image).HasColumnName("image");
             entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
@@ -177,6 +178,7 @@ public partial class GenderHealthcareContext : DbContext
 
             entity.Property(e => e.FeedbackId).HasColumnName("feedback_id");
             entity.Property(e => e.ConsultantId).HasColumnName("consultant_id");
+            entity.Property(e => e.ConsultationId).HasColumnName("consultation_id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
@@ -185,15 +187,24 @@ public partial class GenderHealthcareContext : DbContext
             entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.Rating).HasColumnName("rating");
             entity.Property(e => e.ServiceId).HasColumnName("service_id");
+            entity.Property(e => e.TestId).HasColumnName("test_id");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.Consultant).WithMany(p => p.FeedbackConsultants)
                 .HasForeignKey(d => d.ConsultantId)
                 .HasConstraintName("FK__Feedback__consul__6EF57B66");
 
+            entity.HasOne(d => d.Consultation).WithMany(p => p.Feedbacks)
+                .HasForeignKey(d => d.ConsultationId)
+                .HasConstraintName("FK_Feedback_Consultation");
+
             entity.HasOne(d => d.Service).WithMany(p => p.Feedbacks)
                 .HasForeignKey(d => d.ServiceId)
                 .HasConstraintName("FK__Feedback__servic__6FE99F9F");
+
+            entity.HasOne(d => d.Test).WithMany(p => p.Feedbacks)
+                .HasForeignKey(d => d.TestId)
+                .HasConstraintName("FK_Feedback_Test");
 
             entity.HasOne(d => d.User).WithMany(p => p.FeedbackUsers)
                 .HasForeignKey(d => d.UserId)

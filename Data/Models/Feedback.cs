@@ -21,9 +21,17 @@ public partial class Feedback
 
     public bool? IsDeleted { get; set; }
 
+    public int? TestId { get; set; }
+
+    public int? ConsultationId { get; set; }
+
     public virtual User? Consultant { get; set; }
 
+    public virtual Consultation? Consultation { get; set; }
+
     public virtual Service? Service { get; set; }
+
+    public virtual Test? Test { get; set; }
 
     public virtual User User { get; set; } = null!;
 }
