@@ -23,7 +23,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ConsultantQuestion
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            Question = await _questionService.GetQuestionById(id);
+            Question = await _questionService.GetQuestionByIdAsync(id);
             if (Question == null) return NotFound();
 
             Question.User = await _userService.GetUserById(Question.UserId);
@@ -36,17 +36,17 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ConsultantQuestion
             if (string.IsNullOrWhiteSpace(AnswerText))
             {
                 ModelState.AddModelError(string.Empty, "Vui lòng nhập nội dung trả lời.");
-                Question = await _questionService.GetQuestionById(id);
+                Question = await _questionService.GetQuestionByIdAsync(id);
                 Question.User = await _userService.GetUserById(Question.UserId);
                 return Page();
             }
 
-            var question = await _questionService.GetQuestionById(id);
+            var question = await _questionService.GetQuestionByIdAsync(id);
             if (question == null) return NotFound();
 
             question.AnswerText = AnswerText.Trim();
             question.Status = "Answered";
-            await _questionService.UpdateQuestion(question);
+            await _questionService.UpdateQuestionAsync(question);
 
             TempData["Message"] = "Đã trả lời câu hỏi thành công.";
             return RedirectToPage("QuestionsFromCustomer");

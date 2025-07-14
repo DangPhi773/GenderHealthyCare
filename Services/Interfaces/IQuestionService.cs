@@ -17,8 +17,8 @@ namespace Services.Interfaces
         Task<bool> DeleteQuestionAsync(int questionId);
         Task<List<Question>> GetQuestionsByUserIdAsync(int userId);
         Task<List<Question>> GetQuestionsByConsultantIdAsync(int consultantId);
-        Task<List<Question>> GetQuestionsByConsultantId(int consultantId);
-        Task<Question?> GetQuestionById(int id);
-        Task UpdateQuestion(Question question);
+        //Task<List<Question>> GetQuestionsByConsultantId(int consultantId);
+        //Task<Question?> GetQuestionById(int id);
+        //Task UpdateQuestion(Question question);
     }
 }

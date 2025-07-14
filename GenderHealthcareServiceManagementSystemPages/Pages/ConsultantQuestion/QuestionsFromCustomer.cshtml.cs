@@ -31,7 +31,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ConsultantQuestion
                 return RedirectToPage("/Account/Login");
 
 
-            var questions = await _questionService.GetQuestionsByConsultantId(consultantId);
+            var questions = await _questionService.GetQuestionsByConsultantIdAsync(consultantId);
             foreach (var q in questions)
             {
                 q.User = await _userService.GetUserById(q.UserId);

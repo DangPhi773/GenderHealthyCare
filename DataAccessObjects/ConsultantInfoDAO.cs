@@ -73,19 +73,19 @@ public class ConsultantInfoDAO (GenderHealthcareContext context)
             return false;
         }
     }
-    public async Task<bool> AddConsultantInfoAsync(ConsultantInfo info)
-    {
-        try
-        {
-            await _context.ConsultantInfos.AddAsync(info);
-            await _context.SaveChangesAsync();
-            Console.WriteLine($"[ConsultantInfoDAO][Add] Đã thêm ConsultantInfo cho UserId: {info.ConsultantId}");
-            return true;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"[ConsultantInfoDAO][Add] Lỗi khi thêm: {ex.Message}");
-            return false;
-        }
-    }
+    //public async Task<bool> AddConsultantInfoAsync(ConsultantInfo info)
+    //{
+    //    try
+    //    {
+    //        await _context.ConsultantInfos.AddAsync(info);
+    //        await _context.SaveChangesAsync();
+    //        Console.WriteLine($"[ConsultantInfoDAO][Add] Đã thêm ConsultantInfo cho UserId: {info.ConsultantId}");
+    //        return true;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine($"[ConsultantInfoDAO][Add] Lỗi khi thêm: {ex.Message}");
+    //        return false;
+    //    }
+    //}
 }

@@ -64,13 +64,13 @@ namespace Services
 
         return await _iQuestionRepository.GetQuestionsByConsultantIdAsync(consultantId);
     }
-        public Task<List<Question>> GetQuestionsByConsultantId(int consultantId)
-            => _iQuestionRepository.GetQuestionsByConsultantId(consultantId);
+        //public Task<List<Question>> GetQuestionsByConsultantId(int consultantId)
+        //    => _iQuestionRepository.GetQuestionsByConsultantId(consultantId);
 
-        public Task<Question?> GetQuestionById(int id)
-            => _iQuestionRepository.GetQuestionById(id);
+        //public Task<Question?> GetQuestionById(int id)
+        //    => _iQuestionRepository.GetQuestionById(id);
 
-        public Task UpdateQuestion(Question question)
-            => _iQuestionRepository.UpdateQuestion(question);
+        //public Task UpdateQuestion(Question question)
+        //    => _iQuestionRepository.UpdateQuestion(question);
     }
 }
