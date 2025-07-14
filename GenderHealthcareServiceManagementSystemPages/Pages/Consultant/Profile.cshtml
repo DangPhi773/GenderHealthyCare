@@ -7,45 +7,75 @@
 }
 
 <main class="py-5 px-4 px-md-5" style="background: linear-gradient(to bottom right, #f5f3ff, #fdf2f8, #e0f2fe); min-height: 100vh;">
-    <div class="container px-4 mx-auto" style="max-width: 1000px;">
-        @if (info != null && user != null)
-        {
-            <div class="card border-0 shadow-lg bg-white bg-opacity-80 p-4" style="backdrop-filter: blur(8px);">
-                <div class="row">
-                    <div class="col-md-4 text-center">
-                        <div class="mb-3">
-                            @if (info.ProfileImage != null)
-                            {
-                                var base64 = Convert.ToBase64String(info.ProfileImage);
-                                <img src="data:image/png;base64,@base64" alt="Avatar" class="img-fluid rounded-circle shadow" style="width: 150px; height: 150px; object-fit: cover;" />
-                            }
-                            else
-                            {
-                                <div class="bg-gradient text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
-                                    <i class="bi bi-person fs-1"></i>
-                                </div>
-                            }
+    <div class="container px-4 mx-auto" style="max-width: 1200px;">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-5">
+                <div class="inline-flex items-center px-4 py-2 bg-purple-100 rounded-pill mb-3">
+                    <i class="bi bi-chat-square-text fs-4 me-2 text-purple-600"></i>
+                    <span class="fs-4 fw-bold gradient-text">Thông tin Tư vấn viên</span>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-900">Hồ sơ cá nhân</h1>
+            </div>
+
+            @if (info != null && user != null)
+            {
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <!-- Avatar + Basic Info -->
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-lg bg-white bg-opacity-80 p-4 text-center" style="backdrop-filter: blur(8px);">
+                            <div class="mb-3">
+                                @if (info.ProfileImage != null)
+                                {
+                                    var base64 = Convert.ToBase64String(info.ProfileImage);
+                                    <img src="data:image/png;base64,@base64" alt="Avatar" class="img-fluid rounded-circle shadow" style="width: 140px; height: 140px; object-fit: cover;" />
+                                }
+                                else
+                                {
+                                    <div class="bg-gradient text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 140px; height: 140px;">
+                                        <i class="bi bi-person fs-1"></i>
+                                    </div>
+                                }
+                            </div>
+                            <h5 class="fw-bold">@user.FullName</h5>
+                            <p class="text-muted mb-1"><i class="bi bi-envelope me-1"></i> @user.Email</p>
+                            <p class="text-muted mb-3"><i class="bi bi-telephone me-1"></i> @user.Phone</p>
+
+                            <!-- Logout -->
+                            <form method="post" asp-page-handler="Logout">
+                                <button type="submit" class="btn btn-outline-danger w-100">
+                                    <i class="bi bi-box-arrow-right me-1"></i> Đăng xuất
+                                </button>
+                            </form>
                         </div>
-                        <h5 class="fw-bold">@user.FullName</h5>
-                        <p class="text-muted mb-1"><i class="bi bi-envelope me-1"></i> @user.Email</p>
-                        <p class="text-muted"><i class="bi bi-telephone me-1"></i> @user.Phone</p>
                     </div>
+
+                    <!-- Consultant Details -->
                     <div class="col-md-8">
-                        <h4 class="mb-3">Thông tin chuyên môn</h4>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Chuyên môn:</strong> @info.Specialization</li>
-                            <li class="list-group-item"><strong>Bằng cấp:</strong> @info.Qualifications</li>
-                            <li class="list-group-item"><strong>Số năm kinh nghiệm:</strong> @info.ExperienceYears năm</li>
-                            <li class="list-group-item"><strong>Ngày tham gia hệ thống:</strong> @info.CreatedAt?.ToString("dd/MM/yyyy HH:mm")</li>
-                            <li class="list-group-item"><strong>Vai trò:</strong> @user.Role</li>
-                        </ul>
+                        <div class="card border-0 shadow-lg bg-white bg-opacity-80" style="backdrop-filter: blur(8px);">
+                            <div class="card-header bg-transparent pb-0">
+                                <h4 class="h6 font-semibold text-dark d-flex align-items-center">
+                                    <i class="bi bi-person-vcard me-2 text-purple-600"></i> Thông tin chuyên môn
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><strong>Chuyên môn:</strong> @info.Specialization</li>
+                                    <li class="list-group-item"><strong>Bằng cấp:</strong> @info.Qualifications</li>
+                                    <li class="list-group-item"><strong>Số năm kinh nghiệm:</strong> @info.ExperienceYears năm</li>
+                                    <li class="list-group-item"><strong>Ngày tham gia:</strong> @info.CreatedAt?.ToString("dd/MM/yyyy HH:mm")</li>
+                                    <li class="list-group-item"><strong>Giới tính:</strong> @user.Gender</li>
+                                    <li class="list-group-item"><strong>Ngày sinh:</strong> @user.Dob?.ToString("dd/MM/yyyy")</li>
+                                    <li class="list-group-item"><strong>Vai trò:</strong> @user.Role</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-        else
-        {
-            <div class="alert alert-danger">Không tìm thấy thông tin tư vấn viên.</div>
-        }
+            }
+            else
+            {
+                <div class="alert alert-danger text-center">Không tìm thấy thông tin tư vấn viên.</div>
+            }
+        </div>
     </div>
 </main>
