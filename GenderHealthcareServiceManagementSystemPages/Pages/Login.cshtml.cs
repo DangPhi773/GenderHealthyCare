@@ -28,20 +28,21 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
 
         public async Task<IActionResult> OnGetAsync(string? returnUrl = null)
         {
-            Console.WriteLine($"[LoginModel][OnGetAsync] Kiểm tra session. UserId hiện tại: {HttpContext.Session.GetString("UserId")}");
-            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")))
+            var userId = HttpContext.Session.GetString("UserId");
+            Console.WriteLine($"[LoginModel][OnGetAsync] Kiểm tra session. UserId hiện tại: {userId}");
+
+            if (!string.IsNullOrEmpty(userId))
             {
-                Console.WriteLine("[LoginModel][OnGetAsync] Người dùng đã đăng nhập, chuyển hướng đến /Index");
-                return RedirectToPage("/Index");
+                Console.WriteLine("[LoginModel][OnGetAsync] Người dùng đã đăng nhập, chuyển hướng theo role...");
+
+                var role = HttpContext.Session.GetString("Role");
+                return RedirectByRole(role);
             }
 
-            // Lưu ReturnUrl vào TempData hoặc ViewData để dùng sau
             ViewData["ReturnUrl"] = returnUrl;
             Console.WriteLine($"[LoginModel][OnGetAsync] ReturnUrl = {returnUrl}");
-
             return Page();
         }
-
 
         public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
         {
@@ -59,25 +60,42 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
             if (user != null)
             {
                 Console.WriteLine($"[LoginModel][OnPostAsync] Đăng nhập thành công cho UserId: {user.UserId}");
+
                 HttpContext.Session.SetString("UserId", user.UserId.ToString());
+                HttpContext.Session.SetString("Role", user.Role ?? "Guest");
 
                 if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 {
                     Console.WriteLine($"[LoginModel][OnPostAsync] Chuyển hướng đến ReturnUrl: {returnUrl}");
                     return Redirect(returnUrl);
                 }
-                if (user.Role == "Admin")
-                {
-                    return RedirectToPage("/Admin/Dashboard");
-                }
 
-                return RedirectToPage("/Index");
+                return RedirectByRole(user.Role);
             }
 
             Console.WriteLine("[LoginModel][OnPostAsync] Đăng nhập thất bại.");
             Message = "Tên đăng nhập hoặc mật khẩu không đúng.";
             ViewData["ReturnUrl"] = returnUrl;
             return Page();
+        }
+
+        private IActionResult RedirectByRole(string? role)
+        {
+            switch (role)
+            {
+                case "Admin":
+                case "Manager":
+                case "Staff":
+                    return RedirectToPage("/Admin/Dashboard");
+
+                case "Consultant":
+                    return RedirectToPage("/Consultations/Index");
+
+                case "Customer":
+                case "Guest":
+                default:
+                    return RedirectToPage("/Index");
+            }
         }
     }
 }
