@@ -4,7 +4,7 @@
     ViewData["Title"] = "Đặt lịch tư vấn - Gender Healthcare";
 }
 
-<!-- Error Modal -->  7
+<!-- Error Modal -->
 @if (!ViewData.ModelState.IsValid)
 {
     <div id="errorModal" class="error-modal" style="display:block;">
@@ -53,18 +53,37 @@
                     <div class="section-indicator"></div>
                     <h2 class="section-title">Chọn chuyên gia tư vấn</h2>
                 </div>
-
                 <div class="consultant-grid">
                     @foreach (var consultantInf in Model.ConsultantInfos)
                     {
                         <div class="consultant-card" onclick="selectConsultant(this, '@consultantInf.ConsultantId')">
                             <div class="consultant-avatar">
-                                @(consultantInf.Consultant.Gender == "Female" ? "👩‍⚕️" : "👨‍⚕️")
+                                <img src="/ExpertConsultation/Booking/BookingConsultant?handler=ConsultantImage&consultantId=@consultantInf.ConsultantId" 
+                                     alt="@consultantInf.Consultant.FullName" 
+                                     class="consultant-image"
+                                     loading="lazy"
+                                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4MCcgaGVpZ2h0PSc4MCcgdmlld0JveD0nMCAwIDgwIDgwJz4KPGNpcmNsZSBjeD0nNDAnIGN5PSc0MCcgcj0nNDAnIGZpbGw9JyNkMWQ1ZGInLz4KPHRleHQgeD0nNDAnIHk9JzUwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBmaWxsPSd3aGl0ZScgZm9udC1zaXplPSczMCcgZm9udC1mYW1pbHk9J0FyaWFsJz7wn5GowqDigI3ijJXvuI88L3RleHQ+Cjwvc3ZnPg=='" />
+                                <div class="consultant-badge">
+                                    <i class="bi bi-patch-check-fill"></i>
+                                </div>
                             </div>
-                            <h3 class="consultant-name">@consultantInf.Consultant.FullName</h3>
-                            <p class="consultant-specialty">@consultantInf.Specialization</p>
-                            <p class="consultant-experience">@consultantInf.ExperienceYears năm kinh nghiệm</p>
-                            <div class="selection-indicator"></div>
+                            <div class="consultant-info">
+                                <h3 class="consultant-name">@consultantInf.Consultant.FullName</h3>
+                                <div class="consultant-details">
+                                    <span class="consultant-gender">
+                                        <i class="bi @(consultantInf.Consultant.Gender?.ToLower() == "female" ? "bi-gender-female" : "bi-gender-male")"></i>
+                                        @Model.GetGenderDisplayText(consultantInf.Consultant.Gender)
+                                    </span>
+                                    <span class="consultant-specialty">@consultantInf.Specialization</span>
+                                </div>
+                                <p class="consultant-experience">
+                                    <i class="bi bi-award-fill"></i>
+                                    @consultantInf.ExperienceYears năm kinh nghiệm
+                                </p>
+                            </div>
+                            <div class="selection-indicator">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </div>
                         </div>
                     }
                 </div>
@@ -91,7 +110,6 @@
                         <div class="section-indicator"></div>
                         <h3 class="section-title">Giờ hẹn</h3>
                     </div>
-
                     <!-- Morning Slots -->
                     <div class="time-period">
                         <h4 class="period-title">
@@ -104,7 +122,6 @@
                             <div class="time-slot" onclick="selectTimeSlot(this, '11:00')">11:00</div>
                         </div>
                     </div>
-
                     <!-- Afternoon Slots -->
                     <div class="time-period">
                         <h4 class="period-title">
@@ -117,7 +134,6 @@
                             <div class="time-slot" onclick="selectTimeSlot(this, '16:00')">16:00</div>
                         </div>
                     </div>
-
                     <input type="hidden" name="AppointmentTime" id="selectedTime" />
                 </div>
             </div>
@@ -168,7 +184,6 @@
         if (element.classList.contains('disabled') || element.getAttribute('data-available') === 'false') {
             return;
         }
-
         document.querySelectorAll('.time-slot').forEach(slot => {
             slot.classList.remove('selected');
         });
@@ -184,7 +199,7 @@
         const date = encodeURIComponent(this.value);
         if (!date) return;
 
-        fetch(`/Booking/BookingConsultant?handler=UnavailableSlots&date=${date}`)
+        fetch(`/ExpertConsultation/Booking/BookingConsultant?handler=UnavailableSlots&date=${date}`)
             .then(res => res.json())
             .then(disabledSlots => {
                 document.querySelectorAll('.time-slot').forEach(slot => {
@@ -222,7 +237,6 @@
         // Show loading state
         const btnContent = submitBtn.querySelector('.btn-content');
         const btnLoading = submitBtn.querySelector('.btn-loading');
-
         btnContent.style.display = 'none';
         btnLoading.style.display = 'flex';
         submitBtn.disabled = true;
@@ -235,6 +249,7 @@
         }, 10000);
     }
 </script>
+
 @section Styles {
-    <link rel="stylesheet" href="~/css/BookingConsultant.css" />
+    <link rel="stylesheet" href="~/css/BookingConsultant.css?v=20250712" />
 }

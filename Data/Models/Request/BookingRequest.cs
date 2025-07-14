@@ -31,6 +31,6 @@ public class BookingRequest
     //[EmailAddress(ErrorMessage = "Email không hợp lệ")]
     //public string Email { get; set; } = string.Empty;
 
-    //[StringLength(500, ErrorMessage = "Ghi chú không được vượt quá 500 ký tự")]
-    //public string? Notes { get; set; }
+    [StringLength(500, ErrorMessage = "Ghi chú không được vượt quá 500 ký tự")]
+    public string? Notes { get; set; }
 }

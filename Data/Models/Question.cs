@@ -17,7 +17,7 @@ public partial class Question
 
     public string? Status { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     public virtual User? Consultant { get; set; }
 

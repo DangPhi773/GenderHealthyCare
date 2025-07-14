@@ -22,7 +22,7 @@
                         <h2 class="h4 fw-bold gradient-text mt-3">Đăng nhập</h2>
                         <p class="text-muted small">Chào mừng bạn quay lại với Gender Healthcare!</p>
                     </div>
-                    <form method="post" class="needs-validation" novalidate>
+                    <form method="post" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="needs-validation" novalidate>
                         <div class="form-group mb-3">
                             <label asp-for="Username" class="form-label">Tên đăng nhập</label>
                             <input asp-for="Username" class="form-control" placeholder="Nhập tên đăng nhập" required />
