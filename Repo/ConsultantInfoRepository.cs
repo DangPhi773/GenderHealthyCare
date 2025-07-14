@@ -28,10 +28,15 @@ public class ConsultantInfoRepository(ConsultantInfoDAO dao) : IConsultantInfoRe
 
     public Task<bool> DeleteConsultantInfoAsync(int consultantId) =>
         _dao.DeleteConsultantInfoAsync(consultantId);
-    public async Task<bool> AddConsultantInfoAsync(ConsultantInfo consultantInfo)
+    //public async Task<bool> AddConsultantInfoAsync(ConsultantInfo consultantInfo)
+    //{
+    //    return await _dao.AddConsultantInfoAsync(consultantInfo);
+    //}
+
+
+    public async Task<bool> AddConsultantInfoAsync(ConsultantInfo info)
     {
-        return await _dao.AddConsultantInfoAsync(consultantInfo);
+        var result = await _dao.CreateConsultantInfoAsync(info);
+        return result;
     }
-
-
 }

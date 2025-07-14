@@ -66,7 +66,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.AdminManageConsulta
                 // Nếu chưa có ConsultantInfo → tạo mới
                 ConsultantInfo.ConsultantId = id;
                 ConsultantInfo.CreatedAt = DateTime.Now;
-                await _consultantInfoService.AddConsultantInfoAsync(ConsultantInfo);
+                await _consultantInfoService.CreateConsultantInfoAsync(ConsultantInfo);
             }
             else
             {

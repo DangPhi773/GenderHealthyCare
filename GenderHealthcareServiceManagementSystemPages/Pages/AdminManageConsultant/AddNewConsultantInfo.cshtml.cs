@@ -73,7 +73,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.AdminManageConsulta
                 ConsultantInfo.ProfileImage = ms.ToArray();
             }
 
-            var success = await _consultantInfoService.AddConsultantInfoAsync(ConsultantInfo);
+            var success = await _consultantInfoService.CreateConsultantInfoAsync(ConsultantInfo);
             if (!success)
             {
                 Message = "Không thể thêm thông tin tư vấn viên.";

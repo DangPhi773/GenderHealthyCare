@@ -31,9 +31,19 @@ public class ConsultantInfoService(IConsultantInfoRepository repo) : IConsultant
 
     public Task<bool> DeleteConsultantInfoAsync(int consultantId) =>
         _repo.DeleteConsultantInfoAsync(consultantId);
-    public async Task<bool> AddConsultantInfoAsync(ConsultantInfo consultantInfo)
-    {
-        return await _repo.AddConsultantInfoAsync(consultantInfo);
-    }
+    //public async Task<bool> AddConsultantInfoAsync(ConsultantInfo consultantInfo)
+    //{
+    //    return await _repo.AddConsultantInfoAsync(consultantInfo);
+    //}
 
+    public async Task<bool> CreateConsultantInfoAsync(ConsultantInfo info)
+    {
+        if (info == null)
+        {
+            Console.WriteLine("ConsultantInfoService: ❌ Không thể tạo ConsultantInfo vì thông tin không hợp lệ.");
+            return false;
+        }
+        var result = await _repo.AddConsultantInfoAsync(info);
+        return result;
+    }
 }

@@ -21,6 +21,8 @@ public partial class MenstrualCycle
 
     public DateTime? CreatedAt { get; set; }
 
+    public bool? IsDeleted { get; set; }
+
     public virtual ICollection<Reminder> Reminders { get; set; } = new List<Reminder>();
 
     public virtual User User { get; set; } = null!;
