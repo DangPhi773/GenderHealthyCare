@@ -15,5 +15,8 @@ namespace Repositories.Interfaces
         Task UpdateTest(Test test);
         Task DeleteAsync(int id);
         Task<List<Test>> GetTestsByUserId(int id);
+        Task<List<Test>> GetPendingTests();
+        Task<List<Test>> GetScheduledTests();
+        Task<bool> UpdateTestStatus(int testId, string status, string result = null);
     }
 }

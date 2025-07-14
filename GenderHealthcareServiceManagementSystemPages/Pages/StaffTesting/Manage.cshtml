@@ -1,0 +1,38 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting.Manage
+
+@{
+    ViewData["Title"] = "Manage Test Bookings";
+}
+
+<main class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="card shadow-lg p-4">
+                    <h3 class="text-center">Lịch hẹn đang chờ xác nhận</h3>
+                    @if (Model.PendingTests?.Count == 0)
+                    {
+                        <div class="alert alert-info text-center">Không có lịch hẹn nào đang chờ xử lý.</div>
+                    }
+                    else
+                    {
+                        <form method="post" asp-page-handler="UpdateStatus">
+                            @foreach (var test in Model.PendingTests)
+                            {
+                                <div class="mb-3">
+                                    <h5><strong>Dịch vụ:</strong> @test.Service.Description</h5>
+                                    <p><strong>Thời gian:</strong> @test.AppointmentTime.ToString("dd/MM/yyyy HH:mm")</p>
+                                    <div class="text-end">
+                                        <button name="Status" value="Scheduled" class="btn btn-primary">🗓 Xác nhận</button>
+                                        <button name="Status" value="Cancelled" class="btn btn-outline-danger ms-2">❌ Huỷ</button>
+                                    </div>
+                                </div>
+                            }
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

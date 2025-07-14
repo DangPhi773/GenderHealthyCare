@@ -25,5 +25,13 @@ namespace Repositories
         public Task DeleteAsync(int id) => _dao.DeleteAsync(id);
 
         public Task<List<Test>> GetTestsByUserId(int id) => _dao.GetTestsByUserId(id);
+        public Task<List<Test>> GetPendingTests() => _dao.GetPendingTests();
+        
+        public Task<List<Test>> GetScheduledTests() => _dao.GetScheduledTests();
+        public async Task<bool> UpdateTestStatus(int testId, string status, string result = null)
+        {
+            return await _dao.UpdateTestStatus(testId, status, result);
+        }
+            
     }
 }

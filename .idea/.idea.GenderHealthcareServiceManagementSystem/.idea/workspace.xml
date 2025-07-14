@@ -10,7 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/Manage.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/Manage.cshtml.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/ScheduleTests.cshtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/ScheduleTests.cshtml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccessObjects/TestDAO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccessObjects/TestDAO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repo/Interfaces/ITestRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repo/Interfaces/ITestRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repo/TestRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repo/TestRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Interfaces/ITestService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Interfaces/ITestService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/TestService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/TestService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,12 +50,18 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/DataAccessObjects/GenderHealthcareContext.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/DataAccessObjects/GenderHealthcareContext.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/Pages/Profile.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/appsettings.Development.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/appsettings.Development.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/.idea/config/applicationhost.config" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/appsettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/appsettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/appsettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/appsettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/appsettings.json" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -132,6 +147,10 @@
       <workItem from="1751957159346" duration="113000" />
       <workItem from="1752049779139" duration="2100000" />
       <workItem from="1752052281145" duration="2493000" />
+      <workItem from="1752409980619" duration="860000" />
+      <workItem from="1752479694227" duration="6151000" />
+      <workItem from="1752489510321" duration="3969000" />
+      <workItem from="1752495865949" duration="1343000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <option name="closed" value="true" />
@@ -165,7 +184,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752050205124</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="merge from dev">
+      <option name="closed" value="true" />
+      <created>1752410177025</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1752410177025</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -179,6 +206,7 @@
     <MESSAGE value="merge from develop" />
     <MESSAGE value="fix config appsetting" />
     <MESSAGE value="commit from workspace file" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit from workspace file" />
+    <MESSAGE value="merge from dev" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge from dev" />
   </component>
 </project>
