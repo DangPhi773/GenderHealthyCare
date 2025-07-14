@@ -18,42 +18,41 @@
 </style>
 
 <div class="dashboard-grid">
-    <div class="col-12 d-flex justify-content-between align-items-center mb-2">
-        <h1 class="gradient-text">Tổng quan</h1>
-    </div>
+    <h1 class="gradient-text mb-3" style="width:fit-content;padding:5px">Tổng quan</h1>
 
-    <!-- Metrics -->
+    <!-- Các chỉ số tổng quát -->
     <div class="metric-grid">
         @foreach (var metric in Model.Metrics)
         {
-            <div class="card">
-                <div class="card-header">
-                    <p class="card-title">@metric.Title</p>
-                    <span>@* Replace with icon if needed *@</span>
+            <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                    <p class="dashboard-card-title">@metric.Title</p>
+                    <span>@* Thay thế bằng biểu tượng nếu cần *@</span>
                 </div>
-                <div class="card-value">@metric.Value</div>
-                <p class="card-description">@metric.Description</p>
+                <div class="dashboard-card-value">@metric.Value</div>
+                <p class="dashboard-card-description">@metric.Description</p>
             </div>
         }
     </div>
 
-    <!-- Recent Bookings and Feedback -->
+    <!-- Đặt lịch gần đây và phản hồi -->
     <div class="metric-grid">
-        <!-- Recent Bookings -->
-        <div class="card">
-            <div class="card-header">
-                <h3>Recent Service Bookings</h3>
+
+        <!-- Lịch hẹn dịch vụ gần đây -->
+        <div class="dashboard-card">
+            <div class="dashboard-card-header">
+                <h3>Đặt lịch dịch vụ gần đây</h3>
             </div>
-            <div class="card-description">Latest bookings for various services.</div>
-            <div class="table-container">
+            <div class="dashboard-card-description">Các lượt đặt lịch gần nhất cho các dịch vụ khác nhau.</div>
+            <div class="dashboard-table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>Booking ID</th>
-                            <th>Service</th>
-                            <th>User</th>
-                            <th>Date</th>
-                            <th class="text-right">Status</th>
+                            <th>Mã lịch hẹn</th>
+                            <th>Dịch vụ</th>
+                            <th>Người dùng</th>
+                            <th>Ngày</th>
+                            <th class="text-right">Trạng thái</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,11 +60,10 @@
                         {
                             var statusClass = booking.Status switch
                             {
-                                "Completed" => "badge completed",
-                                "Pending" => "badge pending",
-                                _ => "badge cancelled"
+                                "Completed" => "dashboard-badge completed",
+                                "Pending" => "dashboard-badge pending",
+                                _ => "dashboard-badge cancelled"
                             };
-
                             <tr>
                                 <td>@booking.Id</td>
                                 <td>@booking.Service</td>
@@ -81,20 +79,20 @@
             </div>
         </div>
 
-        <!-- Latest Feedback -->
-        <div class="card">
-            <div class="card-header">
-                <h3>Latest User Feedback</h3>
+        <!-- Phản hồi mới nhất -->
+        <div class="dashboard-card">
+            <div class="dashboard-card-header">
+                <h3>Phản hồi người dùng gần đây</h3>
             </div>
-            <div class="card-description">Recent comments and ratings from users.</div>
-            <div class="table-container">
+            <div class="dashboard-card-description">Các bình luận và đánh giá gần đây từ người dùng.</div>
+            <div class="dashboard-table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>User</th>
-                            <th>Rating</th>
-                            <th>Comment</th>
-                            <th class="text-right">Date</th>
+                            <th>Người dùng</th>
+                            <th>Đánh giá</th>
+                            <th>Bình luận</th>
+                            <th class="text-right">Ngày</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,15 +104,15 @@
                                     <div>
                                         @for (int i = 0; i < feedback.Rating; i++)
                                         {
-                                            <span class="star"></span>
+                                            <span class="dashboard-star"></span>
                                         }
                                         @for (int i = feedback.Rating; i < 5; i++)
                                         {
-                                            <span class="star gray"></span>
+                                            <span class="dashboard-star gray"></span>
                                         }
                                     </div>
                                 </td>
-                                <td class="truncate">@feedback.Comment</td>
+                                <td class="dashboard-truncate">@feedback.Comment</td>
                                 <td class="text-right">@feedback.Date</td>
                             </tr>
                         }
@@ -126,5 +124,6 @@
 </div>
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/Dashboard.css" />
+    <link rel="stylesheet" href="~/css/Dashboard.css?v=20250714" />
 }
+

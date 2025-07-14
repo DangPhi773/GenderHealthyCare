@@ -15,5 +15,7 @@ public partial class UserHistory
 
     public DateTime? ActionDate { get; set; }
 
+    public bool? IsDeleted { get; set; }
+
     public virtual User User { get; set; } = null!;
 }

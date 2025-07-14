@@ -23,4 +23,19 @@ public class ConsultantInfoDAO (GenderHealthcareContext context)
         Console.WriteLine($"ConsultantInfoDAO: GetConsultantInfoByIdAsync({consultantId}) => {found?.Consultant?.FullName ?? "null"}");
         return found;
     }
+    public async Task<bool> CreateConsultantInfoAsync(ConsultantInfo info)
+    {
+        try
+        {
+            await _context.ConsultantInfos.AddAsync(info);
+            await _context.SaveChangesAsync();
+            Console.WriteLine($"ConsultantInfoDAO: Đã tạo ConsultantInfo cho ConsultantId = {info.ConsultantId}");
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ConsultantInfoDAO: ❌ Lỗi khi tạo ConsultantInfo: {ex.Message}");
+            return false;
+        }
+    }
 }

@@ -17,5 +17,7 @@ public partial class Blog
 
     public DateTime? UpdatedAt { get; set; }
 
+    public bool? IsDeleted { get; set; }
+
     public virtual User? Author { get; set; }
 }

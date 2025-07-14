@@ -10,4 +10,5 @@ public interface IConsultantInfoRepository
 {
     Task<List<ConsultantInfo>> GetAllConsultantInfosAsync();
     Task<ConsultantInfo?> GetConsultantInfoByIdAsync(int consultantId);
+    Task<bool> AddConsultantInfoAsync(ConsultantInfo consultantInfo);
 }

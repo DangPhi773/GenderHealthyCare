@@ -4,56 +4,62 @@
     ViewData["Title"] = "Reports";
 }
 
+<style>
+    body {
+        background: linear-gradient(to bottom right, #f9f3ff, #ffeaf7, #ebf0ff);
+    }
+
+    .gradient-text {
+        background: linear-gradient(to right, #9333ea, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+    }
+</style>
+
 <div class="container">
-    <div class="col-12 d-flex justify-content-between align-items-center mb-2">
-        <h1 class="gradient-text">Báo cáo</h1>
+    <div class="col-12 d-flex flex-column mb-3">
+        <h1 class="gradient-text" style="width:fit-content;padding:5px">@ViewData["Title"]</h1>
+        <p>Chào mừng bạn đến với mục báo cáo. Tại đây bạn có thể tạo và tải xuống các báo cáo khác nhau.</p>
     </div>
-    <div class="card">
-        <div class="card-header">
-            <h3>Available Reports</h3>
-            <p class="description">View and download various reports for your healthcare system.</p>
+
+    <div class="report-card">
+        <div class="report-card-header">
+            <h3>Danh sách báo cáo</h3>
+            <p class="description">Xem và tải về các báo cáo của hệ thống chăm sóc sức khỏe.</p>
         </div>
-        <div class="card-content">
+        <div class="report-card-content">
             <table class="report-table">
                 <thead>
                     <tr>
-                        <th>Report ID</th>
-                        <th>Report Name</th>
-                        <th>Type</th>
-                        <th>Date Generated</th>
-                        <th class="text-right">Actions</th>
+                        <th>Tên báo cáo</th>
+                        <th>Mô tả</th>
+                        <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var report in Model.Reports)
-                    {
-                        <tr>
-                            <td>@report.Id</td>
-                            <td>@report.Name</td>
-                            <td>@report.Type</td>
-                            <td>@report.Date</td>
-                            <td class="text-right">
-                                @if (report.Status == "Generated")
-                                {
-                                    <a href="@report.FileUrl" class="btn-download">
-                                        <i class="bi bi-download"></i> Download
-                                    </a>
-                                }
-                                else
-                                {
-                                    <button class="btn-disabled" disabled>
-                                        <i class="bi bi-download"></i> Pending
-                                    </button>
-                                }
-                            </td>
-                        </tr>
-                    }
+                    <tr>
+                        <td>Báo cáo tổng quan bệnh nhân</td>
+                        <td>Tổng hợp thông tin tất cả bệnh nhân trong hệ thống.</td>
+                        <td><a href="#" class="btn btn-primary">Tải về</a></td>
+                    </tr>
+                    <tr>
+                        <td>Báo cáo lịch hẹn</td>
+                        <td>Báo cáo tất cả các cuộc hẹn đã được đặt trong hệ thống.</td>
+                        <td><a href="#" class="btn btn-primary">Tải về</a></td>
+                    </tr>
+                    <tr>
+                        <td>Báo cáo thanh toán</td>
+                        <td>Tổng hợp tất cả các giao dịch thanh toán.</td>
+                        <td><a href="#" class="btn btn-primary">Tải về</a></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
+
 @section Styles {
-    <link rel="stylesheet" href="~/css/Report.css" />
+    <link rel="stylesheet" href="~/css/Report.css?v=20250714" />
 }

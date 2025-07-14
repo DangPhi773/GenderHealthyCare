@@ -19,6 +19,10 @@ public partial class Question
 
     public DateTime CreatedAt { get; set; }
 
+    public bool? IsDeleted { get; set; }
+
+    public DateTime? AnsweredAt { get; set; }
+
     public virtual User? Consultant { get; set; }
 
     public virtual User User { get; set; } = null!;
