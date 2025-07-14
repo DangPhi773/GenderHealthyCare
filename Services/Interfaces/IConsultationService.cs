@@ -12,4 +12,5 @@ public interface IConsultationService
     Task<Consultation> CreateBookingAsync(BookingRequest request, int userId);
     Task<bool> IsSlotTakenAsync(int consultantId, DateTime appointmentTime);
     Task<List<string>> GetUnavailableSlotsAsync(DateTime date);
+    Task<List<Consultation>> GetConsultationsByUserId(int userId);
 }

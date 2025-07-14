@@ -35,4 +35,8 @@ public class ConsultationService(IConsultationRepository repo) : IConsultationSe
     {
         return await _repo.GetUnavailableSlotsAsync(date);
     }
+    public Task<List<Consultation>> GetConsultationsByUserId(int userId)
+    {
+        return _repo.GetConsultationsByUserIdAsync(userId);
+    }
 }

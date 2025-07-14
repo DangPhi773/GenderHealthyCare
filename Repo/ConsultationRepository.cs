@@ -24,4 +24,8 @@ public class ConsultationRepository(ConsultationDAO dao) : IConsultationReposito
     {
         return await _dao.GetUnAvailableSlotsAsync(date);
     }
+    public Task<List<Consultation>> GetConsultationsByUserIdAsync(int userId)
+    {
+        return _dao.GetConsultationsByUserIdAsync(userId);
+    }
 }

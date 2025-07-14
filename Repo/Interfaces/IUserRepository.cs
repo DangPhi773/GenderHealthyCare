@@ -11,5 +11,12 @@ namespace Repositories.Interfaces
     public interface IUserRepository
     {
         Task<User?> GetUserById(int id);
+        Task<List<User>> GetAllUsersAsync();
+        Task<List<User>> GetUsersByRoleAsync(string role);
+        Task<bool> AddUserAsync(User user);
+        Task<bool> UpdateUser(User user);
+        Task<bool> DeleteUserAsync(int userId);
+        Task<int?> AddUserAndReturnIdAsync(User user);
+
     }
 }

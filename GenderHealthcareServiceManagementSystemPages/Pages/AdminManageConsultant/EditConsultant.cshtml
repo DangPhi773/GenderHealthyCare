@@ -1,0 +1,52 @@
+﻿@page "{id:int}"
+@model GenderHealthcareServiceManagementSystemPages.Pages.AdminManageConsultant.EditConsultantModel
+@{
+    ViewData["Title"] = "Chỉnh sửa tư vấn viên";
+}
+
+<main class="py-4">
+    <div class="container">
+        <h2 class="h4 text-primary mb-4">✏️ Chỉnh sửa tư vấn viên</h2>
+
+        <form method="post" asp-route-id="@Model.User.UserId">
+            <input type="hidden" asp-for="User.UserId" />
+            <input type="hidden" asp-for="ConsultantInfo.ConsultantId" />
+
+            <div class="mb-3">
+                <label class="form-label">Họ và tên</label>
+                <input asp-for="User.Username" class="form-control" />
+                <span asp-validation-for="User.Username" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input asp-for="User.Email" class="form-control" />
+                <span asp-validation-for="User.Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Ngày sinh</label>
+                <input asp-for="User.Dob" type="date" class="form-control" />
+                <span asp-validation-for="User.Dob" class="text-danger"></span>
+            </div>
+
+            <hr />
+            <h5>Thông tin chuyên môn</h5>
+
+            <div class="mb-3">
+                <label class="form-label">Chuyên môn</label>
+                <input asp-for="ConsultantInfo.Specialization" class="form-control" />
+                <span asp-validation-for="ConsultantInfo.Specialization" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Số năm kinh nghiệm</label>
+                <input asp-for="ConsultantInfo.ExperienceYears" type="number" min="0" class="form-control" />
+                <span asp-validation-for="ConsultantInfo.ExperienceYears" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success">💾 Lưu chỉnh sửa</button>
+            <a asp-page="ManageConsultant" class="btn btn-secondary ms-2">Quay lại</a>
+        </form>
+    </div>
+</main>

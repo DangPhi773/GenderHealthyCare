@@ -11,4 +11,5 @@ public interface IConsultationRepository
     Task<Consultation> AddAsync(Consultation consultation);
     Task<bool> IsSlotAvailableAsync(int consultantId, DateTime appointmentTime);
     Task<List<string>> GetUnavailableSlotsAsync(DateTime date);
+    Task<List<Consultation>> GetConsultationsByUserIdAsync(int userId);
 }

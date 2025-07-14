@@ -23,4 +23,15 @@ public class ConsultantInfoRepository(ConsultantInfoDAO dao) : IConsultantInfoRe
         var data = await _dao.GetConsultantInfoByIdAsync(consultantId);
         return data;
     }
+    public Task<bool> UpdateConsultantInfoAsync(ConsultantInfo info) =>
+        _dao.UpdateConsultantInfoAsync(info);
+
+    public Task<bool> DeleteConsultantInfoAsync(int consultantId) =>
+        _dao.DeleteConsultantInfoAsync(consultantId);
+    public async Task<bool> AddConsultantInfoAsync(ConsultantInfo consultantInfo)
+    {
+        return await _dao.AddConsultantInfoAsync(consultantInfo);
+    }
+
+
 }

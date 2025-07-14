@@ -29,4 +29,12 @@ public class ConsultationDAO(GenderHealthcareContext context)
             .ToListAsync();
         return slots;
     }
+    public async Task<List<Consultation>> GetConsultationsByUserIdAsync(int userId)
+    {
+        return await _context.Consultations
+            .Include(c => c.Consultant) 
+            .Where(c => c.UserId == userId)
+            .OrderByDescending(c => c.AppointmentTime)
+            .ToListAsync();
+    }
 }

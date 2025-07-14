@@ -1,0 +1,61 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.AdminManageConsultant.ManageConsultantModel
+@{
+    ViewData["Title"] = "Quản lý tư vấn viên";
+}
+
+<main class="py-4">
+    <div class="container">
+        <h2 class="h4 text-primary mb-4">👨‍⚕️ Danh sách tư vấn viên</h2>
+
+        <div class="mb-3 text-end">
+            <a asp-page="AddNewConsultantInfo" class="btn btn-success">➕ Thêm mới tư vấn viên</a>
+        </div>
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-success">@TempData["Message"]</div>
+        }
+
+        @if (Model.Consultants.Any())
+        {
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Họ tên</th>
+                        <th>Email</th>
+                        <th>Ngày sinh</th>
+                        <th>Chuyên môn</th>
+                        <th>Số năm kinh nghiệm</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var c in Model.Consultants)
+                    {
+                        <tr>
+                            <td>@c.User.UserId</td>
+                            <td>@c.User.Username</td>
+                            <td>@c.User.Email</td>
+                            <td>@(c.User.Dob?.ToString("dd/MM/yyyy") ?? "Chưa có")</td>
+                            <td>@c.ConsultantInfo.Specialization</td>
+                            <td>@c.ConsultantInfo.ExperienceYears</td>
+                            <td class="d-flex gap-1">
+                                <a asp-page="EditConsultant" asp-route-id="@c.User.UserId" class="btn btn-sm btn-warning">✏️ Chỉnh sửa</a>
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@c.User.UserId"
+                                      onsubmit="return confirm('Bạn có chắc muốn xóa tư vấn viên này?');">
+                                    <button type="submit" class="btn btn-sm btn-danger">🗑️ Xóa</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info">Không có tư vấn viên nào trong hệ thống.</div>
+        }
+    </div>
+</main>

@@ -1,6 +1,7 @@
 ﻿using BusinessObjects.Models;
 using BusinessObjects.Models.Request;
 using Microsoft.EntityFrameworkCore;
+using Repositories;
 using Repositories.Interfaces;
 using Services.Interfaces;
 using System;
@@ -25,4 +26,14 @@ public class ConsultantInfoService(IConsultantInfoRepository repo) : IConsultant
         var data = await _repo.GetConsultantInfoByIdAsync(consultantId);
         return data;
     }
+    public Task<bool> UpdateConsultantInfoAsync(ConsultantInfo info) =>
+        _repo.UpdateConsultantInfoAsync(info);
+
+    public Task<bool> DeleteConsultantInfoAsync(int consultantId) =>
+        _repo.DeleteConsultantInfoAsync(consultantId);
+    public async Task<bool> AddConsultantInfoAsync(ConsultantInfo consultantInfo)
+    {
+        return await _repo.AddConsultantInfoAsync(consultantInfo);
+    }
+
 }

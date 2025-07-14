@@ -111,5 +111,57 @@ namespace DataAccessObjects
                 return false;
             }
         }
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
+        public async Task<List<User>> GetUsersByRoleAsync(string role)
+        {
+            return await _context.Users
+                .Where(u => u.Role != null && u.Role.ToLower() == role.ToLower())
+                .ToListAsync();
+        }
+        public async Task<bool> DeleteUserAsync(int userId)
+        {
+            Console.WriteLine($"[UserDAO][DeleteUserAsync] Xóa người dùng với UserId: {userId}");
+            try
+            {
+                var user = await _context.Users.FindAsync(userId);
+                if (user == null)
+                {
+                    Console.WriteLine($"[UserDAO][DeleteUserAsync] Không tìm thấy người dùng để xóa.");
+                    return false;
+                }
+
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
+
+                Console.WriteLine($"[UserDAO][DeleteUserAsync] Đã xóa người dùng UserId: {userId}");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[UserDAO][DeleteUserAsync] Lỗi khi xóa: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<int?> AddUserAndReturnIdAsync(User user)
+        {
+            try
+            {
+                await _context.Users.AddAsync(user);
+                await _context.SaveChangesAsync();
+                return user.UserId;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[UserDAO][AddUserAndReturnIdAsync] Lỗi: {ex.Message}");
+                return null;
+            }
+        }
+
+
     }
 }

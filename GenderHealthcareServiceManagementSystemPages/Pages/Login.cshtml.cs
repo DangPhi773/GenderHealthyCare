@@ -64,7 +64,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
                 Console.WriteLine($"[LoginModel][OnPostAsync] Đăng nhập thành công cho UserId: {user.UserId}, Username: {user.Username}");
                 HttpContext.Session.SetString("UserId", user.UserId.ToString());
                 Console.WriteLine("[LoginModel][OnPostAsync] Đã lưu UserId vào session, chuyển hướng đến /Index");
-                return RedirectToPage("/Index");
+                return RedirectToPage("/ConsultantQuestion/QuestionsFromCustomer");
             }
 
             Console.WriteLine("[LoginModel][OnPostAsync] Đăng nhập thất bại: Tên đăng nhập hoặc mật khẩu không đúng.");

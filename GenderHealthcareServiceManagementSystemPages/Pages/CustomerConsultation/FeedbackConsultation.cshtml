@@ -1,0 +1,38 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.CustomerConsultation.FeedbackConsultationModel
+@{
+    ViewData["Title"] = "Đánh giá tư vấn viên";
+}
+
+<main class="py-5">
+    <div class="container">
+        <div class="card shadow p-4">
+            <h3 class="text-center text-primary mb-4">Đánh giá tư vấn viên: @Model.Consultant?.FullName</h3>
+
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label">Số sao (1-5)</label>
+                    <select asp-for="Rating" class="form-select">
+                        <option value="">-- Chọn số sao --</option>
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <option value="@i">@i sao</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Rating" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nhận xét</label>
+                    <textarea asp-for="FeedbackText" class="form-control" rows="4"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Gửi đánh giá</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

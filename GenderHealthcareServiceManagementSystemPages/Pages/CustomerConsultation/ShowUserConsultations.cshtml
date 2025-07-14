@@ -1,0 +1,89 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.CustomerConsultation.ShowUserConsultationsModel
+@{
+    ViewData["Title"] = "Lịch sử tư vấn";
+}
+
+<main class="py-5">
+    <div class="container">
+        <div class="card shadow-lg p-4 bg-white">
+            <div class="text-center mb-4">
+                <h2 class="h4 fw-bold text-primary">📋 Lịch sử tư vấn</h2>
+                <p class="text-muted">Danh sách các buổi tư vấn bạn đã đăng ký.</p>
+            </div>
+
+            @if (Model.Consultations.Count == 0)
+            {
+                <div class="alert alert-info text-center fw-semibold">
+                    Bạn chưa có buổi tư vấn nào.
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Tư vấn viên</th>
+                                <th>Thời gian</th>
+                                <th>Link họp</th>
+                                <th>Ghi chú</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var consultation in Model.Consultations.OrderByDescending(c => c.AppointmentTime))
+                            {
+                                <tr>
+                                    <td>@consultation.ConsultationId</td>
+                                    <td>@consultation.Consultant?.FullName</td>
+                                    <td>@consultation.AppointmentTime.ToString("HH:mm dd/MM/yyyy")</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(consultation.MeetingLink))
+                                        {
+                                            <a href="@consultation.MeetingLink" target="_blank">Tham gia</a>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted fst-italic">Chưa có</span>
+                                        }
+                                    </td>
+                                    <td>@consultation.Notes</td>
+                                    <td>
+                                        @switch (consultation.Status)
+                                        {
+                                            case "Pending":
+                                                <span class="badge bg-warning text-dark">⏳ Pending</span>
+                                                break;
+                                            case "In Progress":
+                                                <span class="badge bg-info text-white">🔄 In Progress</span>
+                                                break;
+                                            case "Completed":
+                                                <span class="badge bg-success">✅ Hoàn tất</span>
+                                                break;
+                                            default:
+                                                <span class="badge bg-secondary">@consultation.Status</span>
+                                                break;
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (consultation.Status == "Completed")
+                                        {
+                                            <a asp-page="/CustomerConsultation/FeedbackConsultation"
+                                               asp-route-consultantId="@consultation.ConsultantId"
+                                               class="btn btn-sm btn-outline-primary">
+                                                Đánh giá
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</main>

@@ -1,0 +1,70 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.AdminManageConsultant.AddNewConsultantInfoModel
+@{
+    ViewData["Title"] = "Thêm tư vấn viên";
+}
+
+<main class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg p-4">
+                    <h2 class="text-center mb-4">Thêm tư vấn viên</h2>
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label asp-for="User.Username" class="form-label"></label>
+                            <input asp-for="User.Username" class="form-control" />
+                            <span asp-validation-for="User.Username" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="User.Email" class="form-label"></label>
+                            <input asp-for="User.Email" class="form-control" />
+                            <span asp-validation-for="User.Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="User.PasswordHash" class="form-label">Mật khẩu</label>
+                            <input type="password" asp-for="User.PasswordHash" class="form-control" />
+                            <span asp-validation-for="User.PasswordHash" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="User.FullName" class="form-label"></label>
+                            <input asp-for="User.FullName" class="form-control" />
+                            <span asp-validation-for="User.FullName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ConsultantInfo.Qualifications" class="form-label"></label>
+                            <input asp-for="ConsultantInfo.Qualifications" class="form-control" />
+                            <span asp-validation-for="ConsultantInfo.Qualifications" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="ConsultantInfo.ExperienceYears" class="form-label"></label>
+                            <input asp-for="ConsultantInfo.ExperienceYears" class="form-control" />
+                            <span asp-validation-for="ConsultantInfo.ExperienceYears" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="ConsultantInfo.Specialization" class="form-label"></label>
+                            <input asp-for="ConsultantInfo.Specialization" class="form-control" />
+                            <span asp-validation-for="ConsultantInfo.Specialization" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="ProfileImage" class="form-label">Ảnh đại diện</label>
+                            <input type="file" asp-for="ProfileImage" class="form-control" />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Thêm tư vấn viên</button>
+                    </form>
+
+                    @if (!string.IsNullOrEmpty(Model.Message))
+                    {
+                        <div class="alert alert-danger mt-3 text-center">@Model.Message</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
