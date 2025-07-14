@@ -1,5 +1,5 @@
 ﻿using BusinessObjects.Models;
-using BusinessObjects.Models.Request;
+using BusinessObjects.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces;
 using Services.Interfaces;
@@ -24,5 +24,15 @@ public class ConsultantInfoService(IConsultantInfoRepository repo) : IConsultant
     {
         var data = await _repo.GetConsultantInfoByIdAsync(consultantId);
         return data;
+    }
+    public async Task<bool> CreateConsultantInfoAsync(ConsultantInfo info)
+    {
+        if (info == null)
+        {
+            Console.WriteLine("ConsultantInfoService: ❌ Không thể tạo ConsultantInfo vì thông tin không hợp lệ.");
+            return false;
+        }
+        var result = await _repo.AddConsultantInfoAsync(info);
+        return result;
     }
 }

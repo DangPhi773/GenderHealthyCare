@@ -1,0 +1,212 @@
+﻿/* Question Detail Page Specific Styles */
+
+/* Card Header */
+.question-detail-header {
+    background: var(--gradient-secondary);
+    margin: -2.5rem -2.5rem 2rem -2.5rem;
+    padding: 2rem 2.5rem 1.5rem 2.5rem;
+    border-radius: 20px 20px 0 0 !important;
+    border-bottom: 3px solid var(--mimi-pink);
+}
+
+.question-detail-title {
+    color: var(--accent-purple);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.question-detail-description {
+    color: var(--text-dark);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* Card Body */
+.question-detail-body {
+    padding: 0; /* Remove default card-body padding if card has padding */
+}
+
+/* Detail Sections */
+.detail-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dashed var(--mimi-pink);
+}
+
+    .detail-section:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+.section-title {
+    color: var(--mauve-medium);
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Detail Grid */
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem 2rem;
+}
+
+.detail-item {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+    .detail-item strong {
+        color: var(--accent-purple);
+        font-weight: 600;
+        min-width: 120px; /* Align labels */
+    }
+
+/* Content and Answer Boxes */
+.content-box,
+.answer-box {
+    background: var(--mauve-light);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--mimi-pink);
+    line-height: 1.6;
+    color: var(--text-dark);
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.answer-box {
+    background: var(--periwinkle-light);
+    border-color: var(--periwinkle-dark);
+    margin-top: 1rem;
+}
+
+    .answer-box small {
+        display: block;
+        margin-top: 1rem;
+        text-align: right;
+        color: var(--text-light);
+    }
+
+/* Status and Urgency Badges (reusing from site.css or my-questions.css if available) */
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-pending {
+    background-color: var(--mimi-pink);
+    color: var(--white);
+}
+
+.status-answered {
+    background-color: var(--periwinkle-light);
+    color: var(--periwinkle-dark);
+}
+
+.status-closed {
+    background-color: #e0e0e0;
+    color: #757575;
+}
+
+.urgency-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.urgency-low {
+    background-color: #d4edda; /* Greenish */
+    color: #155724;
+}
+
+.urgency-medium {
+    background-color: #fff3cd; /* Yellowish */
+    color: #856404;
+}
+
+.urgency-high {
+    background-color: #f8d7da; /* Reddish */
+    color: #721c24;
+}
+
+.urgency-urgent {
+    background-color: #f5c6cb; /* Darker Reddish */
+    color: #721c24;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+    }
+}
+
+/* No Answer Alert */
+.no-answer-alert {
+    background-color: var(--mimi-pink);
+    color: var(--text-dark);
+    border: 1px solid var(--mauve-light);
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+    .no-answer-alert i {
+        color: var(--mauve-medium);
+        font-size: 1.2rem;
+    }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .question-detail-header {
+        padding: 1.5rem;
+        margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+    }
+
+    .question-detail-title {
+        font-size: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.1rem;
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .detail-item strong {
+        min-width: 100px; /* Adjust for smaller screens */
+    }
+}

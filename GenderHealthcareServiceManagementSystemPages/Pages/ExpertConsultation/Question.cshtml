@@ -19,25 +19,6 @@
     }
 
     <form method="post" id="questionsForm">
-
-        <div class="questions-form-group">
-            <label class="questions-form-label" for="category">
-                <i class="bi bi-tags-fill"></i>Danh mục câu hỏi *
-            </label>
-            <select id="category" name="Category" class="questions-select" required>
-                <option value="">-- Chọn danh mục --</option>
-                <option value="general">🩺 Tư vấn chung về sức khỏe giới tính</option>
-                <option value="hormone">💊 Liệu pháp hormone</option>
-                <option value="mental-health">🧠 Sức khỏe tâm thần</option>
-                <option value="transition">🔄 Quá trình chuyển giới</option>
-                <option value="family-support">👨‍👩‍👧‍👦 Hỗ trợ gia đình</option>
-                <option value="legal">⚖️ Vấn đề pháp lý</option>
-                <option value="workplace">🏢 Môi trường làm việc</option>
-                <option value="other">📝 Khác</option>
-            </select>
-            <span asp-validation-for="QuestionRequest.Category" class="questions-text-danger"></span>
-        </div>
-
         <div class="questions-form-group">
             <label class="questions-form-label" for="subject">
                 <i class="bi bi-chat-square-text-fill"></i>Tiêu đề câu hỏi *
@@ -63,10 +44,6 @@
                     <i class="bi bi-gear-fill"></i>Tùy chọn khác
                 </label>
                 <div class="questions-checkbox-group">
-                    <label class="questions-checkbox-label">
-                        <input type="checkbox" name="IsAnonymous" value="true" />
-                        🎭 Gửi câu hỏi ẩn danh (chỉ hiển thị tên viết tắt)
-                    </label>
                     <label class="questions-checkbox-label">
                         <input type="checkbox" name="AcceptTerms" value="true" required />
                         ✅ Tôi đồng ý với <a href="/privacy" target="_blank">chính sách bảo mật</a> và <a href="/terms" target="_blank">điều khoản sử dụng</a> *

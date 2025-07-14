@@ -1,5 +1,5 @@
 ﻿using BusinessObjects.Models;
-using BusinessObjects.Models.Request;
+using BusinessObjects.ViewModels;
 using GenderHealthcareServiceManagementSystemPages.Hubs;
 using Humanizer;
 using Microsoft.AspNetCore.Mvc;
@@ -67,7 +67,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
             TempData["AppointmentDate"] = Booking.AppointmentDate.ToString("dddd, dd/MM/yyyy");
             TempData["ConsultantIdString"] = Booking.SelectedConsultant;
             TempData["ConsultationStatus"] = "Đợi xét duyệt";
-            return RedirectToPage("/Booking/BookingConfirmation");
+            return RedirectToPage("/ExpertConsultation/Booking/BookingConfirmation");
         }
 
         public async Task<JsonResult> OnGetUnavailableSlotsAsync(string date)

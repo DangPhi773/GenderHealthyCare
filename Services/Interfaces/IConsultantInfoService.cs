@@ -1,5 +1,5 @@
 ﻿using BusinessObjects.Models;
-using BusinessObjects.Models.Request;
+using BusinessObjects.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,4 +11,5 @@ public interface IConsultantInfoService
 {
     Task<List<ConsultantInfo>> GetAllConsultantInfosAsync();
     Task<ConsultantInfo?> GetConsultantInfoByIdAsync(int consultantId);
+    Task<bool> CreateConsultantInfoAsync(ConsultantInfo consultantInfo);
 }
