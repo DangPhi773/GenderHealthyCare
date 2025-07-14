@@ -10,5 +10,11 @@ namespace Repositories.Interfaces
     public interface IQuestionRepository
     {
         Task<List<Question>> GetAllQuestionsAsync();
+        Task<Question?> GetQuestionByIdAsync(int id);
+        Task<int> AddQuestionAsync(Question question);
+        Task<int> UpdateQuestionAsync(Question question);
+        Task<int> DeleteQuestionAsync(int id);
+        Task<List<Question>> GetQuestionsByUserIdAsync(int userId);
+        Task<List<Question>> GetQuestionsByConsultantIdAsync(int consultantId);
     }
 }
