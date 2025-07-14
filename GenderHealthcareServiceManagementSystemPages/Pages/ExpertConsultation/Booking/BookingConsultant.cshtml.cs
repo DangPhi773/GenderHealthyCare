@@ -16,11 +16,12 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages
 {
-    public class BookingConsultantModel(IConsultantInfoService consultantInfoService, IConsultationService consultationService, IHubContext<SignalRServer> hubContext) : PageModel
+    public class BookingConsultantModel(IConsultantInfoService consultantInfoService, IConsultationService consultationService, IHubContext<SignalRServer> hubContext, IEmailService emailService) : PageModel
     {
         private readonly IConsultantInfoService _consultantInfoService = consultantInfoService ?? throw new ArgumentNullException(nameof(consultantInfoService));
         private readonly IConsultationService _consultationService = consultationService ?? throw new ArgumentNullException(nameof(consultationService));
         private readonly IHubContext<SignalRServer> _hubContext = hubContext ?? throw new ArgumentNullException(nameof(hubContext));
+        private readonly IEmailService _emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
 
         [BindProperty]
         public BookingRequest Booking { get; set; } = new();
@@ -60,6 +61,11 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
             //Save to database
             var createdBooking = await _consultationService.CreateBookingAsync(Booking, GetCurrentUserId());
 
+            await _emailService.SendEmailAsync(
+                Booking.Email,
+                "Xác nhận đặt lịch",
+                "<p>Lịch khám của bạn đã được xác nhận.</p>"
+            );
             // Redirect
             //await _hubContext.Clients.All.SendAsync("AppointmentCreated");
             TempData["BookingId"] = createdBooking.ConsultationId;
@@ -105,7 +111,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
             try
             {
                 var consultantInfo = await _consultantInfoService.GetConsultantInfoByIdAsync(consultantId);
-                
+
                 if (consultantInfo?.ProfileImage != null && consultantInfo.ProfileImage.Length > 0)
                 {
                     string contentType = "image/jpeg";
@@ -149,7 +155,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
                     <text x='40' y='50' text-anchor='middle' fill='white' font-size='30' font-family='Arial'>👤</text>
                 </svg>";
             }
-            
+
             var svgBytes = System.Text.Encoding.UTF8.GetBytes(defaultImageSvg);
             return File(svgBytes, "image/svg+xml");
         }

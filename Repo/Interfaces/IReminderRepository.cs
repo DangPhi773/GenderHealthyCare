@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,5 +13,6 @@ namespace Repositories.Interfaces
         Task<bool> AddAsync(Reminder reminder);
         Task<bool> UpdateAsync(Reminder reminder);
         Task<bool> DeleteAsync(int id);
+        Task<List<Reminder>> GetDueRemindersAsync(DateTime currentTime);
     }
 }
