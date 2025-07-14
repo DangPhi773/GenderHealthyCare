@@ -10,14 +10,14 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Booking
     {
         private readonly IConsultantInfoService _consultantInfoService = consultantInfoService;
         public string BookingId { get; set; } = "#UNKNOWN";
-        public ConsultantInfo ConsultantInfo { get; set; } = new ConsultantInfo();
+        public ConsultantInfo ConsultantInfo { get; set; } = new ();
         public string AppointmentDate { get; set; } = "#UNKNOWN";
         public string AppointmentTime { get; set; } = "#UNKNOWN";
         public string ConsultationStatus { get; set; } = "#UNKNOWN";
         //public string PatientName { get; set; } = "#UNKNOWN";
         //public string PhoneNumber { get; set; } = "#UNKNOWN";
 
-        public async void OnGet()
+        public async Task OnGet()
         {
             BookingId = TempData["BookingId"]?.ToString() ?? "#UNKNOWN";
             //PatientName = TempData["PatientName"]?.ToString() ?? "Khách hàng";
@@ -27,7 +27,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Booking
             int consultantId = TempData["ConsultantIdString"] != null ? int.Parse(TempData["ConsultantIdString"]?.ToString()!) : 0;
             if (consultantId != 0)
             {
-                var consultantInfo = await _consultantInfoService.GetConsultantInfoByIdAsync(consultantId);
+                var consultantInfo = await _consultantInfoService.GetConsultantInfoByIdAsync(consultantId) ?? null;
                 if (consultantInfo != null)
                 {
                     ConsultantInfo = consultantInfo;

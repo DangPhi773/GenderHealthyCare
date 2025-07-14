@@ -11,5 +11,6 @@ namespace Services.Interfaces
         Task<bool> CreateAsync(Clinic clinic);
         Task<bool> UpdateAsync(Clinic clinic);
         Task<bool> DeleteAsync(int clinicId);
+        Task<List<Clinic>> GetClinicsByClinicName(string clinicName);
     }
 }

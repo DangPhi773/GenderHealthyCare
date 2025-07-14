@@ -1,0 +1,89 @@
+﻿.page-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #f8d7da;
+    padding: 16px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+    .card-header h3 {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .card-header .description {
+        color: #666;
+        font-size: 14px;
+        margin-top: 4px;
+    }
+
+.card-content {
+    padding: 20px;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .report-table th,
+    .report-table td {
+        padding: 12px 16px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .report-table th {
+        background-color: #f8f8f8;
+        text-align: left;
+    }
+
+.text-right {
+    text-align: right;
+}
+
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    background-color: #6b46c1;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+    .btn-download i {
+        margin-right: 6px;
+    }
+
+    .btn-download:hover {
+        background-color: #553c9a;
+    }
+
+.btn-disabled {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    background-color: #ccc;
+    color: #666;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: not-allowed;
+}
+
+    .btn-disabled i {
+        margin-right: 6px;
+    }

@@ -1,0 +1,58 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.Admin.ReportModel
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<div class="container">
+    <h2 class="page-title">Reports</h2>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Available Reports</h3>
+            <p class="description">View and download various reports for your healthcare system.</p>
+        </div>
+        <div class="card-content">
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>Report ID</th>
+                        <th>Report Name</th>
+                        <th>Type</th>
+                        <th>Date Generated</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var report in Model.Reports)
+                    {
+                        <tr>
+                            <td>@report.Id</td>
+                            <td>@report.Name</td>
+                            <td>@report.Type</td>
+                            <td>@report.Date</td>
+                            <td class="text-right">
+                                @if (report.Status == "Generated")
+                                {
+                                    <a href="@report.FileUrl" class="btn-download">
+                                        <i class="bi bi-download"></i> Download
+                                    </a>
+                                }
+                                else
+                                {
+                                    <button class="btn-disabled" disabled>
+                                        <i class="bi bi-download"></i> Pending
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Report.css" />
+}

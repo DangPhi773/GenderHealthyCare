@@ -1,0 +1,59 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting.SelectTimeTestingModel
+
+@{
+    ViewData["Title"] = "Chọn thời gian xét nghiệm";
+}
+
+<main class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg p-4" style="backdrop-filter: blur(8px); background-color: rgba(255, 255, 255, 0.8);">
+                    <div class="text-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#9333ea" viewBox="0 0 24 24">
+                            <path d="M19 4h-1V2h-2v2H8V2H6v2H5C3.897 4 3 4.897 3 6v14c0
+                            1.103 0.897 2 2 2h14c1.103 0 2-0.897 2-2V6c0-1.103-0.897-2-2-2zM5
+                            20V9h14l.002 11H5z"></path>
+                        </svg>
+                        <h2 class="h4 fw-bold gradient-text mt-3">Chọn thời gian xét nghiệm</h2>
+                        <p class="text-muted small">Vui lòng chọn ngày giờ phù hợp để thực hiện xét nghiệm.</p>
+                    </div>
+
+                    @if (!Model.IsLoggedIn)
+                    {
+                        <div class="alert alert-warning text-center fw-semibold">
+                            Bạn chưa đăng nhập. Vui lòng <a href="/login-test" class="text-primary text-decoration-underline">đăng nhập tạm thời</a> để tiếp tục.
+                        </div>
+                    }
+
+                    <form method="post" class="needs-validation" novalidate>
+                        <div class="form-group mb-3">
+                            <label asp-for="AppointmentTime" class="form-label">Thời gian hẹn xét nghiệm</label>
+                            <input asp-for="AppointmentTime" class="form-control" type="datetime-local" required />
+                            <span asp-validation-for="AppointmentTime" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <strong class="d-block mb-2">Dịch vụ đã chọn:</strong>
+                            <ul class="list-group">
+                                @foreach (var serviceName in Model.SelectedServiceNames)
+                                {
+                                    <li class="list-group-item">@serviceName</li>
+                                }
+                            </ul>
+                        </div>
+
+                        <button type="submit" class="btn w-100" style="background: linear-gradient(to right, #9333ea, #ec4899); color: white;">
+                            Tiếp tục
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
