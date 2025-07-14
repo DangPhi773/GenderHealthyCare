@@ -21,6 +21,8 @@ public partial class Consultation
 
     public DateTime? CreatedAt { get; set; }
 
+    public bool? IsDeleted { get; set; }
+
     public virtual User Consultant { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;

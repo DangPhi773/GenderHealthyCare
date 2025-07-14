@@ -19,6 +19,8 @@ public partial class Feedback
 
     public DateTime CreatedAt { get; set; }
 
+    public bool? IsDeleted { get; set; }
+
     public virtual User? Consultant { get; set; }
 
     public virtual Service? Service { get; set; }

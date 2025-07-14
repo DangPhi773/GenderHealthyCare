@@ -133,10 +133,13 @@
             <!-- Login/User Info -->
             @if (currentUser != null)
             {
-                <a href="/Profile" class="btn btn-primary btn-sm" style="background: linear-gradient(to right, #9333ea, #ec4899); border: none;">
+                var profileLink = currentUser.Role == "Consultant" ? "/Consultant/Profile" : "/Profile";
+
+                <a href="@profileLink" class="btn btn-primary btn-sm" style="background: linear-gradient(to right, #9333ea, #ec4899); border: none;">
                     <i class="bi bi-person-circle me-1"></i> @currentUser.Username
                 </a>
             }
+
             else
             {
                 <a href="/Login" class="btn btn-primary btn-sm" style="background: linear-gradient(to right, #9333ea, #ec4899); border: none;">
