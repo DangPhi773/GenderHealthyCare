@@ -1,15 +1,16 @@
-﻿
-/* Headings */
+﻿/* Headings */
 h2 {
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 20px;
+    color: var(--text-dark);
 }
 
 h3 {
     font-size: 20px;
     font-weight: 600;
     margin: 0;
+    color: var(--text-dark);
 }
 
 /* Grid layout */
@@ -24,108 +25,154 @@ h3 {
     gap: 16px;
 }
 
-.card {
-    background-color: #fff;
+.dashboard-card {
+    background-color: var(--white);
     border-radius: 8px;
-    padding: 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 0; /* Remove padding from card itself, header and body will have it */
+    box-shadow: 0 4px 15px rgba(200, 182, 255, 0.2); /* Softer shadow */
+    border: 1px solid rgba(255, 214, 255, 0.5); /* Light border */
+    overflow: hidden; /* Ensure header corners are clipped */
 }
 
-.card-header {
-    background-color: #f8d7da;
+.dashboard-card-header {
+    background-color: var(--mimi-pink); /* Light pink from palette */
+    padding: 12px 16px; /* Adjusted padding */
+    border-radius: 8px 8px 0 0; /* Rounded top corners */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid rgba(255, 214, 255, 0.8); /* Subtle border bottom */
 }
 
-.card-title {
+.dashboard-card-title {
     font-size: 14px;
     font-weight: 500;
     margin: 0;
+    color: var(--text-dark); /* Dark text color */
 }
 
-.card-value {
+.dashboard-card-header h3 {
+    font-size: 18px; /* Slightly smaller for table headers */
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-dark); /* Dark text color */
+}
+
+.dashboard-card-value {
     font-size: 24px;
     font-weight: bold;
-    margin: 8px 0;
+    margin: 8px 16px; /* Add horizontal padding */
+    color: var(--accent-purple); /* Use accent color for values */
 }
 
-.card-description {
+.dashboard-card-description {
     font-size: 12px;
-    color: #6c6c6c;
+    color: var(--text-light); /* Lighter text color */
+    margin: 0 16px 16px 16px; /* Add horizontal padding and bottom margin */
 }
 
 /* Tables */
-.table-container {
+.dashboard-table-container {
     overflow-x: auto;
+    padding: 16px; /* Padding for the table container within the card */
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-}
+    .dashboard-table-container table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
 
-th, td {
-    padding: 10px;
-    text-align: left;
-}
+    .dashboard-table-container th,
+    .dashboard-table-container td {
+        padding: 10px;
+        text-align: left;
+    }
 
-th {
-    color: #6c6c6c;
-    border-bottom: 1px solid #ddd;
-}
+    .dashboard-table-container th {
+        color: var(--text-light); /* Lighter color for table headers */
+        border-bottom: 1px solid var(--mimi-pink); /* Consistent border color */
+        font-weight: 500; /* Slightly less bold */
+    }
 
-tr:not(:last-child) {
-    border-bottom: 1px solid #eee;
-}
+    .dashboard-table-container tr:not(:last-child) {
+        border-bottom: 1px solid var(--mimi-pink); /* Consistent border color */
+    }
 
-td.text-right {
-    text-align: right;
-}
+    .dashboard-table-container td.text-right {
+        text-align: right;
+    }
 
 /* Badges */
-.badge {
+.dashboard-badge {
     display: inline-block;
     padding: 4px 10px;
     border-radius: 6px;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
+    color: #111; /* Mặc định chữ đậm nếu không được ghi đè */
 }
 
-    .badge.completed {
-        background-color: #bbd0ff;
-        color: #fff;
+    .dashboard-badge.completed {
+        background-color: var(--periwinkle-light); /* Light blue-purple */
+        color: #1e1e1e; /* Gần như đen để dễ nhìn */
     }
 
-    .badge.pending {
-        background-color: #e7c6ff;
-        color: #1a1a1a;
+    .dashboard-badge.pending {
+        background-color: var(--mauve-light); /* Light purple */
+        color: #2b2b2b; /* Gần đen */
     }
 
-    .badge.cancelled {
-        background-color: #ffd6ff;
-        color: #1a1a1a;
+    .dashboard-badge.cancelled {
+        background-color: var(--mimi-pink); /* Light pink */
+        color: #d00036; /* Màu đỏ đậm nổi bật trên nền hồng */
     }
+
 
 /* Feedback stars */
-.star {
+.dashboard-star {
     display: inline-block;
     width: 16px;
     height: 16px;
-    background-image: url('/icons/star.svg');
+    background-image: url("/icons/star-filled.svg"); /* Filled star icon */
     background-repeat: no-repeat;
     background-size: contain;
+    vertical-align: middle; /* Align with text */
 }
 
-    .star.gray {
-        filter: grayscale(100%) opacity(0.3);
+    .dashboard-star.gray {
+        background-image: url("/icons/star-empty.svg"); /* Empty star icon */
+        filter: none; /* No grayscale needed if using separate empty icon */
     }
 
 /* Comment cell truncate */
-.truncate {
+.dashboard-truncate {
     max-width: 200px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .dashboard-card {
+        border-radius: 12px; /* Slightly larger radius for mobile */
+    }
+
+    .dashboard-card-header {
+        border-radius: 12px 12px 0 0;
+    }
+
+    .dashboard-card-value {
+        font-size: 20px;
+    }
+
+    .dashboard-card-description {
+        font-size: 11px;
+    }
+
+    .dashboard-table-container th,
+    .dashboard-table-container td {
+        padding: 8px;
+    }
 }
