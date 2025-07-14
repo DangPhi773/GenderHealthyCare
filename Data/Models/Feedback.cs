@@ -17,7 +17,7 @@ public partial class Feedback
 
     public string? FeedbackText { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     public virtual User? Consultant { get; set; }
 

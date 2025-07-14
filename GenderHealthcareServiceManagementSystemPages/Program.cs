@@ -6,11 +6,7 @@ using Services.Interfaces;
 using Services.Services;
 using Repositories;
 using Repositories.Interfaces;
-using DataAccessObjects;
-using Repositories;
-using Repositories.Interfaces;
 using Services;
-using Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +19,7 @@ builder.Services.AddScoped<UserDAO>();
 builder.Services.AddScoped<ClinicDAO>();
 builder.Services.AddScoped<ServiceDAO>();
 builder.Services.AddScoped<FeedbackDAO>();
+builder.Services.AddScoped<QuestionDAO>();
 
 builder.Services.AddScoped<MenstrualCycleDAO>();
 builder.Services.AddScoped<ConsultantInfoDAO>();
@@ -38,6 +35,7 @@ builder.Services.AddScoped<IClinicRepository, ClinicRepository>();
 builder.Services.AddScoped<IMenstrualCycleRepository, MenstrualCycleRepository>();
 builder.Services.AddScoped<IConsultantInfoRepository, ConsultantInfoRepository>();
 builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 
 // Register Services
 builder.Services.AddScoped<ITestService, TestService>();
@@ -49,6 +47,7 @@ builder.Services.AddScoped<IClinicService, ClinicService>();
 builder.Services.AddScoped<IMenstrualCycleService, MenstrualCycleService>();
 builder.Services.AddScoped<IConsultantInfoService, ConsultantInfoService>();
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
 
 builder.Services.AddDbContext<GenderHealthcareContext>(options =>
 {

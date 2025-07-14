@@ -47,5 +47,7 @@ namespace Repositories
             Console.WriteLine($"[ClinicRepository][DeleteAsync] Xóa phòng khám với ID: {clinicId}");
             return await _clinicDAO.DeleteClinicAsync(clinicId);
         }
+
+        public async Task<List<Clinic>> GetClinicsByClinicName(string clinicName) => await _clinicDAO.GetClinicsByClinicName(clinicName);
     }
 }
