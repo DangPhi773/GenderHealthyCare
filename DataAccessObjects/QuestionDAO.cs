@@ -48,24 +48,26 @@ namespace DataAccessObjects
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<int> AddQuestionAsync(Question question)
+        public async Task<Question> AddQuestionAsync(Question question)
         {
             try
             {
                 _context.Questions.Add(question);
-                return await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+                return question;
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<int> UpdateQuestionAsync(Question question)
+        public async Task<Question> UpdateQuestionAsync(Question question)
         {
             try
             {
                 _context.Questions.Update(question);
-                return await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+                return question;
             }
             catch (Exception ex)
             {

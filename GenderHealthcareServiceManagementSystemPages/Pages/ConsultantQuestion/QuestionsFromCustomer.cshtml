@@ -32,7 +32,7 @@
                             <td>@q.QuestionId</td>
                             <td>@q.User?.Username</td>
                             <td>@(q.QuestionText.Length > 60 ? q.QuestionText.Substring(0, 60) + "..." : q.QuestionText)</td>
-                            <td>@(q.CreatedAt.HasValue ? q.CreatedAt.Value.ToString("dd/MM/yyyy HH:mm") : "Chưa có")</td>
+                            <td>@(q.CreatedAt.ToString("dd/MM/yyyy HH:mm"))</td>
 
                             <td>
                                 @if (q.Status == "Answered")

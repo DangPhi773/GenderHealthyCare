@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessObjects.Models.Request;
+namespace BusinessObjects.ViewModels;
 
 public class BookingRequest
 {

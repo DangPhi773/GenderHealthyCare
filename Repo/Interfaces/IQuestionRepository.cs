@@ -11,8 +11,8 @@ namespace Repositories.Interfaces
     {
         Task<List<Question>> GetAllQuestionsAsync();
         Task<Question?> GetQuestionByIdAsync(int id);
-        Task<int> AddQuestionAsync(Question question);
-        Task<int> UpdateQuestionAsync(Question question);
+         Task<Question> AddQuestionAsync(Question question);
+         Task<Question> UpdateQuestionAsync(Question question);
         Task<int> DeleteQuestionAsync(int id);
         Task<List<Question>> GetQuestionsByUserIdAsync(int userId);
         Task<List<Question>> GetQuestionsByConsultantIdAsync(int consultantId);

@@ -14,13 +14,10 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Booking
         public string AppointmentDate { get; set; } = "#UNKNOWN";
         public string AppointmentTime { get; set; } = "#UNKNOWN";
         public string ConsultationStatus { get; set; } = "#UNKNOWN";
-        //public string PatientName { get; set; } = "#UNKNOWN";
-        //public string PhoneNumber { get; set; } = "#UNKNOWN";
 
         public async Task OnGet()
         {
             BookingId = TempData["BookingId"]?.ToString() ?? "#UNKNOWN";
-            //PatientName = TempData["PatientName"]?.ToString() ?? "Khách hàng";
             AppointmentDate = TempData["AppointmentDate"]?.ToString() ?? "Chưa rõ";
             AppointmentTime = TempData["AppointmentTime"]?.ToString() ?? "Chưa rõ";
             ConsultationStatus = TempData["ConsultationStatus"]?.ToString() ?? "Chưa rõ";
