@@ -60,6 +60,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
             {
                 Console.WriteLine($"[LoginModel][OnPostAsync] Đăng nhập thành công cho UserId: {user.UserId}");
                 HttpContext.Session.SetString("UserId", user.UserId.ToString());
+                HttpContext.Session.SetString("Role", user.Role.ToString());
 
                 if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 {
