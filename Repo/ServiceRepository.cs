@@ -27,5 +27,6 @@ namespace Repositories
         public Task<bool> UpdateAsync(Service service) => _serviceDAO.UpdateAsync(service);
 
         public Task<bool> DeleteAsync(int id) => _serviceDAO.DeleteAsync(id);
+        public Task<List<Service>> GetAvailableServicesAsync() => _serviceDAO.GetAvailableServicesAsync();
     }
 }
