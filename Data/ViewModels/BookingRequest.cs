@@ -27,9 +27,9 @@ public class BookingRequest
     //[Phone(ErrorMessage = "Số điện thoại không hợp lệ")]
     //public string PhoneNumber { get; set; } = string.Empty;
 
-    //[Required(ErrorMessage = "Vui lòng nhập email")]
-    //[EmailAddress(ErrorMessage = "Email không hợp lệ")]
-    //public string Email { get; set; } = string.Empty;
+    [Required(ErrorMessage = "Vui lòng nhập email")]
+    [EmailAddress(ErrorMessage = "Email không hợp lệ")]
+    public string Email { get; set; } = string.Empty;
 
     [StringLength(500, ErrorMessage = "Ghi chú không được vượt quá 500 ký tự")]
     public string? Notes { get; set; }
