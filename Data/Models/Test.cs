@@ -23,6 +23,8 @@ public partial class Test
 
     public bool? IsDeleted { get; set; }
 
+    public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+
     public virtual Service Service { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
