@@ -24,5 +24,10 @@ namespace Repositories
         {
             return await _dao.GetUsersAsync();
         }
+        
+        public async Task<bool> DeleteUserAsync(int userId)
+        {
+            return await _dao.DeleteUserAsync(userId);
+        }
     }
 }

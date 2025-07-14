@@ -11,5 +11,6 @@ namespace Services.Interfaces
     {
         Task<User?> GetUserById(int id);
         Task<List<User>> GetUsersAsync();
+        Task<bool> DeleteUserAsync(int userId);
     }
 }

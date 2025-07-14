@@ -23,6 +23,12 @@ namespace Services
         {
             return await _repo.GetUsersAsync();
         }
+        
+        public async Task<bool> DeleteUserAsync(int userId)
+        {
+            return await _repo.DeleteUserAsync(userId);
+        }
+        
     }
 }
 

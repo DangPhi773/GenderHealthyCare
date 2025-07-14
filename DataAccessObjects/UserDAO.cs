@@ -124,5 +124,25 @@ namespace DataAccessObjects
                 return false;
             }
         }
+        
+        public async Task<bool> DeleteUserAsync(int userId)
+        {
+            try
+            {
+                var user = await _context.Users.FindAsync(userId);
+                if (user != null)
+                {
+                    _context.Users.Remove(user);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting user: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

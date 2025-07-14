@@ -64,17 +64,3 @@
     <link rel="stylesheet" href="~/css/Dashboard.css" />
 }
 
-@section Scripts {
-    <script>
-        function deleteUser(userId) {
-            if (confirm("Are you sure you want to delete this user?")) {
-                fetch(`/Admin/ManageUsers/DeleteUser?id=${userId}`, { method: 'DELETE' })
-                    .then(response => response.json())
-                    .then(() => {
-                        alert("User deleted successfully.");
-                        location.reload();  // Reload the page
-                    });
-            }
-        }
-    </script>
-}

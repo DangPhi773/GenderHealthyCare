@@ -18,18 +18,22 @@ public class ManageUser : PageModel
 
     public async Task OnGetAsync()
     {
-        // Fetch all users
+
         Users = await _userService.GetUsersAsync();
     }
 
-    /*public async Task<IActionResult> OnDeleteUserAsync(int id)
+    public async Task<IActionResult> OnPostDeleteUserAsync(int id)
     {
-        // Delete user by id
         var result = await _userService.DeleteUserAsync(id);
+
         if (result)
         {
-            return Json(new { success = true });
+            TempData["SuccessMessage"] = "User deleted successfully.";
         }
-        return Json(new { success = false });
-    }*/
+        else
+        {
+            TempData["ErrorMessage"] = "Failed to delete user.";
+        }
+        return RedirectToPage("ManageUsers");
+    }
 }
