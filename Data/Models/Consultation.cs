@@ -25,5 +25,7 @@ public partial class Consultation
 
     public virtual User Consultant { get; set; } = null!;
 
+    public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+
     public virtual User User { get; set; } = null!;
 }
