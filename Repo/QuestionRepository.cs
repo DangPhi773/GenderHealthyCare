@@ -19,12 +19,15 @@ namespace Repositories
         }
         public async Task<List<Question>> GetAllQuestionsAsync() => await _questionDAO.GetAllQuestionsAsync();
         public async Task<Question?> GetQuestionByIdAsync(int id) => await _questionDAO.GetQuestionByIdAsync(id);
-        public async Task<int> AddQuestionAsync(Question question) => await _questionDAO.AddQuestionAsync(question);
-        public async Task<int> UpdateQuestionAsync(Question question)
+        public async  Task<Question> AddQuestionAsync(Question question) => await _questionDAO.AddQuestionAsync(question);
+        public async  Task<Question> UpdateQuestionAsync(Question question)
         {
             try
             {
-                return await _questionDAO.UpdateQuestionAsync(question);
+                var existingQuestion = await _questionDAO.GetQuestionByIdAsync(question.QuestionId);
+                return existingQuestion == null
+                    ? throw new KeyNotFoundException($"Question with ID {question.QuestionId} not found")
+                    : await _questionDAO.UpdateQuestionAsync(question);
             }
             catch (Exception ex)
             {

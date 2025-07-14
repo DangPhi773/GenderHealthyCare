@@ -1,5 +1,4 @@
-﻿using BusinessObjects.Models.Request;
-using BusinessObjects.Models;
+﻿using BusinessObjects.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Repositories.Interfaces;
 using Services.Interfaces;
+using BusinessObjects.ViewModels;
 
 namespace Services;
 public class ConsultationService(IConsultationRepository repo) : IConsultationService

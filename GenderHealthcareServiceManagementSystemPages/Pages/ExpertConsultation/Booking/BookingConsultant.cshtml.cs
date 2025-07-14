@@ -1,5 +1,5 @@
 ﻿using BusinessObjects.Models;
-using BusinessObjects.Models.Request;
+using BusinessObjects.ViewModels;
 using GenderHealthcareServiceManagementSystemPages.Hubs;
 using Humanizer;
 using Microsoft.AspNetCore.Mvc;
