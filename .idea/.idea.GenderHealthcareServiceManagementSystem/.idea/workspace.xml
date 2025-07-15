@@ -12,12 +12,10 @@
     <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataAccessObjects/UserDAO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccessObjects/UserDAO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Admin/ManageUser.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Admin/ManageUser.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Admin/ManageUser.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Admin/ManageUser.cshtml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repo/Interfaces/IUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repo/Interfaces/IUserRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repo/UserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repo/UserRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/Interfaces/IUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Interfaces/IUserService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/UserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/GenderHealthcareServiceManagementSystemPages.csproj.user" beforeDir="false" afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/GenderHealthcareServiceManagementSystemPages.csproj.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Admin/ManageUser.cshtml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Admin/ManageUser.cshtml.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +24,13 @@
   </component>
   <component name="DpaMonitoringSettings">
     <option name="firstShow" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -48,12 +53,10 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f964cec4620b407491d75a46803d79b926ae48/81/b7c2bee2/DbContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3eab2556a6e1dddc71dd7dd41efa5153ec50a4b7394940f26c808fcbb5dec9d/PageModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/DataAccessObjects/UserDAO.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/Repo/Interfaces/IUserRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/Repo/UserRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/Services/Interfaces/IUserService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/Services/UserService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -78,6 +81,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;phi&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -148,6 +152,10 @@
       <workItem from="1752479694227" duration="6151000" />
       <workItem from="1752489510321" duration="3969000" />
       <workItem from="1752495865949" duration="7449000" />
+      <workItem from="1752515900422" duration="169000" />
+      <workItem from="1752599878038" duration="71000" />
+      <workItem from="1752602670602" duration="447000" />
+      <workItem from="1752604260896" duration="9381000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <option name="closed" value="true" />
@@ -205,7 +213,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752501612298</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="deleteUserFuncs">
+      <option name="closed" value="true" />
+      <created>1752515949147</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1752515949147</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,6 +249,8 @@
     <MESSAGE value="merge from dev" />
     <MESSAGE value="staffTestSchedule_funcs" />
     <MESSAGE value="manageUserbyAdminfuncs" />
+    <MESSAGE value="deleteUserFuncs" />
+    <MESSAGE value="Merge branch 'develop' of https://github.com/phngochan/gender-healthcare-service-management into phi" />
     <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>

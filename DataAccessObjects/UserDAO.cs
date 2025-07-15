@@ -18,7 +18,8 @@ namespace DataAccessObjects
         {
             try
             {
-                return await _context.Users.ToListAsync();
+                return await _context.Users
+                    .ToListAsync();
             }
             catch (Exception ex)
             {
@@ -132,7 +133,7 @@ namespace DataAccessObjects
                 var user = await _context.Users.FindAsync(userId);
                 if (user != null)
                 {
-                    _context.Users.Remove(user);
+                    user.IsDeleted = true;
                     await _context.SaveChangesAsync();
                     return true;
                 }
