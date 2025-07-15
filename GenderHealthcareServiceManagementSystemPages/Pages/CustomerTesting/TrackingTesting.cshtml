@@ -93,13 +93,14 @@
                                                     <td>
                                                         @if (test.Status == "ResultAvailable")
                                                         {
-                                                            <a asp-page="/CustomerTesting/FeedbackTesting"
-                                                               asp-route-serviceId="@test.ServiceId"
-                                                               class="btn btn-sm btn-outline-primary">
-                                                                Đánh giá
-                                                            </a>
+                                                            <form method="post" asp-page-handler="SetTestSession" asp-route-testId="@test.TestId" class="d-inline">
+                                                                <button type="submit" class="btn btn-sm btn-outline-@(Model.FeedbackStatus.GetValueOrDefault(test.TestId) ? "secondary" : "primary")">
+                                                                    @(Model.FeedbackStatus.GetValueOrDefault(test.TestId) ? "Đã đánh giá" : "Đánh giá")
+                                                                </button>
+                                                            </form>
                                                         }
                                                     </td>
+
                                                 </tr>
                                             }
                                         </tbody>

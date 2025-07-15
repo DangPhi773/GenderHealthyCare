@@ -88,5 +88,23 @@ namespace DataAccessObjects
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<Feedback?> GetFeedbackByConsultationIdAsync(int userId, int consultationId)
+        {
+            return await _context.Feedbacks
+                .FirstOrDefaultAsync(f =>
+                    f.UserId == userId &&
+                    f.ConsultationId == consultationId &&
+                    (f.IsDeleted == null || f.IsDeleted == false));
+        }
+
+        public async Task<Feedback?> GetFeedbackByTestIdAsync(int userId, int testId)
+        {
+            return await _context.Feedbacks
+                .FirstOrDefaultAsync(f =>
+                    f.UserId == userId &&
+                    f.TestId == testId &&
+                    (f.IsDeleted == null || f.IsDeleted == false));
+        }
     }
 }

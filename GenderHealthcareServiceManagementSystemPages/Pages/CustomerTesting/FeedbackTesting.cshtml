@@ -13,25 +13,38 @@
 
                     <form method="post">
                         <div class="mb-3 text-center">
-                            <label class="form-label d-block mb-2">Đánh giá (1–5 sao)</label>
-                            <div class="star-rating">
+                            <div class="star-rating justify-content-center d-flex">
                                 @for (int i = 5; i >= 1; i--)
                                 {
-                                    <input type="radio" id="star@i" name="Rating" value="@i" @(Model.Rating == i ? "checked" : "") />
-                                    <label for="star@i" title="@i sao">&#9733;</label>
+                                    <input type="radio" id="star-@i" name="Rating" value="@i"
+                                    @(Model.Rating == i ? "checked" : "")
+                                    @(Model.IsReadOnly ? "disabled" : "") />
+                                    <label for="star-@i" title="@i sao">★</label>
                                 }
                             </div>
-                            <span asp-validation-for="Rating" class="text-danger d-block mt-1"></span>
+                            <span asp-validation-for="Rating" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Nhận xét</label>
-                            <textarea asp-for="FeedbackText" class="form-control" rows="4"></textarea>
+                            @if (Model.IsReadOnly)
+                            {
+                                <textarea asp-for="FeedbackText" class="form-control" rows="4" readonly></textarea>
+                            }
+                            else
+                            {
+                                <textarea asp-for="FeedbackText" class="form-control" rows="4"></textarea>
+                            }
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100">
-                            Gửi đánh giá
-                        </button>
+                        @if (!Model.IsReadOnly)
+                        {
+                            <button type="submit" class="btn btn-primary w-100">Gửi đánh giá</button>
+                        }
+                        else
+                        {
+                            <div class="text-center text-success fw-semibold">Bạn đã đánh giá dịch vụ này rồi.</div>
+                        }
                     </form>
                 </div>
             </div>
@@ -41,13 +54,12 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-}
-
-@section Styles {
     <style>
         .star-rating {
             direction: rtl;
+            display: inline-flex;
             font-size: 2rem;
+            gap: 0.2rem;
         }
 
             .star-rating input[type="radio"] {
@@ -59,7 +71,7 @@
                 cursor: pointer;
             }
 
-                .star-rating input[type="radio"]:checked ~ label,
+                .star-rating input:checked ~ label,
                 .star-rating label:hover,
                 .star-rating label:hover ~ label {
                     color: gold;

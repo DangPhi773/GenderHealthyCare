@@ -123,6 +123,7 @@ public class ConsultationDAO(GenderHealthcareContext context)
         try
         {
             Consultation? c = await _context.Consultations
+                .Include(c => c.Consultant)
                 .FirstOrDefaultAsync(c => c.ConsultationId == consultationId);
             return c;
         }
