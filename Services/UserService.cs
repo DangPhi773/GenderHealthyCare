@@ -19,6 +19,16 @@ namespace Services
         }
 
         public Task<User?> GetUserById(int id) => _repo.GetUserById(id);
+        public async Task<List<User>> GetUsersAsync()
+        {
+            return await _repo.GetUsersAsync();
+        }
+        
+        public async Task<bool> DeleteUserAsync(int userId)
+        {
+            return await _repo.DeleteUserAsync(userId);
+        }
+        
     }
 }
 
