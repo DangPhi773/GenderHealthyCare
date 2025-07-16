@@ -46,10 +46,7 @@
 </style>
 
 
-<div class="col-12 d-flex">
-    <h1 class="gradient-text">Tất cả câu hỏi</h1>
-</div>
-<hr/>
+<h1 class="gradient-text mb-3" style="width:fit-content;padding:5px">Tất cả câu hỏi</h1>
 
 @foreach (var q in Model.Questions)
 {
@@ -66,7 +63,7 @@
                     @q.User.Username.ToUpper().FirstOrDefault()
                 </div>
                 <div class=" col-10">
-                    <div class="d-inline-flex flex-column" style="height:40px">
+                    <div class="d-inline-flex flex-column">
                         <span class="meta">@q.User.Username</span>
                         <span class="meta">Created at: @q.CreatedAt.ToString("dd/MM/yyyy")</span>
                     </div>
@@ -87,8 +84,9 @@
                         @q.Consultant?.FullName?.ToUpper().FirstOrDefault()
                     </div>
                     <div class="col-10">
-                        <div style="height:40px">
-                            <span class="meta">@q.Consultant?.FullName</span>
+                        <div class="d-inline-flex flex-column">
+                            <span class="meta">@q?.Consultant?.FullName</span>
+                            <span class="meta">Created at: @q?.AnsweredAt?.ToString("dd/MM/yyyy")</span>
                         </div>
                         <div class="mt-2">@q.AnswerText</div>
                     </div>

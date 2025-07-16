@@ -1,0 +1,40 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting.ScheduleTests
+
+@{
+    ViewData["Title"] = "Lịch hẹn đã xác nhận";
+}
+
+<main class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="card shadow-lg p-4">
+                    <h3 class="text-center">Lịch hẹn đã xác nhận</h3>
+                    @if (Model.ScheduledTests?.Count == 0)
+                    {
+                        <div class="alert alert-info text-center">Không có lịch hẹn nào đã xác nhận.</div>
+                    }
+                    else
+                    {
+                        <form method="post" asp-page-handler="UpdateResult">
+                            @foreach (var test in Model.ScheduledTests)
+                            {
+                                <div class="mb-3">
+                                    <h5><strong>Dịch vụ:</strong> @test.Service.Description</h5>
+                                    <p><strong>Thời gian:</strong> @test.AppointmentTime.ToString("dd/MM/yyyy HH:mm")</p>
+
+                                    <div class="mt-2">
+                                        <label for="ResultInput_@test.TestId" class="form-label">Nhập kết quả:</label>
+                                        <textarea id="ResultInput_@test.TestId" name="Result" class="form-control" required></textarea>
+                                        <button name="Status" value="ResultAvailable" class="btn btn-warning mt-2">📤 Gửi kết quả</button>
+                                    </div>
+                                </div>
+                            }
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

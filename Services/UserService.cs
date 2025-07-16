@@ -26,13 +26,22 @@ namespace Services
         public Task<bool> AddUserAsync(User user) => _repo.AddUserAsync(user);
 
         public Task<bool> UpdateUser(User user) => _repo.UpdateUser(user);
-        public Task<bool> DeleteUserAsync(int userId) => _repo.DeleteUserAsync(userId);
         public async Task<int?> AddUserAndReturnIdAsync(User user)
         {
             return await _repo.AddUserAndReturnIdAsync(user);
         }
 
 
+        public async Task<List<User>> GetUsersAsync()
+        {
+            return await _repo.GetUsersAsync();
+        }
+        
+        public async Task<bool> DeleteUserAsync(int userId)
+        {
+            return await _repo.DeleteUserAsync(userId);
+        }
+        
     }
 }
 

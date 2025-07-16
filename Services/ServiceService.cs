@@ -19,5 +19,6 @@ namespace Services
         public Task<bool> UpdateAsync(Service service) => _serviceRepository.UpdateAsync(service);
 
         public Task<bool> DeleteAsync(int id) => _serviceRepository.DeleteAsync(id);
+        public Task<List<Service>> GetAvailableServicesAsync() => _serviceRepository.GetAvailableServicesAsync();
     }
 }

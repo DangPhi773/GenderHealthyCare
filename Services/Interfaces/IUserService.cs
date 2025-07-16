@@ -17,5 +17,6 @@ namespace Services.Interfaces
         Task<bool> DeleteUserAsync(int userId);
         Task<int?> AddUserAndReturnIdAsync(User user);
 
+        Task<List<User>> GetUsersAsync();
     }
 }

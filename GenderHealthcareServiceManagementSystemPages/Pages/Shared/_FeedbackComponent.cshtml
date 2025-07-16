@@ -9,6 +9,26 @@
     bool hasHalfStar = avg - fullStars >= 0.25 && avg - fullStars < 0.75;
     int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 }
+
+<style>
+    .card-all {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 8px;
+    }
+
+    .card-all-body {
+        flex: 1 1 auto;
+        padding: 1rem 1rem;
+    }
+</style>
+
 <div class="row d-flex">
     <!-- Left: Average Rating -->
     <div class="row d-flex flex-column col-4">
@@ -16,7 +36,7 @@
         <!-- Average block -->
         <div class="col-md-12">
             <h5 class="fw-bold">Đánh giá</h5>
-            <div class="card p-4 text-center shadow-sm">
+            <div class="card-all p-4 text-center shadow-sm">
                 <h1 class="display-5">@avg.ToString("0.0")</h1>
                 <div class="mb-2 fs-4 text-warning">
                     @for (int i = 0; i < fullStars; i++)
@@ -38,7 +58,7 @@
 
         <!-- Rating breakdown -->
         <div class="col-md-12 mt-4">
-            <div class="card p-4 text-center shadow-sm" style="line-height:2">
+            <div class="card-all p-4 text-center shadow-sm" style="line-height:2">
                 @for (int i = 5; i >= 1; i--)
                 {
                     var count = counts.ContainsKey(i) ? counts[i] : 0;
@@ -66,7 +86,7 @@
             int full = item.Rating;
             int empty = 5 - full;
             <!-- Fake sample review -->
-            <div class="card mb-3 p-3 shadow-sm">
+            <div class="card-all mb-3 p-3 shadow-sm">
                 <div class="d-flex align-items-center mb-2">
                     <div class="rounded-circle d-flex justify-content-center align-items-center me-2"
                          style="width: 40px; height: 40px; background-color: #C8B6FF; color: white;">

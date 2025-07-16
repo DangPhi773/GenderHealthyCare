@@ -23,12 +23,21 @@ namespace Repositories
         public Task<List<User>> GetUsersByRoleAsync(string role) => _dao.GetUsersByRoleAsync(role);
         public Task<bool> AddUserAsync(User user) => _dao.AddUserAsync(user);
         public Task<bool> UpdateUser(User user) => _dao.UpdateUser(user);
-        public Task<bool> DeleteUserAsync(int userId) => _dao.DeleteUserAsync(userId);
         public async Task<int?> AddUserAndReturnIdAsync(User user)
         {
             return await _dao.AddUserAndReturnIdAsync(user);
         }
 
 
+        
+        public async Task<List<User>> GetUsersAsync()
+        {
+            return await _dao.GetUsersAsync();
+        }
+        
+        public async Task<bool> DeleteUserAsync(int userId)
+        {
+            return await _dao.DeleteUserAsync(userId);
+        }
     }
 }

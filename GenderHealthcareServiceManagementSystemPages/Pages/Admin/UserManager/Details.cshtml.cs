@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects.Models;
 
-namespace GenderHealthcareServiceManagementSystemPages.Pages.Questions
+namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager
 {
     public class DetailsModel : PageModel
     {
@@ -18,7 +18,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Questions
             _context = context;
         }
 
-        public Question Question { get; set; } = default!;
+        public User User { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -27,14 +27,14 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Questions
                 return NotFound();
             }
 
-            var question = await _context.Questions.FirstOrDefaultAsync(m => m.QuestionId == id);
-            if (question == null)
+            var user = await _context.Users.FirstOrDefaultAsync(m => m.UserId == id);
+            if (user == null)
             {
                 return NotFound();
             }
             else
             {
-                Question = question;
+                User = user;
             }
             return Page();
         }

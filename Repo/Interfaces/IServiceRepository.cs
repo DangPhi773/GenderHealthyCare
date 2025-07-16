@@ -14,5 +14,6 @@ namespace Repositories.Interfaces
         Task<bool> AddAsync(Service service);
         Task<bool> UpdateAsync(Service service);
         Task<bool> DeleteAsync(int id);
+        Task<List<Service>> GetAvailableServicesAsync();
     }
 }

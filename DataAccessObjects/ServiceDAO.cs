@@ -3,9 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessObjects
 {
@@ -21,6 +19,12 @@ namespace DataAccessObjects
         public async Task<List<Service>> GetAllAsync()
         {
             return await _context.Services.ToListAsync();
+        }
+        public async Task<List<Service>> GetAvailableServicesAsync()
+        {
+            return await _context.Services
+            .Where(s => s.IsDeleted == false)
+                .ToListAsync();
         }
 
         public async Task<Service?> GetByIdAsync(int id)
@@ -58,14 +62,16 @@ namespace DataAccessObjects
             }
         }
 
+        // Chuyển sang đánh dấu là đã xóa (IsDeleted = true)
         public async Task<bool> DeleteAsync(int id)
         {
             try
             {
                 var service = await GetByIdAsync(id);
-                if (service != null)
+                if (service != null && service.IsDeleted == false)
                 {
-                    _context.Services.Remove(service);
+                    service.IsDeleted = true;
+                    _context.Services.Update(service);
                     await _context.SaveChangesAsync();
                     return true;
                 }

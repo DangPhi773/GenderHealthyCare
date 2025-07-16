@@ -4,9 +4,24 @@
     ViewData["Title"] = "Reports";
 }
 
+<style>
+    body {
+        background: linear-gradient(to bottom right, #f9f3ff, #ffeaf7, #ebf0ff);
+    }
+
+    .gradient-text {
+        background: linear-gradient(to right, #9333ea, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+    }
+</style>
+
 <div class="container">
-    <h1>@ViewData["Title"]</h1>
-    <p>Chào mừng bạn đến với mục báo cáo. Tại đây bạn có thể tạo và tải xuống các báo cáo khác nhau.</p>
+    <div class="col-12 d-flex flex-column mb-3">
+        <h1 class="gradient-text" style="width:fit-content;padding:5px">@ViewData["Title"]</h1>
+        <p>Chào mừng bạn đến với mục báo cáo. Tại đây bạn có thể tạo và tải xuống các báo cáo khác nhau.</p>
+    </div>
 
     <div class="report-card">
         <div class="report-card-header">

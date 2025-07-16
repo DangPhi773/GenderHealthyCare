@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObjects.Models;
 
-namespace GenderHealthcareServiceManagementSystemPages.Pages.Questions
+namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager
 {
     public class CreateModel : PageModel
     {
@@ -20,13 +20,11 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Questions
 
         public IActionResult OnGet()
         {
-        ViewData["ConsultantId"] = new SelectList(_context.Users, "UserId", "Email");
-        ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email");
             return Page();
         }
 
         [BindProperty]
-        public Question Question { get; set; } = default!;
+        public User User { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -36,7 +34,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Questions
                 return Page();
             }
 
-            _context.Questions.Add(Question);
+            _context.Users.Add(User);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

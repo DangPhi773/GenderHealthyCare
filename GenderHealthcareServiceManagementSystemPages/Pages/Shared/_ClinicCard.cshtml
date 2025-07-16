@@ -1,6 +1,6 @@
 ﻿@model BusinessObjects.Models.Clinic
-<div class="card mb-4 card-decor h-90 w-100">
-    <div class="card-body">
+<div class="card-all mb-4 card-decor h-90 w-100">
+    <div class="card-all-body">
         <div class="row d-flex justify-content-evenly">
             <!-- Hình đại diện -->
             <div class="rounded col-3">
@@ -24,3 +24,21 @@
         Xem thêm
     </a>
 </div>
+
+<style>
+    .card-all{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem !important;
+    }
+    .card-all-body{
+        flex: 1 1 auto;
+        padding: 1rem 1rem;
+    }
+</style>

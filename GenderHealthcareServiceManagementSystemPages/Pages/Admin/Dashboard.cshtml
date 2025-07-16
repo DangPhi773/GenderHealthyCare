@@ -4,8 +4,21 @@
     ViewData["Title"] = "Dashboard";
 }
 
+<style>
+    body {
+        background: linear-gradient(to bottom right, #f9f3ff, #ffeaf7, #ebf0ff);
+    }
+
+    .gradient-text {
+        background: linear-gradient(to right, #9333ea, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+    }
+</style>
+
 <div class="dashboard-grid">
-    <h2>Tổng quan</h2>
+    <h1 class="gradient-text mb-3" style="width:fit-content;padding:5px">Tổng quan</h1>
 
     <!-- Các chỉ số tổng quát -->
     <div class="metric-grid">

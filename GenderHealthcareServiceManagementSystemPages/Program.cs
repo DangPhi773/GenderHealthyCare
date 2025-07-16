@@ -5,11 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Services.Interfaces;
 using Repositories;
 using Repositories.Interfaces;
-using DataAccessObjects;
-using Repositories;
-using Repositories.Interfaces;
 using Services;
-using Services.Interfaces;
+using BusinessObjects.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,6 +64,15 @@ builder.Services.AddDbContext<GenderHealthcareContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+//Email Settings
+builder.Services.Configure<EmailSettings>(
+    builder.Configuration.GetSection("EmailSettings"));
+
+builder.Services.AddTransient<IEmailService, EmailService>();
+
+//Reminder Service
+builder.Services.AddHostedService<ReminderEmailService>();
+
 // Session
 builder.Services.AddSession(options =>
 {
@@ -95,7 +101,7 @@ app.UseSession();
 app.MapHub<SignalRServer>("/SignalRServer");
 app.MapRazorPages();
 
-// ===== ✅ SEED ACCOUNT + CONSULTANT INFO =====
+// ===== SEED ACCOUNT + CONSULTANT INFO =====
 using (var scope = app.Services.CreateScope())
 {
     var accountService = scope.ServiceProvider.GetRequiredService<IAccountService>();

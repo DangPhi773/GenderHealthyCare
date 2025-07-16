@@ -1,0 +1,1040 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.ServiceManagement.EditModel
+@{
+    ViewData["Title"] = "Chỉnh sửa dịch vụ";
+}
+
+<main class="edit-service-page">
+    <div class="container">
+        <!-- Header Section -->
+        <div class="page-header">
+            <div class="header-content">
+                <div class="breadcrumb">
+                    <a asp-page="./Index" class="breadcrumb-item">
+                        <i class="bi bi-house"></i>
+                        Quản lý dịch vụ
+                    </a>
+                    <i class="bi bi-chevron-right"></i>
+                    <span class="breadcrumb-item active">Chỉnh sửa dịch vụ</span>
+                </div>
+
+                <div class="header-info">
+                    <div class="header-badge">
+                        <i class="bi bi-pencil-square"></i>
+                        Chỉnh sửa thông tin
+                    </div>
+                    <h1 class="page-title">
+                        <span class="gradient-text">Chỉnh sửa dịch vụ</span>
+                    </h1>
+                    <p class="page-subtitle">
+                        Cập nhật thông tin chi tiết của dịch vụ chăm sóc sức khỏe
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-wrapper">
+            <!-- Form Card -->
+            <div class="form-card">
+                <div class="card-header_Edit">
+                    <div class="header-icon">
+                        <i class="bi bi-heart-pulse"></i>
+                    </div>
+                    <div class="header-text">
+                        <h2>Thông tin dịch vụ</h2>
+                        <p>Vui lòng điền đầy đủ thông tin để cập nhật dịch vụ</p>
+                    </div>
+                </div>
+
+                <div class="card-content">
+                    <form method="post" id="editServiceForm">
+                        <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+                        <input type="hidden" asp-for="Service.ServiceId" />
+
+                        <div class="form-grid">
+                            <!-- Service Name -->
+                            <div class="form-group full-width">
+                                <label asp-for="Service.Name" class="form-label">
+                                    <i class="bi bi-tag"></i>
+                                    Tên dịch vụ
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <input asp-for="Service.Name" class="form-control" placeholder="Nhập tên dịch vụ..." />
+                                    <div class="input-icon">
+                                        <i class="bi bi-check-circle success-icon"></i>
+                                        <i class="bi bi-exclamation-circle error-icon"></i>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Service.Name" class="field-validation"></span>
+                            </div>
+
+                            <!-- Service Description -->
+                            <div class="form-group full-width">
+                                <label asp-for="Service.Description" class="form-label">
+                                    <i class="bi bi-file-text"></i>
+                                    Mô tả dịch vụ
+                                </label>
+                                <div class="textarea-wrapper">
+                                    <textarea asp-for="Service.Description" class="form-control textarea" rows="4"
+                                              placeholder="Mô tả chi tiết về dịch vụ, quy trình thực hiện, lợi ích..."></textarea>
+                                    <div class="char-counter">
+                                        <span id="charCount">0</span>/500 ký tự
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Service.Description" class="field-validation"></span>
+                            </div>
+
+                            <!-- Service Price -->
+                            <div class="form-group">
+                                <label asp-for="Service.Price" class="form-label">
+                                    <i class="bi bi-currency-dollar"></i>
+                                    Giá dịch vụ
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="input-wrapper price-input">
+                                    <input asp-for="Service.Price" class="form-control" type="number" min="0" step="1000"
+                                           placeholder="0" />
+                                    <div class="input-suffix">VND</div>
+                                    <div class="input-icon">
+                                        <i class="bi bi-check-circle success-icon"></i>
+                                        <i class="bi bi-exclamation-circle error-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="price-preview">
+                                    Giá hiển thị: <span id="pricePreview">0 VND</span>
+                                </div>
+                                <span asp-validation-for="Service.Price" class="field-validation"></span>
+                            </div>
+
+                            <!-- Service Status -->
+                            <div class="form-group">
+                                <label asp-for="Service.IsDeleted" class="form-label">
+                                    <i class="bi bi-toggle-on"></i>
+                                    Trạng thái dịch vụ
+                                </label>
+                                <div class="toggle-wrapper">
+                                    <label class="toggle-switch">
+                                        <input asp-for="Service.IsDeleted" type="checkbox" />
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <div class="toggle-labels">
+                                        <span class="toggle-label active">Hoạt động</span>
+                                        <span class="toggle-label inactive">Tạm dừng</span>
+                                    </div>
+                                </div>
+                                <div class="status-info">
+                                    <i class="bi bi-info-circle"></i>
+                                    <span>Dịch vụ tạm dừng sẽ không hiển thị cho người dùng</span>
+                                </div>
+                            </div>
+
+                            <!-- Created Date (Read-only) -->
+                            <div class="form-group">
+                                <label asp-for="Service.CreatedAt" class="form-label">
+                                    <i class="bi bi-calendar-plus"></i>
+                                    Ngày tạo
+                                </label>
+                                <div class="input-wrapper readonly">
+                                    <input asp-for="Service.CreatedAt" class="form-control" readonly />
+                                    <div class="input-icon">
+                                        <i class="bi bi-lock"></i>
+                                    </div>
+                                </div>
+                                <div class="field-info">
+                                    <i class="bi bi-info-circle"></i>
+                                    <span>Thông tin này không thể chỉnh sửa</span>
+                                </div>
+                            </div>
+
+                            <!-- Last Updated (Auto-generated) -->
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="bi bi-clock-history"></i>
+                                    Cập nhật lần cuối
+                                </label>
+                                <div class="input-wrapper readonly">
+                                    <input value="@DateTime.Now.ToString("dd/MM/yyyy HH:mm")" class="form-control" readonly />
+                                    <div class="input-icon">
+                                        <i class="bi bi-clock"></i>
+                                    </div>
+                                </div>
+                                <div class="field-info">
+                                    <i class="bi bi-info-circle"></i>
+                                    <span>Sẽ được cập nhật tự động khi lưu</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <div class="action-buttons">
+                                <button type="submit" class="btn btn-primary" id="saveBtn">
+                                    <i class="bi bi-check-circle"></i>
+                                    <span>Lưu thay đổi</span>
+                                    <div class="btn-loader">
+                                        <div class="spinner"></div>
+                                    </div>
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="previewBtn">
+                                    <i class="bi bi-eye"></i>
+                                    Xem trước
+                                </button>
+                                <a asp-page="./Index" class="btn btn-outline">
+                                    <i class="bi bi-arrow-left"></i>
+                                    Quay lại
+                                </a>
+                            </div>
+
+                            <div class="save-info">
+                                <i class="bi bi-shield-check"></i>
+                                <span>Thông tin sẽ được mã hóa và bảo mật</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Preview Card -->
+            <div class="preview-card" id="previewCard">
+                <div class="card-header_Edit">
+                    <div class="header-icon">
+                        <i class="bi bi-eye"></i>
+                    </div>
+                    <div class="header-text">
+                        <h2>Xem trước dịch vụ</h2>
+                        <p>Giao diện hiển thị cho người dùng</p>
+                    </div>
+                </div>
+
+                <div class="card-content">
+                    <div class="service-preview">
+                        <div class="preview-header">
+                            <div class="service-icon">
+                                <i class="bi bi-heart-pulse"></i>
+                            </div>
+                            <div class="status-badge" id="previewStatus">
+                                <i class="bi bi-check-circle"></i>
+                                <span>Hoạt động</span>
+                            </div>
+                        </div>
+
+                        <div class="preview-content">
+                            <h3 id="previewName">Tên dịch vụ</h3>
+                            <p id="previewDescription">Mô tả dịch vụ sẽ hiển thị ở đây...</p>
+
+                            <div class="preview-details">
+                                <div class="detail-item">
+                                    <i class="bi bi-currency-dollar"></i>
+                                    <span class="detail-label">Giá dịch vụ:</span>
+                                    <span class="detail-value" id="previewPrice">0 VND</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="bi bi-calendar-plus"></i>
+                                    <span class="detail-label">Ngày tạo:</span>
+                                    <span class="detail-value" id="previewDate">--/--/----</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    /* Main Layout */
+    .edit-service-page {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f5f3ff 0%, #fdf2f8 50%, #e0f2fe 100%);
+        padding: 2rem 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    /* Header Section */
+    .page-header {
+        margin-bottom: 2rem;
+    }
+
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 0.875rem;
+    }
+
+    .breadcrumb-item {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        color: #6b7280;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+        .breadcrumb-item:hover {
+            color: #7c3aed;
+        }
+
+        .breadcrumb-item.active {
+            color: #111827;
+            font-weight: 500;
+        }
+
+    .header-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(135deg, #e0e7ff, #fce7f3);
+        color: #7c3aed;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .gradient-text {
+        background: linear-gradient(135deg, #7c3aed, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .page-subtitle {
+        font-size: 1.125rem;
+        color: #6b7280;
+        margin: 0;
+    }
+
+    /* Content Wrapper */
+    .content-wrapper {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+    }
+
+    /* Form Card */
+    .form-card,
+    .preview-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
+
+    .card-header_Edit {
+        background: linear-gradient(135deg, #7c3aed, #ec4899);
+        color: white;
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .header-icon {
+        width: 3rem;
+        height: 3rem;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .header-text h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+    }
+
+    .header-text p {
+        opacity: 0.9;
+        margin: 0;
+    }
+
+    .card-content {
+        padding: 2rem;
+    }
+
+    /* Form Styles */
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+    .form-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: #374151;
+        font-size: 0.875rem;
+    }
+
+        .form-label i {
+            color: #7c3aed;
+        }
+
+    .required {
+        color: #ef4444;
+    }
+
+    .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 0.75rem;
+        font-size: 0.875rem;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .form-control.is-valid {
+            border-color: #10b981;
+        }
+
+        .form-control.is-invalid {
+            border-color: #ef4444;
+        }
+
+        .form-control:read-only {
+            background: #f9fafb;
+            color: #6b7280;
+        }
+
+    .textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .textarea-wrapper {
+        position: relative;
+    }
+
+    .char-counter {
+        position: absolute;
+        bottom: 0.5rem;
+        right: 0.75rem;
+        font-size: 0.75rem;
+        color: #6b7280;
+        background: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+    }
+
+    .input-icon {
+        position: absolute;
+        right: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .success-icon {
+        color: #10b981;
+        display: none;
+    }
+
+    .error-icon {
+        color: #ef4444;
+        display: none;
+    }
+
+    .form-control.is-valid ~ .input-icon .success-icon {
+        display: block;
+    }
+
+    .form-control.is-invalid ~ .input-icon .error-icon {
+        display: block;
+    }
+
+    .price-input .form-control {
+        padding-right: 4rem;
+    }
+
+    .input-suffix {
+        position: absolute;
+        right: 2.5rem;
+        color: #6b7280;
+        font-weight: 500;
+        font-size: 0.875rem;
+    }
+
+    .price-preview {
+        font-size: 0.875rem;
+        color: #059669;
+        font-weight: 500;
+        margin-top: 0.25rem;
+    }
+
+    /* Toggle Switch */
+    .toggle-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 3rem;
+        height: 1.5rem;
+    }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #ef4444;
+        transition: 0.3s;
+        border-radius: 1.5rem;
+    }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 1.125rem;
+            width: 1.125rem;
+            left: 0.1875rem;
+            bottom: 0.1875rem;
+            background: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+    input:checked + .toggle-slider {
+        background: #10b981;
+    }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(1.5rem);
+        }
+
+    .toggle-labels {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .toggle-label {
+        font-size: 0.75rem;
+        font-weight: 500;
+        opacity: 0.5;
+        transition: opacity 0.3s ease;
+    }
+
+        .toggle-label.active {
+            color: #10b981;
+        }
+
+        .toggle-label.inactive {
+            color: #ef4444;
+        }
+
+    /* Field Info */
+    .field-info,
+    .status-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        color: #6b7280;
+        margin-top: 0.25rem;
+    }
+
+        .field-info i,
+        .status-info i {
+            color: #7c3aed;
+        }
+
+    /* Validation */
+    .validation-summary {
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        border: 1px solid #fca5a5;
+        color: #991b1b;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .field-validation {
+        color: #ef4444;
+        font-size: 0.75rem;
+        font-weight: 500;
+        margin-top: 0.25rem;
+    }
+
+    /* Form Actions */
+    .form-actions {
+        border-top: 1px solid #e5e7eb;
+        padding-top: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #7c3aed, #ec4899);
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #6d28d9, #db2777);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
+        }
+
+    .btn-secondary {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        color: white;
+    }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+        }
+
+    .btn-outline {
+        background: transparent;
+        color: #6b7280;
+        border: 2px solid #e5e7eb;
+    }
+
+        .btn-outline:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            color: #374151;
+        }
+
+    .btn-loader {
+        position: absolute;
+        inset: 0;
+        background: inherit;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .spinner {
+        width: 1rem;
+        height: 1rem;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top: 2px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @@keyframes spin {
+        0%
+
+    {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+
+    }
+
+    .save-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        color: #6b7280;
+    }
+
+        .save-info i {
+            color: #10b981;
+        }
+
+    /* Preview Card */
+    .preview-card {
+        position: sticky;
+        top: 2rem;
+        height: fit-content;
+    }
+
+    .service-preview {
+        border: 2px dashed #e5e7eb;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        background: #f9fafb;
+    }
+
+    .preview-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .service-icon {
+        width: 3rem;
+        height: 3rem;
+        background: linear-gradient(135deg, #7c3aed, #ec4899);
+        color: white;
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .status-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+        .status-badge.active {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #065f46;
+        }
+
+        .status-badge.inactive {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            color: #991b1b;
+        }
+
+    .preview-content h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 0.75rem;
+    }
+
+    .preview-content p {
+        color: #6b7280;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+    }
+
+    .preview-details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+        .detail-item i {
+            color: #7c3aed;
+            width: 1rem;
+        }
+
+    .detail-label {
+        color: #6b7280;
+        font-weight: 500;
+    }
+
+    .detail-value {
+        color: #111827;
+        font-weight: 600;
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 1024px) {
+        .content-wrapper
+
+    {
+        grid-template-columns: 1fr;
+    }
+
+    .preview-card {
+        position: static;
+    }
+
+    }
+
+    @@media (max-width: 768px) {
+        .page-title
+
+    {
+        font-size: 2rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-content {
+        padding: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+
+    .action-buttons {
+        justify-content: center;
+    }
+
+    }
+    
+    @@media (max-width: 480px) {
+        .action-buttons
+
+    {
+        flex-direction: column;
+    }
+
+    .btn {
+        justify-content: center;
+    }
+
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('editServiceForm');
+        const nameInput = document.querySelector('input[name="Service.Name"]');
+        const descriptionInput = document.querySelector('textarea[name="Service.Description"]');
+        const priceInput = document.querySelector('input[name="Service.Price"]');
+        const statusInput = document.querySelector('input[name="Service.IsDeleted"]');
+        const createdAtInput = document.querySelector('input[name="Service.CreatedAt"]');
+
+        const saveBtn = document.getElementById('saveBtn');
+        const previewBtn = document.getElementById('previewBtn');
+        const previewCard = document.getElementById('previewCard');
+
+        const charCount = document.getElementById('charCount');
+        const pricePreview = document.getElementById('pricePreview');
+
+        // Preview elements
+        const previewName = document.getElementById('previewName');
+        const previewDescription = document.getElementById('previewDescription');
+        const previewPrice = document.getElementById('previewPrice');
+        const previewDate = document.getElementById('previewDate');
+        const previewStatus = document.getElementById('previewStatus');
+
+        // Character counter for description
+        if (descriptionInput && charCount) {
+            function updateCharCount() {
+                const count = descriptionInput.value.length;
+                charCount.textContent = count;
+                charCount.style.color = count > 500 ? '#ef4444' : '#6b7280';
+            }
+
+            descriptionInput.addEventListener('input', updateCharCount);
+            updateCharCount();
+        }
+
+        // Price formatting
+        if (priceInput && pricePreview) {
+            function updatePricePreview() {
+                const price = parseFloat(priceInput.value) || 0;
+                pricePreview.textContent = price.toLocaleString('vi-VN') + ' VND';
+            }
+
+            priceInput.addEventListener('input', updatePricePreview);
+            updatePricePreview();
+        }
+
+        // Toggle labels update
+        if (statusInput) {
+            const activeLabel = document.querySelector('.toggle-label.active');
+            const inactiveLabel = document.querySelector('.toggle-label.inactive');
+
+            function updateToggleLabels() {
+                if (statusInput.checked) {
+                    activeLabel.style.opacity = '0.5';
+                    inactiveLabel.style.opacity = '1';
+                } else {
+                    activeLabel.style.opacity = '1';
+                    inactiveLabel.style.opacity = '0.5';
+                }
+            }
+
+            statusInput.addEventListener('change', updateToggleLabels);
+            updateToggleLabels();
+        }
+
+        // Real-time preview update
+        function updatePreview() {
+            if (nameInput && previewName) {
+                previewName.textContent = nameInput.value || 'Tên dịch vụ';
+            }
+
+            if (descriptionInput && previewDescription) {
+                previewDescription.textContent = descriptionInput.value || 'Mô tả dịch vụ sẽ hiển thị ở đây...';
+            }
+
+            if (priceInput && previewPrice) {
+                const price = parseFloat(priceInput.value) || 0;
+                previewPrice.textContent = price.toLocaleString('vi-VN') + ' VND';
+            }
+
+            if (createdAtInput && previewDate) {
+                const date = new Date(createdAtInput.value);
+                if (!isNaN(date)) {
+                    previewDate.textContent = date.toLocaleDateString('vi-VN');
+                }
+            }
+
+            if (statusInput && previewStatus) {
+                const isDeleted = statusInput.checked;
+                previewStatus.className = `status-badge ${isDeleted ? 'inactive' : 'active'}`;
+                previewStatus.innerHTML = isDeleted
+                    ? '<i class="bi bi-x-circle"></i><span>Tạm dừng</span>'
+                    : '<i class="bi bi-check-circle"></i><span>Hoạt động</span>';
+            }
+        }
+
+        [nameInput, descriptionInput, priceInput, statusInput].forEach(input => {
+            if (input) {
+                input.addEventListener('input', updatePreview);
+                input.addEventListener('change', updatePreview);
+            }
+        });
+
+        updatePreview();
+
+        if (previewBtn && previewCard) {
+            previewBtn.addEventListener('click', function() {
+                previewCard.style.display = previewCard.style.display === 'none' ? 'block' : 'none';
+            });
+        }
+
+        function validateForm() {
+            let isValid = true;
+
+            if (nameInput) {
+                if (!nameInput.value.trim()) {
+                    nameInput.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    nameInput.classList.remove('is-invalid');
+                    nameInput.classList.add('is-valid');
+                }
+            }
+
+            if (priceInput) {
+                const price = parseFloat(priceInput.value);
+                if (isNaN(price) || price < 0) {
+                    priceInput.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    priceInput.classList.remove('is-invalid');
+                    priceInput.classList.add('is-valid');
+                }
+            }
+
+            return isValid;
+        }
+
+        if (form && saveBtn) {
+            form.addEventListener('submit', function(e) {
+                if (!validateForm()) {
+                    e.preventDefault();
+                    return;
+                }
+
+                saveBtn.disabled = true;
+                saveBtn.querySelector('.btn-loader').style.display = 'flex';
+                saveBtn.querySelector('span').style.opacity = '0';
+            });
+        }
+
+        [nameInput, priceInput].forEach(input => {
+            if (input) {
+                input.addEventListener('blur', validateForm);
+                input.addEventListener('input', function() {
+                    if (this.classList.contains('is-invalid')) {
+                        validateForm();
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
