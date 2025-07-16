@@ -41,7 +41,7 @@ public class ConsultationDAO(GenderHealthcareContext context)
             .Include(c => c.User)
             .AsQueryable();
 
-            if (role == "Admin" || role == "Manager" || role == "Staff")
+            if (role == "Admin")
                 return await listConsultation.ToListAsync();
             if (role == "Customer")
                 return await listConsultation

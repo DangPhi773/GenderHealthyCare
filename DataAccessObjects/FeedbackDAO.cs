@@ -58,6 +58,34 @@ namespace DataAccessObjects
             }
         }
 
+        public async Task<List<Feedback>> GetFeedbacksByTask(string task, bool showDeleted)
+        {
+            try
+            {
+                var query = _context.Feedbacks
+                    .Include(f => f.User)
+                    .AsQueryable();
+                if (task == "service")
+                    query = query
+                      .Where(q => q.ServiceId.HasValue);
+                else if (task == "consultant")
+                    query = query
+                       .Where(q => q.ConsultantId.HasValue);
+                if (showDeleted)
+                {
+                    return await query.Where(q => q.IsDeleted == true).ToListAsync();
+                }
+                else
+                {
+                    return await query.Where(q => q.IsDeleted == false).ToListAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task AddFeedback(Feedback feedback)
         {
             await _context.Feedbacks.AddAsync(feedback);
@@ -70,23 +98,23 @@ namespace DataAccessObjects
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteFeedback(int id)
-        {
-            try
-            {
-                var feedback = _context.Feedbacks.FirstOrDefault(f => f.FeedbackId == id);
-                if (feedback != null)
-                {
-                    _context.Feedbacks.Remove(feedback);
-                    await _context.SaveChangesAsync();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+        //public async Task<bool> DeleteFeedback(int id)
+        //{
+        //    try
+        //    {
+        //        var feedback = _context.Feedbacks.FirstOrDefault(f => f.FeedbackId == id);
+        //        if (feedback != null)
+        //        {
+        //            _context.Feedbacks.Remove(feedback);
+        //            await _context.SaveChangesAsync();
+        //            return true;
+        //        }
+        //        return false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
     }
 }

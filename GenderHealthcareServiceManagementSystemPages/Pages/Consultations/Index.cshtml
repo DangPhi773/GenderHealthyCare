@@ -61,6 +61,18 @@
             document.getElementById('MeetingLink_' + id).removeAttribute('readonly');
             document.getElementById('updateBtn_' + id).style.display = 'inline-block';
         }
+
+        function showButtonReason(id) {
+            const allInputs = document.querySelectorAll("input[id^='Note_']");
+            const allButtons = document.querySelectorAll("button[id^='updateBtn_']");
+
+            allInputs.forEach(input => input.setAttribute('readonly', true));
+            allButtons.forEach(btn => btn.style.display = 'none');
+
+            document.getElementById('Note_' + id).removeAttribute('readonly');
+            document.getElementById('updateBtn_' + id).style.display = 'inline-block';
+        }
+
     </script>
 }
 <script src="~/js/microsoft/signalr/dist/browser/signalr.js"></script>

@@ -97,46 +97,61 @@ namespace DataAccessObjects
             }
         }
 
-        public async Task<bool> DeleteClinicAsync(int id)
-        {
-            Console.WriteLine($"[ClinicDAO][DeleteClinicAsync] Xóa phòng khám ID: {id}");
-            try
-            {
-                var clinic = await _context.Clinics.FindAsync(id);
-                if (clinic == null)
-                {
-                    Console.WriteLine("[ClinicDAO][DeleteClinicAsync] Không tìm thấy phòng khám để xóa.");
-                    return false;
-                }
+        //public async Task<bool> DeleteClinicAsync(int id)
+        //{
+        //    Console.WriteLine($"[ClinicDAO][DeleteClinicAsync] Xóa phòng khám ID: {id}");
+        //    try
+        //    {
+        //        var clinic = await _context.Clinics.FindAsync(id);
+        //        if (clinic == null)
+        //        {
+        //            Console.WriteLine("[ClinicDAO][DeleteClinicAsync] Không tìm thấy phòng khám để xóa.");
+        //            return false;
+        //        }
 
-                _context.Clinics.Remove(clinic);
-                await _context.SaveChangesAsync();
-                Console.WriteLine("[ClinicDAO][DeleteClinicAsync] Xóa phòng khám thành công.");
-                return true;
-            }
-            catch (DbUpdateException ex)
-            {
-                Console.WriteLine($"[ClinicDAO][DeleteClinicAsync] Lỗi cơ sở dữ liệu: {ex.InnerException?.Message}");
-                return false;
-            }
-            catch (Exception ex)
-            {   
-                Console.WriteLine($"[ClinicDAO][DeleteClinicAsync] Lỗi không xác định: {ex.Message}");
-                return false;
-            }
-        }
+        //        _context.Clinics.Remove(clinic);
+        //        await _context.SaveChangesAsync();
+        //        Console.WriteLine("[ClinicDAO][DeleteClinicAsync] Xóa phòng khám thành công.");
+        //        return true;
+        //    }
+        //    catch (DbUpdateException ex)
+        //    {
+        //        Console.WriteLine($"[ClinicDAO][DeleteClinicAsync] Lỗi cơ sở dữ liệu: {ex.InnerException?.Message}");
+        //        return false;
+        //    }
+        //    catch (Exception ex)
+        //    {   
+        //        Console.WriteLine($"[ClinicDAO][DeleteClinicAsync] Lỗi không xác định: {ex.Message}");
+        //        return false;
+        //    }
+        //}
 
-        public async Task<List<Clinic>> GetClinicsByClinicName(string name)
+        public async Task<List<Clinic>> GetClinicsByClinicName(string name, bool showDeleted)
         {
             try
             {
                 return await _context.Clinics
-                    .Where(c => c.Name.ToLower().Contains(name.ToLower()))
+                    .Where(c => c.Name.ToLower().Contains(name.ToLower()) && c.IsDeleted == showDeleted)
                     .ToListAsync();
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<List<Clinic>> GetAllClinicsAsync(bool showDeleted)
+        {
+            try
+            {
+                return await _context.Clinics
+                    .Where (c => c.IsDeleted == showDeleted)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ClinicDAO][GetAllClinicsAsync] Lỗi khi truy vấn: {ex.Message}");
+                return new List<Clinic>();
             }
         }
     }

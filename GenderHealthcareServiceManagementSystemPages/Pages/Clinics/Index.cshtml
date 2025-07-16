@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    var showDeleted = Request.Query["showDeleted"] == "true";
 }
 
 <style>
@@ -75,6 +76,15 @@
             <i class="bi bi-plus-lg"></i> Tạo mới
         </a>
     </div>
+</div>
+
+<div class="col-12 d-flex justify-content-end mb-2">
+    <form method="get">
+        <input type="hidden" name="showDeleted" value="@(showDeleted ? "false" : "true")" />
+        <button type="submit" class="btn btn-outline-danger">
+            @(showDeleted ? "Ẩn đã xoá" : "Hiển thị đã xoá")
+        </button>
+    </form>
 </div>
 
 <div class="row">

@@ -42,12 +42,14 @@ namespace Repositories
             return await _clinicDAO.UpdateClinicAsync(clinic);
         }
 
-        public async Task<bool> DeleteAsync(int clinicId)
-        {
-            Console.WriteLine($"[ClinicRepository][DeleteAsync] Xóa phòng khám với ID: {clinicId}");
-            return await _clinicDAO.DeleteClinicAsync(clinicId);
-        }
+        //public async Task<bool> DeleteAsync(int clinicId)
+        //{
+        //    Console.WriteLine($"[ClinicRepository][DeleteAsync] Xóa phòng khám với ID: {clinicId}");
+        //    return await _clinicDAO.DeleteClinicAsync(clinicId);
+        //}
 
-        public async Task<List<Clinic>> GetClinicsByClinicName(string clinicName) => await _clinicDAO.GetClinicsByClinicName(clinicName);
+        public async Task<List<Clinic>> GetClinicsByClinicName(string clinicName, bool showDeleted) => await _clinicDAO.GetClinicsByClinicName(clinicName, showDeleted);
+
+        public async Task<List<Clinic>> GetAllAsync(bool showDeleted) => await _clinicDAO.GetAllClinicsAsync(showDeleted);
     }
 }

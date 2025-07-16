@@ -23,15 +23,17 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Clinics
         public string? ClinicName { get; set; }
         public IList<Clinic> Clinic { get;set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(bool showDeleted = false)
         {
+
             if (String.IsNullOrEmpty(ClinicName))
             {
-                Clinic = await _iClinicService.GetAllAsync();
+
+                Clinic = await _iClinicService.GetAllAsync(showDeleted);
             }
             else
             {
-                Clinic = await _iClinicService.GetClinicsByClinicName(ClinicName);
+                Clinic = await _iClinicService.GetClinicsByClinicName(ClinicName, showDeleted);
             }
             return Page();
         }
