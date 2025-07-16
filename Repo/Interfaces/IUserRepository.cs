@@ -11,5 +11,7 @@ namespace Repositories.Interfaces
     public interface IUserRepository
     {
         Task<User?> GetUserById(int id);
+        Task<List<User>> GetUsersAsync();
+        Task<bool> DeleteUserAsync(int userId);
     }
 }

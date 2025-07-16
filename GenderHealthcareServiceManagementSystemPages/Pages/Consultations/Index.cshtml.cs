@@ -28,8 +28,8 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Consultations
 
         public async Task<IActionResult> OnGetAsync()
         {
-            int userId = 4;
-            string role = "Staff";
+            int userId = Int32.Parse(HttpContext.Session.GetString("UserId") ?? "0");
+            string role = HttpContext.Session.GetString("Role") ?? "DefaultRole";
             if(String.IsNullOrEmpty(StatusFilter) && String.IsNullOrEmpty(ConsultantName))
             {
                 Consultation = await _consultationService.GetConsultationsByUser(userId, role);

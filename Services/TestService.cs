@@ -25,5 +25,22 @@ namespace Services
         public Task DeleteAsync(int id) => _repo.DeleteAsync(id);
 
         public Task<List<Test>> GetTestsByUserId(int id) => _repo.GetTestsByUserId(id);
+        public Task<List<Test>> GetPendingTests() => _repo.GetPendingTests();
+        
+        public Task<List<Test>> GetScheduledTests() => _repo.GetScheduledTests();
+        public async Task<bool> UpdateTestStatus(int testId, string status, string result = null)
+        {
+            if (status == "ResultAvailable" && string.IsNullOrEmpty(result))
+            {
+                throw new InvalidOperationException("Kết quả phải được nhập khi trạng thái là 'ResultAvailable'.");
+            }
+            
+            if (status == "Completed" && string.IsNullOrEmpty(result))
+            {
+                throw new InvalidOperationException("Kết quả xét nghiệm phải có khi trạng thái là 'Completed'.");
+            }
+            
+            return await _repo.UpdateTestStatus(testId, status, result);
+        }
     }
 }

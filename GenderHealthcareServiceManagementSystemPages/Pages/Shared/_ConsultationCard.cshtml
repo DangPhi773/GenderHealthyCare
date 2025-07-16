@@ -13,6 +13,33 @@
         color: rgba(0, 0, 0, 0.65);
         transform: translateY(-1px);
     }
+    .card-all-header{
+        padding: 0.5rem 1rem;
+        margin-bottom: 0;
+        background-color: rgba(0, 0, 0, 0.03);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
+
+    .card-all-header:first-child {
+        border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+    }
+
+    .card-all {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 8px;
+    }
+
+    .card-all-body {
+        flex: 1 1 auto;
+        padding: 1rem 1rem;
+    }
 </style>
 
 @{
@@ -48,8 +75,8 @@
     bool isEditable = Model.Status == "Pending";
 }
 
-<div class="card shadow mb-4" style="border-radius: 8px">
-    <div class="card-header d-flex justify-content-between align-items-center"
+<div class="card-all shadow mb-4" style="border-radius: 8px">
+    <div class="card-all-header d-flex justify-content-between align-items-center"
             style="background-color: @headerColor; border-radius: 8px 8px 0 0;">
         @if(Model.Status == "Cancelled")
         {
@@ -62,8 +89,8 @@
         <span>@Model.AppointmentTime.ToString("dd/MM/yyyy")</span>
     </div>
 
-    <div class="card-body" style="border: none">
-        <div class="row mb-3 d-flex justify-content-evenly">
+    <div class="card-all" style="border: none;">
+        <div class="row mb-3 mt-3 d-flex justify-content-evenly">
             <div class="col-md-3">
                 <p><strong>Tên khách hàng:</strong> @Model.User?.FullName</p>
                 <p><strong>Số điện thoại:</strong> @Model.User?.Phone</p>
