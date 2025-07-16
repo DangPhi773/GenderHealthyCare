@@ -14,6 +14,20 @@ namespace DataAccessObjects
             _context = context;
         }
 
+        public async Task<List<User>> GetUsersAsync()
+        {
+            try
+            {
+                return await _context.Users
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting users: {ex.Message}");
+                return new List<User>();
+            }
+        }
+        
         public async Task<User?> GetUserByEmail(string email)
         {
             Console.WriteLine($"[UserDAO][GetUserByEmail] Truy vấn người dùng với Email: {email}");
@@ -108,6 +122,26 @@ namespace DataAccessObjects
             catch (Exception ex)
             {
                 Console.WriteLine($"[UserDAO][UpdateUser] Lỗi không xác định khi cập nhật người dùng: {ex.Message}");
+                return false;
+            }
+        }
+        
+        public async Task<bool> DeleteUserAsync(int userId)
+        {
+            try
+            {
+                var user = await _context.Users.FindAsync(userId);
+                if (user != null)
+                {
+                    user.IsDeleted = true;
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting user: {ex.Message}");
                 return false;
             }
         }
