@@ -22,7 +22,7 @@
                     </p>
                 </div>
                 <div class="header-actions">
-                    <a asp-page="Create" class="btn btn-primary">
+                    <a asp-page="Create" class="btn btn-primary_Service">
                         <i class="bi bi-plus-circle"></i>
                         Thêm dịch vụ mới
                     </a>
@@ -113,7 +113,7 @@
                          data-status="@(item.IsDeleted == true  ? "inactive" : "active")">
 
                         <!-- Card Header -->
-                        <div class="card-header">
+                        <div class="card-header_Service">
                             <div class="service-icon">
                                 <i class="bi bi-heart-pulse"></i>
                             </div>
@@ -154,15 +154,15 @@
 
                         <!-- Card Actions -->
                         <div class="card-actions">
-                            <a asp-page="./Details" asp-route-id="@item.ServiceId" class="btn btn-info">
+                            <a asp-page="./Details" asp-route-id="@item.ServiceId" class="btn_Service btn-info">
                                 <i class="bi bi-eye"></i>
                                 Chi tiết
                             </a>
-                            <a asp-page="./Edit" asp-route-id="@item.ServiceId" class="btn btn-warning">
+                            <a asp-page="./Edit" asp-route-id="@item.ServiceId" class="btn_Service btn-warning">
                                 <i class="bi bi-pencil"></i>
                                 Sửa
                             </a>
-                            <a asp-page="./Delete" asp-route-id="@item.ServiceId" class="btn btn-danger">
+                            <a asp-page="./Delete" asp-route-id="@item.ServiceId" class="btn_Service btn-danger">
                                 <i class="bi bi-trash"></i>
                                 Xóa
                             </a>
@@ -179,7 +179,7 @@
                 </div>
                 <h3>Chưa có dịch vụ nào</h3>
                 <p>Hãy thêm dịch vụ đầu tiên để bắt đầu quản lý</p>
-                <a asp-page="Create" class="btn btn-primary">
+                <a asp-page="Create" class="btn_Service btn-primary_Service">
                     <i class="bi bi-plus-circle"></i>
                     Thêm dịch vụ đầu tiên
                 </a>
@@ -439,7 +439,7 @@
             border-color: #fecaca;
         }
 
-    .card-header {
+    .card-header_Service {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -537,7 +537,7 @@
     }
 
     /* Buttons */
-    .btn {
+    .btn_Service {
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
@@ -553,7 +553,7 @@
         justify-content: center;
     }
 
-    .btn-primary {
+    .btn-primary_Service {
         background: linear-gradient(135deg, #7c3aed, #ec4899);
         color: white;
     }
