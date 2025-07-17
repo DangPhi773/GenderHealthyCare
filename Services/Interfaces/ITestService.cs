@@ -17,7 +17,7 @@ namespace Services.Interfaces
         Task<List<Test>> GetTestsByUserId(int id);
         Task<List<Test>> GetPendingTests();
         Task<List<Test>> GetScheduledTests();
-        Task<bool> UpdateTestStatus(int testId, string status, string result = null);
+        Task<bool> UpdateTestStatus(int testId, string status);
         Task<bool> IsAppointmentTimeTestingConflict(int userId, DateTime selectedTime);
 
     }

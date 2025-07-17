@@ -67,10 +67,12 @@ namespace DataAccessObjects
                     .AsQueryable();
                 if (task == "service")
                     query = query
-                      .Where(q => q.ServiceId.HasValue);
+                      .Where(q => q.ServiceId.HasValue)
+                      .Include(q => q.Service);
                 else if (task == "consultant")
                     query = query
-                       .Where(q => q.ConsultantId.HasValue);
+                       .Where(q => q.ConsultantId.HasValue)
+                       .Include(q => q.Consultant);
                 if (showDeleted)
                 {
                     return await query.Where(q => q.IsDeleted == true).ToListAsync();
@@ -97,25 +99,6 @@ namespace DataAccessObjects
             _context.Feedbacks.Update(feedback);
             await _context.SaveChangesAsync();
         }
-
-        //public async Task<bool> DeleteFeedback(int id)
-        //{
-        //    try
-        //    {
-        //        var feedback = _context.Feedbacks.FirstOrDefault(f => f.FeedbackId == id);
-        //        if (feedback != null)
-        //        {
-        //            _context.Feedbacks.Remove(feedback);
-        //            await _context.SaveChangesAsync();
-        //            return true;
-        //        }
-        //        return false;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception(ex.Message);
-        //    }
-        //}
 
         public async Task<Feedback?> GetFeedbackByConsultationIdAsync(int userId, int consultationId)
         {

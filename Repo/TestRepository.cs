@@ -28,9 +28,9 @@ namespace Repositories
         public Task<List<Test>> GetPendingTests() => _dao.GetPendingTests();
         
         public Task<List<Test>> GetScheduledTests() => _dao.GetScheduledTests();
-        public async Task<bool> UpdateTestStatus(int testId, string status, string result = null)
+        public async Task<bool> UpdateTestStatus(int testId, string status)
         {
-            return await _dao.UpdateTestStatus(testId, status, result);
+            return await _dao.UpdateTestStatus(testId, status);
         }
         public Task<bool> IsAppointmentTimeTestingConflict(int userId, DateTime selectedTime) => _dao.IsAppointmentTimeTestingConflict(userId, selectedTime);
 

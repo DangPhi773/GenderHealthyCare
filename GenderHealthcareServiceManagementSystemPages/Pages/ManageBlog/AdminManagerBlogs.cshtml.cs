@@ -21,8 +21,12 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.AdminManagerBlogs
         [BindProperty(SupportsGet = true)]
         public bool ShowDeleted { get; set; }
 
+        public string? Role { get; set; }
+
         public async Task<IActionResult> OnGetAsync()
         {
+            Role = HttpContext.Session.GetString("Role");
+
             Blogs = await _blogService.GetAllAsync();
             Blogs = Blogs
                 .Where(b => b.IsDeleted == ShowDeleted)
@@ -37,11 +41,21 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.AdminManagerBlogs
             return Page();
         }
 
+
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
+            var role = HttpContext.Session.GetString("Role");
+
+            if (role != "Admin")
+            {
+                TempData["Message"] = "Bạn không có quyền xóa blog.";
+                return RedirectToPage(new { ShowDeleted });
+            }
+
             await _blogService.DeleteAsync(id);
             TempData["Message"] = "Đã xóa blog thành công.";
             return RedirectToPage(new { ShowDeleted });
         }
+
     }
 }

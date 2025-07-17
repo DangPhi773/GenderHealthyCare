@@ -22,7 +22,7 @@
             <td>@blog.Title</td>
             <td>@(blog.Author?.FullName ?? "N/A")</td> <!-- Handle null Author -->
             <td>@(blog.CreatedAt?.ToString("dd/MM/yyyy") ?? "N/A")</td> <!-- Handle null CreatedAt -->
-            
+            <td>@blog.Content</td>
         </tr>
     }
     </tbody>

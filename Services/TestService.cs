@@ -28,14 +28,14 @@ namespace Services
         public Task<List<Test>> GetPendingTests() => _repo.GetPendingTests();
         
         public Task<List<Test>> GetScheduledTests() => _repo.GetScheduledTests();
-        public async Task<bool> UpdateTestStatus(int testId, string status, string result = null)
+        public async Task<bool> UpdateTestStatus(int testId, string status)
         {
-            if ((status == "ResultAvailable" || status == "Completed") && string.IsNullOrEmpty(result))
+            if ((status == "ResultAvailable" || status == "Completed"))
             {
                 throw new InvalidOperationException("Kết quả phải được nhập khi trạng thái là Pending.");
             }
             
-            return await _repo.UpdateTestStatus(testId, status, result);
+            return await _repo.UpdateTestStatus(testId, status);
         }
         public Task<bool> IsAppointmentTimeTestingConflict(int userId, DateTime selectedTime) => _repo.IsAppointmentTimeTestingConflict(userId, selectedTime);
 

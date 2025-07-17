@@ -52,7 +52,15 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
             }
 
             if (userId == null)
+            {
+                IsLoggedIn = false;
                 return RedirectToPage("/Login");
+            }
+
+            IsLoggedIn = true;
+
+            // Lấy lại danh sách dịch vụ nếu cần render lại trang
+            Services = _serviceService.GetAllAsync().Result.ToList();
 
             if (SelectedServiceIds == null || !SelectedServiceIds.Any())
             {
@@ -63,6 +71,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
             HttpContext.Session.SetString("SelectedServiceIds", string.Join(",", SelectedServiceIds));
             return RedirectToPage("SelectTimeTesting");
         }
+
 
     }
 }
