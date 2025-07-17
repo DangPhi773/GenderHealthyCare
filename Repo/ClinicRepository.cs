@@ -38,18 +38,17 @@ namespace Repositories
 
         public async Task<bool> UpdateAsync(Clinic clinic)
         {
-            Console.WriteLine($"[ClinicRepository][UpdateAsync] Cập nhật phòng khám ID: {clinic.ClinicId}");
+            
             return await _clinicDAO.UpdateClinicAsync(clinic);
         }
-
-        //public async Task<bool> DeleteAsync(int clinicId)
-        //{
-        //    Console.WriteLine($"[ClinicRepository][DeleteAsync] Xóa phòng khám với ID: {clinicId}");
-        //    return await _clinicDAO.DeleteClinicAsync(clinicId);
-        //}
 
         public async Task<List<Clinic>> GetClinicsByClinicName(string clinicName, bool showDeleted) => await _clinicDAO.GetClinicsByClinicName(clinicName, showDeleted);
 
         public async Task<List<Clinic>> GetAllAsync(bool showDeleted) => await _clinicDAO.GetAllClinicsAsync(showDeleted);
+        public async Task<bool> UploadImageAsync(int clinicId, byte[] imageData)
+        {
+            Console.WriteLine($"[ClinicRepository][UploadImageAsync] Tải lên hình ảnh cho phòng khám ID: {clinicId}");
+            return await _clinicDAO.UploadImageAsync(clinicId, imageData);
+        }
     }
 }

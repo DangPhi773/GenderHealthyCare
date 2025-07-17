@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="" />
+    <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="edit blog page - change button Testing" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,9 +48,9 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f964cec4620b407491d75a46803d79b926ae48/81/b7c2bee2/DbContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3eab2556a6e1dddc71dd7dd41efa5153ec50a4b7394940f26c808fcbb5dec9d/PageModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/Pages/CustomerBlogs/CustomerBlogsPage.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/Repo/Interfaces/ITestRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/Services/Interfaces/ITestService.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -81,6 +81,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -150,7 +151,14 @@
       <workItem from="1752599878038" duration="71000" />
       <workItem from="1752602670602" duration="447000" />
       <workItem from="1752604260896" duration="9381000" />
-      <workItem from="1752614308607" duration="661000" />
+      <workItem from="1752614308607" duration="6642000" />
+      <workItem from="1752627307827" duration="753000" />
+      <workItem from="1752747147306" duration="338000" />
+      <workItem from="1752752726644" duration="902000" />
+      <workItem from="1752757024269" duration="2597000" />
+      <workItem from="1752760140961" duration="6807000" />
+      <workItem from="1752767150551" duration="1841000" />
+      <workItem from="1752769112818" duration="374000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <option name="closed" value="true" />
@@ -216,7 +224,47 @@
       <option name="project" value="LOCAL" />
       <updated>1752515949147</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fix UpdateTestStatus func">
+      <option name="closed" value="true" />
+      <created>1752747240827</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1752747240827</updated>
+    </task>
+    <task id="LOCAL-00010" summary="commit workspace">
+      <option name="closed" value="true" />
+      <created>1752758667410</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1752758667410</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fix role User">
+      <option name="closed" value="true" />
+      <created>1752760688105</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1752760688105</updated>
+    </task>
+    <task id="LOCAL-00012" summary="commit blog">
+      <option name="closed" value="true" />
+      <created>1752766317155</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1752766317155</updated>
+    </task>
+    <task id="LOCAL-00013" summary="edit blog page - change button Testing">
+      <option name="closed" value="true" />
+      <created>1752769394071</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1752769394071</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,6 +294,11 @@
     <MESSAGE value="manageUserbyAdminfuncs" />
     <MESSAGE value="deleteUserFuncs" />
     <MESSAGE value="Merge branch 'develop' of https://github.com/phngochan/gender-healthcare-service-management into phi" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="fix UpdateTestStatus func" />
+    <MESSAGE value="commit workspace" />
+    <MESSAGE value="fix role User" />
+    <MESSAGE value="commit blog" />
+    <MESSAGE value="edit blog page - change button Testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit blog page - change button Testing" />
   </component>
 </project>

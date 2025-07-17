@@ -80,7 +80,13 @@ namespace DataAccessObjects
             Console.WriteLine($"[ClinicDAO][UpdateClinicAsync] Cập nhật phòng khám ID: {clinic.ClinicId}");
             try
             {
-                _context.Clinics.Update(clinic);
+                var existingClinic = await _context.Clinics.AsNoTracking().FirstOrDefaultAsync(c => c.ClinicId == clinic.ClinicId);
+                if (existingClinic == null) return false;
+
+                // Gán lại CreatedAt để không bị null
+                clinic.CreatedAt = existingClinic.CreatedAt;
+                clinic.Image = existingClinic.Image;
+                _context.Entry<Clinic>(clinic).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
                 Console.WriteLine("[ClinicDAO][UpdateClinicAsync] Cập nhật phòng khám thành công.");
                 return true;
@@ -152,6 +158,38 @@ namespace DataAccessObjects
             {
                 Console.WriteLine($"[ClinicDAO][GetAllClinicsAsync] Lỗi khi truy vấn: {ex.Message}");
                 return new List<Clinic>();
+            }
+        }
+        public async Task<bool> UploadImageAsync(int clinicId, byte[] imageData)
+        {
+            Console.WriteLine($"[ClinicDAO][UploadImageAsync] Đang tải ảnh lên cho phòng khám ID: {clinicId}");
+            try
+            {
+                var clinic = await _context.Clinics.FirstOrDefaultAsync(c => c.ClinicId == clinicId);
+                if (clinic == null)
+                {
+                    Console.WriteLine($"[ClinicDAO][UploadImageAsync] Không tìm thấy phòng khám với ClinicId: {clinicId}.");
+                    return false;
+                }
+
+                clinic.Image = imageData;
+
+                _context.Entry(clinic).State = EntityState.Modified;
+
+                await _context.SaveChangesAsync();
+
+                Console.WriteLine($"[ClinicDAO][UploadImageAsync] Tải ảnh lên thành công cho phòng khám ID: {clinicId}.");
+                return true;
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"[ClinicDAO][UploadImageAsync] Lỗi cơ sở dữ liệu khi tải ảnh lên: {ex.InnerException?.Message ?? ex.Message}");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ClinicDAO][UploadImageAsync] Lỗi không xác định khi tải ảnh lên: {ex.Message}");
+                return false;
             }
         }
     }

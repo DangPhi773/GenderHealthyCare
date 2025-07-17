@@ -13,5 +13,6 @@ namespace Services.Interfaces
         Task<bool> UpdateAsync(Clinic clinic);
         Task<bool> DeleteAsync(int clinicId);
         Task<List<Clinic>> GetClinicsByClinicName(string clinicName, bool showDeleted);
+        Task<bool> UploadImageAsync(int clinicId, byte[] imageData);
     }
 }
