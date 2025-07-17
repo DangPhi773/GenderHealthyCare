@@ -19,6 +19,46 @@
     }
 
     <form method="post" id="questionsForm">
+        <div class="form-section">
+            <label class="questions-form-label" for="subject">
+                <i class="bi bi-person-fill"></i>Chọn chuyên gia tư vấn *
+            </label>
+            <div class="consultant-grid">
+                @foreach (var consultantInf in Model.ConsultantInfos)
+                {
+                    <div class="consultant-card" onclick="selectConsultant(this, '@consultantInf.ConsultantId')">
+                        <div class="consultant-avatar">
+                            <img src="/ExpertConsultation/Booking/BookingConsultant?handler=ConsultantImage&consultantId=@consultantInf.ConsultantId"
+                                 alt="@consultantInf.Consultant.FullName"
+                                 class="consultant-image"
+                                 loading="lazy"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4MCcgaGVpZ2h0PSc4MCcgdmlld0JveD0nMCAwIDgwIDgwJz4KPGNpcmNsZSBjeD0nNDAnIGN5PSc0MCcgcj0nNDAnIGZpbGw9JyNkMWQ1ZGInLz4KPHRleHQgeD0nNDAnIHk9JzUwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBmaWxsPSd3aGl0ZScgZm9udC1zaXplPSczMCcgZm9udC1mYW1pbHk9J0FyaWFsJz7wn5GowqDigI3ijJXvuI88L3RleHQ+Cjwvc3ZnPg=='" />
+                            <div class="consultant-badge">
+                                <i class="bi bi-patch-check-fill"></i>
+                            </div>
+                        </div>
+                        <div class="consultant-info">
+                            <h3 class="consultant-name">@consultantInf.Consultant.FullName</h3>
+                            <div class="consultant-details">
+                                <span class="consultant-gender">
+                                    <i class="bi @(consultantInf.Consultant.Gender?.ToLower() == "female" ? "bi-gender-female" : "bi-gender-male")"></i>
+                                    @Model.GetGenderDisplayText(consultantInf.Consultant.Gender)
+                                </span>
+                                <span class="consultant-specialty">@consultantInf.Specialization</span>
+                            </div>
+                            <p class="consultant-experience">
+                                <i class="bi bi-award-fill"></i>
+                                @consultantInf.ExperienceYears năm kinh nghiệm
+                            </p>
+                        </div>
+                        <div class="selection-indicator">
+                            <i class="bi bi-check-circle-fill"></i>
+                        </div>
+                    </div>
+                }
+            </div>
+            <input type="hidden" name="SelectedConsultant" id="selectedConsultant" />
+        </div>
         <div class="questions-form-group">
             <label class="questions-form-label" for="subject">
                 <i class="bi bi-chat-square-text-fill"></i>Tiêu đề câu hỏi *
@@ -97,20 +137,17 @@
         document.getElementById('questionsForm').addEventListener('submit', function (e) {
             const form = this;
             const submitBtn = form.querySelector('.questions-btn-primary');
+            const consultant = document.getElementById('selectedConsultant').value;
 
+            if (!consultant) {
+                alert('Vui lòng chọn chuyên gia tư vấn');
+                e.preventDefault();
+                return;
+            }
             // Add loading state
             form.classList.add('loading');
             submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Đang gửi...';
             submitBtn.disabled = true;
-        });
-
-        // Phone number formatting
-        document.getElementById('phone').addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length >= 10) {
-                value = value.substring(0, 10);
-                e.target.value = value.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
-            }
         });
 
         // Character counter for textarea
@@ -135,10 +172,19 @@
 
         textarea.addEventListener('input', updateCharCounter);
         updateCharCounter();
+
+        // Select consultant
+        function selectConsultant(element, consultantId) {
+            document.querySelectorAll('.consultant-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            document.getElementById('selectedConsultant').value = consultantId;
+        }
     </script>
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/Question.css" />
+    <link rel="stylesheet" href="~/css/Question.css?v=20250717" />
 }
 

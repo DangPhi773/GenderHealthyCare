@@ -18,5 +18,6 @@ namespace Repositories.Interfaces
         Task<Feedback?> GetFeedbackByTestIdAsync(int userId, int testId);
         //Task<bool> DeleteFeedback(int id);
         Task<List<Feedback>> GetFeedbacksByTask(string task, bool showDeleted);
+        Task<List<Feedback>> GetLatestFeedbackAsync(int count = 5);
     }
 }

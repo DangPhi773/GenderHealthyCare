@@ -31,6 +31,7 @@ namespace Services
                 UserId = userId,
                 QuestionText = $"{req.Subject} - {req.Content}",
                 Status = "Pending",
+                ConsultantId = req.SelectedConsultant != null ? int.Parse(req.SelectedConsultant) : null,
                 CreatedAt = DateTime.UtcNow,
             };
 

@@ -1,7 +1,7 @@
 ﻿@page
 @model GenderHealthcareServiceManagementSystemPages.Pages.Admin.DashboardModel
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "Thống kê";
 }
 
 <style>
@@ -18,7 +18,7 @@
 </style>
 
 <div class="dashboard-grid">
-    <h1 class="gradient-text mb-3" style="width:fit-content;padding:5px">Tổng quan</h1>
+    <h1 class="gradient-text mb-3" style="width:fit-content;padding:5px">Thống kê</h1>
 
     <!-- Các chỉ số tổng quát -->
     <div class="metric-grid">
@@ -44,6 +44,11 @@
                 <h3>Đặt lịch dịch vụ gần đây</h3>
             </div>
             <div class="dashboard-card-description">Các lượt đặt lịch gần nhất cho các dịch vụ khác nhau.</div>
+            <!-- Hottest Service Section -->
+            <div class="hottest-service-section">
+                <p class="hottest-service-title">Dịch vụ hot nhất:</p>
+                <span class="hottest-service-value">@Model.HottestService</span>
+            </div>
             <div class="dashboard-table-container">
                 <table>
                     <thead>
@@ -64,13 +69,19 @@
                                 "Pending" => "dashboard-badge pending",
                                 _ => "dashboard-badge cancelled"
                             };
+                            var statusText = booking.Status switch
+                            {
+                                "Completed" => "Hoàn thành",
+                                "Pending" => "Đang chờ",
+                                _ => "Đã hủy"
+                            };
                             <tr>
                                 <td>@booking.Id</td>
                                 <td>@booking.Service</td>
                                 <td>@booking.User</td>
                                 <td>@booking.Date</td>
                                 <td class="text-right">
-                                    <span class="@statusClass">@booking.Status</span>
+                                    <span class="@statusClass">@statusText</span>
                                 </td>
                             </tr>
                         }
@@ -84,7 +95,63 @@
             <div class="dashboard-card-header">
                 <h3>Phản hồi người dùng gần đây</h3>
             </div>
-            <div class="dashboard-card-description">Các bình luận và đánh giá gần đây từ người dùng.</div>
+            <div class="dashboard-card-description">
+                Các bình luận và đánh giá gần đây từ người dùng.
+                @if (Model.FeedbackCount > 0)
+                {
+                    <div class="average-rating-display">
+                        <span class="average-rating-value">@Model.AverageRating.ToString("0.0")</span>
+                        <div class="star-display">
+                            @{
+                                int fullStars = (int)Math.Floor(Model.AverageRating);
+                                bool hasHalfStar = Model.AverageRating - fullStars >= 0.5;
+                                int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+                            }
+                            @for (int i = 0; i < fullStars; i++)
+                            {
+                                <i class="bi bi-star-fill text-warning me-1"></i>
+                            }
+                            @if (hasHalfStar)
+                            {
+                                <i class="bi bi-star-half text-warning me-1"></i>
+                            }
+                            @for (int i = 0; i < emptyStars; i++)
+                            {
+                                <i class="bi bi-star text-muted me-1"></i>
+                            }
+                        </div>
+                        <span class="feedback-count">(@Model.FeedbackCount đánh giá)</span>
+                    </div>
+                }
+            </div>
+
+
+            <!-- Filter Controls for Feedback -->
+           @*  <div class="feedback-filters">
+                <form method="get" class="filter-form">
+                    <div class="filter-group">
+                        <label for="reviewCount">Số đánh giá:</label>
+                        <input type="number" id="reviewCount" name="reviewCount" value="@Model.SelectedReviewCount" min="1" class="form-control" onchange="this.form.submit()" />
+                    </div>
+                    <div class="filter-group">
+                        <label for="startDate">Từ ngày:</label>
+                        <input type="date" id="startDate" name="startDate" value="@(Model.StartDate?.ToString("yyyy-MM-dd"))" class="form-control" onchange="this.form.submit()" />
+                    </div>
+                    <div class="filter-group">
+                        <label for="endDate">Đến ngày:</label>
+                        <input type="date" id="endDate" name="endDate" value="@(Model.EndDate?.ToString("yyyy-MM-dd"))" class="form-control" onchange="this.form.submit()" />
+                    </div> *@
+                    @* Keep existing query parameters if any, e.g., for other sections of the dashboard *@
+                  @*   @foreach (var queryParam in Context.Request.Query)
+                    {
+                        @if (queryParam.Key != "reviewCount" && queryParam.Key != "startDate" && queryParam.Key != "endDate")
+                        {
+                            <input type="hidden" name="@queryParam.Key" value="@queryParam.Value" />
+                        }
+                    }
+                </form>
+            </div> *@
+
             <div class="dashboard-table-container">
                 <table>
                     <thead>
@@ -96,25 +163,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var feedback in Model.LatestFeedback)
+                        @if (Model.LatestFeedback == null || !Model.LatestFeedback.Any())
                         {
                             <tr>
-                                <td>@feedback.User</td>
-                                <td>
-                                    <div>
-                                        @for (int i = 0; i < feedback.Rating; i++)
-                                        {
-                                            <span class="dashboard-star"></span>
-                                        }
-                                        @for (int i = feedback.Rating; i < 5; i++)
-                                        {
-                                            <span class="dashboard-star gray"></span>
-                                        }
-                                    </div>
-                                </td>
-                                <td class="dashboard-truncate">@feedback.Comment</td>
-                                <td class="text-right">@feedback.Date</td>
+                                <td colspan="4" class="text-center text-muted">Không có phản hồi nào gần đây.</td>
                             </tr>
+                        }
+                        else
+                        {
+                            @foreach (var feedback in Model.LatestFeedback)
+                            {
+                                <tr>
+                                    <td>@feedback.User.Username</td>
+                                    <td>
+                                        <div>
+                                            @for (int i = 0; i < feedback.Rating; i++)
+                                            {
+                                                <i class="bi bi-star-fill text-warning me-1"></i>
+                                            }
+                                            @for (int i = feedback.Rating ?? 0; i < 5; i++)
+                                            {
+                                                <i class="bi bi-star text-muted me-1"></i>
+                                            }
+                                        </div>
+                                    </td>
+                                    <td class="dashboard-truncate" title="@feedback.FeedbackText">
+                                        @feedback.FeedbackText
+                                    </td>
+                                    <td class="text-right">@feedback.CreatedAt</td>
+                                </tr>
+                            }
                         }
                     </tbody>
                 </table>
@@ -124,6 +202,6 @@
 </div>
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/Dashboard.css?v=20250714" />
+    <link rel="stylesheet" href="~/css/Dashboard.css?v=20250717" />
 }
 

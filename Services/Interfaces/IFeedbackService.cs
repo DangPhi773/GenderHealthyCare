@@ -19,5 +19,6 @@ namespace Services.Interfaces
         Task<Feedback?> GetFeedbackByConsultationIdAsync(int userId, int consultationId);
         Task<Feedback?> GetFeedbackByTestIdAsync(int userId, int testId);
         Task<(FeedbackStats, List<FeedbackDisplay>)> GetFeedbacksByTask(string task, bool showDeleted);
+        Task<List<Feedback>> GetLatestFeedbackAsync(int count = 5);
     }
 }
