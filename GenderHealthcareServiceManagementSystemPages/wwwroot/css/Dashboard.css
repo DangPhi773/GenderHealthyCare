@@ -1,12 +1,4 @@
-﻿/* Headings */
-h2 {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: var(--text-dark);
-}
-
-h3 {
+﻿h3 {
     font-size: 20px;
     font-weight: 600;
     margin: 0;
@@ -66,9 +58,34 @@ h3 {
 }
 
 .dashboard-card-description {
-    font-size: 12px;
-    color: var(--text-light); /* Lighter text color */
-    margin: 0 16px 16px 16px; /* Add horizontal padding and bottom margin */
+    font-size: 14px; /* Increased from 12px */
+    color: var(--text-light);
+    margin: 0 16px 16px 16px;
+}
+/* Hottest Service Section */
+.hottest-service-section {
+    background-color: var(--periwinkle-light); /* A slightly different background to stand out */
+    padding: 12px 16px;
+    margin: 0 16px 16px 16px; /* Align with other card content */
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px; /* Slightly larger font */
+    font-weight: 500;
+    color: var(--text-dark);
+    border: 1px solid rgba(147, 51, 234, 0.2); /* Subtle border with accent color */
+}
+
+.hottest-service-title {
+    margin: 0;
+    font-weight: 600;
+    color: var(--accent-purple); /* Highlight title */
+}
+
+.hottest-service-value {
+    font-weight: bold;
+    color: var(--text-dark);
 }
 
 /* Tables */
@@ -125,24 +142,7 @@ h3 {
 
     .dashboard-badge.cancelled {
         background-color: var(--mimi-pink); /* Light pink */
-        color: #d00036; /* Màu đỏ đậm nổi bật trên nền hồng */
-    }
-
-
-/* Feedback stars */
-.dashboard-star {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background-image: url("/icons/star-filled.svg"); /* Filled star icon */
-    background-repeat: no-repeat;
-    background-size: contain;
-    vertical-align: middle; /* Align with text */
-}
-
-    .dashboard-star.gray {
-        background-image: url("/icons/star-empty.svg"); /* Empty star icon */
-        filter: none; /* No grayscale needed if using separate empty icon */
+        color: var(--cancelled-text-color); /* Màu đỏ đậm nổi bật trên nền hồng */
     }
 
 /* Comment cell truncate */
@@ -151,6 +151,36 @@ h3 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+
+.average-rating-display {
+    background-color: var(--periwinkle-light);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem; /* Increased from 0.875rem (14px) to 1rem (16px) */
+    padding: 12px 16px;
+    margin-top: 16px; /* Align with other card content */
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-dark);
+    border: 1px solid rgba(147, 51, 234, 0.2); /* Subtle border with accent color */
+}
+
+.star-display {
+    display: flex;
+}
+
+    .star-display i {
+        width: 1.25rem; /* Increased from 1rem (16px) to 1.25rem (20px) */
+        height: 1.25rem; /* Increased from 1rem (16px) to 1.25rem (20px) */
+        margin-right: 0.25rem; /* me-1 */
+    }
+
+.feedback-count {
+    color: var(--text-light);
 }
 
 /* Responsive adjustments */
@@ -174,5 +204,9 @@ h3 {
     .dashboard-table-container th,
     .dashboard-table-container td {
         padding: 8px;
+    }
+
+    .metric-grid {
+        grid-template-columns: 1fr; /* Stack cards on small screens */
     }
 }

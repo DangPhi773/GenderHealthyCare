@@ -8,14 +8,17 @@ using Services;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.ExpertConsultation
 {
-    public class QuestionModel(IQuestionService service, IUserService userService) : PageModel
+    public class QuestionModel(IQuestionService service, IUserService userService, IConsultantInfoService consultantInfoService) : PageModel
     {
         private readonly IQuestionService _service = service;
         private readonly IUserService _userService = userService;
+        private readonly IConsultantInfoService _consultantInfoService = consultantInfoService;
+
         [BindProperty]
         public QuestionRequest QuestionRequest { get; set; } = new();
+        public List<ConsultantInfo> ConsultantInfos { get; set; } = [];
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGet()
         {
 
             // Check if user is logged in
@@ -24,6 +27,8 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ExpertConsultation
                 TempData["ErrorMessage"] = "Vui lòng đăng nhập để đặt câu hỏi.";
                 return RedirectToPage("/Login", new { returnUrl = "/ExpertConsultation/Question" });
             }
+            ConsultantInfos = await _consultantInfoService.GetAllConsultantInfosAsync();
+
             return Page();
         }
 
@@ -48,6 +53,16 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ExpertConsultation
             QuestionRequest = new();
 
             return RedirectToPage();
+        }
+
+        public string GetGenderDisplayText(string? gender)
+        {
+            return gender?.ToLower() switch
+            {
+                "female" => "Nữ",
+                "male" => "Nam",
+                _ => "Không xác định"
+            };
         }
     }
 }

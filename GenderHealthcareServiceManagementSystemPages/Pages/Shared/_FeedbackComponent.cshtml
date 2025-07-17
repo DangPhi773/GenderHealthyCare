@@ -6,7 +6,7 @@
     var counts = Model.FeedbackStats.RatingCounts;
 
     int fullStars = (int)Math.Floor(avg);
-    bool hasHalfStar = avg - fullStars >= 0.25 && avg - fullStars < 0.75;
+    bool hasHalfStar = avg - fullStars > 0.5;
     int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 }
 

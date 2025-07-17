@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 namespace BusinessObjects.ViewModels;
 public class QuestionRequest
 {
+    [Required(ErrorMessage = "Vui lòng chọn chuyên gia tư vấn")]
+    public string SelectedConsultant { get; set; } = string.Empty;
+
     [Required(ErrorMessage = "Vui lòng nhập tiêu đề câu hỏi")]
     [StringLength(200, ErrorMessage = "Tiêu đề không được vượt quá 200 ký tự")]
     public string Subject { get; set; } = string.Empty;

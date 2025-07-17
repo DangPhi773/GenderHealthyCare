@@ -19,7 +19,7 @@ namespace Services
             _repo = repo;
         }
 
-        public Task<List<Feedback>> GetAllFeedback() => _repo.GetAllFeedback();
+        public async Task<List<Feedback>> GetAllFeedback() => await _repo.GetAllFeedback();
         public Task<Feedback?> GetFeedbackById(int id) => _repo.GetFeedbackById(id);
         public Task AddFeedback(Feedback feedback) => _repo.AddFeedback(feedback);
         public Task UpdateFeedback(Feedback feedback) => _repo.UpdateFeedback(feedback);
@@ -75,6 +75,12 @@ namespace Services
         {
             var feedbacks = await _repo.GetFeedbacksByTask(task, showDeleted);
             return BuildSummary(feedbacks);
+        }
+
+        public async Task<List<Feedback>> GetLatestFeedbackAsync(int count = 5)
+        {
+            var feedbacks = await _repo.GetLatestFeedbackAsync(count);
+            return feedbacks;
         }
     }
 }

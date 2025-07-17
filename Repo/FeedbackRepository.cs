@@ -18,7 +18,7 @@ namespace Repositories
             _dao = dao;
         }
 
-        public Task<List<Feedback>> GetAllFeedback() => _dao.GetAllFeedback();
+        public async Task<List<Feedback>> GetAllFeedback() => await _dao.GetAllFeedback();
         public Task<Feedback?> GetFeedbackById(int id) => _dao.GetFeedbackById(id);
         public Task AddFeedback(Feedback feedback) => _dao.AddFeedback(feedback);
         public Task UpdateFeedback(Feedback feedback) => _dao.UpdateFeedback(feedback);
@@ -31,5 +31,6 @@ namespace Repositories
             => _dao.GetFeedbackByTestIdAsync(userId, testId);
 
         public Task<List<Feedback>> GetFeedbacksByTask(string task, bool showDeleted) => _dao.GetFeedbacksByTask(task, showDeleted);
+        public async Task<List<Feedback>> GetLatestFeedbackAsync(int count = 5) => await _dao.GetLatestFeedbackAsync(count);
     }
 }

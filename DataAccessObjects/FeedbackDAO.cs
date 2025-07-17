@@ -134,5 +134,15 @@ namespace DataAccessObjects
                     f.TestId == testId &&
                     (f.IsDeleted == null || f.IsDeleted == false));
         }
+        public async Task<List<Feedback>> GetLatestFeedbackAsync(int count)
+        {
+            return await _context.Feedbacks
+                .Include(f => f.User)
+                .Include(f => f.Consultant)
+                .Include(f => f.Service)
+                .OrderByDescending(f => f.CreatedAt)
+                .Take(count)
+                .ToListAsync();
+        }
     }
 }
