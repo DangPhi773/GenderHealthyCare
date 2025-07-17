@@ -38,6 +38,7 @@ namespace Services
         public async Task<bool> UpdateAsync(Clinic clinic)
         {
             Console.WriteLine($"[ClinicService][UpdateAsync] Gọi cập nhật phòng khám ID: {clinic.ClinicId}");
+            clinic.IsDeleted = false;
             return await _clinicRepository.UpdateAsync(clinic);
         }
 

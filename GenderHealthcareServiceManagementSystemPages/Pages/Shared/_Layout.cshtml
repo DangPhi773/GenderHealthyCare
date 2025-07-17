@@ -306,26 +306,87 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer mt-auto">
-        <div class="container text-center d-flex flex-column flex-md-row justify-content-between align-items-center">
-            <div class="mb-2 mb-md-0 d-flex align-items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="text-purple-400" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                </svg>
-                <span class="fw-semibold small">Gender Healthcare</span>
+    @* <footer class="footer mt-auto"> *@
+    @*     <div class="container text-center d-flex flex-column flex-md-row justify-content-between align-items-center"> *@
+    @*         <div class="mb-2 mb-md-0 d-flex align-items-center gap-2"> *@
+    @*             <svg xmlns="http://www.w3.org/2000/svg" class="text-purple-400" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"> *@
+    @*                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" /> *@
+    @*             </svg> *@
+    @*             <span class="fw-semibold small">Gender Healthcare</span> *@
+    @*         </div> *@
+    @*         <div class="text-muted small d-flex flex-column flex-md-row align-items-center gap-2"> *@
+    @*             <span>© 2025 Gender Healthcare System. All rights reserved.</span> *@
+    @*             <a href="/Privacy" class="text-decoration-none text-white fw-semibold"> *@
+    @*                 Chính Sách Bảo Mật *@
+    @*             </a> *@
+    @*             <a href="/terms" class="text-decoration-none text-white fw-semibold "> *@
+    @*                 Điều Khoản Sử Dụng *@
+    @*             </a> *@
+    @*         </div> *@
+    @*     </div> *@
+    @* </footer> *@
+
+    <footer class="footer mt-auto py-5 bg-light border-top">
+        <div class="container">
+            <div class="row col-12">
+                <div class="col-md-12 col-lg-2 d-flex flex-column justify-content-center justify-content-lg-start align-items-center mb-4 mb-lg-0">
+                    <img src="~/Image/logo.png" alt="Gender Healthcare Logo" class="footer-logo mb-3">
+                    <div class="social-links mt-3 d-flex justify-content-evenly">
+                        <a href="#" class="social-icon col-3" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon col-3" aria-label="Zalo"><i class="bi bi-chat-fill"></i></a>
+                        <a href="#" class="social-icon col-3" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+                    <h5 class="text-primary fw-bold mb-3">Gender Healthcare</h5>
+
+                    <ul class="list-unstyled text-muted">
+                        <li><i class="bi bi-geo-alt-fill me-2 text-primary"></i> [Địa chỉ của phòng khám]</li>
+                        <li><i class="bi bi-telephone-fill me-2 text-primary"></i> [Số điện thoại hotline]</li>
+                        <li><i class="bi bi-envelope-fill me-2 text-primary"></i> [Email liên hệ]</li>
+                        <li><i class="bi bi-clock-fill me-2 text-primary"></i> Giờ làm việc: 8:00 - 17:00 (T2 - T7)</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+                    <h5 class="text-primary fw-bold mb-3">Liên Kết Nhanh</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/" class="text-decoration-none text-muted hover-primary">Trang chủ</a></li>
+                        <li><a href="/AboutUs" class="text-decoration-none text-muted hover-primary">Về chúng tôi</a></li>
+                        <li><a href="/Services" class="text-decoration-none text-muted hover-primary">Dịch vụ</a></li>
+                        <li><a href="/Cus_Clinics" class="text-decoration-none text-muted hover-primary">Phòng khám</a></li>
+                        <li><a href="/Blogs" class="text-decoration-none text-muted hover-primary">Tin tức & Blog</a></li>
+                        <li><a href="/Contact" class="text-decoration-none text-muted hover-primary">Liên hệ</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+                    <h5 class="text-primary fw-bold mb-3">Hỗ Trợ & Chính Sách</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/Privacy" class="text-decoration-none text-muted hover-primary">Chính sách bảo mật</a></li>
+                        <li><a href="/terms" class="text-decoration-none text-muted hover-primary">Điều khoản sử dụng</a></li>
+                        <li><a href="/FAQ" class="text-decoration-none text-muted hover-primary">Câu hỏi thường gặp</a></li>
+                        <li><a href="/BookingGuide" class="text-decoration-none text-muted hover-primary">Hướng dẫn đặt lịch</a></li>
+                        <li><a href="/Sitemap" class="text-decoration-none text-muted hover-primary">Sơ đồ trang web</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-12 col-lg-4">
+                    <h5 class="text-primary fw-bold mb-3">Tìm chúng tôi trên bản đồ</h5>
+                    <div class="map-container mb-3">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.64601140081!2d106.68962637451739!3d10.762916989381666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1e7ad81831%3A0x6b4a68c07659b850!2sHo%20Chi%20Minh%20City%20University%20of%20Science!5e0!3m2!1sen!2s!4v1718012345678!5m2!1sen!2s"
+                                width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <p class="text-muted small">Liên hệ với chúng tôi để được tư vấn và hỗ trợ tốt nhất.</p>
+                </div>
             </div>
-            <div class="text-muted small d-flex flex-column flex-md-row align-items-center gap-2">
-                <span>© 2025 Gender Healthcare System. All rights reserved.</span>
-                <a href="/Privacy" class="text-decoration-none text-white fw-semibold">
-                    Chính Sách Bảo Mật
-                </a>
-                <a href="/terms" class="text-decoration-none text-white fw-semibold ">
-                    Điều Khoản Sử Dụng
-                </a>
+            <hr class="my-4">
+            <div class="text-center text-muted small">
+                © 2025 Gender Healthcare System. Tất cả quyền được bảo lưu.
             </div>
         </div>
     </footer>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>
@@ -441,5 +502,109 @@
     /* Alternative: Click-based dropdown using Bootstrap */
     .dropdown-toggle::after {
         display: none;
+    }
+    /* Custom CSS for Footer */
+    .footer {
+        background-color: #f8f9fa; /* Light background, similar to Bootstrap's .bg-light */
+        color: #495057; /* Darker text for readability */
+        padding-top: 3rem;
+        padding-bottom: 2rem;
+        border-top: 5px solid #9333ea; /* A strong border top matching your accent color */
+    }
+
+        .footer h5 {
+            color: #9333ea; /* Accent color for headings */
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+            .footer h5::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 60px; /* Underline for headings */
+                height: 3px;
+                background-color: #ec4899; /* Another accent color for the underline */
+            }
+
+        .footer ul {
+            padding-left: 0;
+            list-style: none;
+        }
+
+            .footer ul li {
+                margin-bottom: 0.75rem;
+            }
+
+                .footer ul li a {
+                    color: #6c757d; /* Muted text for links */
+                    text-decoration: none;
+                    transition: color 0.3s ease-in-out;
+                }
+
+                    .footer ul li a:hover,
+                    .hover-primary:hover {
+                        color: #9333ea; /* Hover effect with your primary accent color */
+                    }
+
+    .social-links .social-icon {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(to right, #9333ea, #ec4899); /* Gradient background for social icons */
+        color: white;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        margin-right: 0.75rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .social-links .social-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+    .map-container {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .footer-logo {
+        max-width: 180px; /* Tăng kích thước logo */
+        height: auto;
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 991.98px) { /* Cho màn hình nhỏ hơn lg (máy tính bảng và điện thoại) */
+        .footer-section {
+            text-align: center;
+        }
+
+            .footer-section h5::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+        .footer ul {
+            text-align: center;
+        }
+
+        .social-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            .social-links .social-icon {
+                margin: 0 0.5rem;
+            }
+        /* Logo và social links căn giữa trên màn hình nhỏ */
+        .footer .col-md-12.col-lg-3.d-flex {
+            justify-content: center !important;
+        }
     }
 </style>
