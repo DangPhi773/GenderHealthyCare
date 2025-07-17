@@ -9,12 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="fix role User">
-      <change afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/CustomerBlogs/CustomerBlogsPage.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/CustomerBlogs/CustomerBlogsPage.cshtml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/CustomerBlogs/DetailBlog.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/CustomerBlogs/DetailBlog.cshtml.cs" afterDir="false" />
+    <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="commit blog">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +156,7 @@
       <workItem from="1752747147306" duration="338000" />
       <workItem from="1752752726644" duration="902000" />
       <workItem from="1752757024269" duration="2597000" />
-      <workItem from="1752760140961" duration="5791000" />
+      <workItem from="1752760140961" duration="6434000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <option name="closed" value="true" />
@@ -249,7 +246,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752760688105</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="commit blog">
+      <option name="closed" value="true" />
+      <created>1752766317155</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1752766317155</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -282,6 +287,7 @@
     <MESSAGE value="fix UpdateTestStatus func" />
     <MESSAGE value="commit workspace" />
     <MESSAGE value="fix role User" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix role User" />
+    <MESSAGE value="commit blog" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit blog" />
   </component>
 </project>
