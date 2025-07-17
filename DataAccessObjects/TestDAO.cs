@@ -86,17 +86,7 @@ namespace DataAccessObjects
             if (test == null) return false;
 
             test.Status = status;
-
-            if (status == "ResultAvailable" && !string.IsNullOrEmpty(result))
-            {
-                test.Result = result;
-            }
-
-            if (status == "Completed")
-            {
-                test.Result = string.IsNullOrEmpty(test.Result) ? "No result provided" : test.Result;
-            }
-
+            
             _context.Tests.Update(test);
             await _context.SaveChangesAsync();
             return true;

@@ -1,0 +1,29 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.CustomerBlogs.CustomerBlogsPage
+
+@{
+    ViewData["Title"] = " Blogs ";
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Created At</th>
+        <th>Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (int i = 0; i < Model.Blogs.Count; i++)
+    {
+        var blog = Model.Blogs[i];
+        <tr>
+            <td>@blog.Title</td>
+            <td>@(blog.Author?.FullName ?? "N/A")</td> <!-- Handle null Author -->
+            <td>@(blog.CreatedAt?.ToString("dd/MM/yyyy") ?? "N/A")</td> <!-- Handle null CreatedAt -->
+            
+        </tr>
+    }
+    </tbody>
+</table>

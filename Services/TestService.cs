@@ -30,14 +30,9 @@ namespace Services
         public Task<List<Test>> GetScheduledTests() => _repo.GetScheduledTests();
         public async Task<bool> UpdateTestStatus(int testId, string status, string result = null)
         {
-            if (status == "ResultAvailable" && string.IsNullOrEmpty(result))
+            if ((status == "ResultAvailable" || status == "Completed") && string.IsNullOrEmpty(result))
             {
-                throw new InvalidOperationException("Kết quả phải được nhập khi trạng thái là 'ResultAvailable'.");
-            }
-            
-            if (status == "Completed" && string.IsNullOrEmpty(result))
-            {
-                throw new InvalidOperationException("Kết quả xét nghiệm phải có khi trạng thái là 'Completed'.");
+                throw new InvalidOperationException("Kết quả phải được nhập khi trạng thái là Pending.");
             }
             
             return await _repo.UpdateTestStatus(testId, status, result);
