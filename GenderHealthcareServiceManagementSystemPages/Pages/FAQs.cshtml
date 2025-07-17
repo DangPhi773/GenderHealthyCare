@@ -1,0 +1,1035 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.FAQsModel
+@{
+    ViewData["Title"] = "Câu hỏi thường gặp";
+}
+
+<main class="faq-page">
+    <div class="container">
+        <!-- Header Section -->
+        <div class="page-header">
+            <div class="header-content">
+                <div class="header-icon">
+                    <i class="bi bi-question-circle"></i>
+                </div>
+                <div class="header-text">
+                    <h1>Câu hỏi thường gặp</h1>
+                    <p>Tìm câu trả lời cho những thắc mắc phổ biến về dịch vụ chăm sóc sức khỏe giới tính</p>
+                </div>
+            </div>
+
+            <!-- Search Box -->
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="faqSearch" placeholder="Tìm kiếm câu hỏi...">
+                    <button type="button" id="clearSearch" class="clear-btn">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-chat-dots"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Câu hỏi</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Người dùng hỏi</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-clock-history"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Hỗ trợ</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="category-filter">
+            <button class="category-btn active" data-category="all">
+                <i class="bi bi-grid"></i>
+                Tất cả
+            </button>
+            <button class="category-btn" data-category="services">
+                <i class="bi bi-heart-pulse"></i>
+                Dịch vụ
+            </button>
+            <button class="category-btn" data-category="booking">
+                <i class="bi bi-calendar-check"></i>
+                Đặt lịch
+            </button>
+            <button class="category-btn" data-category="payment">
+                <i class="bi bi-credit-card"></i>
+                Thanh toán
+            </button>
+            <button class="category-btn" data-category="privacy">
+                <i class="bi bi-shield-check"></i>
+                Bảo mật
+            </button>
+            <button class="category-btn" data-category="support">
+                <i class="bi bi-headset"></i>
+                Hỗ trợ
+            </button>
+        </div>
+
+        <!-- FAQ Content -->
+        <div class="faq-content">
+            <!-- Services Category -->
+            <div class="faq-section" data-category="services">
+                <div class="section-header">
+                    <i class="bi bi-heart-pulse"></i>
+                    <h2>Về dịch vụ chăm sóc sức khỏe</h2>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Hệ thống cung cấp những dịch vụ gì?</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Chúng tôi cung cấp đầy đủ các dịch vụ chăm sóc sức khỏe giới tính bao gồm:</p>
+                        <ul>
+                            <li>Tư vấn sức khỏe sinh sản</li>
+                            <li>Khám và điều trị các bệnh phụ khoa</li>
+                            <li>Tư vấn kế hoạch hóa gia đình</li>
+                            <li>Chăm sóc sức khỏe thai sản</li>
+                            <li>Tư vấn tâm lý về giới tính</li>
+                            <li>Khám sức khỏe định kỳ</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Có cần đặt lịch trước khi đến khám không?</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Có, chúng tôi khuyến khích bạn đặt lịch trước để đảm bảo được phục vụ tốt nhất. Bạn có thể đặt lịch qua:</p>
+                        <ul>
+                            <li>Website của chúng tôi</li>
+                            <li>Hotline: 1900-xxxx</li>
+                            <li>Ứng dụng di động</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Thời gian làm việc của phòng khám như thế nào?</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Thời gian làm việc của chúng tôi:</p>
+                        <ul>
+                            <li><strong>Thứ 2 - Thứ 6:</strong> 8:00 - 20:00</li>
+                            <li><strong>Thứ 7:</strong> 8:00 - 17:00</li>
+                            <li><strong>Chủ nhật:</strong> 9:00 - 16:00</li>
+                            <li><strong>Cấp cứu:</strong> 24/7</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Category -->
+            <div class="faq-section" data-category="booking">
+                <div class="section-header">
+                    <i class="bi bi-calendar-check"></i>
+                    <h2>Đặt lịch hẹn</h2>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Làm thế nào để đặt lịch hẹn?</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Bạn có thể đặt lịch hẹn dễ dàng qua các cách sau:</p>
+                        <ol>
+                            <li>Truy cập website và chọn "Đặt lịch hẹn"</li>
+                            <li>Chọn dịch vụ và bác sĩ mong muốn</li>
+                            <li>Chọn thời gian phù hợp</li>
+                            <li>Điền thông tin cá nhân</li>
+                            <li>Xác nhận và thanh toán (nếu cần)</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Có thể hủy hoặc thay đổi lịch hẹn không?</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Có, bạn có thể hủy hoặc thay đổi lịch hẹn với các điều kiện:</p>
+                        <ul>
+                            <li>Thông báo trước ít nhất 2 giờ</li>
+                            <li>Liên hệ qua hotline hoặc website</li>
+                            <li>Phí hủy lịch có thể áp dụng tùy theo thời gian thông báo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Category -->
+            <div class="faq-section" data-category="payment">
+                <div class="section-header">
+                    <i class="bi bi-credit-card"></i>
+                    <h2>Thanh toán</h2>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Các hình thức thanh toán được chấp nhận?</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Chúng tôi chấp nhận nhiều hình thức thanh toán:</p>
+                        <ul>
+                            <li>Tiền mặt</li>
+                            <li>Thẻ ATM/Debit</li>
+                            <li>Thẻ tín dụng (Visa, MasterCard)</li>
+                            <li>Chuyển khoản ngân hàng</li>
+                            <li>Ví điện tử (MoMo, ZaloPay, VNPay)</li>
+                            <li>Bảo hiểm y tế</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Có được hoàn tiền không?</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Chính sách hoàn tiền của chúng tôi:</p>
+                        <ul>
+                            <li>Hoàn 100% nếu hủy trước 24h</li>
+                            <li>Hoàn 50% nếu hủy trước 2h</li>
+                            <li>Không hoàn tiền nếu hủy trong vòng 2h</li>
+                            <li>Trường hợp đặc biệt sẽ được xem xét riêng</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Privacy Category -->
+            <div class="faq-section" data-category="privacy">
+                <div class="section-header">
+                    <i class="bi bi-shield-check"></i>
+                    <h2>Bảo mật thông tin</h2>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Thông tin cá nhân có được bảo mật không?</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Chúng tôi cam kết bảo mật tuyệt đối thông tin của bạn:</p>
+                        <ul>
+                            <li>Mã hóa SSL 256-bit cho tất cả dữ liệu</li>
+                            <li>Tuân thủ nghiêm ngặt luật bảo vệ dữ liệu cá nhân</li>
+                            <li>Chỉ nhân viên được ủy quyền mới có thể truy cập</li>
+                            <li>Không chia sẻ thông tin với bên thứ ba</li>
+                            <li>Hệ thống backup và phục hồi an toàn</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Category -->
+            <div class="faq-section" data-category="support">
+                <div class="section-header">
+                    <i class="bi bi-headset"></i>
+                    <h2>Hỗ trợ khách hàng</h2>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Làm thế nào để liên hệ hỗ trợ?</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Bạn có thể liên hệ hỗ trợ qua:</p>
+                        <ul>
+                            <li><strong>Hotline:</strong> 1900-xxxx (24/7)</li>
+                            <li><strong>Email:</strong> support@genderhealthcare.vn</li>
+                            <li><strong>Live Chat:</strong> Trên website</li>
+                            <li><strong>Fanpage:</strong> Facebook.com/GenderHealthcareVN</li>
+                            <li><strong>Địa chỉ:</strong> 123 Đường ABC, Quận XYZ, TP.HCM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- No Results Message -->
+        <div class="no-results" id="noResults" style="display: none;">
+            <div class="no-results-icon">
+                <i class="bi bi-search"></i>
+            </div>
+            <h3>Không tìm thấy kết quả</h3>
+            <p>Không có câu hỏi nào phù hợp với từ khóa tìm kiếm của bạn.</p>
+            <button class="btn btn-primary" id="contactSupport">
+                <i class="bi bi-headset"></i>
+                Liên hệ hỗ trợ
+            </button>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <div class="contact-card">
+                <div class="contact-header">
+                    <i class="bi bi-question-circle-fill"></i>
+                    <h3>Không tìm thấy câu trả lời?</h3>
+                    <p>Đội ngũ hỗ trợ của chúng tôi luôn sẵn sàng giúp đỡ bạn</p>
+                </div>
+                <div class="contact-actions">
+                    <a href="tel:1900xxxx" class="contact-btn">
+                        <i class="bi bi-telephone"></i>
+                        Gọi ngay
+                    </a>
+                    <a href="mailto:support@genderhealthcare.vn" class="contact-btn">
+                        <i class="bi bi-envelope"></i>
+                        Gửi email
+                    </a>
+                    <button class="contact-btn" id="openChat">
+                        <i class="bi bi-chat-dots"></i>
+                        Live Chat
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    /* Main Layout */
+    .faq-page {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #764ba2 0%, #F4C7D7 100%);
+        padding: 2rem 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    /* Header */
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .header-icon {
+        width: 4rem;
+        height: 4rem;
+        background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        flex-shrink: 0;
+        box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+    }
+
+    .header-text h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-text p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.1rem;
+        margin: 0;
+    }
+
+    /* Search */
+    .search-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .search-box {
+        position: relative;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 50px;
+        padding: 0.75rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+        .search-box i {
+            color: #667eea;
+            font-size: 1.25rem;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 1rem;
+            color: #333;
+        }
+
+            .search-box input::placeholder {
+                color: #999;
+            }
+
+    .clear-btn {
+        background: none;
+        border: none;
+        color: #999;
+        cursor: pointer;
+        padding: 0.25rem;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        display: none;
+    }
+
+        .clear-btn:hover {
+            background: #f0f0f0;
+            color: #666;
+        }
+
+        .clear-btn.show {
+            display: block;
+        }
+
+    /* Stats */
+    .stats-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .stat-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+    .stat-icon {
+        width: 3rem;
+        height: 3rem;
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        color: white;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    .stat-label {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.875rem;
+    }
+
+    /* Category Filter */
+    .category-filter {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        overflow-x: auto;
+        padding: 0.5rem;
+    }
+
+    .category-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50px;
+        color: rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+    /* FAQ Content */
+    .faq-content {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .faq-section {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #f0f0f0;
+    }
+
+        .section-header i {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+
+    /* FAQ Items */
+    .faq-item {
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+        .faq-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+        }
+
+    .faq-question {
+        padding: 1.25rem;
+        background: #f9fafb;
+        cursor: pointer;
+        display: flex;
+        justify-content: between;
+        align-items: center;
+        gap: 1rem;
+        transition: all 0.3s ease;
+        user-select: none;
+    }
+
+        .faq-question:hover {
+            background: #f3f4f6;
+        }
+
+        .faq-question span {
+            flex: 1;
+            font-weight: 600;
+            color: #374151;
+            font-size: 1rem;
+        }
+
+        .faq-question i {
+            color: #667eea;
+            font-size: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+    .faq-item.active .faq-question i {
+        transform: rotate(180deg);
+    }
+
+    .faq-answer {
+        padding: 0 1.25rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    .faq-item.active .faq-answer {
+        padding: 1.25rem;
+        max-height: 500px;
+    }
+
+    .faq-answer p {
+        color: #4b5563;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    .faq-answer ul,
+    .faq-answer ol {
+        color: #4b5563;
+        line-height: 1.6;
+        padding-left: 1.5rem;
+    }
+
+    .faq-answer li {
+        margin-bottom: 0.5rem;
+    }
+
+    .faq-answer strong {
+        color: #374151;
+        font-weight: 600;
+    }
+
+    /* No Results */
+    .no-results {
+        text-align: center;
+        padding: 3rem;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .no-results-icon {
+        width: 4rem;
+        height: 4rem;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin: 0 auto 1rem;
+    }
+
+    .no-results h3 {
+        color: #374151;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .no-results p {
+        color: #6b7280;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Contact Section */
+    .contact-section {
+        margin-top: 3rem;
+    }
+
+    .contact-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .contact-header {
+        margin-bottom: 2rem;
+    }
+
+        .contact-header i {
+            font-size: 3rem;
+            color: #fbbf24;
+            margin-bottom: 1rem;
+        }
+
+        .contact-header h3 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-header p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+    .contact-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .contact-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+    }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .container
+
+    {
+        padding: 0 0.5rem;
+    }
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header-text h1 {
+        font-size: 2rem;
+    }
+
+    .stats-section {
+        grid-template-columns: 1fr;
+    }
+
+    .category-filter {
+        justify-content: flex-start;
+    }
+
+    .contact-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-btn {
+        width: 100%;
+        max-width: 200px;
+        justify-content: center;
+    }
+
+    }
+
+    /* Hidden class for filtering */
+    .hidden {
+        display: none !important;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Elements
+        const searchInput = document.getElementById('faqSearch');
+        const clearBtn = document.getElementById('clearSearch');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const faqItems = document.querySelectorAll('.faq-item');
+        const faqSections = document.querySelectorAll('.faq-section');
+        const noResults = document.getElementById('noResults');
+        const contactSupport = document.getElementById('contactSupport');
+        const openChat = document.getElementById('openChat');
+
+        let currentCategory = 'all';
+
+        // FAQ Accordion
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+
+                // Toggle current item
+                item.classList.toggle('active', !isActive);
+            });
+        });
+
+        // Search functionality
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+
+            if (searchTerm) {
+                clearBtn.classList.add('show');
+            } else {
+                clearBtn.classList.remove('show');
+            }
+
+            filterFAQs();
+        });
+
+        clearBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            clearBtn.classList.remove('show');
+            filterFAQs();
+            searchInput.focus();
+        });
+
+        // Category filtering
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Update active category button
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                currentCategory = this.dataset.category;
+                filterFAQs();
+            });
+        });
+
+        // Filter function
+        function filterFAQs() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            faqSections.forEach(section => {
+                const sectionCategory = section.dataset.category;
+                let sectionHasVisible = false;
+
+                // Show/hide section based on category
+                if (currentCategory === 'all' || currentCategory === sectionCategory) {
+                    section.style.display = 'block';
+
+                    // Filter items within section
+                    const items = section.querySelectorAll('.faq-item');
+                    items.forEach(item => {
+                        const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                        const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+
+                        const matchesSearch = !searchTerm ||
+                            question.includes(searchTerm) ||
+                            answer.includes(searchTerm);
+
+                        if (matchesSearch) {
+                            item.style.display = 'block';
+                            visibleCount++;
+                            sectionHasVisible = true;
+
+                            // Highlight search terms
+                            if (searchTerm) {
+                                highlightSearchTerm(item, searchTerm);
+                            } else {
+                                removeHighlight(item);
+                            }
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+
+                    // Hide section if no visible items
+                    if (!sectionHasVisible) {
+                        section.style.display = 'none';
+                    }
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+
+            // Show/hide no results message
+            if (visibleCount === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        }
+
+        // Highlight search terms
+        function highlightSearchTerm(item, term) {
+            const question = item.querySelector('.faq-question span');
+            const answer = item.querySelector('.faq-answer');
+
+            [question, answer].forEach(element => {
+                const text = element.textContent;
+                const regex = new RegExp(`(${term})`, 'gi');
+                const highlightedText = text.replace(regex, '<mark>$1</mark>');
+
+                if (element === question) {
+                    element.innerHTML = highlightedText;
+                } else {
+                    // For answer, we need to be more careful with HTML structure
+                    const walker = document.createTreeWalker(
+                        element,
+                        NodeFilter.SHOW_TEXT,
+                        null,
+                        false
+                    );
+
+                    const textNodes = [];
+                    let node;
+                    while (node = walker.nextNode()) {
+                        textNodes.push(node);
+                    }
+
+                    textNodes.forEach(textNode => {
+                        if (textNode.textContent.toLowerCase().includes(term)) {
+                            const span = document.createElement('span');
+                            span.innerHTML = textNode.textContent.replace(regex, '<mark>$1</mark>');
+                            textNode.parentNode.replaceChild(span, textNode);
+                        }
+                    });
+                }
+            });
+        }
+
+        // Remove highlight
+        function removeHighlight(item) {
+            const marks = item.querySelectorAll('mark');
+            marks.forEach(mark => {
+                mark.outerHTML = mark.innerHTML;
+            });
+
+            const spans = item.querySelectorAll('span');
+            spans.forEach(span => {
+                if (span.innerHTML && !span.classList.length) {
+                    span.outerHTML = span.innerHTML;
+                }
+            });
+        }
+
+        // Contact support
+        contactSupport.addEventListener('click', function() {
+            window.location.href = 'tel:1900xxxx';
+        });
+
+        // Open chat (placeholder)
+        openChat.addEventListener('click', function() {
+            alert('Tính năng Live Chat sẽ được triển khai sớm!');
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Focus search with Ctrl+F or Cmd+F
+            if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                e.preventDefault();
+                searchInput.focus();
+            }
+
+            // Clear search with Escape
+            if (e.key === 'Escape' && document.activeElement === searchInput) {
+                searchInput.value = '';
+                clearBtn.classList.remove('show');
+                filterFAQs();
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Auto-expand first FAQ item
+        if (faqItems.length > 0) {
+            faqItems[0].classList.add('active');
+        }
+    });
+</script>
