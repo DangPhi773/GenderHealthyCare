@@ -1,0 +1,2100 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.TermsModel
+@{
+    ViewData["Title"] = "Điều khoản sử dụng";
+}
+
+<main class="terms-page">
+    <div class="container">
+        <!-- Header Section -->
+        <div class="page-header">
+            <div class="header-badge">
+                <i class="bi bi-file-text"></i>
+                Điều khoản & Điều kiện
+            </div>
+            <h1 class="page-title">
+                <span class="gradient-text">Điều khoản sử dụng</span>
+            </h1>
+            <p class="page-subtitle">
+                Vui lòng đọc kỹ các điều khoản và điều kiện này trước khi sử dụng dịch vụ của Gender Healthcare System
+            </p>
+            <div class="terms-meta">
+                <div class="meta-item">
+                    <i class="bi bi-calendar-check"></i>
+                    <span>Có hiệu lực từ: 01/01/2025</span>
+                </div>
+                <div class="meta-item">
+                    <i class="bi bi-arrow-clockwise"></i>
+                    <span>Cập nhật lần cuối: 15/01/2025</span>
+                </div>
+                <div class="meta-item">
+                    <i class="bi bi-translate"></i>
+                    <span>Ngôn ngữ: Tiếng Việt</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Summary -->
+        <div class="quick-summary">
+            <div class="summary-header">
+                <i class="bi bi-lightbulb"></i>
+                <h3>Tóm tắt nhanh</h3>
+            </div>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="summary-icon accept">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h4>Bạn được phép</h4>
+                        <ul>
+                            <li>Sử dụng dịch vụ cho mục đích cá nhân</li>
+                            <li>Truy cập thông tin sức khỏe của bạn</li>
+                            <li>Đặt lịch hẹn và tư vấn</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="summary-item">
+                    <div class="summary-icon restrict">
+                        <i class="bi bi-x-circle"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h4>Bạn không được phép</h4>
+                        <ul>
+                            <li>Chia sẻ tài khoản với người khác</li>
+                            <li>Sử dụng dịch vụ cho mục đích thương mại</li>
+                            <li>Cung cấp thông tin sai lệch</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="summary-item">
+                    <div class="summary-icon responsibility">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h4>Trách nhiệm của chúng tôi</h4>
+                        <ul>
+                            <li>Bảo mật thông tin cá nhân</li>
+                            <li>Cung cấp dịch vụ chất lượng</li>
+                            <li>Hỗ trợ khách hàng 24/7</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="table-of-contents">
+            <h3>Mục lục</h3>
+            <div class="toc-grid">
+                <a href="#acceptance" class="toc-item">
+                    <span class="toc-number">1</span>
+                    <span class="toc-title">Chấp nhận điều khoản</span>
+                </a>
+                <a href="#definitions" class="toc-item">
+                    <span class="toc-number">2</span>
+                    <span class="toc-title">Định nghĩa</span>
+                </a>
+                <a href="#services" class="toc-item">
+                    <span class="toc-number">3</span>
+                    <span class="toc-title">Dịch vụ cung cấp</span>
+                </a>
+                <a href="#user-accounts" class="toc-item">
+                    <span class="toc-number">4</span>
+                    <span class="toc-title">Tài khoản người dùng</span>
+                </a>
+                <a href="#user-conduct" class="toc-item">
+                    <span class="toc-number">5</span>
+                    <span class="toc-title">Quy tắc sử dụng</span>
+                </a>
+                <a href="#privacy" class="toc-item">
+                    <span class="toc-number">6</span>
+                    <span class="toc-title">Quyền riêng tư</span>
+                </a>
+                <a href="#payments" class="toc-item">
+                    <span class="toc-number">7</span>
+                    <span class="toc-title">Thanh toán</span>
+                </a>
+                <a href="#liability" class="toc-item">
+                    <span class="toc-number">8</span>
+                    <span class="toc-title">Trách nhiệm pháp lý</span>
+                </a>
+                <a href="#termination" class="toc-item">
+                    <span class="toc-number">9</span>
+                    <span class="toc-title">Chấm dứt dịch vụ</span>
+                </a>
+                <a href="#changes" class="toc-item">
+                    <span class="toc-number">10</span>
+                    <span class="toc-title">Thay đổi điều khoản</span>
+                </a>
+                <a href="#governing-law" class="toc-item">
+                    <span class="toc-number">11</span>
+                    <span class="toc-title">Luật áp dụng</span>
+                </a>
+                <a href="#contact" class="toc-item">
+                    <span class="toc-number">12</span>
+                    <span class="toc-title">Thông tin liên hệ</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-wrapper">
+            <!-- Section 1: Acceptance -->
+            <section id="acceptance" class="content-section">
+                <div class="section-header">
+                    <div class="section-number">1</div>
+                    <h2>Chấp nhận điều khoản</h2>
+                </div>
+                <div class="section-content">
+                    <p>
+                        Bằng việc truy cập và sử dụng website Gender Healthcare System ("Dịch vụ"), bạn đồng ý tuân thủ
+                        và bị ràng buộc bởi các điều khoản và điều kiện được nêu trong tài liệu này.
+                    </p>
+
+                    <div class="important-notice">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        <div>
+                            <h4>Lưu ý quan trọng</h4>
+                            <p>Nếu bạn không đồng ý với bất kỳ phần nào của các điều khoản này, vui lòng không sử dụng dịch vụ của chúng tôi.</p>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>1.1 Phạm vi áp dụng</h3>
+                        <p>Các điều khoản này áp dụng cho:</p>
+                        <ul class="styled-list">
+                            <li>Tất cả người dùng truy cập website</li>
+                            <li>Khách hàng sử dụng dịch vụ chăm sóc sức khỏe</li>
+                            <li>Các bên thứ ba được ủy quyền</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>1.2 Tuổi tối thiểu</h3>
+                        <p>Bạn phải đủ 18 tuổi hoặc có sự đồng ý của cha mẹ/người giám hộ để sử dụng dịch vụ này.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Definitions -->
+            <section id="definitions" class="content-section">
+                <div class="section-header">
+                    <div class="section-number">2</div>
+                    <h2>Định nghĩa</h2>
+                </div>
+                <div class="section-content">
+                    <p>Trong tài liệu này, các thuật ngữ sau có ý nghĩa như được định nghĩa:</p>
+
+                    <div class="definitions-grid">
+                        <div class="definition-item">
+                            <h4>"Dịch vụ"</h4>
+                            <p>Bao gồm website, ứng dụng di động, và tất cả các dịch vụ chăm sóc sức khỏe được cung cấp bởi Gender Healthcare System.</p>
+                        </div>
+
+                        <div class="definition-item">
+                            <h4>"Người dùng" hoặc "Bạn"</h4>
+                            <p>Bất kỳ cá nhân nào truy cập hoặc sử dụng Dịch vụ của chúng tôi.</p>
+                        </div>
+
+                        <div class="definition-item">
+                            <h4>"Chúng tôi" hoặc "Công ty"</h4>
+                            <p>Gender Healthcare System và các chi nhánh, đối tác liên kết.</p>
+                        </div>
+
+                        <div class="definition-item">
+                            <h4>"Nội dung"</h4>
+                            <p>Bao gồm văn bản, hình ảnh, video, dữ liệu và thông tin khác được hiển thị trên Dịch vụ.</p>
+                        </div>
+
+                        <div class="definition-item">
+                            <h4>"Thông tin cá nhân"</h4>
+                            <p>Dữ liệu có thể xác định danh tính của bạn, bao gồm thông tin sức khỏe.</p>
+                        </div>
+
+                        <div class="definition-item">
+                            <h4>"Tài khoản"</h4>
+                            <p>Tài khoản cá nhân được tạo để truy cập và sử dụng Dịch vụ.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Services -->
+            <section id="services" class="content-section">
+                <div class="section-header">
+                    <div class="section-number">3</div>
+                    <h2>Dịch vụ cung cấp</h2>
+                </div>
+                <div class="section-content">
+                    <p>Gender Healthcare System cung cấp các dịch vụ chăm sóc sức khỏe chuyên biệt về giới tính và sức khỏe sinh sản.</p>
+
+                    <div class="services-grid">
+                        <div class="service-category">
+                            <div class="category-icon consultation">
+                                <i class="bi bi-chat-dots"></i>
+                            </div>
+                            <h4>Tư vấn trực tuyến</h4>
+                            <ul>
+                                <li>Tư vấn sức khỏe sinh sản</li>
+                                <li>Tư vấn về giới tính</li>
+                                <li>Hỗ trợ tâm lý</li>
+                                <li>Tư vấn dinh dưỡng</li>
+                            </ul>
+                        </div>
+
+                        <div class="service-category">
+                            <div class="category-icon examination">
+                                <i class="bi bi-heart-pulse"></i>
+                            </div>
+                            <h4>Khám và điều trị</h4>
+                            <ul>
+                                <li>Khám sức khỏe định kỳ</li>
+                                <li>Xét nghiệm chuyên khoa</li>
+                                <li>Điều trị hormone</li>
+                                <li>Phẫu thuật chuyển giới</li>
+                            </ul>
+                        </div>
+
+                        <div class="service-category">
+                            <div class="category-icon tracking">
+                                <i class="bi bi-graph-up"></i>
+                            </div>
+                            <h4>Theo dõi sức khỏe</h4>
+                            <ul>
+                                <li>Theo dõi chu kỳ kinh nguyệt</li>
+                                <li>Quản lý hồ sơ sức khỏe</li>
+                                <li>Nhắc nhở uống thuốc</li>
+                                <li>Báo cáo sức khỏe</li>
+                            </ul>
+                        </div>
+
+                        <div class="service-category">
+                            <div class="category-icon support">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <h4>Hỗ trợ cộng đồng</h4>
+                            <ul>
+                                <li>Diễn đàn thảo luận</li>
+                                <li>Nhóm hỗ trợ</li>
+                                <li>Chia sẻ kinh nghiệm</li>
+                                <li>Sự kiện cộng đồng</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="service-disclaimer">
+                        <i class="bi bi-info-circle"></i>
+                        <div>
+                            <h4>Tuyên bố miễn trừ trách nhiệm y tế</h4>
+                            <p>
+                                Dịch vụ của chúng tôi không thay thế cho việc khám và điều trị trực tiếp với bác sĩ.
+                                Trong trường hợp khẩn cấp, vui lòng liên hệ ngay với cơ sở y tế gần nhất.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: User Accounts -->
+            <section id="user-accounts" class="content-section">
+                <div class="section-header">
+                    <div class="section-number">4</div>
+                    <h2>Tài khoản người dùng</h2>
+                </div>
+                <div class="section-content">
+                    <div class="subsection">
+                        <h3>4.1 Tạo tài khoản</h3>
+                        <p>Để sử dụng một số tính năng của Dịch vụ, bạn cần tạo tài khoản bằng cách cung cấp thông tin chính xác và đầy đủ.</p>
+
+                        <div class="requirement-box">
+                            <h4>Yêu cầu tài khoản:</h4>
+                            <div class="requirements-grid">
+                                <div class="requirement-item">
+                                    <i class="bi bi-person"></i>
+                                    <span>Thông tin cá nhân chính xác</span>
+                                </div>
+                                <div class="requirement-item">
+                                    <i class="bi bi-envelope"></i>
+                                    <span>Email hợp lệ</span>
+                                </div>
+                                <div class="requirement-item">
+                                    <i class="bi bi-telephone"></i>
+                                    <span>Số điện thoại xác thực</span>
+                                </div>
+                                <div class="requirement-item">
+                                    <i class="bi bi-lock"></i>
+                                    <span>Mật khẩu mạnh</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>4.2 Bảo mật tài khoản</h3>
+                        <p>Bạn có trách nhiệm:</p>
+                        <ul class="styled-list">
+                            <li>Giữ bí mật thông tin đăng nhập</li>
+                            <li>Thông báo ngay khi phát hiện truy cập trái phép</li>
+                            <li>Cập nhật thông tin khi có thay đổi</li>
+                            <li>Đăng xuất sau mỗi phiên sử dụng</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>4.3 Chấm dứt tài khoản</h3>
+                        <p>Chúng tôi có quyền tạm khóa hoặc xóa tài khoản nếu:</p>
+                        <ul class="styled-list warning">
+                            <li>Vi phạm điều khoản sử dụng</li>
+                            <li>Cung cấp thông tin sai lệch</li>
+                            <li>Sử dụng dịch vụ cho mục đích bất hợp pháp</li>
+                            <li>Không hoạt động trong thời gian dài</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: User Conduct -->
+            <section id="user-conduct" class="content-section">
+                <div class="section-header">
+                    <div class="section-number">5</div>
+                    <h2>Quy tắc sử dụng</h2>
+                </div>
+                <div class="section-content">
+                    <div class="conduct-grid">
+                        <div class="conduct-section allowed">
+                            <div class="conduct-header">
+                                <i class="bi bi-check-circle"></i>
+                                <h3>Được phép</h3>
+                            </div>
+                            <ul>
+                                <li>Sử dụng dịch vụ cho mục đích cá nhân hợp pháp</li>
+                                <li>Chia sẻ phản hồi xây dựng</li>
+                                <li>Tham gia thảo luận tích cực</li>
+                                <li>Báo cáo nội dung không phù hợp</li>
+                                <li>Yêu cầu hỗ trợ kỹ thuật</li>
+                            </ul>
+                        </div>
+
+                        <div class="conduct-section prohibited">
+                            <div class="conduct-header">
+                                <i class="bi bi-x-circle"></i>
+                                <h3>Bị cấm</h3>
+                            </div>
+                            <ul>
+                                <li>Chia sẻ thông tin y tế của người khác</li>
+                                <li>Sử dụng ngôn ngữ thù địch, phân biệt đối xử</li>
+                                <li>Spam hoặc quảng cáo không được phép</li>
+                                <li>Hack hoặc phá hoại hệ thống</li>
+                                <li>Tạo nhiều tài khoản giả mạo</li>
+                                <li>Sử dụng bot hoặc công cụ tự động</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="violation-consequences">
+                        <h3>Hậu quả vi phạm</h3>
+                        <div class="consequences-timeline">
+                            <div class="consequence-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Cảnh báo</h4>
+                                    <p>Vi phạm lần đầu sẽ nhận được cảnh báo qua email</p>
+                                </div>
+                            </div>
+                            <div class="consequence-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Tạm khóa</h4>
+                                    <p>Tài khoản bị tạm khóa từ 7-30 ngày</p>
+                                </div>
+                            </div>
+                            <div class="consequence-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Khóa vĩnh viễn</h4>
+                                    <p>Vi phạm nghiêm trọng hoặc tái phạm sẽ bị khóa vĩnh viễn</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: Privacy -->
+            <section id="privacy" class="content-section">
+                <div class="section-header">
+                    <div class="section-number">6</div>
+                    <h2>Quyền riêng tư</h2>
+                </div>
+                <div class="section-content">
+                    <p>Việc bảo vệ thông tin cá nhân của bạn là ưu tiên hàng đầu của chúng tôi.</p>
+
+                    <div class="privacy-highlights">
+                        <div class="privacy-item">
+                            <i class="bi bi-shield-lock"></i>
+                            <h4>Mã hóa dữ liệu</h4>
+                            <p>Tất cả thông tin được mã hóa bằng công nghệ tiên tiến</p>
+                        </div>
+
+                        <div class="privacy-item">
+                            <i class="bi bi-eye-slash"></i>
+                            <h4>Không chia sẻ</h4>
+                            <p>Chúng tôi không bán hoặc chia sẻ thông tin cá nhân với bên thứ ba</p>
+                        </div>
+
+                        <div class="privacy-item">
+                            <i class="bi bi-person-check"></i>
+                            <h4>Kiểm soát dữ liệu</h4>
+                            <p>Bạn có quyền truy cập, sửa đổi và xóa dữ liệu cá nhân</p>
+                        </div>
+                    </div>
+
+                    <div class="privacy-link">
+                        <i class="bi bi-arrow-right"></i>
+                        <span>Xem chi tiết tại <a asp-page="./Privacy">Chính sách bảo mật</a></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Payments -->
+            <section id="payments" class="content-section">
+                <div class="section-header">
+                    <div class="section-number">7</div>
+                    <h2>Thanh toán</h2>
+                </div>
+                <div class="section-content">
+                    <div class="subsection">
+                        <h3>7.1 Phương thức thanh toán</h3>
+                        <div class="payment-methods">
+                            <div class="payment-method">
+                                <i class="bi bi-credit-card"></i>
+                                <span>Thẻ tín dụng/ghi nợ</span>
+                            </div>
+                            <div class="payment-method">
+                                <i class="bi bi-bank"></i>
+                                <span>Chuyển khoản ngân hàng</span>
+                            </div>
+                            <div class="payment-method">
+                                <i class="bi bi-wallet2"></i>
+                                <span>Ví điện tử</span>
+                            </div>
+                            <div class="payment-method">
+                                <i class="bi bi-cash"></i>
+                                <span>Thanh toán tại cơ sở</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>7.2 Chính sách hoàn tiền</h3>
+                        <div class="refund-policy">
+                            <div class="refund-item">
+                                <div class="refund-icon full">
+                                    <i class="bi bi-arrow-counterclockwise"></i>
+                                </div>
+                                <div class="refund-content">
+                                    <h4>Hoàn tiền 100%</h4>
+                                    <p>Hủy lịch hẹn trước 24 giờ</p>
+                                </div>
+                            </div>
+
+                            <div class="refund-item">
+                                <div class="refund-icon partial">
+                                    <i class="bi bi-percent"></i>
+                                </div>
+                                <div class="refund-content">
+                                    <h4>Hoàn tiền 50%</h4>
+                                    <p>Hủy lịch hẹn trong vòng 24 giờ</p>
+                                </div>
+                            </div>
+
+                            <div class="refund-item">
+                                <div class="refund-icon none">
+                                    <i class="bi bi-x-circle"></i>
+                                </div>
+                                <div class="refund-content">
+                                    <h4>Không hoàn tiền</h4>
+                                    <p>Không đến khám mà không báo trước</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 8: Liability -->
+            <section id="liability" class="content-section">
+                <div class="section-header">
+                    <div class="section-number">8</div>
+                    <h2>Trách nhiệm pháp lý</h2>
+                </div>
+                <div class="section-content">
+                    <div class="liability-grid">
+                        <div class="liability-item our-responsibility">
+                            <h4>Trách nhiệm của chúng tôi</h4>
+                            <ul>
+                                <li>Cung cấp dịch vụ theo tiêu chuẩn y tế</li>
+                                <li>Bảo mật thông tin khách hàng</li>
+                                <li>Hỗ trợ kỹ thuật kịp thời</li>
+                                <li>Tuân thủ quy định pháp luật</li>
+                            </ul>
+                        </div>
+
+                        <div class="liability-item user-responsibility">
+                            <h4>Trách nhiệm của bạn</h4>
+                            <ul>
+                                <li>Cung cấp thông tin chính xác</li>
+                                <li>Tuân thủ hướng dẫn điều trị</li>
+                                <li>Thanh toán đúng hạn</li>
+                                <li>Báo cáo vấn đề kịp thời</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="limitation-notice">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        <div>
+                            <h4>Giới hạn trách nhiệm</h4>
+                            <p>
+                                Chúng tôi không chịu trách nhiệm cho các thiệt hại gián tiếp, ngẫu nhiên hoặc hậu quả
+                                phát sinh từ việc sử dụng dịch vụ, trừ trường hợp pháp luật quy định khác.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Termination -->
+            <section id="termination" class="content-section">
+                <div class="section-header">
+                    <div class="section-number">9</div>
+                    <h2>Chấm dứt dịch vụ</h2>
+                </div>
+                <div class="section-content">
+                    <div class="termination-scenarios">
+                        <div class="termination-item user-initiated">
+                            <i class="bi bi-person-x"></i>
+                            <h4>Bạn chấm dứt</h4>
+                            <p>Bạn có thể ngừng sử dụng dịch vụ và xóa tài khoản bất cứ lúc nào thông qua cài đặt tài khoản.</p>
+                        </div>
+
+                        <div class="termination-item company-initiated">
+                            <i class="bi bi-building-x"></i>
+                            <h4>Chúng tôi chấm dứt</h4>
+                            <p>Chúng tôi có thể chấm dứt dịch vụ nếu bạn vi phạm điều khoản hoặc có hành vi bất hợp pháp.</p>
+                        </div>
+                    </div>
+
+                    <div class="termination-effects">
+                        <h4>Hiệu lực sau khi chấm dứt:</h4>
+                        <ul class="styled-list">
+                            <li>Quyền truy cập dịch vụ sẽ bị thu hồi</li>
+                            <li>Dữ liệu có thể được lưu trữ theo quy định pháp luật</li>
+                            <li>Các khoản phí đã thanh toán không được hoàn lại</li>
+                            <li>Một số điều khoản vẫn có hiệu lực</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Changes -->
+            <section id="changes" class="content-section">
+                <div class="section-header">
+                    <div class="section-number">10</div>
+                    <h2>Thay đổi điều khoản</h2>
+                </div>
+                <div class="section-content">
+                    <p>Chúng tôi có thể cập nhật các điều khoản này theo thời gian để phản ánh:</p>
+
+                    <div class="changes-reasons">
+                        <div class="change-reason">
+                            <i class="bi bi-arrow-up-circle"></i>
+                            <span>Cải tiến dịch vụ</span>
+                        </div>
+                        <div class="change-reason">
+                            <i class="bi bi-shield-check"></i>
+                            <span>Thay đổi pháp luật</span>
+                        </div>
+                        <div class="change-reason">
+                            <i class="bi bi-gear"></i>
+                            <span>Cập nhật công nghệ</span>
+                        </div>
+                        <div class="change-reason">
+                            <i class="bi bi-people"></i>
+                            <span>Phản hồi người dùng</span>
+                        </div>
+                    </div>
+
+                    <div class="notification-process">
+                        <h4>Quy trình thông báo thay đổi:</h4>
+                        <div class="process-steps">
+                            <div class="process-step">
+                                <div class="step-icon">
+                                    <i class="bi bi-envelope"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h5>Thông báo trước</h5>
+                                    <p>30 ngày qua email</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-icon">
+                                    <i class="bi bi-globe"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h5>Đăng tải website</h5>
+                                    <p>Cập nhật trên trang chính</p>
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-icon">
+                                    <i class="bi bi-check-circle"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h5>Có hiệu lực</h5>
+                                    <p>Sau thời gian thông báo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 11: Governing Law -->
+            <section id="governing-law" class="content-section">
+                <div class="section-header">
+                    <div class="section-number">11</div>
+                    <h2>Luật áp dụng</h2>
+                </div>
+                <div class="section-content">
+                    <div class="law-info">
+                        <div class="law-item">
+                            <i class="bi bi-flag"></i>
+                            <div>
+                                <h4>Pháp luật Việt Nam</h4>
+                                <p>Các điều khoản này được điều chỉnh bởi pháp luật Việt Nam</p>
+                            </div>
+                        </div>
+
+                        <div class="law-item">
+                            <i class="bi bi-building"></i>
+                            <div>
+                                <h4>Tòa án có thẩm quyền</h4>
+                                <p>Tòa án nhân dân TP. Hồ Chí Minh có thẩm quyền giải quyết tranh chấp</p>
+                            </div>
+                        </div>
+
+                        <div class="law-item">
+                            <i class="bi bi-chat-square-dots"></i>
+                            <div>
+                                <h4>Giải quyết tranh chấp</h4>
+                                <p>Ưu tiên thương lượng, hòa giải trước khi khởi kiện</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Contact -->
+            <section id="contact" class="content-section">
+                <div class="section-header">
+                    <div class="section-number">12</div>
+                    <h2>Thông tin liên hệ</h2>
+                </div>
+                <div class="section-content">
+                    <p>Nếu bạn có câu hỏi về các điều khoản này, vui lòng liên hệ:</p>
+
+                    <div class="contact-grid">
+                        <div class="contact-card">
+                            <i class="bi bi-envelope"></i>
+                            <h4>Email hỗ trợ</h4>
+                            <p>legal@genderhealthcare.vn</p>
+                        </div>
+
+                        <div class="contact-card">
+                            <i class="bi bi-telephone"></i>
+                            <h4>Hotline</h4>
+                            <p>1900-xxxx (24/7)</p>
+                        </div>
+
+                        <div class="contact-card">
+                            <i class="bi bi-geo-alt"></i>
+                            <h4>Địa chỉ</h4>
+                            <p>123 Đường ABC, Quận XYZ, TP.HCM</p>
+                        </div>
+
+                        <div class="contact-card">
+                            <i class="bi bi-clock"></i>
+                            <h4>Giờ làm việc</h4>
+                            <p>8:00 - 17:00 (T2-T6)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Acceptance Footer -->
+        <div class="acceptance-footer">
+            <div class="acceptance-content">
+                <div class="acceptance-text">
+                    <h3>Xác nhận đồng ý</h3>
+                    <p>Bằng việc tiếp tục sử dụng dịch vụ, bạn xác nhận đã đọc, hiểu và đồng ý với tất cả các điều khoản trên.</p>
+                </div>
+                <div class="acceptance-actions">
+                    <button class="btn btn-primary" onclick="acceptTerms()">
+                        <i class="bi bi-check-circle"></i>
+                        Tôi đồng ý
+                    </button>
+                    <button class="btn btn-outline" onclick="window.print()">
+                        <i class="bi bi-printer"></i>
+                        In tài liệu
+                    </button>
+                    <button class="btn btn-outline" onclick="downloadPDF()">
+                        <i class="bi bi-download"></i>
+                        Tải PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    /* Main Layout */
+    .terms-page {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f0f9ff 0%, #f5f3ff 50%, #fdf2f8 100%);
+        padding: 2rem 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    /* Header Section */
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .header-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+        color: #1e40af;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+
+    .page-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .gradient-text {
+        background: linear-gradient(135deg, #1e40af, #7c3aed);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .page-subtitle {
+        font-size: 1.25rem;
+        color: #6b7280;
+        max-width: 800px;
+        margin: 0 auto 2rem;
+        line-height: 1.6;
+    }
+
+    .terms-meta {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        color: #6b7280;
+        backdrop-filter: blur(10px);
+    }
+
+    /* Quick Summary */
+    .quick-summary {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .summary-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+
+        .summary-header i {
+            font-size: 1.5rem;
+            color: #f59e0b;
+        }
+
+        .summary-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+    .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .summary-item {
+        display: flex;
+        gap: 1rem;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+        border-radius: 0.75rem;
+    }
+
+    .summary-icon {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: white;
+        flex-shrink: 0;
+    }
+
+        .summary-icon.accept {
+            background: linear-gradient(135deg, #10b981, #047857);
+        }
+
+        .summary-icon.restrict {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .summary-icon.responsibility {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+
+    .summary-content h4 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 0.75rem;
+    }
+
+    .summary-content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .summary-content li {
+        color: #6b7280;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+        padding-left: 1rem;
+        position: relative;
+    }
+
+        .summary-content li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #9ca3af;
+        }
+
+    /* Table of Contents */
+    .table-of-contents {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+        .table-of-contents h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+    .toc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .toc-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+        border-radius: 0.75rem;
+        text-decoration: none;
+        color: #374151;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+        .toc-item:hover {
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+            color: #1e40af;
+            transform: translateY(-2px);
+        }
+
+    .toc-number {
+        width: 2rem;
+        height: 2rem;
+        background: linear-gradient(135deg, #1e40af, #7c3aed);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.875rem;
+        flex-shrink: 0;
+    }
+
+    .toc-title {
+        flex: 1;
+    }
+
+    /* Content Sections */
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .content-section {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        scroll-margin-top: 2rem;
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #f3f4f6;
+    }
+
+    .section-number {
+        width: 3rem;
+        height: 3rem;
+        background: linear-gradient(135deg, #1e40af, #7c3aed);
+        color: white;
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+    }
+
+    .section-header h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #111827;
+        margin: 0;
+    }
+
+    .section-content p {
+        color: #6b7280;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Subsections */
+    .subsection {
+        margin-bottom: 2rem;
+    }
+
+        .subsection h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 1rem;
+        }
+
+    /* Styled Lists */
+    .styled-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+        .styled-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            color: #374151;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+            .styled-list li::before {
+                content: "✓";
+                position: absolute;
+                left: 0;
+                color: #10b981;
+                font-weight: bold;
+            }
+
+        .styled-list.warning li::before {
+            content: "⚠";
+            color: #f59e0b;
+        }
+
+    /* Special Components */
+    .important-notice {
+        background: linear-gradient(135deg, #fef3c7, #fed7aa);
+        border: 1px solid #fbbf24;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        display: flex;
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+
+        .important-notice i {
+            font-size: 2rem;
+            color: #d97706;
+            flex-shrink: 0;
+        }
+
+        .important-notice h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+
+        .important-notice p {
+            color: #78350f;
+            margin: 0;
+        }
+
+    /* Definitions Grid */
+    .definitions-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .definition-item {
+        background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        border-left: 4px solid #1e40af;
+    }
+
+        .definition-item h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.75rem;
+        }
+
+        .definition-item p {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+    /* Services Grid */
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .service-category {
+        background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+        .service-category:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+    .category-icon {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 1.5rem;
+        color: white;
+    }
+
+        .category-icon.consultation {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+
+        .category-icon.examination {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .category-icon.tracking {
+            background: linear-gradient(135deg, #10b981, #047857);
+        }
+
+        .category-icon.support {
+            background: linear-gradient(135deg, #7c3aed, #5b21b6);
+        }
+
+    .service-category h4 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 1rem;
+    }
+
+    .service-category ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+    }
+
+    .service-category li {
+        color: #6b7280;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+        padding-left: 1rem;
+        position: relative;
+    }
+
+        .service-category li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #9ca3af;
+        }
+
+    /* Service Disclaimer */
+    .service-disclaimer {
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        border: 1px solid #f87171;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+        .service-disclaimer i {
+            font-size: 2rem;
+            color: #dc2626;
+            flex-shrink: 0;
+        }
+
+        .service-disclaimer h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #991b1b;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-disclaimer p {
+            color: #7f1d1d;
+            margin: 0;
+        }
+
+    /* Requirements Box */
+    .requirement-box {
+        background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin-top: 1rem;
+    }
+
+        .requirement-box h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 1rem;
+        }
+
+    .requirements-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .requirement-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: rgba(255, 255, 255, 0.7);
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        color: #374151;
+    }
+
+        .requirement-item i {
+            color: #1e40af;
+            font-size: 1.125rem;
+        }
+
+    /* Conduct Grid */
+    .conduct-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .conduct-section {
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+    }
+
+        .conduct-section.allowed {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            border: 1px solid #10b981;
+        }
+
+        .conduct-section.prohibited {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            border: 1px solid #ef4444;
+        }
+
+    .conduct-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+        .conduct-header i {
+            font-size: 1.5rem;
+        }
+
+    .conduct-section.allowed .conduct-header i {
+        color: #047857;
+    }
+
+    .conduct-section.prohibited .conduct-header i {
+        color: #dc2626;
+    }
+
+    .conduct-header h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .conduct-section.allowed .conduct-header h3 {
+        color: #047857;
+    }
+
+    .conduct-section.prohibited .conduct-header h3 {
+        color: #dc2626;
+    }
+
+    .conduct-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .conduct-section li {
+        margin-bottom: 0.75rem;
+        padding-left: 1.5rem;
+        position: relative;
+        font-size: 0.875rem;
+    }
+
+    .conduct-section.allowed li {
+        color: #065f46;
+    }
+
+    .conduct-section.prohibited li {
+        color: #7f1d1d;
+    }
+
+    .conduct-section.allowed li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #10b981;
+        font-weight: bold;
+    }
+
+    .conduct-section.prohibited li::before {
+        content: "✗";
+        position: absolute;
+        left: 0;
+        color: #ef4444;
+        font-weight: bold;
+    }
+
+    /* Violation Consequences */
+    .violation-consequences {
+        margin-top: 2rem;
+    }
+
+        .violation-consequences h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 1.5rem;
+        }
+
+    .consequences-timeline {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .consequence-step {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .step-number {
+        width: 3rem;
+        height: 3rem;
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .step-content h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 0.5rem;
+    }
+
+    .step-content p {
+        color: #6b7280;
+        font-size: 0.875rem;
+        margin: 0;
+    }
+
+    /* Privacy Highlights */
+    .privacy-highlights {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .privacy-item {
+        background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+        .privacy-item i {
+            font-size: 2rem;
+            color: #7c3aed;
+            margin-bottom: 1rem;
+        }
+
+        .privacy-item h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.75rem;
+        }
+
+        .privacy-item p {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+    .privacy-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+        border-radius: 0.75rem;
+    }
+
+        .privacy-link i {
+            color: #7c3aed;
+        }
+
+        .privacy-link a {
+            color: #7c3aed;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+            .privacy-link a:hover {
+                text-decoration: underline;
+            }
+
+    /* Payment Methods */
+    .payment-methods {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+
+    .payment-method {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+        padding: 1rem;
+        border-radius: 0.75rem;
+        font-weight: 500;
+        color: #374151;
+    }
+
+        .payment-method i {
+            font-size: 1.5rem;
+            color: #1e40af;
+        }
+
+    /* Refund Policy */
+    .refund-policy {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .refund-item {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem;
+        background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+        border-radius: 0.75rem;
+    }
+
+    .refund-icon {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        color: white;
+        flex-shrink: 0;
+    }
+
+        .refund-icon.full {
+            background: linear-gradient(135deg, #10b981, #047857);
+        }
+
+        .refund-icon.partial {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        .refund-icon.none {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+    .refund-content h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 0.5rem;
+    }
+
+    .refund-content p {
+        color: #6b7280;
+        font-size: 0.875rem;
+        margin: 0;
+    }
+
+    /* Liability Grid */
+    .liability-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .liability-item {
+        background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        border-left: 4px solid #1e40af;
+    }
+
+        .liability-item h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 1rem;
+        }
+
+        .liability-item ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .liability-item li {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+            .liability-item li::before {
+                content: "•";
+                position: absolute;
+                left: 0;
+                color: #1e40af;
+                font-weight: bold;
+            }
+
+    .limitation-notice {
+        background: linear-gradient(135deg, #fef3c7, #fed7aa);
+        border: 1px solid #fbbf24;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+        .limitation-notice i {
+            font-size: 2rem;
+            color: #d97706;
+            flex-shrink: 0;
+        }
+
+        .limitation-notice h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+
+        .limitation-notice p {
+            color: #78350f;
+            margin: 0;
+        }
+
+    /* Termination Scenarios */
+    .termination-scenarios {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .termination-item {
+        background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+        .termination-item i {
+            font-size: 2.5rem;
+            color: #7c3aed;
+            margin-bottom: 1rem;
+        }
+
+        .termination-item h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.75rem;
+        }
+
+        .termination-item p {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+    .termination-effects {
+        margin-top: 2rem;
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+    }
+
+        .termination-effects h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #991b1b;
+            margin-bottom: 1rem;
+        }
+
+    /* Changes Reasons */
+    .changes-reasons {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .change-reason {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+        padding: 1rem;
+        border-radius: 0.75rem;
+        font-weight: 500;
+        color: #374151;
+    }
+
+        .change-reason i {
+            font-size: 1.25rem;
+            color: #7c3aed;
+        }
+
+    /* Notification Process */
+    .notification-process {
+        margin-top: 2rem;
+    }
+
+        .notification-process h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 1.5rem;
+        }
+
+    .process-steps {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .process-step {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .step-icon {
+        width: 3rem;
+        height: 3rem;
+        background: linear-gradient(135deg, #7c3aed, #5b21b6);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .step-content h5 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 0.5rem;
+    }
+
+    .step-content p {
+        color: #6b7280;
+        font-size: 0.875rem;
+        margin: 0;
+    }
+
+    /* Law Info */
+    .law-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .law-item {
+        display: flex;
+        gap: 1rem;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+        border-radius: 0.75rem;
+    }
+
+        .law-item i {
+            font-size: 2rem;
+            color: #1e40af;
+            flex-shrink: 0;
+        }
+
+        .law-item h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .law-item p {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+    /* Contact Grid */
+    .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .contact-card {
+        background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+        .contact-card i {
+            font-size: 2rem;
+            color: #7c3aed;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+    /* Buttons */
+    .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #1e40af, #7c3aed);
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1e3a8a, #6d28d9);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.3);
+        }
+
+    .btn-outline {
+        background: transparent;
+        color: #1e40af;
+        border: 2px solid #dbeafe;
+    }
+
+        .btn-outline:hover {
+            background: #f0f9ff;
+            border-color: #1e40af;
+        }
+
+    /* Acceptance Footer */
+    .acceptance-footer {
+        background: linear-gradient(135deg, #1e40af, #7c3aed);
+        border-radius: 1.5rem;
+        padding: 3rem 2rem;
+        color: white;
+        margin-top: 3rem;
+    }
+
+    .acceptance-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+
+    .acceptance-text h3 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .acceptance-text p {
+        font-size: 1.125rem;
+        opacity: 0.9;
+        margin: 0;
+        max-width: 600px;
+    }
+
+    .acceptance-actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .acceptance-footer .btn-primary {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+        .acceptance-footer .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+    .acceptance-footer .btn-outline {
+        background: transparent;
+        color: white;
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+        .acceptance-footer .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .page-title
+
+    {
+        font-size: 2rem;
+    }
+
+    .terms-meta {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .summary-grid,
+    .toc-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .consequences-timeline,
+    .process-steps {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .acceptance-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .acceptance-actions {
+        justify-content: center;
+    }
+
+    }
+
+    /* Smooth Scrolling */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Section Anchors */
+    section[id] {
+        scroll-margin-top: 2rem;
+    }
+
+    /* Active TOC Item */
+    .toc-item.active {
+        background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+        color: #1e40af;
+    }
+</style>
+
+<script>
+    // Smooth scrolling for TOC links
+    document.querySelectorAll('.toc-item').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Highlight active section in TOC
+    window.addEventListener('scroll', function() {
+        const sections = document.querySelectorAll('section[id]');
+        const tocLinks = document.querySelectorAll('.toc-item');
+
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (scrollY >= (sectionTop - 200)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        tocLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').substring(1) === current) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+    // Accept Terms Function
+    function acceptTerms() {
+        // Show confirmation
+        if (confirm('Bạn xác nhận đã đọc và đồng ý với tất cả các điều khoản sử dụng?')) {
+            // Store acceptance in localStorage
+            localStorage.setItem('termsAccepted', 'true');
+            localStorage.setItem('termsAcceptedDate', new Date().toISOString());
+
+            // Show success message
+            alert('Cảm ơn bạn đã đồng ý với điều khoản sử dụng!');
+
+            // Redirect to home page or previous page
+            window.location.href = '/';
+        }
+    }
+
+    // Download PDF Function
+    function downloadPDF() {
+        // Create a simple PDF download simulation
+        const link = document.createElement('a');
+        link.href = '#'; // Replace with actual PDF URL
+        link.download = 'dieu-khoan-su-dung-gender-healthcare.pdf';
+
+        // Show message since we don't have actual PDF
+        alert('Tính năng tải PDF sẽ được cập nhật sớm. Bạn có thể sử dụng chức năng in để lưu tài liệu.');
+    }
+
+    // Print function enhancement
+    const originalPrint = window.print;
+    window.print = function() {
+        // Add print-specific styles
+        document.body.classList.add('printing');
+
+        // Call original print
+        originalPrint.call(window);
+
+        // Remove print styles after printing
+        setTimeout(() => {
+            document.body.classList.remove('printing');
+        }, 1000);
+    };
+
+    // Check if user has already accepted terms
+    document.addEventListener('DOMContentLoaded', function() {
+        const termsAccepted = localStorage.getItem('termsAccepted');
+        const acceptButton = document.querySelector('.acceptance-footer .btn-primary');
+
+        if (termsAccepted === 'true') {
+            acceptButton.innerHTML = '<i class="bi bi-check-circle"></i> Đã đồng ý';
+            acceptButton.style.background = 'rgba(16, 185, 129, 0.8)';
+        }
+    });
+
+    // Reading progress indicator
+    function updateReadingProgress() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+
+        // Create progress bar if it doesn't exist
+        let progressBar = document.getElementById('reading-progress');
+        if (!progressBar) {
+            progressBar = document.createElement('div');
+            progressBar.id = 'reading-progress';
+            progressBar.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: ${scrolled}%;
+                height: 4px;
+                background: linear-gradient(135deg, #1e40af, #7c3aed);
+                z-index: 9999;
+                transition: width 0.3s ease;
+            `;
+            document.body.appendChild(progressBar);
+        } else {
+            progressBar.style.width = scrolled + '%';
+        }
+    }
+
+    window.addEventListener('scroll', updateReadingProgress);
+</script>

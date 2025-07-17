@@ -104,31 +104,34 @@
                         <input asp-for="Clinic.Name" style="width:100%" type="text" readonly />
                         <span asp-validation-for="Clinic.Name" class="text-danger small"></span>
                     </h3>
-                    @* button edit *@
-                    <button style="border:none;"
-                            id="editBtn"
-                            type="button"
-                            class="btn btn-light btn-decor col-1 d-flex align-items-center justify-content-center">
-                        <i class="bi bi-vector-pen"></i>
-                    </button>
-                    @* button save *@
-                    <button style="border:none"
-                            name="action" 
-                            value="update"
-                            id="saveBtn"
-                            type="submit"
-                            class="btn btn-light btn-decor col-1 d-flex align-items-center justify-content-center hidden">
-                        <i class="bi bi-check-lg"></i>
-                    </button>
-                    @* button delete *@
-                    <button type="button"
-                            style="border:none;"
-                            id="deleteBtn"
-                            class="btn btn-light btn-decor col-1 d-flex align-items-center justify-content-center"
-                            data-bs-toggle="modal"
-                            data-bs-target="#deleteConfirmModal">
-                        <i class="bi bi-trash3"></i>
-                    </button>
+                    @if (Model.Clinic.IsDeleted == false)
+                    {
+                        @* button edit *@
+                        <button style="border:none;"
+                                id="editBtn"
+                                type="button"
+                                class="btn btn-light btn-decor col-1 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-vector-pen"></i>
+                        </button>
+                        @* button save *@
+                        <button style="border:none"
+                                name="action"
+                                value="update"
+                                id="saveBtn"
+                                type="submit"
+                                class="btn btn-light btn-decor col-1 d-flex align-items-center justify-content-center hidden">
+                            <i class="bi bi-check-lg"></i>
+                        </button>
+                        @* button delete *@
+                        <button type="button"
+                                style="border:none;"
+                                id="deleteBtn"
+                                class="btn btn-light btn-decor col-1 d-flex align-items-center justify-content-center"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteConfirmModal">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    }
 
                 </div>
                 <hr />

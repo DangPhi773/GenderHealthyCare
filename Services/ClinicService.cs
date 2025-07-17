@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Repositories.Interfaces;
 using Services.Interfaces;
 using System;
@@ -43,9 +44,17 @@ namespace Services
         public async Task<bool> DeleteAsync(int clinicId)
         {
             Console.WriteLine($"[ClinicService][DeleteAsync] Gọi xóa phòng khám với ID: {clinicId}");
-            return await _clinicRepository.DeleteAsync(clinicId);
+            var clinic = await _clinicRepository.GetByIdAsync(clinicId);
+            if (clinic == null)
+            {
+                return false;
+            }
+            clinic.IsDeleted = true;
+            return await _clinicRepository.UpdateAsync(clinic);
         }
 
-        public async Task<List<Clinic>> GetClinicsByClinicName(string clinicName) => await _clinicRepository.GetClinicsByClinicName(clinicName);
+        public async Task<List<Clinic>> GetClinicsByClinicName(string clinicName, bool showDeleted) => await _clinicRepository.GetClinicsByClinicName(clinicName, showDeleted);
+
+        public async Task<List<Clinic>> GetAllAsync(bool showDeleted) => await _clinicRepository.GetAllAsync(showDeleted);
     }
 }

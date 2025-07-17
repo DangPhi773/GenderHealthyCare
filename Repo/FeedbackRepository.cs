@@ -22,8 +22,8 @@ namespace Repositories
         public Task<Feedback?> GetFeedbackById(int id) => _dao.GetFeedbackById(id);
         public Task AddFeedback(Feedback feedback) => _dao.AddFeedback(feedback);
         public Task UpdateFeedback(Feedback feedback) => _dao.UpdateFeedback(feedback);
-        public Task<bool> DeleteFeedback(int id) => _dao.DeleteFeedback(id);
-
+        //public Task<bool> DeleteFeedback(int id) => _dao.DeleteFeedback(id);
         public Task<List<Feedback>> GetFeedbacksById(int id, string task) => _dao.GetFeedbacksById(id, task);
+        public Task<List<Feedback>> GetFeedbacksByTask(string task, bool showDeleted) => _dao.GetFeedbacksByTask(task, showDeleted);
     }
 }
