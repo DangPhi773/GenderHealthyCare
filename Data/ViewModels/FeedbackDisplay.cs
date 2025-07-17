@@ -13,5 +13,7 @@ namespace BusinessObjects.ViewModels
         public int Rating { get; set; }
         public string? FeedbackText { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string? ConsultantName { get; set; }
+        public string? ServiceName {  get; set; }
     }
 }

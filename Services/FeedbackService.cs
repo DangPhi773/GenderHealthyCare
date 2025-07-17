@@ -60,6 +60,8 @@ namespace Services
                 CreatedAt = f.CreatedAt,
                 FeedbackText = f.FeedbackText,
                 Rating = f.Rating ?? 0,
+                ConsultantName = f.Consultant?.Username,
+                ServiceName = f.Service?.Name
             }).ToList();
 
             return (stats, displays);
