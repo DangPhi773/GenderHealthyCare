@@ -32,7 +32,7 @@ public class Manage : PageModel
 
     public async Task<IActionResult> OnPostUpdateStatusAsync()
     {
-        var result = await _testService.UpdateTestStatus(TestId, Status, Result);
+        var result = await _testService.UpdateTestStatus(TestId, Status);
 
         if (result)
             TempData["Success"] = $"Đã cập nhật lịch {TestId} thành '{Status}'.";
