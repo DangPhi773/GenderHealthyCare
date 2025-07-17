@@ -73,7 +73,7 @@ namespace DataAccessObjects
             {
                 throw new Exception(ex.Message);
             }
-        }   
+        }
 
         public async Task<int> DeleteQuestionAsync(int id)
         {
@@ -125,5 +125,26 @@ namespace DataAccessObjects
                 throw new Exception(ex.Message);
             }
         }
+        //public async Task<List<Question>> GetQuestionsByConsultantId(int consultantId)
+        //{
+        //    return await _context.Questions
+        //        .Where(q => q.ConsultantId == consultantId)
+        //        .Include(q => q.User)
+        //        .OrderByDescending(q => q.CreatedAt)
+        //        .ToListAsync();
+        //}
+
+        //public async Task<Question?> GetQuestionById(int id)
+        //{
+        //    return await _context.Questions
+        //        .Include(q => q.User)
+        //        .FirstOrDefaultAsync(q => q.QuestionId == id);
+        //}
+
+        //public async Task UpdateQuestion(Question question)
+        //{
+        //    _context.Questions.Update(question);
+        //    await _context.SaveChangesAsync();
+        //}
     }
 }

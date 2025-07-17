@@ -57,5 +57,14 @@ namespace Repositories
                 throw new Exception($"Error retrieving questions for consultant {consultantId}: {ex.Message}");
             }
         }
+
+        //public Task<List<Question>> GetQuestionsByConsultantId(int consultantId)
+        //    => _questionDAO.GetQuestionsByConsultantId(consultantId);
+
+        //public Task<Question?> GetQuestionById(int id)
+        //    => _questionDAO.GetQuestionById(id);
+
+        //public Task UpdateQuestion(Question question)
+        //    => _questionDAO.UpdateQuestion(question);
     }
 }

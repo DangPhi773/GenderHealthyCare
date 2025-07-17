@@ -36,4 +36,8 @@ public class ConsultationRepository(ConsultationDAO dao) : IConsultationReposito
 
     public async Task<bool> UpdateConsultation(Consultation consultation)
         => await _dao.UpdateConsultation(consultation);
+    public Task<List<Consultation>> GetConsultationsByUserIdAsync(int userId)
+    {
+        return _dao.GetConsultationsByUserIdAsync(userId);
+    }
 }

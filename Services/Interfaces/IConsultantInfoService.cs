@@ -12,4 +12,7 @@ public interface IConsultantInfoService
     Task<List<ConsultantInfo>> GetAllConsultantInfosAsync();
     Task<ConsultantInfo?> GetConsultantInfoByIdAsync(int consultantId);
     Task<bool> CreateConsultantInfoAsync(ConsultantInfo consultantInfo);
+    Task<bool> UpdateConsultantInfoAsync(ConsultantInfo info);
+    Task<bool> DeleteConsultantInfoAsync(int consultantId);
+    //Task<bool> AddConsultantInfoAsync(ConsultantInfo info);
 }

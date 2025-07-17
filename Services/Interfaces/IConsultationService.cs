@@ -18,4 +18,5 @@ public interface IConsultationService
     Task<bool> UpdateMeetingLinkAsync(int ConsultationId, string MeetingLink);
     Task<bool> UpdateNotesAsync(int ConsultationId, string Notes);
     Task UpdateStatus(Consultation consultation);
+    Task<List<Consultation>> GetConsultationsByUserId(int userId);
 }

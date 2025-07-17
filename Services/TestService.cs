@@ -37,5 +37,7 @@ namespace Services
             
             return await _repo.UpdateTestStatus(testId, status, result);
         }
+        public Task<bool> IsAppointmentTimeTestingConflict(int userId, DateTime selectedTime) => _repo.IsAppointmentTimeTestingConflict(userId, selectedTime);
+
     }
 }

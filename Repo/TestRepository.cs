@@ -32,6 +32,8 @@ namespace Repositories
         {
             return await _dao.UpdateTestStatus(testId, status, result);
         }
-            
+        public Task<bool> IsAppointmentTimeTestingConflict(int userId, DateTime selectedTime) => _dao.IsAppointmentTimeTestingConflict(userId, selectedTime);
+
+
     }
 }

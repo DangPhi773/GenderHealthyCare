@@ -106,4 +106,8 @@ public class ConsultationService(IConsultationRepository repo) : IConsultationSe
         }
         await _repo.UpdateConsultation(consultation);
     }
+    public Task<List<Consultation>> GetConsultationsByUserId(int userId)
+    {
+        return _repo.GetConsultationsByUserIdAsync(userId);
+    }
 }

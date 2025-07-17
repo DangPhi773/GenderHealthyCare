@@ -125,6 +125,34 @@ namespace DataAccessObjects
                 return false;
             }
         }
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
+        public async Task<List<User>> GetUsersByRoleAsync(string role)
+        {
+            return await _context.Users
+                .Where(u => u.Role != null && u.Role.ToLower() == role.ToLower())
+                .ToListAsync();
+        }
+
+        public async Task<int?> AddUserAndReturnIdAsync(User user)
+        {
+            try
+            {
+                await _context.Users.AddAsync(user);
+                await _context.SaveChangesAsync();
+                return user.UserId;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[UserDAO][AddUserAndReturnIdAsync] Lỗi: {ex.Message}");
+                return null;
+            }
+        }
+
+
         
         public async Task<bool> DeleteUserAsync(int userId)
         {

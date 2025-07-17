@@ -16,6 +16,8 @@ namespace Services.Interfaces
         Task UpdateFeedback(Feedback feedback);
         Task<(FeedbackStats, List<FeedbackDisplay>)> GetFeedbacksById(int id, string task);
         Task<bool> DeleteFeedback(int id);
+        Task<Feedback?> GetFeedbackByConsultationIdAsync(int userId, int consultationId);
+        Task<Feedback?> GetFeedbackByTestIdAsync(int userId, int testId);
         Task<(FeedbackStats, List<FeedbackDisplay>)> GetFeedbacksByTask(string task, bool showDeleted);
     }
 }

@@ -29,6 +29,15 @@ public class ConsultationDAO(GenderHealthcareContext context)
             .ToListAsync();
         return slots;
     }
+    //sẽ bỏ đi sau này
+    public async Task<List<Consultation>> GetConsultationsByUserIdAsync(int userId)
+    {
+        return await _context.Consultations
+            .Include(c => c.Consultant) 
+            .Where(c => c.UserId == userId)
+            .OrderByDescending(c => c.AppointmentTime)
+            .ToListAsync();
+    }
 
     //Tìm lịch tư vấn qua Id và Role
     public async Task<List<Consultation>> GetConsultationsByUser(int id, string role)
@@ -114,6 +123,7 @@ public class ConsultationDAO(GenderHealthcareContext context)
         try
         {
             Consultation? c = await _context.Consultations
+                .Include(c => c.Consultant)
                 .FirstOrDefaultAsync(c => c.ConsultationId == consultationId);
             return c;
         }

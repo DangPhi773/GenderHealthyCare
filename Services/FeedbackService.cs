@@ -64,6 +64,12 @@ namespace Services
 
             return (stats, displays);
         }
+        public Task<Feedback?> GetFeedbackByConsultationIdAsync(int userId, int consultationId)
+            => _repo.GetFeedbackByConsultationIdAsync(userId, consultationId);
+
+        public Task<Feedback?> GetFeedbackByTestIdAsync(int userId, int testId)
+            => _repo.GetFeedbackByTestIdAsync(userId, testId);
+
 
         public async Task<(FeedbackStats, List<FeedbackDisplay>)> GetFeedbacksByTask(string task, bool showDeleted)
         {

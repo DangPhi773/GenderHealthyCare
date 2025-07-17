@@ -20,10 +20,12 @@ builder.Services.AddScoped<UserDAO>();
 builder.Services.AddScoped<ClinicDAO>();
 builder.Services.AddScoped<ServiceDAO>();
 builder.Services.AddScoped<FeedbackDAO>();
-builder.Services.AddScoped<QuestionDAO>();
+
 builder.Services.AddScoped<MenstrualCycleDAO>();
 builder.Services.AddScoped<ConsultantInfoDAO>();
 builder.Services.AddScoped<ConsultationDAO>();
+builder.Services.AddScoped<QuestionDAO>();
+builder.Services.AddScoped<BlogDAO>();
 builder.Services.AddScoped<ReminderDAO>();
 
 // Register Repository
@@ -38,6 +40,8 @@ builder.Services.AddScoped<IConsultantInfoRepository, ConsultantInfoRepository>(
 builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
 builder.Services.AddScoped<IReminderRepository, ReminderRepository>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+builder.Services.AddScoped<IBlogRepository, BlogRepository>();
+
 
 // Register Services
 builder.Services.AddScoped<ITestService, TestService>();
@@ -51,6 +55,8 @@ builder.Services.AddScoped<IConsultantInfoService, ConsultantInfoService>();
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
 builder.Services.AddScoped<IReminderService, ReminderService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<IBlogService, BlogService>();
+
 
 // Database
 builder.Services.AddDbContext<GenderHealthcareContext>(options =>
@@ -92,7 +98,6 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 app.UseSession();
-
 app.MapHub<SignalRServer>("/SignalRServer");
 app.MapRazorPages();
 

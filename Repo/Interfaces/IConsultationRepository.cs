@@ -15,4 +15,5 @@ public interface IConsultationRepository
     Task<List<Consultation>> GetFilteredConsultations(int Id, string Role, string? status, string? name);
     Task<Consultation?> GetConsultationById(int consultationId);
     Task<bool> UpdateConsultation(Consultation consultation);
+    Task<List<Consultation>> GetConsultationsByUserIdAsync(int userId);
 }
