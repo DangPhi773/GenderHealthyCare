@@ -1,0 +1,45 @@
+﻿@model BusinessObjects.Models.Clinic
+
+<div class="card card-decor h-100 card-all position-relative overflow-hidden">
+    <div class="position-relative" style="height: 200px; overflow: hidden;">
+        @if (Model.Image != null && Model.Image.Length > 0)
+        {
+            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))"
+                 class="card-img-top"
+                 alt="@Model.Name Image"
+                 style="width: 100%; height: 100%; object-fit: cover;" />
+        }
+        else
+        {
+            <img src="/images/default-clinic.png" 
+                 class="card-img-top"
+                 alt="Default Clinic Image"
+                 style="width: 100%; height: 100%; object-fit: cover;" />
+        }
+        @if (Model.IsDeleted == true)
+        {
+            <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-flex align-items-center justify-content-center">
+                <span class="text-white fw-bold fs-4">ĐÃ XÓA</span>
+            </div>
+        }
+    </div>
+
+    <div class="card-body d-flex flex-column">
+        <h5 class="card-title gradient-text mb-2">@Model.Name</h5>
+        <p class="card-text text-muted mb-1 small text-truncate">
+            <i class="bi bi-geo-alt-fill"></i> @Model.Address
+        </p>
+        <p class="card-text text-muted mb-1 small text-truncate">
+            <i class="bi bi-telephone-fill"></i> @Model.Phone
+        </p>
+        <p class="card-text text-muted mb-1 small text-truncate">
+            <i class="bi bi-envelope-fill"></i> @Model.Email
+        </p>
+        <p class="card-text text-muted small flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+            @Model.Description
+        </p>
+        <a asp-page="./Details" asp-route-id="@Model.ClinicId" class="card-button text-decoration-none">
+            Xem chi tiết
+        </a>
+    </div>
+</div>
