@@ -7,7 +7,7 @@ public partial class User
 {
     public int UserId { get; set; }
 
-    public string Role { get; set; } = null!;
+    public string Role { get; set; } = "Customer";
 
     public string? Gender { get; set; }
 
