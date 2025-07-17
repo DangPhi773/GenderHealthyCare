@@ -9,12 +9,12 @@
 <style>
     body {
         background: linear-gradient(to bottom right, #f9f3ff, #ffeaf7, #ebf0ff);
-        font-size:20px;
+        font-size: 20px;
     }
 
-    .icon-decor{
-        height:40px;
-        width:40px;
+    .icon-decor {
+        height: 40px;
+        width: 40px;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -23,16 +23,20 @@
 
     .decor {
         background: white;
-        border-radius:8px;
+        border-radius: 8px;
     }
-    textarea,input{
-        background:none;
-        border:none;
-        padding:0px 10px;
+
+    textarea,
+    input {
+        background: none;
+        border: none;
+        padding: 0px 10px;
     }
-    textarea,input:focus{
-        outline:none;
-    }
+
+        textarea,
+        input:focus {
+            outline: none;
+        }
 
     .btn-decor {
         background: none;
@@ -41,17 +45,15 @@
         transition: all 0.2s ease;
     }
 
-    .btn-decor:hover {
-        border-color: transparent;
-        color: white;
-        background: linear-gradient(to right, #9333ea, #ec4899);
-    }
+        .btn-decor:hover {
+            border-color: transparent;
+            color: white;
+            background: linear-gradient(to right, #9333ea, #ec4899);
+        }
 
     .hidden {
         display: none !important;
     }
-
-
 </style>
 
 
@@ -64,10 +66,9 @@
             </a>
         </div>
         <form method="post"
-            asp-page-handler="UpdateClinic"
-            class="col-12 d-flex justify-content-evenly">
+              asp-page-handler="UpdateClinic"
+              class="col-12 d-flex justify-content-evenly">
             <input type="hidden" asp-for="Clinic.ClinicId" />
-            <!-- Modal xác nhận xóa -->
             <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content border-danger">
@@ -81,22 +82,37 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
 
-                            <!-- Nút xác nhận gửi form xóa -->
                             <button type="submit" name="action" value="delete" class="btn btn-danger" id="confirmDeleteBtn">Xác nhận xóa</button>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Hình đại diện -->
-            <div class="rounded col-4" style=" height:450px;border:2px solid black">
-                <img src=""
-                     alt="Clinic Image"
-                     class="img-fluid rounded"
-                     style="width: 100%; height: 100%; object-fit: cover;" />
+
+            <div class="rounded col-4 position-relative" style="height:450px;border:2px solid black">
+                @if (Model.Clinic.Image != null && Model.Clinic.Image.Length > 0)
+                {
+                    <img id="clinicImagePreview" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Clinic.Image))"
+                         alt="Clinic Image"
+                         class="img-fluid rounded"
+                         style="width: 100%; height: 100%; object-fit: cover;" />
+                }
+                else
+                {
+                    <img id="clinicImagePreview" src="/images/default-clinic.png" {{-- Hoặc đường dẫn ảnh mặc định của bạn --}}
+                         alt="Default Clinic Image"
+                         class="img-fluid rounded"
+                         style="width: 100%; height: 100%; object-fit: cover;" />
+                }
+
+                <div class="position-absolute bottom-0 end-0 p-2">
+                    <input type="file" id="imageUpload" name="imageUpload" accept="image/*" class="hidden" />
+                    <button type="button" id="uploadImageBtn" class="btn btn-sm btn-primary">
+                        <i class="bi bi-camera"></i> Thêm ảnh
+                    </button>
+                </div>
             </div>
 
-            <!-- Thông tin -->
+
             <div class="text-start col-7" style="padding:0">
 
                 <div class="d-flex col-12 justify-content-between">
@@ -136,7 +152,7 @@
                 </div>
                 <hr />
                 @* Phone *@
-                <div class="row" style="line-height:3" >
+                <div class="row" style="line-height:3">
                     <div class="mb-1 small text-truncate d-flex flex-column align-items-end">
                         <div class="d-flex align-items-center col-12 justify-content-between">
                             <div class="icon-decor col-3" style="background:#CEF4FF">
@@ -168,26 +184,26 @@
                     </div>
 
                     @* Address *@
-                    <div class="mb-1 small  d-flex align-items-center col-12 justify-content-between">
+                    <div class="mb-1 small d-flex align-items-center col-12 justify-content-between">
                         <div class="icon-decor col-3" style="background:#C8B6FF">
                             <i class="bi bi-house-door"></i>
                         </div>
                         <input asp-for="Clinic.Address"
-                            class="col-11" 
-                            type="text"
-                            readonly />
+                               class="col-11"
+                               type="text"
+                               readonly />
                     </div>
                     @* Description *@
                     <div class="mb-0 small text-truncate">
                         <textarea asp-for="Clinic.Description"
-                            class="col-12"
+                                  class="col-12"
                                   style="resize:none;height:200px;"
-                            readonly></textarea>
+                                  readonly></textarea>
                     </div>
                 </div>
             </div>
         </form>
-        
+
     </div>
 </div>
 
@@ -196,6 +212,13 @@
         const editBtn = document.getElementById('editBtn');
         const saveBtn = document.getElementById('saveBtn');
         const fields = document.querySelectorAll('input:not([type=hidden]), textarea');
+
+        // Elements for image upload
+        const uploadImageBtn = document.getElementById('uploadImageBtn');
+        const imageUploadInput = document.getElementById('imageUpload');
+        const clinicImagePreview = document.getElementById('clinicImagePreview');
+
+        // Event listener for edit button
         editBtn.addEventListener('click', () => {
             fields.forEach(f => {
                 f.removeAttribute('readonly');
@@ -203,6 +226,56 @@
             });
             editBtn.classList.add('hidden');
             saveBtn.classList.remove('hidden');
+        });
+
+        // Event listener for "Thêm ảnh" button
+        uploadImageBtn.addEventListener('click', () => {
+            imageUploadInput.click(); // Kích hoạt input file ẩn
+        });
+
+        // Event listener when a file is selected
+        imageUploadInput.addEventListener('change', async (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                // Display image preview
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    clinicImagePreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+
+                // Create a FormData object to send the file
+                const formData = new FormData();
+                formData.append('imageUpload', file); // 'imageUpload' matches the [BindProperty] name in backend
+                formData.append('clinicId', @Model.Clinic.ClinicId); // Pass clinic ID
+
+                try {
+                    const response = await fetch('?handler=UploadImage', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                        }
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        if (result.success) {
+                            alert('Tải ảnh lên thành công!');
+                            // You might want to refresh the page or update the image source dynamically
+                            // For simplicity, we just show an alert here.
+                            // Location.reload() can be used for a full refresh if needed.
+                        } else {
+                            alert('Tải ảnh lên thất bại: ' + result.message);
+                        }
+                    } else {
+                        alert('Lỗi server khi tải ảnh lên.');
+                    }
+                } catch (error) {
+                    console.error('Lỗi khi tải ảnh lên:', error);
+                    alert('Đã xảy ra lỗi trong quá trình tải ảnh lên.');
+                }
+            }
         });
     </script>
     @{

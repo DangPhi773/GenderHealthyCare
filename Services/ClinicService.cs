@@ -57,5 +57,10 @@ namespace Services
         public async Task<List<Clinic>> GetClinicsByClinicName(string clinicName, bool showDeleted) => await _clinicRepository.GetClinicsByClinicName(clinicName, showDeleted);
 
         public async Task<List<Clinic>> GetAllAsync(bool showDeleted) => await _clinicRepository.GetAllAsync(showDeleted);
+        public async Task<bool> UploadImageAsync(int clinicId, byte[] imageData)
+        {
+            Console.WriteLine($"[ClinicService][UploadImageAsync] Gọi tải lên hình ảnh cho phòng khám ID: {clinicId}");
+            return await _clinicRepository.UploadImageAsync(clinicId, imageData);
+        }
     }
 }
