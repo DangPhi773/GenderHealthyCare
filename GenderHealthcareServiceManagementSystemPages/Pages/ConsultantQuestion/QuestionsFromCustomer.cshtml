@@ -30,7 +30,7 @@
                     {
                         <tr>
                             <td>@q.QuestionId</td>
-                            <td>@q.User?.Username</td>
+                            <td>@q.User?.FullName</td>
                             <td>@(q.QuestionText.Length > 60 ? q.QuestionText.Substring(0, 60) + "..." : q.QuestionText)</td>
                             <td>@(q.CreatedAt.ToString("dd/MM/yyyy HH:mm"))</td>
 
