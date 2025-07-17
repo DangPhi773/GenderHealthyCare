@@ -23,21 +23,21 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Feedbacks
 
         public FeedbackStats FeedbackStats { get; set; }
         public List<FeedbackDisplay> FeedbackDisplays { get; set; }
+        public string FeedbackType { get; set; } = "Service";
 
-        public string? CurrentRole { get; set; }
+        public string CurrentRole { get; set; } = "";
 
-        public async Task<IActionResult> OnGetAsync(int? consultantId, int? serviceId)
+        public async Task<IActionResult> OnGetAsync(string? type, bool showDeleted = false)
         {
-            //consultantId = 4;
-            serviceId = 1;
-            CurrentRole = "Admin";
-            if (consultantId.HasValue)
+            CurrentRole = HttpContext.Session.GetString("Role") ?? "";
+            FeedbackType = type ?? "Service";
+            if (FeedbackType == "Consultant")
             {
-                (FeedbackStats, FeedbackDisplays) = await _iFeedbackService.GetFeedbacksById(consultantId.Value, "consultant");
+                (FeedbackStats, FeedbackDisplays) = await _iFeedbackService.GetFeedbacksByTask("consultant", showDeleted);
             }
-            else if (serviceId.HasValue)
+            else if (FeedbackType == "Service")
             {
-                (FeedbackStats, FeedbackDisplays) = await _iFeedbackService.GetFeedbacksById(serviceId.Value, "service");
+                (FeedbackStats, FeedbackDisplays) = await _iFeedbackService.GetFeedbacksByTask("service", showDeleted);
             }
             else
             {

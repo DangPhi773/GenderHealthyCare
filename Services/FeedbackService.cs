@@ -24,7 +24,17 @@ namespace Services
         public Task AddFeedback(Feedback feedback) => _repo.AddFeedback(feedback);
         public Task UpdateFeedback(Feedback feedback) => _repo.UpdateFeedback(feedback);
 
-        public Task<bool> DeleteFeedback(int id) => _repo.DeleteFeedback(id);
+        public async Task<bool> DeleteFeedback(int id)
+        {
+            var feedback = await _repo.GetFeedbackById(id);
+            if(feedback == null)
+            {
+                return false;
+            }
+            feedback.IsDeleted = true;
+            await _repo.UpdateFeedback(feedback);
+            return true;
+        }
 
         public async Task<(FeedbackStats, List<FeedbackDisplay>)> GetFeedbacksById(int id, string task)
         {
@@ -60,6 +70,12 @@ namespace Services
         public Task<Feedback?> GetFeedbackByTestIdAsync(int userId, int testId)
             => _repo.GetFeedbackByTestIdAsync(userId, testId);
 
+
+        public async Task<(FeedbackStats, List<FeedbackDisplay>)> GetFeedbacksByTask(string task, bool showDeleted)
+        {
+            var feedbacks = await _repo.GetFeedbacksByTask(task, showDeleted);
+            return BuildSummary(feedbacks);
+        }
     }
 }
 

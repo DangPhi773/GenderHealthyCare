@@ -56,5 +56,16 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Consultations
             }
             return RedirectToPage();
         }
+
+        public async Task<IActionResult> OnPostUpdateReasonAsync(int ConsultationId, string Note)
+        {
+            var success = await _consultationService.UpdateNotesAsync(ConsultationId, Note);
+
+            if (!success)
+            {
+                return NotFound();
+            }
+            return RedirectToPage();
+        }
     }
 }

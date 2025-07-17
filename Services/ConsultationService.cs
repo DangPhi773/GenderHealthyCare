@@ -75,6 +75,24 @@ public class ConsultationService(IConsultationRepository repo) : IConsultationSe
         return false;
     }
 
+    public async Task<bool> UpdateNotesAsync(int ConsultationId, string Notes)
+    {
+        var consultation = await _repo.GetConsultationById(ConsultationId);
+        if (consultation == null)
+        {
+            return false;
+        }
+        if (consultation.Status == "Pending" || consultation.Status == "Confirmed")
+            consultation.Status = "Cancelled";
+        if (string.IsNullOrEmpty(consultation.Notes))
+        {
+            consultation.Notes = Notes;
+            await _repo.UpdateConsultation(consultation);
+            return true;
+        }
+        return false;
+    }
+
     public async Task UpdateStatus(Consultation consultation)
     {
         var now = DateTime.Now;
