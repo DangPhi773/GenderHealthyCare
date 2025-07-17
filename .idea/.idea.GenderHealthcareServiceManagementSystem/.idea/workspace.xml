@@ -11,8 +11,9 @@
   <component name="ChangeListManager">
     <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/ScheduleTests.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/ScheduleTests.cshtml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccessObjects/TestDAO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccessObjects/TestDAO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/Manage.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/Manage.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/TestService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/TestService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +57,8 @@
     <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
     <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
     <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/ScheduleTests.cshtml.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -155,7 +158,8 @@
       <workItem from="1752599878038" duration="71000" />
       <workItem from="1752602670602" duration="447000" />
       <workItem from="1752604260896" duration="9381000" />
-      <workItem from="1752614308607" duration="3703000" />
+      <workItem from="1752614308607" duration="6642000" />
+      <workItem from="1752627307827" duration="753000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <option name="closed" value="true" />
