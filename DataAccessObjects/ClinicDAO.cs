@@ -80,7 +80,12 @@ namespace DataAccessObjects
             Console.WriteLine($"[ClinicDAO][UpdateClinicAsync] Cập nhật phòng khám ID: {clinic.ClinicId}");
             try
             {
-                _context.Clinics.Update(clinic);
+                var existingClinic = await _context.Clinics.AsNoTracking().FirstOrDefaultAsync(c => c.ClinicId == clinic.ClinicId);
+                if (existingClinic == null) return false;
+
+                // Gán lại CreatedAt để không bị null
+                clinic.CreatedAt = existingClinic.CreatedAt;
+                _context.Entry<Clinic>(clinic).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
                 Console.WriteLine("[ClinicDAO][UpdateClinicAsync] Cập nhật phòng khám thành công.");
                 return true;

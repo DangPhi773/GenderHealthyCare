@@ -38,15 +38,9 @@ namespace Repositories
 
         public async Task<bool> UpdateAsync(Clinic clinic)
         {
-            Console.WriteLine($"[ClinicRepository][UpdateAsync] Cập nhật phòng khám ID: {clinic.ClinicId}");
+            
             return await _clinicDAO.UpdateClinicAsync(clinic);
         }
-
-        //public async Task<bool> DeleteAsync(int clinicId)
-        //{
-        //    Console.WriteLine($"[ClinicRepository][DeleteAsync] Xóa phòng khám với ID: {clinicId}");
-        //    return await _clinicDAO.DeleteClinicAsync(clinicId);
-        //}
 
         public async Task<List<Clinic>> GetClinicsByClinicName(string clinicName, bool showDeleted) => await _clinicDAO.GetClinicsByClinicName(clinicName, showDeleted);
 
