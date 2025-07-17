@@ -55,24 +55,22 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.AdminManageConsulta
                 return NotFound();
             }
 
-            // Cập nhật User
-            existingUser.Username = User.Username;
+            existingUser.FullName = User.FullName;
             existingUser.Email = User.Email;
             existingUser.Dob = User.Dob;
             await _userService.UpdateUser(existingUser);
 
             if (existingInfo == null)
             {
-                // Nếu chưa có ConsultantInfo → tạo mới
                 ConsultantInfo.ConsultantId = id;
                 ConsultantInfo.CreatedAt = DateTime.Now;
                 await _consultantInfoService.CreateConsultantInfoAsync(ConsultantInfo);
             }
             else
             {
-                // Nếu đã có → cập nhật
                 existingInfo.Specialization = ConsultantInfo.Specialization;
                 existingInfo.ExperienceYears = ConsultantInfo.ExperienceYears;
+                existingInfo.Qualifications = ConsultantInfo.Qualifications;
                 await _consultantInfoService.UpdateConsultantInfoAsync(existingInfo);
             }
 

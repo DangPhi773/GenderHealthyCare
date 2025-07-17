@@ -35,9 +35,11 @@ namespace DataAccessObjects
             var blog = await _context.Blogs.FindAsync(id);
             if (blog != null)
             {
-                _context.Blogs.Remove(blog);
+                blog.IsDeleted = true;
+                _context.Blogs.Update(blog);
                 await _context.SaveChangesAsync();
             }
         }
+
     }
 }

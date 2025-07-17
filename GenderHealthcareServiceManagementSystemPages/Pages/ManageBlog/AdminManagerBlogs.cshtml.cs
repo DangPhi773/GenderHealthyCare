@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using BusinessObjects.Models;
 using Services.Interfaces;
 
-namespace GenderHealthcareServiceManagementSystemPages.Pages.ManageBlog
+namespace GenderHealthcareServiceManagementSystemPages.Pages.AdminManagerBlogs
 {
     public class AdminManagerBlogsModel : PageModel
     {
@@ -18,16 +18,22 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ManageBlog
 
         public List<Blog> Blogs { get; set; } = new();
 
+        [BindProperty(SupportsGet = true)]
+        public bool ShowDeleted { get; set; }
+
         public async Task<IActionResult> OnGetAsync()
         {
             Blogs = await _blogService.GetAllAsync();
+            Blogs = Blogs
+                .Where(b => b.IsDeleted == ShowDeleted)
+                .OrderByDescending(b => b.CreatedAt)
+                .ToList();
 
             foreach (var blog in Blogs)
             {
                 blog.Author = await _userService.GetUserById(blog.AuthorId ?? 0);
             }
 
-            Blogs = Blogs.OrderByDescending(b => b.CreatedAt).ToList();
             return Page();
         }
 
@@ -35,7 +41,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ManageBlog
         {
             await _blogService.DeleteAsync(id);
             TempData["Message"] = "Đã xóa blog thành công.";
-            return RedirectToPage();
+            return RedirectToPage(new { ShowDeleted });
         }
     }
 }

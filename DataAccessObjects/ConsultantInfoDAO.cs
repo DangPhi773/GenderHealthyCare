@@ -63,16 +63,18 @@ public class ConsultantInfoDAO (GenderHealthcareContext context)
             if (info == null)
                 return false;
 
-            _context.ConsultantInfos.Remove(info);
+            info.IsDeleted = true;
             await _context.SaveChangesAsync();
+            Console.WriteLine($"[ConsultantInfoDAO][SoftDelete] Đã cập nhật IsDeleted = true cho ConsultantId = {consultantId}");
             return true;
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"[ConsultantInfoDAO][Delete] Lỗi: {ex.Message}");
+            Console.WriteLine($"[ConsultantInfoDAO][SoftDelete] Lỗi: {ex.Message}");
             return false;
         }
     }
+
     //public async Task<bool> AddConsultantInfoAsync(ConsultantInfo info)
     //{
     //    try

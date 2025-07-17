@@ -101,6 +101,25 @@ namespace DataAccessObjects
             await _context.SaveChangesAsync();
             return true;
         }
-        
+
+        public async Task<bool> IsAppointmentTimeTestingConflict(int userId, DateTime selectedTime)
+        {
+            var existingTests = await _context.Tests
+                .Where(t => t.UserId == userId && t.Status != "Cancelled")
+                .ToListAsync();
+
+            foreach (var test in existingTests)
+            {
+                if (test.AppointmentTime.Date == selectedTime.Date &&
+                    Math.Abs((test.AppointmentTime - selectedTime).TotalMinutes) < 120)
+                {
+                    return true; 
+                }
+            }
+
+            return false;
+        }
+
+
     }
 }

@@ -29,18 +29,25 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ManageBlog
             if (!ModelState.IsValid)
                 return Page();
 
-            Blog.UpdatedAt = DateTime.Now;
+            var existingBlog = await _blogService.GetByIdAsync(Blog.BlogId);
+            if (existingBlog == null)
+                return NotFound();
+
+            existingBlog.Title = Blog.Title;
+            existingBlog.Content = Blog.Content;
+            existingBlog.UpdatedAt = DateTime.Now;
 
             string? userIdStr = HttpContext.Session.GetString("UserId");
             if (int.TryParse(userIdStr, out int userId))
             {
-                Blog.AuthorId = userId;
+                existingBlog.AuthorId = userId;
             }
 
-            await _blogService.UpdateAsync(Blog);
+            await _blogService.UpdateAsync(existingBlog);
 
             TempData["Message"] = "Đã cập nhật blog thành công.";
             return RedirectToPage("/ManageBlog/AdminManagerBlogs");
         }
+
     }
 }

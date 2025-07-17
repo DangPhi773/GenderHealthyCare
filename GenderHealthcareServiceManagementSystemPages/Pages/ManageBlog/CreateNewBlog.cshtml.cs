@@ -50,6 +50,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ManageBlog
             Blog.AuthorId = userId;
             Blog.CreatedAt = DateTime.Now;
             Blog.UpdatedAt = DateTime.Now;
+            Blog.IsDeleted = false;
 
             await _blogService.AddAsync(Blog);
 

@@ -87,17 +87,17 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
                 case "Manager":
                 case "Staff":
                     //return RedirectToPage("/Admin/Dashboard");
-                    return RedirectToPage("/AdminManageConsultant/ManageConsultant");
+                    return RedirectToPage("/Admin/Dashboard");
 
                 case "Consultant":
                     //return RedirectToPage("/Consultations/Index");
-                    return RedirectToPage("/ConsultantQuestion/QuestionsFromCustomer");
+                    return RedirectToPage("/Consultations/Index");
 
                 case "Customer":
                 case "Guest":
                 default:
                     //return RedirectToPage("/Index");
-                    return RedirectToPage("/CustomerTesting/TrackingTesting");
+                    return RedirectToPage("/Index");
             }
         }
     }

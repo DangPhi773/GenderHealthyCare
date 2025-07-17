@@ -14,8 +14,8 @@
 
             <div class="mb-3">
                 <label class="form-label">Họ và tên</label>
-                <input asp-for="User.Username" class="form-control" />
-                <span asp-validation-for="User.Username" class="text-danger"></span>
+                <input asp-for="User.FullName" class="form-control" />
+                <span asp-validation-for="User.FullName" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
@@ -32,6 +32,11 @@
 
             <hr />
             <h5>Thông tin chuyên môn</h5>
+            <div class="mb-3">
+                <label asp-for="ConsultantInfo.Qualifications" class="form-label">Chứng chỉ</label>
+                <input asp-for="ConsultantInfo.Qualifications" class="form-control" />
+                <span asp-validation-for="ConsultantInfo.Qualifications" class="text-danger"></span>
+            </div>
 
             <div class="mb-3">
                 <label class="form-label">Chuyên môn</label>

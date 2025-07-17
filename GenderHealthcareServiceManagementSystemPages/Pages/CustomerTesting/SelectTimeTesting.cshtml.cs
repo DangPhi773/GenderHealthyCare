@@ -8,10 +8,12 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
     public class SelectTimeTestingModel : PageModel
     {
         private readonly IServiceService _serviceService;
+        private readonly ITestService _testService;
 
-        public SelectTimeTestingModel(IServiceService serviceService)
+        public SelectTimeTestingModel(IServiceService serviceService, ITestService testService)
         {
             _serviceService = serviceService;
+            _testService = testService;
         }
 
         [BindProperty]
@@ -39,8 +41,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
 
             IsLoggedIn = true;
 
-            AppointmentTime = DateTime.Today.AddDays(1).AddHours(8); 
-
+            AppointmentTime = DateTime.Today.AddDays(1).AddHours(8);
 
             var selectedIdsRaw = HttpContext.Session.GetString("SelectedServiceIds");
             if (string.IsNullOrEmpty(selectedIdsRaw))
@@ -60,35 +61,56 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
             return Page();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             string? userIdStr = HttpContext.Session.GetString("UserId");
-            int? userId = null;
-
-            if (!string.IsNullOrEmpty(userIdStr) && int.TryParse(userIdStr, out int parsedUserId))
+            if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out int userId))
             {
-                userId = parsedUserId;
+                return RedirectToPage("/Account/Login");
             }
-            //if (userId == null)
-            //{
-            //    return RedirectToPage("/Account/Login");
-            //}
 
             if (AppointmentTime == default)
             {
                 ModelState.AddModelError(nameof(AppointmentTime), "Vui lòng chọn thời gian xét nghiệm.");
-                return Page();
+                return await ReloadPageData();
             }
 
             if (AppointmentTime < DateTime.Today.AddDays(1))
             {
                 ModelState.AddModelError(nameof(AppointmentTime), "Vui lòng chọn ngày hẹn bắt đầu từ ngày mai.");
-                return Page();
+                return await ReloadPageData();
             }
 
-            HttpContext.Session.SetString("AppointmentTime", AppointmentTime.ToString("o")); // ISO format
+            // Kiểm tra trùng lịch
+            bool hasConflict = await _testService.IsAppointmentTimeTestingConflict(userId, AppointmentTime);
+            if (hasConflict)
+            {
+                ModelState.AddModelError(nameof(AppointmentTime), "Bạn đã có lịch xét nghiệm khác tại thời điểm này.");
+                return await ReloadPageData();
+            }
+
+            HttpContext.Session.SetString("AppointmentTime", AppointmentTime.ToString("o"));
             return RedirectToPage("ConfirmBookingTesting");
         }
 
+        private async Task<IActionResult> ReloadPageData()
+        {
+            var selectedIdsRaw = HttpContext.Session.GetString("SelectedServiceIds");
+            if (string.IsNullOrEmpty(selectedIdsRaw))
+            {
+                return RedirectToPage("SelectService");
+            }
+
+            SelectedServiceIds = selectedIdsRaw.Split(',').Select(int.Parse).ToList();
+
+            var allServices = await _serviceService.GetAllAsync();
+            SelectedServiceNames = allServices
+                .Where(s => SelectedServiceIds.Contains(s.ServiceId))
+                .Select(s => s.Name)
+                .ToList();
+
+            IsLoggedIn = true;
+            return Page();
+        }
     }
 }

@@ -2,14 +2,23 @@
 @model GenderHealthcareServiceManagementSystemPages.Pages.AdminManageConsultant.ManageConsultantModel
 @{
     ViewData["Title"] = "Quản lý tư vấn viên";
+    int index = 0;
+    bool isViewingDeleted = Model.ShowDeleted;
 }
 
 <main class="py-4">
     <div class="container">
-        <h2 class="h4 text-primary mb-4">👨‍⚕️ Danh sách tư vấn viên</h2>
+        <h2 class="h4 text-primary mb-4">👨‍⚕️ Danh sách tư vấn viên @(isViewingDeleted ? "(Đã xóa)" : "")</h2>
 
-        <div class="mb-3 text-end">
-            <a asp-page="AddNewConsultantInfo" class="btn btn-success">➕ Thêm mới tư vấn viên</a>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            @if (!isViewingDeleted)
+            {
+                <a asp-page="AddNewConsultantInfo" class="btn btn-success">➕ Thêm mới tư vấn viên</a>
+            }
+            <a asp-page="./ManageConsultant" asp-route-ShowDeleted="@(isViewingDeleted ? "false" : "true")"
+               class="btn btn-secondary">
+                @(isViewingDeleted ? "Các consultant hiện tại" : "Các consultant đã xóa")
+            </a>
         </div>
 
         @if (TempData["Message"] != null)
@@ -19,43 +28,54 @@
 
         @if (Model.Consultants.Any())
         {
-            <table class="table table-bordered table-hover align-middle">
-                <thead class="table-light">
-                    <tr>
-                        <th>Id</th>
-                        <th>Họ tên</th>
-                        <th>Email</th>
-                        <th>Ngày sinh</th>
-                        <th>Chuyên môn</th>
-                        <th>Số năm kinh nghiệm</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var c in Model.Consultants)
-                    {
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead class="table-light">
                         <tr>
-                            <td>@c.User.UserId</td>
-                            <td>@c.User.Username</td>
-                            <td>@c.User.Email</td>
-                            <td>@(c.User.Dob?.ToString("dd/MM/yyyy") ?? "Chưa có")</td>
-                            <td>@c.ConsultantInfo.Specialization</td>
-                            <td>@c.ConsultantInfo.ExperienceYears</td>
-                            <td class="d-flex gap-1">
-                                <a asp-page="EditConsultant" asp-route-id="@c.User.UserId" class="btn btn-sm btn-warning">✏️ Chỉnh sửa</a>
-                                <form method="post" asp-page-handler="Delete" asp-route-id="@c.User.UserId"
-                                      onsubmit="return confirm('Bạn có chắc muốn xóa tư vấn viên này?');">
-                                    <button type="submit" class="btn btn-sm btn-danger">🗑️ Xóa</button>
-                                </form>
-                            </td>
+                            <th>STT</th>
+                            <th>Họ tên</th>
+                            <th>Email</th>
+                            <th>Ngày sinh</th>
+                            <th>Chuyên môn</th>
+                            <th>Chứng chỉ</th>
+                            <th>Số năm kinh nghiệm</th>
+                            <th>Thao tác</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var c in Model.Consultants)
+                        {
+                            <tr>
+                                <td>@(++index)</td>
+                                <td>@c.User.FullName</td>
+                                <td>@c.User.Email</td>
+                                <td>@(c.User.Dob?.ToString("dd/MM/yyyy") ?? "Chưa có")</td>
+                                <td>@c.ConsultantInfo.Specialization</td>
+                                <td>@c.ConsultantInfo.Qualifications</td>
+                                <td>@c.ConsultantInfo.ExperienceYears</td>
+                                <td class="d-flex gap-1">
+                                    @if (!isViewingDeleted)
+                                    {
+                                        <a asp-page="EditConsultant" asp-route-id="@c.User.UserId" class="btn btn-sm btn-warning">✏️ Chỉnh sửa</a>
+                                        <form method="post" asp-page-handler="Delete" asp-route-id="@c.User.UserId"
+                                              onsubmit="return confirm('Bạn có chắc muốn xóa tư vấn viên này?');">
+                                            <button type="submit" class="btn btn-sm btn-danger">🗑️ Xóa</button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Đã xóa</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         }
         else
         {
-            <div class="alert alert-info">Không có tư vấn viên nào trong hệ thống.</div>
+            <div class="alert alert-info">Không có tư vấn viên nào @(isViewingDeleted ? "đã xóa" : "hiện tại") trong hệ thống.</div>
         }
     </div>
 </main>

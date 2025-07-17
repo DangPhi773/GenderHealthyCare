@@ -18,17 +18,22 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.AdminManageConsulta
 
         public List<(User User, ConsultantInfo ConsultantInfo)> Consultants { get; set; } = new();
 
+        [BindProperty(SupportsGet = true)]
+        public bool ShowDeleted { get; set; }
+
         public async Task<IActionResult> OnGetAsync()
         {
             var users = await _userService.GetUsersByRoleAsync("Consultant");
             var consultantInfos = await _consultantInfoService.GetAllConsultantInfosAsync();
 
-            Consultants = users.Select(user =>
-            {
-                var info = consultantInfos.FirstOrDefault(c => c.ConsultantId == user.UserId)
-                          ?? new ConsultantInfo { ConsultantId = user.UserId };
-                return (user, info);
-            }).ToList();
+            Consultants = users
+                .Where(u => u.IsDeleted == ShowDeleted)
+                .Select(user =>
+                {
+                    var info = consultantInfos.FirstOrDefault(c => c.ConsultantId == user.UserId)
+                              ?? new ConsultantInfo { ConsultantId = user.UserId };
+                    return (user, info);
+                }).ToList();
 
             return Page();
         }

@@ -12,7 +12,7 @@
                     <h2 class="text-center mb-4">Thêm tư vấn viên</h2>
                     <form method="post" enctype="multipart/form-data">
                         <div class="mb-3">
-                            <label asp-for="User.Username" class="form-label"></label>
+                            <label asp-for="User.Username" class="form-label">Tên đăng nhập</label>
                             <input asp-for="User.Username" class="form-control" />
                             <span asp-validation-for="User.Username" class="text-danger"></span>
                         </div>
@@ -31,6 +31,11 @@
                             <input asp-for="User.FullName" class="form-control" />
                             <span asp-validation-for="User.FullName" class="text-danger"></span>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">Ngày sinh</label>
+                            <input asp-for="User.Dob" type="date" class="form-control" />
+                            <span asp-validation-for="User.Dob" class="text-danger"></span>
+                        </div>
 
                         <div class="mb-3">
                             <label asp-for="ConsultantInfo.Qualifications" class="form-label">Chứng chỉ</label>
@@ -38,12 +43,12 @@
                             <span asp-validation-for="ConsultantInfo.Qualifications" class="text-danger"></span>
                         </div>
                         <div class="mb-3">
-                            <label asp-for="ConsultantInfo.ExperienceYears" class="form-label"></label>
+                            <label asp-for="ConsultantInfo.ExperienceYears" class="form-label">Số năm kinh nghiệm</label>
                             <input asp-for="ConsultantInfo.ExperienceYears" class="form-control" />
                             <span asp-validation-for="ConsultantInfo.ExperienceYears" class="text-danger"></span>
                         </div>
                         <div class="mb-3">
-                            <label asp-for="ConsultantInfo.Specialization" class="form-label"></label>
+                            <label asp-for="ConsultantInfo.Specialization" class="form-label">Chuyên môn</label>
                             <input asp-for="ConsultantInfo.Specialization" class="form-control" />
                             <span asp-validation-for="ConsultantInfo.Specialization" class="text-danger"></span>
                         </div>
