@@ -38,7 +38,7 @@ public class ScheduleTests : PageModel
             return RedirectToPage();
         }
 
-        var result = await _testService.UpdateTestStatus(TestId, Status, Result);
+        var result = await _testService.UpdateTestStatus(TestId, Status);
 
         if (result)
             TempData["Success"] = "Kết quả đã được lưu!";

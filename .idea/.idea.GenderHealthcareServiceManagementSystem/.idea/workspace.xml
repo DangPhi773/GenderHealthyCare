@@ -9,10 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="commit blog">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Shared/_Layout.cshtml" afterDir="false" />
-    </list>
+    <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="edit blog page - change button Testing" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,7 +48,9 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f964cec4620b407491d75a46803d79b926ae48/81/b7c2bee2/DbContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3eab2556a6e1dddc71dd7dd41efa5153ec50a4b7394940f26c808fcbb5dec9d/PageModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/Data/Models/User.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/Pages/CustomerBlogs/CustomerBlogsPage.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/Repo/Interfaces/ITestRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/Services/Interfaces/ITestService.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -70,21 +69,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.GenderHealthcareServiceManagementSystemPages: IIS Express.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "phi",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.GenderHealthcareServiceManagementSystemPages: IIS Express.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;phi&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.GenderHealthcareServiceManagementSystemPages: IIS Express">
     <configuration name="GenderHealthcareServiceManagementSystemPages: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/GenderHealthcareServiceManagementSystemPages.csproj" />
@@ -156,7 +156,9 @@
       <workItem from="1752747147306" duration="338000" />
       <workItem from="1752752726644" duration="902000" />
       <workItem from="1752757024269" duration="2597000" />
-      <workItem from="1752760140961" duration="6434000" />
+      <workItem from="1752760140961" duration="6807000" />
+      <workItem from="1752767150551" duration="1841000" />
+      <workItem from="1752769112818" duration="374000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <option name="closed" value="true" />
@@ -254,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752766317155</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="edit blog page - change button Testing">
+      <option name="closed" value="true" />
+      <created>1752769394071</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1752769394071</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,6 +298,7 @@
     <MESSAGE value="commit workspace" />
     <MESSAGE value="fix role User" />
     <MESSAGE value="commit blog" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit blog" />
+    <MESSAGE value="edit blog page - change button Testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit blog page - change button Testing" />
   </component>
 </project>

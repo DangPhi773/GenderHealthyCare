@@ -80,7 +80,7 @@ namespace DataAccessObjects
                 .ToListAsync();
         }
         
-        public async Task<bool> UpdateTestStatus(int testId, string status, string result = null)
+        public async Task<bool> UpdateTestStatus(int testId, string status)
         {
             var test = await _context.Tests.FindAsync(testId);
             if (test == null) return false;
