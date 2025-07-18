@@ -102,7 +102,7 @@ namespace DataAccessObjects
                     .Include(q => q.User)
                     .Include(q => q.Consultant)
                     .ToListAsync();
-                return questions;
+                return questions ?? [];
             }
             catch (Exception ex)
             {
