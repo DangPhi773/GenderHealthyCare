@@ -45,6 +45,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ConsultantQuestion
             if (question == null) return NotFound();
 
             question.AnswerText = AnswerText.Trim();
+            question.AnsweredAt = DateTime.UtcNow;
             question.Status = "Answered";
             await _questionService.UpdateQuestionAsync(question);
 
