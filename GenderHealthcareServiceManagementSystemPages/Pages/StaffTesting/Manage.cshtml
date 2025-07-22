@@ -20,9 +20,12 @@
                     }
                     else
                     {
-                        <form method="post" asp-page-handler="UpdateStatus">
-                            @foreach (var test in Model.PendingTests)
-                            {
+                        foreach (var test in Model.PendingTests)
+                        {
+                            <form method="post" asp-page-handler="UpdateStatus" id="form-@test.TestId">
+                                <input type="hidden" name="TestId" value="@test.TestId" />
+                                <input type="hidden" name="Status" id="status-@test.TestId" />
+
                                 <div class="border rounded p-3 mb-4 bg-light shadow-sm">
                                     <h5 class="mb-2 text-dark">
                                         <strong>Dịch vụ:</strong> @test.Service.Description
@@ -31,19 +34,38 @@
                                         <strong>Thời gian:</strong> @test.AppointmentTime.ToString("dd/MM/yyyy HH:mm")
                                     </p>
                                     <div class="text-end">
-                                        <button name="Status" value="Scheduled" class="btn btn-success me-2">
+                                        <button type="button" class="btn btn-success me-2"
+                                                onclick="submitForm(@test.TestId, 'Scheduled')">
                                             Xác nhận
                                         </button>
-                                        <button name="Status" value="Cancelled" class="btn btn-outline-danger">
+                                        <button type="button" class="btn btn-outline-danger"
+                                                onclick="submitForm(@test.TestId, 'Cancelled')">
                                             Huỷ
                                         </button>
                                     </div>
                                 </div>
-                            }
-                        </form>
+                            </form>
+                        }
                     }
                 </div>
             </div>
         </div>
     </div>
 </main>
+
+@section Scripts {
+    <script>
+        function submitForm(testId, status) {
+            const statusInput = document.getElementById('status-' + testId);
+            const form = document.getElementById('form-' + testId);
+
+            if (!statusInput || !form) {
+                alert('Không tìm thấy form hoặc input cho Test ID: ' + testId);
+                return;
+            }
+
+            statusInput.value = status;
+            form.submit();
+        }
+    </script>
+}
