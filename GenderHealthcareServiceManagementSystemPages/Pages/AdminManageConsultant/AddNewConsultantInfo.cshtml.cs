@@ -31,6 +31,12 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.AdminManageConsulta
 
         public IActionResult OnGet()
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (string.IsNullOrEmpty(role) || role != "Admin")
+            {
+                return RedirectToPage("/Unauthorized");
+            }
+
             return Page();
         }
 

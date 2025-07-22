@@ -23,6 +23,11 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.AdminManageConsulta
 
         public async Task<IActionResult> OnGetAsync()
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (string.IsNullOrEmpty(role) || role != "Admin")
+            {
+                return RedirectToPage("/Unauthorized");
+            }
             var users = await _userService.GetUsersByRoleAsync("Consultant");
             var consultantInfos = await _consultantInfoService.GetAllConsultantInfosAsync();
 

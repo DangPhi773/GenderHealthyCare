@@ -23,6 +23,11 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Questions
 
         public async Task<IActionResult> OnGetAsync()
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (string.IsNullOrEmpty(role) || role != "Admin")
+            {
+                return RedirectToPage("/Unauthorized");
+            }
             Questions = await _iQuestionService.GetAllQuestionsAsync();
 
             return Page();

@@ -25,6 +25,11 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Clinics
 
         public async Task<IActionResult> OnGetAsync(bool showDeleted = false)
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (string.IsNullOrEmpty(role) || role != "Admin")
+            {
+                return RedirectToPage("/Unauthorized");
+            }
 
             if (String.IsNullOrEmpty(ClinicName))
             {

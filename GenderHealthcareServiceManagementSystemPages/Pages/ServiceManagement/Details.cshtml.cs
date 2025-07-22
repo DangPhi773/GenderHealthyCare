@@ -20,7 +20,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ServiceManagement
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             var role = HttpContext.Session.GetString("Role");
-            if (string.IsNullOrEmpty(role) || role != "Admin")
+            if (string.IsNullOrEmpty(role) || role != "Admin" && role != "Staff")
             {
                 return RedirectToPage("/Unauthorized");
             }

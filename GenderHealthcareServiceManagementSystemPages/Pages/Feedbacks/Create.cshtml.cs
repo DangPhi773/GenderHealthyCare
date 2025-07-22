@@ -20,7 +20,12 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Feedbacks
 
         public IActionResult OnGet()
         {
-        ViewData["ConsultantId"] = new SelectList(_context.Users, "UserId", "Email");
+            var role = HttpContext.Session.GetString("Role");
+            if (string.IsNullOrEmpty(role) || role != "Admin" && role != "Staff")
+            {
+                return RedirectToPage("/Unauthorized");
+            }
+            ViewData["ConsultantId"] = new SelectList(_context.Users, "UserId", "Email");
         ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "Name");
         ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email");
             return Page();

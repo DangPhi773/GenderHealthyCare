@@ -25,9 +25,15 @@ public class Manage : PageModel
     [BindProperty]
     public string Result { get; set; }
 
-    public async Task OnGetAsync()
+    public async Task<IActionResult> OnGetAsync()
     {
+        var role = HttpContext.Session.GetString("Role");
+        if (string.IsNullOrEmpty(role) || role != "Admin" && role != "Staff")
+        {
+            return RedirectToPage("/Unauthorized");
+        }
         PendingTests = await _testService.GetPendingTests();
+        return Page();
     }
 
     public async Task<IActionResult> OnPostUpdateStatusAsync()
