@@ -24,13 +24,17 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Clinics
         [BindProperty]
         public Clinic Clinic { get; set; } = default!;
 
-        // Thêm thuộc tính này để nhận tệp ảnh tải lên
         [BindProperty]
         public IFormFile? ImageUpload { get; set; }
 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (string.IsNullOrEmpty(role) || role != "Admin")
+            {
+                return RedirectToPage("/Unauthorized");
+            }
             if (id == null)
             {
                 return NotFound();

@@ -90,13 +90,13 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
             switch (role)
             {
                 case "Admin":
-                case "Manager":
-                case "Staff":
-                    //return RedirectToPage("/Admin/Dashboard");
                     return RedirectToPage("/Admin/Dashboard");
 
+                case "Manager":
+                case "Staff":
+                    return RedirectToPage("StaffTesting/Manage");
+
                 case "Consultant":
-                    //return RedirectToPage("/Consultations/Index");
                     return RedirectToPage("/Consultations/Index");
 
                 case "Customer":
