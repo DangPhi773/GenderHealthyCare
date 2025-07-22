@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="edit blog page - change button Testing" />
+    <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,9 +48,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f964cec4620b407491d75a46803d79b926ae48/81/b7c2bee2/DbContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3eab2556a6e1dddc71dd7dd41efa5153ec50a4b7394940f26c808fcbb5dec9d/PageModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/GenderHealthcareServiceManagementSystemPages/Pages/CustomerBlogs/CustomerBlogsPage.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/Repo/Interfaces/ITestRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://E:/PRN222_proj/gender-healthcare-service-management/Services/Interfaces/ITestService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4b21fc3f8a3abb5d25f06c622276fbec0fd3932f169cc6af520bf5abc6a46b4/DbSet.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -158,7 +156,11 @@
       <workItem from="1752757024269" duration="2597000" />
       <workItem from="1752760140961" duration="6807000" />
       <workItem from="1752767150551" duration="1841000" />
-      <workItem from="1752769112818" duration="374000" />
+      <workItem from="1752769112818" duration="746000" />
+      <workItem from="1752770025152" duration="598000" />
+      <workItem from="1752770649217" duration="462000" />
+      <workItem from="1752888019743" duration="343000" />
+      <workItem from="1753197185913" duration="2476000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <option name="closed" value="true" />
