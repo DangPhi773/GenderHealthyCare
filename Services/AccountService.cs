@@ -35,5 +35,15 @@ namespace Services
             }
             return user;
         }
+
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            return await _accountRepository.GetUserByEmailAsync(email);
+        }
+
+        public Task<bool> ConfirmEmailAsync(User user)
+        {
+            return _accountRepository.ConfirmEmailAsync(user);
+        }
     }
 }
