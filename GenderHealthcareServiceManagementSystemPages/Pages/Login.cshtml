@@ -10,6 +10,11 @@
     </div>
 }
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
 <main class="py-5">
     <div class="container">
         <div class="row justify-content-center">

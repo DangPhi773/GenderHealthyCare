@@ -62,5 +62,37 @@ namespace Repositories
             Console.WriteLine("[AccountRepository][LoginAsync] Mật khẩu không khớp.");
             return null;
         }
+
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            var user = await _userDAO.GetUserByEmail(email);
+            if (user != null)
+            {
+                Console.WriteLine($"[AccountRepository][GetUserByEmailAsync] Tìm thấy người dùng: {user.Username}, UserId: {user.UserId}");
+            }
+            else
+            {
+                Console.WriteLine("[AccountRepository][GetUserByEmailAsync] Không tìm thấy người dùng.");
+            }
+            return user;
+        }
+
+        public async Task<bool> ConfirmEmailAsync(User user)
+        {
+            user.IsDeleted = false;
+            user.UpdatedAt = DateTime.Now;
+            Console.WriteLine($"[AccountRepository][ConfirmEmailAsync] Xác nhận email cho người dùng: {user.Username}, UserId: {user.UserId}");
+            try
+            {
+                await _userDAO.UpdateUser(user);
+                Console.WriteLine("[AccountRepository][ConfirmEmailAsync] Xác nhận email thành công.");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[AccountRepository][ConfirmEmailAsync] Lỗi khi xác nhận email: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

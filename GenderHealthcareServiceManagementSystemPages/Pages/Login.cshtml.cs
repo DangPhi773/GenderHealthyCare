@@ -59,6 +59,12 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
             var user = await _accountService.LoginAsync(Username, Password);
             if (user != null)
             {
+                if (user?.IsDeleted == true)
+                {
+                    Console.WriteLine("[LoginModel][OnPostAsync] Đăng nhập thất bại.");
+                    Message = "Tài khoản này không hoạt động";
+                    return RedirectToPage("/Login");
+                }
                 Console.WriteLine($"[LoginModel][OnPostAsync] Đăng nhập thành công cho UserId: {user.UserId}");
 
                 HttpContext.Session.SetString("UserId", user.UserId.ToString());

@@ -9,7 +9,9 @@ namespace Services.Interfaces
 {
     public interface IAccountService
     {
-            Task<bool> RegisterAsync(User user);
-            Task<User?> LoginAsync(string username, string password);
+        Task<bool> RegisterAsync(User user);
+        Task<User?> LoginAsync(string username, string password);
+        Task<User?> GetUserByEmailAsync(string email);
+        Task<bool> ConfirmEmailAsync(User user);
     }
 }
