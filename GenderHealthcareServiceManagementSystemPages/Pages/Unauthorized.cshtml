@@ -554,17 +554,15 @@
             }
         });
 
-        // Auto redirect after 10 seconds
-        let countdown = 10;
-        const autoRedirect = setInterval(() => {
-            countdown--;
-            if (countdown <= 0) {
-                clearInterval(autoRedirect);
-                window.location.href = '/';
-            }
-        }, 1000);
+        // let countdown = 10;
+        // const autoRedirect = setInterval(() => {
+        //     countdown--;
+        //     if (countdown <= 0) {
+        //         clearInterval(autoRedirect);
+        //         window.location.href = '/';
+        //     }
+        // }, 1000);
 
-        // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
             // Press 'H' to go home
             if (e.key === 'h' || e.key === 'H') {

@@ -20,6 +20,11 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ConsultantQuestion
 
         public async Task<IActionResult> OnGetAsync()
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (string.IsNullOrEmpty(role) || role != "Admin" && role != "Staff" && role != "Consultant")
+            {
+                return RedirectToPage("/Unauthorized");
+            }
             string? consultantIdStr = HttpContext.Session.GetString("UserId");
             int consultantId = -1;
 
