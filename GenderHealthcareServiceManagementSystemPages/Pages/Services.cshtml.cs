@@ -23,7 +23,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
 
         public async Task OnGetAsync()
         {
-            var allServices = await _serviceService.GetAllAsync();
+            var allServices = await _serviceService.GetAvailableServicesAsync();
 
             Services = FilterCategory switch
             {
