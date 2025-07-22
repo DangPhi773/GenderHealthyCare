@@ -17,7 +17,13 @@ public partial class Test
 
     public string? Result { get; set; }
 
+    public string? CancelReason { get; set; }
+
     public DateTime? CreatedAt { get; set; }
+
+    public bool? IsDeleted { get; set; }
+
+    public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
 
     public virtual Service Service { get; set; } = null!;
 

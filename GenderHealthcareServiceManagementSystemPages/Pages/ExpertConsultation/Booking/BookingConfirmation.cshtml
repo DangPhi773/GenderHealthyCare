@@ -1,0 +1,412 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.Booking.BookingConfirmationModel
+@{
+    ViewData["Title"] = "Xác nhận đặt lịch - Gender Healthcare";
+}
+
+<!-- Main Content -->
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="modern-card">
+        <!-- Success Header -->
+        <div class="success-header">
+            <div class="success-icon-container">
+                <div class="success-icon">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <div class="success-animation"></div>
+            </div>
+            <h1 class="success-title">Đặt lịch thành công!</h1>
+            <p class="success-subtitle">
+                Cảm ơn bạn đã tin tưởng Gender Healthcare. Chúng tôi đã nhận được yêu cầu đặt lịch của bạn và sẽ liên hệ xác nhận trong thời gian sớm nhất.
+            </p>
+        </div>
+
+        <div class="confirmation-content">
+            <!-- Booking ID Section -->
+            <div class="booking-id-section">
+                <div class="section-header">
+                    <div class="section-indicator"></div>
+                    <h2 class="section-title">Mã đặt lịch của bạn</h2>
+                </div>
+                <div class="booking-id-card" onclick="copyBookingId('@Model.BookingId')">
+                    <div class="booking-id-icon">
+                        <i class="bi bi-hash"></i>
+                    </div>
+                    <div class="booking-id-content">
+                        <div class="booking-id-value">@Model.BookingId</div>
+                        <div class="booking-id-hint">
+                            <i class="bi bi-clipboard"></i>
+                            Nhấn để sao chép
+                        </div>
+                    </div>
+                    <div class="copy-indicator">
+                        <i class="bi bi-files"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appointment Details -->
+            <div class="details-section">
+                <div class="section-header">
+                    <div class="section-indicator"></div>
+                    <h2 class="section-title">Chi tiết cuộc hẹn</h2>
+                </div>
+
+                <div class="details-grid">
+                    <!-- Consultant Info -->
+                    <div class="detail-card consultant-card-detail">
+                        <div class="detail-icon">
+                            <i class="bi bi-person-badge"></i>
+                        </div>
+                        <div class="detail-content">
+                            <div class="detail-label">Chuyên gia tư vấn</div>
+                            <div class="consultant-info">
+                                <div class="consultant-avatar-small">
+                                    @(Model.ConsultantInfo?.Consultant.Gender == "Female" ? "👩‍⚕️" : "👨‍⚕️")
+                                </div>
+                                <div class="consultant-details">
+                                    <div class="consultant-name">@Model.ConsultantInfo?.Consultant.FullName</div>
+                                    <div class="consultant-specialty">@Model.ConsultantInfo?.Specialization</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Date Info -->
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="bi bi-calendar-event"></i>
+                        </div>
+                        <div class="detail-content">
+                            <div class="detail-label">Ngày hẹn</div>
+                            <div class="detail-value">@Model.AppointmentDate</div>
+                        </div>
+                    </div>
+
+                    <!-- Time Info -->
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="bi bi-clock"></i>
+                        </div>
+                        <div class="detail-content">
+                            <div class="detail-label">Giờ hẹn</div>
+                            <div class="detail-value">@Model.AppointmentTime</div>
+                        </div>
+                    </div>
+
+                    <!-- Status Info -->
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="bi bi-info-circle"></i>
+                        </div>
+                        <div class="detail-content">
+                            <div class="detail-label">Trạng thái</div>
+                            <div class="status-badge status-pending">
+                                <i class="bi bi-clock-history"></i>
+                                @Model.ConsultationStatus
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="actions-section">
+                <div class="action-buttons">
+                    <a href="/my-appointments" class="btn btn-primary">
+                        <i class="bi bi-calendar-check"></i>
+                        Xem lịch hẹn của tôi
+                    </a>
+                    <a href="/" class="btn btn-secondary">
+                        <i class="bi bi-house"></i>
+                        Về trang chủ
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contact Support -->
+            <div class="support-section">
+                <div class="section-header">
+                    <div class="section-indicator"></div>
+                    <h2 class="section-title">Cần hỗ trợ?</h2>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="bi bi-telephone-fill"></i>
+                        </div>
+                        <div class="contact-content">
+                            <div class="contact-label">Hotline 24/7</div>
+                            <div class="contact-value">1900 1234</div>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="bi bi-envelope-fill"></i>
+                        </div>
+                        <div class="contact-content">
+                            <div class="contact-label">Email hỗ trợ</div>
+                            <div class="contact-value">support@genderhealthcare.vn</div>
+                        </div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+                        <div class="contact-content">
+                            <div class="contact-label">Địa chỉ</div>
+                            <div class="contact-value">Nhà văn hóa sinh viên, TP.HCM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="next-steps-section">
+                <div class="section-header">
+                    <div class="section-indicator"></div>
+                    <h2 class="section-title">Các bước tiếp theo</h2>
+                </div>
+
+                <div class="steps-timeline">
+                    <div class="step-item completed">
+                        <div class="step-icon">
+                            <i class="bi bi-check-circle-fill"></i>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-title">Đặt lịch thành công</div>
+                            <div class="step-description">Yêu cầu của bạn đã được ghi nhận</div>
+                        </div>
+                    </div>
+
+                    <div class="step-item pending">
+                        <div class="step-icon">
+                            <i class="bi bi-clock"></i>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-title">Xác nhận lịch hẹn</div>
+                            <div class="step-description">Chúng tôi sẽ liên hệ xác nhận trong 24h</div>
+                        </div>
+                    </div>
+
+                    <div class="step-item upcoming">
+                        <div class="step-icon">
+                            <i class="bi bi-calendar-event"></i>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-title">Tham gia tư vấn</div>
+                            <div class="step-description">Tham gia buổi tư vấn theo lịch đã đặt</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification Container -->
+<div id="notification-container"></div>
+
+@section Scripts {
+    <script>
+        // Enhanced Booking Confirmation JavaScript
+        document.addEventListener("DOMContentLoaded", () => {
+            initializeConfirmationPage()
+        })
+
+        function initializeConfirmationPage() {
+            animateSuccessElements()
+            initializeButtonEffects()
+            initializeCopyFunctionality()
+            addPageLoadAnimations()
+        }
+
+        function animateSuccessElements() {
+            const successIcon = document.querySelector(".success-icon")
+            const successAnimation = document.querySelector(".success-animation")
+            
+            if (successIcon && successAnimation) {
+                setTimeout(() => {
+                    successIcon.style.transform = "scale(1.1)"
+                    successAnimation.style.opacity = "1"
+                    successAnimation.style.transform = "scale(1.5)"
+                    
+                    setTimeout(() => {
+                        successIcon.style.transform = "scale(1)"
+                        successAnimation.style.opacity = "0"
+                        successAnimation.style.transform = "scale(2)"
+                    }, 600)
+                }, 300)
+            }
+        }
+
+        function initializeButtonEffects() {
+            document.querySelectorAll(".btn").forEach((btn) => {
+                btn.addEventListener("click", function (e) {
+                    createRippleEffect(e, this)
+                })
+            })
+        }
+
+        function createRippleEffect(e, button) {
+            const existingRipple = button.querySelector(".ripple-effect")
+            if (existingRipple) existingRipple.remove()
+
+            const ripple = document.createElement("span")
+            ripple.classList.add("ripple-effect")
+
+            const rect = button.getBoundingClientRect()
+            const size = Math.max(rect.width, rect.height)
+            const x = e.clientX - rect.left - size / 2
+            const y = e.clientY - rect.top - size / 2
+
+            ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                left: ${x}px;
+                top: ${y}px;
+                background: rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+            `
+
+            button.appendChild(ripple)
+            setTimeout(() => ripple.remove(), 600)
+        }
+
+        function initializeCopyFunctionality() {
+            const bookingIdCard = document.querySelector(".booking-id-card")
+            if (bookingIdCard) {
+                bookingIdCard.addEventListener("mouseenter", () => {
+                    bookingIdCard.querySelector(".copy-indicator").style.opacity = "1"
+                })
+                
+                bookingIdCard.addEventListener("mouseleave", () => {
+                    bookingIdCard.querySelector(".copy-indicator").style.opacity = "0"
+                })
+            }
+        }
+
+        function addPageLoadAnimations() {
+            const cards = document.querySelectorAll(".detail-card, .contact-card")
+            cards.forEach((card, index) => {
+                card.style.opacity = "0"
+                card.style.transform = "translateY(20px)"
+                
+                setTimeout(() => {
+                    card.style.transition = "all 0.5s ease"
+                    card.style.opacity = "1"
+                    card.style.transform = "translateY(0)"
+                }, 200 + (index * 100))
+            })
+        }
+
+        function copyBookingId(bookingId) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(bookingId)
+                    .then(() => showNotification("Đã sao chép mã đặt lịch!", "success"))
+                    .catch(() => fallbackCopyToClipboard(bookingId))
+            } else {
+                fallbackCopyToClipboard(bookingId)
+            }
+        }
+
+        function fallbackCopyToClipboard(text) {
+            const textArea = document.createElement("textarea")
+            textArea.value = text
+            textArea.style.cssText = "position: fixed; left: -999999px; top: -999999px;"
+            document.body.appendChild(textArea)
+            textArea.focus()
+            textArea.select()
+
+            try {
+                document.execCommand("copy")
+                showNotification("Đã sao chép mã đặt lịch!", "success")
+            } catch (err) {
+                showNotification("Không thể sao chép. Vui lòng copy thủ công.", "error")
+            }
+            
+            document.body.removeChild(textArea)
+        }
+
+        function showNotification(message, type = "info") {
+            const container = document.getElementById("notification-container")
+            const existingNotification = container.querySelector(".notification")
+            if (existingNotification) existingNotification.remove()
+
+            const notification = document.createElement("div")
+            notification.className = `notification notification-${type}`
+            
+            const colors = {
+                success: "#10B981",
+                error: "#EF4444",
+                info: "#3B82F6"
+            }
+
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="bi bi-${type === 'success' ? 'check-circle' : type === 'error' ? 'x-circle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `
+
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${colors[type]};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+                z-index: 1000;
+                font-weight: 500;
+                transform: translateX(100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                backdrop-filter: blur(8px);
+            `
+
+            container.appendChild(notification)
+
+            setTimeout(() => notification.style.transform = "translateX(0)", 100)
+            setTimeout(() => {
+                notification.style.transform = "translateX(100%)"
+                setTimeout(() => notification.remove(), 300)
+            }, 3000)
+        }
+
+        function printConfirmation() {
+            window.print()
+        }
+
+        // Add CSS for ripple effect
+        const style = document.createElement("style");
+        style.innerHTML = `
+        @@keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        `;
+        document.head.appendChild(style);
+
+    </script>
+}
+
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/BookingConfirmation.css" />
+}

@@ -1,0 +1,255 @@
+﻿@model BusinessObjects.Models.Consultation
+<style>
+    .gradient-text {
+        background: linear-gradient(to right, #9333ea, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+    }
+
+    .btn-card:hover{
+        border-color: rgba(0, 0, 0, 0.15);
+        box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+        color: rgba(0, 0, 0, 0.65);
+        transform: translateY(-1px);
+    }
+    .card-all-header{
+        padding: 0.5rem 1rem;
+        margin-bottom: 0;
+        background-color: rgba(0, 0, 0, 0.03);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
+
+    .card-all-header:first-child {
+        border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+    }
+
+    .card-all {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 8px;
+    }
+
+    .card-all-body {
+        flex: 1 1 auto;
+        padding: 1rem 1rem;
+    }
+
+    .btn-cancel-decor {
+        background: none;
+        color: gray;
+        transition: all 0.2s ease;
+    }
+
+    .btn-cancel-decor:hover {
+        color: white;
+        background:none;
+    }
+</style>
+
+@{
+    // Gán màu header theo Status
+    string headerColor = Model.Status switch
+    {
+        "Pending" => "#CEF4FF",
+        "Confirmed" => "#FFCDDE",
+        "Completed" => "#C8B6FF",
+        "Cancelled" => "#D8D8D8",
+        _ => "#f8f9fa"
+    };
+    string headerTextColor = Model.Status switch
+    {
+        "Cancelled" => "gray",
+        _ => "black"
+    };
+
+    string headerText = @Model.Status switch
+    {
+        "Pending" => "Đang đợi",
+        "Confirmed" => "Xác nhận",
+        "Completed" => "Đã hoàn tất",
+        "Cancelled" => "Đã hủy",
+        _ => "Không rõ"
+    };
+
+    string headerIcon = Model.Status switch
+    {
+        "Pending" => "<i class='bi bi-calendar'></i>",
+        "Confirmed" => "<i class='bi bi-calendar-check'></i>",
+        "Completed" => "<i class= 'bi bi-calendar-heart'></i>",
+        "Cancelled" => "<i class='bi bi-calendar-x'></i>",
+        _ => "<i class='bi bi-hourglass'></i>"
+    };
+
+    bool canEditLink = Model.Status == "Pending" || (Model.Status == "Confirmed" && DateTime.Today < Model.AppointmentTime.Date);
+    bool isEditable = Model.Status == "Pending";
+}
+
+<div class="card-all shadow mb-4" style="border-radius: 8px">
+    @* header *@
+    <div class="card-all-header d-flex justify-content-between align-items-center col-12"
+            style="background-color: @headerColor; border-radius: 8px 8px 0 0;">
+        @* left-header *@
+        <strong style="font-size:20px;color:@headerTextColor; width:fit-content">@Html.Raw(headerIcon) - @headerText</strong>
+        @* right header *@
+        <div class="col-1 d-flex align-items-center justify-content-between">
+            @* Date *@
+            <span>@Model.AppointmentTime.ToString("dd/MM/yyyy")</span>
+            @* Button cancel *@
+            @if (Model.Status == "Pending" || Model.Status == "Confirmed")
+            {
+                <form method="post" asp-page="/Consultations/Index" asp-page-handler="UpdateReason"
+                      class="d-flex justify-content-between">
+                    <input type="hidden" name="ConsultationId" value="@Model.ConsultationId" />
+                    <!-- Modal xác nhận hủy -->
+                    <div class="modal fade" id="cancelConfirmModal" tabindex="-1" aria-labelledby="cancelConfirmModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered justify-content-center">
+                            <div class="modal-content border-danger">
+                                <div class="modal-header bg-danger text-white">
+                                    <h5 class="modal-title" id="cancelConfirmModalLabel">Xác nhận hủy</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Bạn có chắc chắn muốn hủy lịch tư vấn không?</p>
+                                    <label for="Note" class="form-label">Lý do hủy <span class="text-danger">*</span></label>
+                                    <textarea id="Note"
+                                          name="Note"
+                                          value="@Model.Notes"
+                                          required
+                                          class="form-control"
+                                          style="resize:none; height:80px;"
+                                          placeholder="Nhập lý do hủy..."></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                    <button type="submit" class="btn btn-danger">Xác nhận</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button"
+                            id="cancelBtn"
+                            style="border:none; outline:none; width:fit-content"
+                            class="btn-cancel-decor d-flex align-items-center"
+                            data-bs-toggle="modal"
+                            data-bs-target="#cancelConfirmModal">
+                        <i class="bi bi-x-circle fs-5"></i>
+                    </button>
+                </form>
+            }
+        </div>
+    </div>
+    @* Body *@
+    <div class="card-all" style="border: none;">
+        <div class="row mb-3 mt-3 d-flex justify-content-evenly">
+            @* Col_1_CusInfo *@
+            <div class="col-md-3">
+                <p><strong>Tên khách hàng:</strong> @Model.User?.FullName</p>
+                <p><strong>Số điện thoại:</strong> @Model.User?.Phone</p>
+                <p><strong>Email:</strong> @Model.User?.Email</p>
+            </div>
+            @* Col_2_ConsultantInfo *@
+            <div class="col-md-3">
+                <p><strong>Tên tư vấn viên:</strong> @Model.Consultant?.FullName</p>
+                <p><strong>Số điện thoại:</strong> @Model.Consultant?.Phone</p>
+                <p><strong>Email:</strong> @Model.Consultant?.Email</p>
+            </div>
+            @* Col_3_ConsultationInfo *@
+            <div class="col-md-4">
+                @* Time meeting *@
+                <p class="col-12"><strong>Thời gian:</strong> @Model.AppointmentTime.ToString("HH:mm dd/MM/yyyy")</p>
+                @* Link meeting *@
+                <div class="form-group mb-3 col-12">
+                    <label><strong>Link meeting:</strong></label>
+                    @if (canEditLink)
+                    {
+                        <form method="post" asp-page="/Consultations/Index" asp-page-handler="UpdateLink">
+                            <input type="hidden" name="ConsultationId" value="@Model.ConsultationId" />
+                            <div class="d-flex align-items-center gap-2 input-group">
+                                <input 
+                                    type="text" 
+                                    id="MeetingLink_@Model.ConsultationId"
+                                    class="form-control" 
+                                    name="MeetingLink" 
+                                    value="@Model.MeetingLink"
+                                    readonly
+                                    required />
+
+                                <button style="border:none;background-color:@headerColor;color:black"
+                                    type="button" 
+                                        class="btn btn-light btn-card"
+                                    onclick="showButton(@Model.ConsultationId)">
+                                    <i class="bi bi-vector-pen" style="text-align:center"></i>
+                                </button>
+                            </div>
+
+                            <div class="d-grid mt-2">
+                                <button type="submit"
+                                        id="updateBtn_@Model.ConsultationId"
+                                        style="border:none;background-color:@headerColor;display:none"
+                                        class="btn btn-card">
+                                    @(isEditable ? "Cập nhật & xác nhận" : "Cập nhật link họp")
+                                </button>
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        <span>@Model.MeetingLink</span>
+                    }
+                </div>
+                @* Cancel Reason *@
+                <div class="form-group mb-3 col-12">
+                    @if (Model.Status == "Cancelled" && !String.IsNullOrEmpty(Model.Notes))
+                    {
+                        <div class="d-flex col-12">
+                            <label style="width:fit-content"><strong>Lý do hủy:</strong></label>
+                            <textarea class="col" style="height:fit-content;resize:none;outline:none" readonly>@Model.Notes</textarea>
+                        </div>
+                    }
+                    else if (Model.Status == "Cancelled" && String.IsNullOrEmpty(Model.Notes))
+                    {
+                        <label><strong>Lý do hủy: </strong></label>
+                        <form method="post" asp-page="/Consultations/Index" asp-page-handler="UpdateReason">
+                            <input type="hidden" name="ConsultationId" value="@Model.ConsultationId" />
+                            <div class="d-flex align-items-end gap-2 input-group">
+                                <textarea id="Note_@Model.ConsultationId"
+                                      name="Note"
+                                      value="@Model.Notes"
+                                      required
+                                      class="form-control"
+                                      style="resize:none; height:80px;"
+                                      placeholder="Nhập lý do hủy..."
+                                      readonly></textarea>
+
+                                <button style="border:none;background-color:@headerColor;color:black"
+                                        type="button"
+                                        class="btn btn-light btn-card"
+                                        onclick="showButtonReason(@Model.ConsultationId)">
+                                    <i class="bi bi-vector-pen" style="text-align:center"></i>
+                                </button>
+                            </div>
+
+                            <div class="d-grid mt-2">
+                                <button type="submit"
+                                        id="updateBtn_@Model.ConsultationId"
+                                        style="border:none;background-color:@headerColor;display:none"
+                                        class="btn btn-card">
+                                    Cập nhật lý do hủy
+                                </button>
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

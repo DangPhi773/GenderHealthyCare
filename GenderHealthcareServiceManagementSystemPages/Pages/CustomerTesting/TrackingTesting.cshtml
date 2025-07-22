@@ -1,0 +1,125 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting.TrackingTestingModel
+@{
+    ViewData["Title"] = "Theo dõi tình trạng xét nghiệm";
+}
+<main class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow-lg p-4 border-0 rounded-4 bg-light">
+                    <div class="mb-4 text-center">
+                        <h2 class="h4 fw-bold text-gradient">Lịch sử & Trạng thái xét nghiệm</h2>
+                        <p class="text-muted">Theo dõi các dịch vụ bạn đã đăng ký và tình trạng xử lý.</p>
+                    </div>
+
+                    <form method="get" class="mb-4 d-flex flex-wrap align-items-center gap-2 justify-content-center">
+                        <label class="form-label mb-0 me-2">Lọc theo trạng thái:</label>
+                        <select name="status" class="form-select w-auto border-purple text-purple" onchange="this.form.submit()">
+                            <option value="">-- Tất cả --</option>
+                            <option value="Pending" selected="@("Pending" == Model.SelectedStatus)">Pending</option>
+                            <option value="In Progress" selected="@("In Progress" == Model.SelectedStatus)">In Progress</option>
+                            <option value="Done" selected="@("Done" == Model.SelectedStatus)">Done</option>
+                            <option value="ResultAvailable" selected="@("ResultAvailable" == Model.SelectedStatus)">ResultAvailable</option>
+                        </select>
+                    </form>
+
+                    @if (Model.UserTests.Count == 0)
+                    {
+                        <div class="alert alert-info text-center fw-semibold rounded-3">
+                            Bạn chưa có lịch xét nghiệm nào.
+                        </div>
+                    }
+                    else
+                    {
+                        var groupedTests = Model.UserTests
+                        .GroupBy(t => t.AppointmentTime)
+                        .OrderByDescending(g => g.Key);
+
+                        foreach (var group in groupedTests)
+                        {
+                            <div class="mb-4 p-3 border border-purple-subtle rounded-4 shadow-sm bg-white">
+                                <h5 class="fw-bold text-primary mb-3">
+                                    🕒 Thời gian: @group.Key.ToString("HH:mm dd/MM/yyyy")
+                                </h5>
+
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle mb-0 text-center">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th class="text-purple">Dịch vụ</th>
+                                                <th class="text-purple">Trạng thái</th>
+                                                <th class="text-purple">Kết quả</th>
+                                                <th class="text-purple">Thao tác</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var test in group)
+                                            {
+                                                <tr>
+                                                    <td class="text-center">@test.Service?.Name</td>
+                                                    <td class="text-center">
+                                                        @switch (test.Status)
+                                                        {
+                                                            case "Pending":
+                                                                <span class="badge bg-warning text-dark">⏳ Pending</span>
+                                                                break;
+                                                            case "In Progress":
+                                                                <span class="badge bg-info text-white">🔄 In Progress</span>
+                                                                break;
+                                                            case "Done":
+                                                                <span class="badge bg-success">✅ Done</span>
+                                                                break;
+                                                            case "ResultAvailable":
+                                                                <span class="badge bg-primary">📄 Có kết quả</span>
+                                                                break;
+                                                            default:
+                                                                <span class="badge bg-secondary">@test.Status</span>
+                                                                break;
+                                                        }
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if (string.IsNullOrEmpty(test.Result))
+                                                        {
+                                                            <span class="text-muted fst-italic">Chưa có</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            @test.Result
+                                                        }
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if (test.Status == "ResultAvailable")
+                                                        {
+                                                            <form method="post" asp-page-handler="SetTestSession" asp-route-testId="@test.TestId" class="d-inline">
+                                                                <button type="submit" class="btn btn-sm btn-outline-@(Model.FeedbackStatus.GetValueOrDefault(test.TestId) ? "secondary" : "primary") rounded-pill">
+                                                                    @(Model.FeedbackStatus.GetValueOrDefault(test.TestId) ? "Đã đánh giá" : "Đánh giá")
+                                                                </button>
+                                                            </form>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    .text-gradient {
+        background: linear-gradient(to right, #a855f7, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .border-purple-subtle {
+        border-color: #e9d5ff !important;
+    }
+</style>

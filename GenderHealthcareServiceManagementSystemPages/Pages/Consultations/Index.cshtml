@@ -1,0 +1,79 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.Consultations.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    body{
+        background: linear-gradient(to bottom right, #f9f3ff, #ffeaf7, #ebf0ff);
+    }
+    .gradient-text {
+        background: linear-gradient(to right, #9333ea, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+    }
+    .btn-decor{
+        background: white;
+        color: #9333ea;
+        border: 1px solid #ced4da;
+        transition: all 0.2s ease;
+    }
+    .btn-decor:hover{
+        border-color: transparent;
+        color:white;
+        background: linear-gradient(to right, #9333ea, #ec4899);
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="gradient-text" style="padding:5px">Lịch tư vấn</h1>
+    <form method="get" class="d-flex gap-2 align-items-center">
+        <select name="statusFilter" class="form-select" onchange="this.form.submit()">
+            <option value="">-- Tất cả trạng thái --</option>
+            <option value="Pending" selected="@(Request.Query["statusFilter"] == "Pending" ? "selected" : null)">Đang đợi</option>
+            <option value="Confirmed" selected="@(Request.Query["statusFilter"] == "Confirmed" ? "selected" : null)">Đã xác nhận</option>
+            <option value="Completed" selected="@(Request.Query["statusFilter"] == "Completed" ? "selected" : null)">Đã hoàn tất</option>
+            <option value="Cancelled" selected="@(Request.Query["statusFilter"] == "Cancelled" ? "selected" : null)">Đã huỷ</option>
+        </select>
+        <div class="input-group">
+            <input type="text" name="consultantName" class="form-control" placeholder="Tìm kiếm..."
+                   value="@Request.Query["consultantName"]" />
+            <button type="submit" class="btn btn-decor"><i class="bi bi-search-heart"></i></button>
+        </div>
+    </form>
+</div>
+@foreach (var item in Model.Consultation)
+{
+    <partial name="_ConsultationCard" model="item" />
+}
+@section Scripts {
+    <script>
+        function showButton(id) {
+            const allInputs = document.querySelectorAll("input[id^='MeetingLink_']");
+            const allButtons = document.querySelectorAll("button[id^='updateBtn_']");
+
+            allInputs.forEach(input => input.setAttribute('readonly', true));
+            allButtons.forEach(btn => btn.style.display = 'none');
+
+            document.getElementById('MeetingLink_' + id).removeAttribute('readonly');
+            document.getElementById('updateBtn_' + id).style.display = 'inline-block';
+        }
+
+        function showButtonReason(id) {
+            const allInputs = document.querySelectorAll("input[id^='Note_']");
+            const allButtons = document.querySelectorAll("button[id^='updateBtn_']");
+
+            allInputs.forEach(input => input.setAttribute('readonly', true));
+            allButtons.forEach(btn => btn.style.display = 'none');
+
+            document.getElementById('Note_' + id).removeAttribute('readonly');
+            document.getElementById('updateBtn_' + id).style.display = 'inline-block';
+        }
+
+    </script>
+}
+<script src="~/js/microsoft/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/site.js"></script>

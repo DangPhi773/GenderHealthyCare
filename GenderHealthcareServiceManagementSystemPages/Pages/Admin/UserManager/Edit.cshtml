@@ -1,0 +1,100 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager.EditModel
+
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<h2 class="mt-4 mb-4"><i class="bi bi-pencil-square"></i> Edit User Information</h2>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <input type="hidden" asp-for="User.UserId" />
+
+                    <div class="mb-3">
+                        <label asp-for="User.Role" class="form-label fw-bold"></label>
+                        <input asp-for="User.Role" class="form-control" />
+                        <span asp-validation-for="User.Role" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="User.Gender" class="form-label fw-bold"></label>
+                        <input asp-for="User.Gender" class="form-control" />
+                        <span asp-validation-for="User.Gender" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="User.Dob" class="form-label fw-bold"></label>
+                        <input asp-for="User.Dob" type="date" class="form-control" />
+                        <span asp-validation-for="User.Dob" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="User.Username" class="form-label fw-bold"></label>
+                        <input asp-for="User.Username" class="form-control" />
+                        <span asp-validation-for="User.Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="User.PasswordHash" class="form-label fw-bold"></label>
+                        <input asp-for="User.PasswordHash" class="form-control" />
+                        <span asp-validation-for="User.PasswordHash" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="User.Email" class="form-label fw-bold"></label>
+                        <input asp-for="User.Email" class="form-control" />
+                        <span asp-validation-for="User.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="User.FullName" class="form-label fw-bold"></label>
+                        <input asp-for="User.FullName" class="form-control" />
+                        <span asp-validation-for="User.FullName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="User.Phone" class="form-label fw-bold"></label>
+                        <input asp-for="User.Phone" class="form-control" />
+                        <span asp-validation-for="User.Phone" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="User.CreatedAt" class="form-label fw-bold"></label>
+                        <input asp-for="User.CreatedAt" class="form-control" readonly />
+                        <span asp-validation-for="User.CreatedAt" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="User.UpdatedAt" class="form-label fw-bold"></label>
+                        <input asp-for="User.UpdatedAt" class="form-control" readonly />
+                        <span asp-validation-for="User.UpdatedAt" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="User.IsDeleted" class="form-label fw-bold"></label>
+                        <input asp-for="User.IsDeleted" class="form-control" />
+                        <span asp-validation-for="User.IsDeleted" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a asp-page="./Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left-circle"></i> Back to List
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save2"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

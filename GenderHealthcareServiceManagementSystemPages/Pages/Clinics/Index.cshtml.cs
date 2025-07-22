@@ -6,23 +6,41 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects.Models;
+using Services.Interfaces;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.Clinics
 {
     public class IndexModel : PageModel
     {
-        private readonly GenderHealthcareContext _context;
+        private readonly IClinicService _iClinicService;
 
-        public IndexModel(GenderHealthcareContext context)
+        public IndexModel(IClinicService iClinicService)
         {
-            _context = context;
+            _iClinicService = iClinicService;
         }
 
+        [BindProperty(SupportsGet = true)]
+        public string? ClinicName { get; set; }
         public IList<Clinic> Clinic { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(bool showDeleted = false)
         {
-            Clinic = await _context.Clinics.ToListAsync();
+            var role = HttpContext.Session.GetString("Role");
+            if (string.IsNullOrEmpty(role) || role != "Admin")
+            {
+                return RedirectToPage("/Unauthorized");
+            }
+
+            if (String.IsNullOrEmpty(ClinicName))
+            {
+
+                Clinic = await _iClinicService.GetAllAsync(showDeleted);
+            }
+            else
+            {
+                Clinic = await _iClinicService.GetClinicsByClinicName(ClinicName, showDeleted);
+            }
+            return Page();
         }
     }
 }

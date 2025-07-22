@@ -1,0 +1,353 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.AboutUsModel
+@{
+    ViewData["Title"] = "Về chúng tôi";
+}
+
+<div class="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <div class="text-center mb-16">
+            <div class="inline-flex items-center px-4 py-2 bg-purple-100 rounded-full text-purple-700 text-sm font-medium mb-6">
+                <i class="bi bi-heart-fill h-4 w-4 mr-2 text-danger"></i>
+                Về chúng tôi
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Hệ thống quản lý
+                <span class="text-gradient">
+                    chăm sóc sức khỏe giới tính
+                </span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Phần mềm toàn diện dành cho cơ sở y tế, cung cấp các dịch vụ chăm sóc sức khỏe sinh sản, giáo dục giới tính và tư vấn chuyên nghiệp với công nghệ hiện đại.
+            </p>
+        </div>
+
+        <!-- Mission & Vision -->
+        <div class="grid md:grid-cols-2 gap-8 mb-16">
+            <div class="border-0 shadow-xl bg-white/80 backdrop-blur-md rounded-xl">
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-4">
+                        <i class="bi bi-bullseye h-8 w-8 text-white"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Sứ mệnh</h2>
+                    <p class="text-gray-600 leading-relaxed">
+                        Mang đến giải pháp công nghệ toàn diện để hỗ trợ các cơ sở y tế trong việc cung cấp dịch vụ chăm sóc sức khỏe giới tính chất lượng cao, an toàn và hiệu quả. Chúng tôi cam kết xây dựng một hệ sinh thái y tế hiện đại, thân thiện và dễ tiếp cận.
+                    </p>
+                </div>
+            </div>
+            <div class="border-0 shadow-xl bg-white/80 backdrop-blur-md rounded-xl">
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-4">
+                        <i class="bi bi-eye h-8 w-8 text-white"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Tầm nhìn</h2>
+                    <p class="text-gray-600 leading-relaxed">
+                        Trở thành nền tảng hàng đầu trong lĩnh vực quản lý dịch vụ chăm sóc sức khỏe giới tính tại Việt Nam. Góp phần nâng cao nhận thức cộng đồng về sức khỏe sinh sản và tạo ra một xã hội khỏe mạnh, văn minh hơn.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="mb-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Tính năng nổi bật</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Hệ thống được thiết kế với đầy đủ các tính năng cần thiết để hỗ trợ toàn diện việc chăm sóc sức khỏe
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="border-0 shadow-xl bg-white/80 backdrop-blur-md rounded-xl hover:shadow-2xl transition-all duration-300 group">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="bi bi-calendar3 h-8 w-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Theo dõi chu kỳ sinh sản</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Khai báo và theo dõi chu kỳ kinh nguyệt, nhắc nhở thời gian rụng trứng và khả năng mang thai
+                        </p>
+                    </div>
+                </div>
+                <div class="border-0 shadow-xl bg-white/80 backdrop-blur-md rounded-xl hover:shadow-2xl transition-all duration-300 group">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="bi bi-eyedropper h-8 w-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Xét nghiệm STIs</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Quản lý toàn bộ quy trình xét nghiệm các bệnh lây truyền qua đường tình dục từ đặt lịch đến trả kết quả
+                        </p>
+                    </div>
+                </div>
+                <div class="border-0 shadow-xl bg-white/80 backdrop-blur-md rounded-xl hover:shadow-2xl transition-all duration-300 group">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="bi bi-chat-dots h-8 w-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Tư vấn trực tuyến</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Đặt lịch tư vấn và đặt câu hỏi với các chuyên gia để giải đáp mọi thắc mắc về sức khỏe
+                        </p>
+                    </div>
+                </div>
+                <div class="border-0 shadow-xl bg-white/80 backdrop-blur-md rounded-xl hover:shadow-2xl transition-all duration-300 group">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="bi bi-bell h-8 w-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Nhắc nhở thông minh</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Hệ thống nhắc nhở tự động về thời gian uống thuốc tránh thai và các lịch khám quan trọng
+                        </p>
+                    </div>
+                </div>
+                <div class="border-0 shadow-xl bg-white/80 backdrop-blur-md rounded-xl hover:shadow-2xl transition-all duration-300 group">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="bi bi-book h-8 w-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Giáo dục sức khỏe</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Blog chia sẻ kiến thức về giáo dục giới tính và chăm sóc sức khỏe sinh sản
+                        </p>
+                    </div>
+                </div>
+                <div class="border-0 shadow-xl bg-white/80 backdrop-blur-md rounded-xl hover:shadow-2xl transition-all duration-300 group">
+                    <div class="p-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <i class="bi bi-bar-chart-line h-8 w-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Báo cáo & Thống kê</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Dashboard và báo cáo chi tiết về tình trạng sức khỏe và lịch sử sử dụng dịch vụ
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Management Features -->
+        <div class="mb-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Tính năng quản lý</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Các công cụ quản lý mạnh mẽ dành cho cơ sở y tế và đội ngũ chuyên gia
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="border-0 shadow-lg bg-white/80 backdrop-blur-md rounded-xl hover:shadow-xl transition-all duration-300 group">
+                    <div class="p-6 flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <i class="bi bi-person-check h-6 w-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Quản lý tư vấn viên</h3>
+                            <p class="text-gray-600">
+                                Thông tin chung, bằng cấp, kinh nghiệm và lịch tư vấn của đội ngũ chuyên gia
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-0 shadow-lg bg-white/80 backdrop-blur-md rounded-xl hover:shadow-xl transition-all duration-300 group">
+                    <div class="p-6 flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <i class="bi bi-star h-6 w-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Quản lý đánh giá</h3>
+                            <p class="text-gray-600">
+                                Hệ thống rating và feedback từ người dùng để cải thiện chất lượng dịch vụ
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-0 shadow-lg bg-white/80 backdrop-blur-md rounded-xl hover:shadow-xl transition-all duration-300 group">
+                    <div class="p-6 flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <i class="bi bi-people h-6 w-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Quản lý hồ sơ</h3>
+                            <p class="text-gray-600">
+                                Lưu trữ và quản lý hồ sơ người dùng, lịch sử đặt xét nghiệm và tư vấn
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-0 shadow-lg bg-white/80 backdrop-blur-md rounded-xl hover:shadow-xl transition-all duration-300 group">
+                    <div class="p-6 flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <i class="bi bi-eyedropper h-6 w-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Khai báo dịch vụ</h3>
+                            <p class="text-gray-600">
+                                Quản lý thông tin các dịch vụ xét nghiệm, bảng giá và quy trình thực hiện
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="bg-white/60 backdrop-blur-md rounded-3xl p-8 md:p-12 shadow-xl mb-16">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Thành tựu của chúng tôi</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Những con số ấn tượng thể hiện sự tin tưởng và hài lòng của người dùng
+                </p>
+            </div>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="bi bi-people h-6 w-6 text-white"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900 mb-2">10,000+</div>
+                    <div class="text-gray-600 font-medium">Người dùng tin cậy</div>
+                </div>
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="bi bi-eyedropper h-6 w-6 text-white"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900 mb-2">50+</div>
+                    <div class="text-gray-600 font-medium">Dịch vụ xét nghiệm</div>
+                </div>
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="bi bi-clock h-6 w-6 text-white"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900 mb-2">24/7</div>
+                    <div class="text-gray-600 font-medium">Hỗ trợ tư vấn</div>
+                </div>
+                <div class="text-center group">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="bi bi-star h-6 w-6 text-white"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900 mb-2">98%</div>
+                    <div class="text-gray-600 font-medium">Độ hài lòng</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Core Values -->
+        <div class="mb-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Giá trị cốt lõi</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Những nguyên tắc định hướng mọi hoạt động của chúng tôi
+                </p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="border-0 shadow-xl bg-white/80 backdrop-blur-md rounded-xl text-center">
+                    <div class="p-8">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="bi bi-shield h-8 w-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">An toàn & Bảo mật</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Đảm bảo tuyệt đối về bảo mật thông tin cá nhân và dữ liệu sức khỏe của người dùng với các tiêu chuẩn bảo mật cao nhất.
+                        </p>
+                    </div>
+                </div>
+                <div class="border-0 shadow-xl bg-white/80 backdrop-blur-md rounded-xl text-center">
+                    <div class="p-8">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="bi bi-heart h-8 w-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Tận tâm & Chuyên nghiệp</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Luôn đặt sức khỏe và trải nghiệm của người dùng lên hàng đầu, cung cấp dịch vụ với tinh thần trách nhiệm cao nhất.
+                        </p>
+                    </div>
+                </div>
+                <div class="border-0 shadow-xl bg-white/80 backdrop-blur-md rounded-xl text-center">
+                    <div class="p-8">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="bi bi-award h-8 w-8 text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Chất lượng & Đổi mới</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Không ngừng cải tiến và ứng dụng công nghệ mới để mang đến những giải pháp tốt nhất cho người dùng.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benefits Section -->
+        <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-8 md:p-12 text-white mb-16">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold mb-4">Lợi ích cho cơ sở y tế</h2>
+                <p class="text-lg opacity-90 max-w-2xl mx-auto">
+                    Hệ thống mang lại nhiều giá trị thực tế cho các cơ sở y tế và đội ngũ chuyên gia
+                </p>
+            </div>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <i class="bi bi-check-circle h-12 w-12 mx-auto mb-4 opacity-90"></i>
+                    <h3 class="font-semibold mb-2">Tối ưu quy trình</h3>
+                    <p class="text-sm opacity-80">Tự động hóa các quy trình quản lý và giảm thiểu công việc thủ công</p>
+                </div>
+                <div class="text-center">
+                    <i class="bi bi-check-circle h-12 w-12 mx-auto mb-4 opacity-90"></i>
+                    <h3 class="font-semibold mb-2">Nâng cao hiệu quả</h3>
+                    <p class="text-sm opacity-80">Tăng năng suất làm việc và chất lượng dịch vụ chăm sóc bệnh nhân</p>
+                </div>
+                <div class="text-center">
+                    <i class="bi bi-check-circle h-12 w-12 mx-auto mb-4 opacity-90"></i>
+                    <h3 class="font-semibold mb-2">Quản lý tập trung</h3>
+                    <p class="text-sm opacity-80">
+                        Tất cả thông tin được quản lý tập trung, dễ dàng truy cập và theo dõi
+                    </p>
+                </div>
+                <div class="text-center">
+                    <i class="bi bi-check-circle h-12 w-12 mx-auto mb-4 opacity-90"></i>
+                    <h3 class="font-semibold mb-2">Báo cáo chi tiết</h3>
+                    <p class="text-sm opacity-80">Dashboard và báo cáo thống kê giúp đưa ra quyết định chính xác</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center">
+            <div class="border-0 shadow-xl bg-white/80 backdrop-blur-md rounded-xl">
+                <div class="p-12">
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="bi bi-heart h-10 w-10 text-white"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Sẵn sàng bắt đầu?</h2>
+                    <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                        Hãy để chúng tôi đồng hành cùng bạn trong việc nâng cao chất lượng dịch vụ chăm sóc sức khỏe tại cơ sở y tế của bạn
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="/contact" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 rounded-full text-lg font-medium inline-flex items-center">
+                            <i class="bi bi-arrow-right h-5 w-5 mr-2"></i>
+                            Liên hệ tư vấn
+                        </a>
+                        <a href="/learn-more" class="border border-purple-200 text-purple-600 hover:bg-purple-50 bg-transparent px-8 py-3 rounded-full text-lg font-medium inline-flex items-center">
+                            <i class="bi bi-book h-5 w-5 mr-2"></i>
+                            Tìm hiểu thêm
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-gradient {
+        background: linear-gradient(to right, #9333ea, #ec4899);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+    }
+
+    .backdrop-blur-md {
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+    }
+</style>

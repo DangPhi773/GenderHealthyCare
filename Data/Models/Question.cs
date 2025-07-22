@@ -17,7 +17,11 @@ public partial class Question
 
     public string? Status { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
+
+    public bool? IsDeleted { get; set; }
+
+    public DateTime? AnsweredAt { get; set; }
 
     public virtual User? Consultant { get; set; }
 

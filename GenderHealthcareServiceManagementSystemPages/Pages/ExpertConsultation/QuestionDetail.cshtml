@@ -1,0 +1,70 @@
+﻿@page "/ExpertConsultation/QuestionDetail/{id:int}"
+@model GenderHealthcareServiceManagementSystemPages.Pages.ExpertConsultation.QuestionDetailModel
+@{
+    ViewData["Title"] = "Chi tiết câu hỏi";
+}
+
+<div class="card question-detail-card">
+    <div class="card-header question-detail-header">
+        <h1 class="card-title question-detail-title">
+            <i class="bi bi-question-circle me-2"></i>@Model.Question.Subject
+        </h1>
+        <p class="question-detail-description">Chi tiết câu hỏi bạn đã gửi và phản hồi từ chuyên gia.</p>
+
+    </div>
+
+    <div class="card-body question-detail-body">
+        <div class="detail-section">
+            <h3 class="section-title"><i class="bi bi-info-circle me-2"></i>Thông tin chung</h3>
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <strong>ID Câu hỏi:</strong> <span>#@Model.Question.Id</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Ngày gửi:</strong> <span>@Model.Question.SubmissionDate.ToString("dd/MM/yyyy HH:mm")</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Trạng thái:</strong> 
+                    <span class="status-badge status-@Model.Question.Status.ToLower()">
+                        @Model.Question.Status
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-section mt-4">
+            <h3 class="section-title"><i class="bi bi-file-text me-2"></i>Nội dung câu hỏi</h3>
+            <div class="content-box">
+                <p>@Model.Question.Content</p>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.Question.Answer))
+        {
+            <div class="detail-section mt-4">
+                <h3 class="section-title"><i class="bi bi-chat-dots me-2"></i>Phản hồi từ chuyên gia</h3>
+                <div class="answer-box">
+                    <p>@Model.Question.Answer</p>
+                    <small class="text-muted">Phản hồi vào: @Model.Question.SubmissionDate.AddDays(1).ToString("dd/MM/yyyy HH:mm")</small>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info mt-4 no-answer-alert">
+                <i class="bi bi-hourglass-split me-2"></i>
+                Câu hỏi của bạn đang chờ được chuyên gia phản hồi. Vui lòng kiên nhẫn!
+            </div>
+        }
+
+        <div class="text-center mt-5">
+            <a href="/ExpertConsultation/MyQuestion" class="btn-secondary">
+                <i class="bi bi-arrow-left"></i> Quay lại lịch sử câu hỏi
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link href="~/css/QuestionDetail.css?v=20250714" rel="stylesheet" />
+}

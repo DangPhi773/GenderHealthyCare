@@ -1,0 +1,58 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager.IndexModel
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-primary mb-4">Manage Users</h2>
+
+    <div class="d-flex justify-content-end mb-3">
+        <a asp-page="Create" class="btn btn-success">+ Create New</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped align-middle text-center">
+            <thead class="table-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.User[0].Role)</th>
+                <th>@Html.DisplayNameFor(model => model.User[0].Gender)</th>
+                <th>@Html.DisplayNameFor(model => model.User[0].Dob)</th>
+                <th>@Html.DisplayNameFor(model => model.User[0].Username)</th>
+                <th>@Html.DisplayNameFor(model => model.User[0].Email)</th>
+                <th>@Html.DisplayNameFor(model => model.User[0].FullName)</th>
+                <th>@Html.DisplayNameFor(model => model.User[0].Phone)</th>
+                <th>@Html.DisplayNameFor(model => model.User[0].CreatedAt)</th>
+                <th>@Html.DisplayNameFor(model => model.User[0].UpdatedAt)</th>
+                
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.User)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Role)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Gender)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Dob)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Username)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UpdatedAt)</td>
+                    
+                    <td>
+                        <div class="d-flex justify-content-center gap-2">
+                            <a asp-page="./Edit" asp-route-id="@item.UserId" class="btn btn-sm btn-primary">Edit</a>
+                            <a asp-page="./Details" asp-route-id="@item.UserId" class="btn btn-sm btn-info">Details</a>
+                            <a asp-page="./Delete" asp-route-id="@item.UserId" class="btn btn-sm btn-danger">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.CustomerConsultation.FeedbackConsultationModel
+@{
+    ViewData["Title"] = "Đánh giá tư vấn viên";
+    var readonlyAttr = Model.IsReadOnly ? "readonly" : "";
+}
+<main class="py-5">
+    <div class="container">
+        <div class="card shadow p-4">
+            <h3 class="text-center text-primary mb-4">
+                Đánh giá tư vấn viên: @Model.Consultant?.FullName
+            </h3>
+
+            <form method="post">
+                <div class="mb-3 text-center">
+                    <div class="star-rating justify-content-center d-flex">
+                        @for (int i = 5; i >= 1; i--)
+                        {
+                            var isChecked = Model.Rating == i ? "checked" : "";
+                            var isDisabled = Model.IsReadOnly ? "disabled" : "";
+                            <input type="radio" id="star-@i" name="Rating" value="@i" @isChecked @isDisabled />
+                            <label for="star-@i" title="@i sao">★</label>
+                        }
+                    </div>
+                    <span asp-validation-for="Rating" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nhận xét</label>
+                    @if (Model.IsReadOnly)
+                    {
+                        <textarea asp-for="FeedbackText" class="form-control" rows="4" readonly></textarea>
+                    }
+                    else
+                    {
+                        <textarea asp-for="FeedbackText" class="form-control" rows="4"></textarea>
+                    }
+
+                </div>
+
+                @if (!Model.IsReadOnly)
+                {
+                    <button type="submit" class="btn btn-primary w-100">Gửi đánh giá</button>
+                }
+                else
+                {
+                    <div class="text-center text-success fw-semibold">Bạn đã đánh giá tư vấn viên này rồi.</div>
+                }
+            </form>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <style>
+        .star-rating {
+            direction: rtl;
+            display: inline-flex;
+            justify-content: center;
+            font-size: 2.5rem;
+            gap: 0.3rem;
+        }
+
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+
+        .star-rating label {
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .star-rating input:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: gold;
+        }
+    </style>
+}

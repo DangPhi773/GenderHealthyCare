@@ -17,9 +17,15 @@ public partial class Consultation
 
     public string? MeetingLink { get; set; }
 
+    public string? Notes { get; set; }
+
     public DateTime? CreatedAt { get; set; }
 
+    public bool? IsDeleted { get; set; }
+
     public virtual User Consultant { get; set; } = null!;
+
+    public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
 
     public virtual User User { get; set; } = null!;
 }

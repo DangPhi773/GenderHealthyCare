@@ -1,0 +1,797 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.ServiceManagement.IndexModel
+@{
+    ViewData["Title"] = "Quản lý dịch vụ";
+}
+
+<main class="service-management-page">
+    <div class="container">
+        <!-- Header Section -->
+        <div class="page-header">
+            <div class="header-content">
+                <div class="header-info">
+                    <div class="header-badge">
+                        <i class="bi bi-gear-fill"></i>
+                        Quản lý hệ thống
+                    </div>
+                    <h1 class="page-title">
+                        <span class="gradient-text">Quản lý dịch vụ</span>
+                    </h1>
+                    <p class="page-subtitle">
+                        Quản lý toàn bộ các dịch vụ chăm sóc sức khỏe trong hệ thống
+                    </p>
+                </div>
+                <div class="header-actions">
+                    <a asp-page="Create" class="btn btn-primary_Service">
+                        <i class="bi bi-plus-circle"></i>
+                        Thêm dịch vụ mới
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon total">
+                    <i class="bi bi-list-ul"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">
+                        @if (Model.Service != null && Model.Service.Any(s => s.IsDeleted == false))
+                        {
+                            @(Model.Service.Where(s => s.IsDeleted == false).Average(s => s.Price).ToString("N0"))
+                        }
+                        else
+                        {
+                            <span>0</span>
+                        }
+                        VND
+                    </div>                    
+                    <div class="stat-label">Tổng dịch vụ</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon active">
+                    <i class="bi bi-check-circle"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">@Model.Service.Count(s => s.IsDeleted==false)</div>
+                    <div class="stat-label">Đang hoạt động</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon inactive">
+                    <i class="bi bi-x-circle"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">@Model.Service.Count(s => s.IsDeleted==true)</div>
+                    <div class="stat-label">Đã tạm dừng</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon revenue">
+                    <i class="bi bi-currency-dollar"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number">
+                        @{
+                            var activeServices = Model.Service.Where(s => s.IsDeleted == false);
+                            if (activeServices.Any())
+                            {
+                                @activeServices.Average(s => s.Price).ToString("N0")
+                            }
+                            else
+                            {
+                                <text>0</text>
+                            }
+                        }
+                    </div>
+                    <div class="stat-label">Giá trung bình</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="filters-section">
+            <div class="search-box">
+                <i class="bi bi-search"></i>
+                <input type="text" id="searchInput" placeholder="Tìm kiếm dịch vụ theo tên, mô tả..." />
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="bi bi-list"></i>
+                    Tất cả
+                </button>
+                <button class="filter-btn" data-filter="active">
+                    <i class="bi bi-check-circle"></i>
+                    Hoạt động
+                </button>
+                <button class="filter-btn" data-filter="inactive">
+                    <i class="bi bi-x-circle"></i>
+                    Tạm dừng
+                </button>
+            </div>
+            <div class="sort-dropdown">
+                <select id="sortSelect">
+                    <option value="name">Sắp xếp theo tên</option>
+                    <option value="price">Sắp xếp theo giá</option>
+                    <option value="date">Sắp xếp theo ngày tạo</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Services Grid -->
+        @if (Model.Service != null && Model.Service.Any())
+        {
+            <div class="services-grid" id="servicesGrid">
+                @foreach (var item in Model.Service)
+                {
+                    <div class="service-card @(item.IsDeleted==true||item.IsDeleted==false  ? "inactive" : "active")"
+                         data-name="@item.Name.ToLower()"
+                         data-description="@item.Description?.ToLower()"
+                         data-price="@item.Price"
+                         data-date="@item.CreatedAt?.ToString("yyyy-MM-dd")"
+                         data-status="@(item.IsDeleted == true  ? "inactive" : "active")">
+
+                        <!-- Card Header -->
+                        <div class="card-header_Service">
+                            <div class="service-icon">
+                                <i class="bi bi-heart-pulse"></i>
+                            </div>
+                            <div class="status-badge @(item.IsDeleted==true ? "inactive" : "active")">
+                                @if (item.IsDeleted==true)
+                                {
+                                    <i class="bi bi-x-circle"></i>
+                                    <span>Tạm dừng</span>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-check-circle"></i>
+                                    <span>Hoạt động</span>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Card Content -->
+                        <div class="card-content">
+                            <h3 class="service-name">@item.Name</h3>
+                            <p class="service-description">
+                                @(item.Description?.Length > 100 ? item.Description.Substring(0, 100) + "..." : item.Description)
+                            </p>
+
+                            <div class="service-details">
+                                <div class="detail-item">
+                                    <i class="bi bi-currency-dollar"></i>
+                                    <span class="detail-label">Giá dịch vụ:</span>
+                                    <span class="detail-value price">@item.Price.ToString("N0") VND</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="bi bi-calendar-plus"></i>
+                                    <span class="detail-label">Ngày tạo:</span>
+                                    <span class="detail-value">@item.CreatedAt?.ToString("dd/MM/yyyy")</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Actions -->
+                        <div class="card-actions">
+                            <a asp-page="./Details" asp-route-id="@item.ServiceId" class="btn_Service btn-info">
+                                <i class="bi bi-eye"></i>
+                                Chi tiết
+                            </a>
+                            <a asp-page="./Edit" asp-route-id="@item.ServiceId" class="btn_Service btn-warning">
+                                <i class="bi bi-pencil"></i>
+                                Sửa
+                            </a>
+                            <a asp-page="./Delete" asp-route-id="@item.ServiceId" class="btn_Service btn-danger">
+                                <i class="bi bi-trash"></i>
+                                Xóa
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="bi bi-inbox"></i>
+                </div>
+                <h3>Chưa có dịch vụ nào</h3>
+                <p>Hãy thêm dịch vụ đầu tiên để bắt đầu quản lý</p>
+                <a asp-page="Create" class="btn_Service btn-primary_Service">
+                    <i class="bi bi-plus-circle"></i>
+                    Thêm dịch vụ đầu tiên
+                </a>
+            </div>
+        }
+
+        <!-- Pagination (if needed) -->
+        <div class="pagination-section">
+            <div class="pagination-info">
+                Hiển thị <span id="currentCount">@Model.Service.Count()</span> trên tổng số <span>@Model.Service.Count()</span> dịch vụ
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    /* Main Layout */
+    .service-management-page {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f5f3ff 0%, #fdf2f8 50%, #e0f2fe 100%);
+        padding: 2rem 0;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    /* Header Section */
+    .page-header {
+        margin-bottom: 2rem;
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 2rem;
+    }
+
+    .header-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(135deg, #e0e7ff, #fce7f3);
+        color: #7c3aed;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .gradient-text {
+        background: linear-gradient(135deg, #7c3aed, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .page-subtitle {
+        font-size: 1.125rem;
+        color: #6b7280;
+        margin: 0;
+    }
+
+    .header-actions {
+        flex-shrink: 0;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        transition: all 0.3s ease;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+    .stat-icon {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: white;
+    }
+
+        .stat-icon.total {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+
+        .stat-icon.active {
+            background: linear-gradient(135deg, #10b981, #047857);
+        }
+
+        .stat-icon.inactive {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .stat-icon.revenue {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+    .stat-content {
+        flex: 1;
+    }
+
+    .stat-number {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+        font-size: 0.875rem;
+        color: #6b7280;
+        font-weight: 500;
+    }
+
+    /* Filters Section */
+    .filters-section {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .search-box {
+        position: relative;
+        flex: 1;
+        min-width: 300px;
+    }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+            .search-box input:focus {
+                outline: none;
+                border-color: #7c3aed;
+                box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+            }
+
+    .filter-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .filter-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e5e7eb;
+        background: white;
+        border-radius: 0.75rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #6b7280;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: #7c3aed;
+            background: #f5f3ff;
+            color: #7c3aed;
+        }
+
+    .sort-dropdown select {
+        padding: 0.75rem 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 0.75rem;
+        background: white;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .sort-dropdown select:focus {
+            outline: none;
+            border-color: #7c3aed;
+        }
+
+    /* Services Grid */
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .service-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .service-card.inactive {
+            opacity: 0.7;
+            border-color: #fecaca;
+        }
+
+    .card-header_Service {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 1.5rem 0;
+    }
+
+    .service-icon {
+        width: 3rem;
+        height: 3rem;
+        background: linear-gradient(135deg, #7c3aed, #ec4899);
+        color: white;
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .status-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+        .status-badge.active {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #065f46;
+        }
+
+        .status-badge.inactive {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            color: #991b1b;
+        }
+
+    .card-content {
+        padding: 1.5rem;
+    }
+
+    .service-name {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+    }
+
+    .service-description {
+        color: #6b7280;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+    }
+
+    .service-details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+        .detail-item i {
+            color: #7c3aed;
+            width: 1rem;
+        }
+
+    .detail-label {
+        color: #6b7280;
+        font-weight: 500;
+    }
+
+    .detail-value {
+        color: #111827;
+        font-weight: 600;
+    }
+
+        .detail-value.price {
+            color: #059669;
+            font-size: 1rem;
+        }
+
+    .card-actions {
+        display: flex;
+        gap: 0.5rem;
+        padding: 0 1.5rem 1.5rem;
+    }
+
+    /* Buttons */
+    .btn_Service {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        flex: 1;
+        justify-content: center;
+    }
+
+    .btn-primary_Service {
+        background: linear-gradient(135deg, #7c3aed, #ec4899);
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #6d28d9, #db2777);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
+        }
+
+    .btn-info {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        color: white;
+    }
+
+        .btn-info:hover {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+        }
+
+    .btn-warning {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: white;
+    }
+
+        .btn-warning:hover {
+            background: linear-gradient(135deg, #e08e0b, #c2670b);
+        }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: white;
+    }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+        }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .empty-icon {
+        width: 5rem;
+        height: 5rem;
+        background: linear-gradient(135deg, #e5e7eb, #d1d5db);
+        color: #6b7280;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 2.5rem;
+    }
+
+    .empty-state h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 0.75rem;
+    }
+
+    .empty-state p {
+        color: #6b7280;
+        margin-bottom: 2rem;
+    }
+
+    /* Pagination */
+    .pagination-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .pagination-info {
+        color: #6b7280;
+        font-size: 0.875rem;
+    }
+
+        .pagination-info span {
+            font-weight: 600;
+            color: #111827;
+        }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .header-content
+
+    {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filters-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        min-width: auto;
+    }
+
+    .filter-buttons {
+        justify-content: center;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-actions {
+        flex-direction: column;
+    }
+
+    }
+
+    /* Hidden class for filtering */
+    .hidden {
+        display: none !important;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const sortSelect = document.getElementById('sortSelect');
+        const servicesGrid = document.getElementById('servicesGrid');
+        const serviceCards = document.querySelectorAll('.service-card');
+        const currentCount = document.getElementById('currentCount');
+
+        // Search functionality
+        searchInput.addEventListener('input', function() {
+            filterAndSort();
+        });
+
+        // Filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                filterAndSort();
+            });
+        });
+
+        // Sort functionality
+        sortSelect.addEventListener('change', function() {
+            filterAndSort();
+        });
+
+        function filterAndSort() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+            const sortBy = sortSelect.value;
+
+            let visibleCards = Array.from(serviceCards).filter(card => {
+                // Search filter
+                const name = card.dataset.name || '';
+                const description = card.dataset.description || '';
+                const matchesSearch = name.includes(searchTerm) || description.includes(searchTerm);
+
+                // Status filter
+                const status = card.dataset.status;
+                const matchesFilter = activeFilter === 'all' || status === activeFilter;
+
+                return matchesSearch && matchesFilter;
+            });
+
+            // Sort cards
+            visibleCards.sort((a, b) => {
+                switch(sortBy) {
+                    case 'name':
+                        return a.dataset.name.localeCompare(b.dataset.name);
+                    case 'price':
+                        return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+                    case 'date':
+                        return new Date(b.dataset.date) - new Date(a.dataset.date);
+                    default:
+                        return 0;
+                }
+            });
+
+            // Hide all cards first
+            serviceCards.forEach(card => card.classList.add('hidden'));
+
+            // Show and reorder visible cards
+            visibleCards.forEach((card, index) => {
+                card.classList.remove('hidden');
+                card.style.order = index;
+            });
+
+            // Update count
+            if (currentCount) {
+                currentCount.textContent = visibleCards.length;
+            }
+        }
+
+        // Initialize
+        filterAndSort();
+    });
+</script>

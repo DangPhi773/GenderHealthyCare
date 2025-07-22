@@ -1,0 +1,37 @@
+﻿@page "{id:int}"
+@model GenderHealthcareServiceManagementSystemPages.Pages.ManageBlog.EditBlogModel
+@{
+    ViewData["Title"] = "Sửa Blog";
+}
+
+<main class="py-4">
+    <div class="container">
+        <h2 class="h4 text-primary mb-4">✏️ Sửa bài viết Blog</h2>
+
+        @if (Model.Blog != null)
+        {
+            <form method="post">
+                <input type="hidden" asp-for="Blog.BlogId" />
+
+                <div class="mb-3">
+                    <label class="form-label">Tiêu đề</label>
+                    <input asp-for="Blog.Title" class="form-control" />
+                    <span asp-validation-for="Blog.Title" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nội dung</label>
+                    <textarea asp-for="Blog.Content" class="form-control" rows="6"></textarea>
+                    <span asp-validation-for="Blog.Content" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success">💾 Lưu thay đổi</button>
+                <a asp-page="/ManageBlog/AdminManagerBlogs" class="btn btn-secondary ms-2">Quay lại</a>
+            </form>
+        }
+        else
+        {
+            <div class="alert alert-danger">Không tìm thấy bài viết.</div>
+        }
+    </div>
+</main>

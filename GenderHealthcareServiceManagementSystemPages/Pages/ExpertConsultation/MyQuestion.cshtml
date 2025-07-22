@@ -1,0 +1,60 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.ExpertConsultation.MyQuestionModel
+@{
+    ViewData["Title"] = "Lịch sử câu hỏi của tôi";
+}
+
+<div class="card">
+    <div class="my-questions-header">
+        <h1 class="my-questions-title">
+            <i class="bi bi-question-circle me-2"></i>Lịch sử câu hỏi của tôi
+        </h1>
+        <p class="my-questions-description">Xem lại trạng thái và phản hồi cho các câu hỏi bạn đã gửi.</p>
+    </div>
+
+    @if (Model.UserQuestions != null && Model.UserQuestions.Any())
+    {
+        <div class="table-responsive">
+            <table class="my-questions-table">
+                <thead>
+                    <tr>
+                        <th>Tiêu đề</th>
+                        <th>Ngày gửi</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var question in Model.UserQuestions)
+                    {
+                        <tr>
+                            <td data-label="Tiêu đề">@question.Subject</td>
+                            <td data-label="Ngày gửi">@question.SubmissionDate.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td data-label="Trạng thái">
+                                <span class="status-badge status-@question.Status.ToLower()">
+                                    @question.Status
+                                </span>
+                            </td>
+                            <td data-label="Hành động">
+                                <a href="/ExpertConsultation/QuestionDetail/@question.Id" class="btn-secondary btn-sm">
+                                    <i class="bi bi-eye-fill"></i> Xem chi tiết
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="no-questions-message">
+            <p>Bạn chưa gửi câu hỏi nào. Hãy <a href="/ExpertConsultation/Question">gửi câu hỏi đầu tiên của bạn</a> ngay!</p>
+        </div>
+    }
+</div>
+
+@section Styles {
+    <link href="~/css/MyQuestion.css?v=20250719" rel="stylesheet" />
+}
+ 

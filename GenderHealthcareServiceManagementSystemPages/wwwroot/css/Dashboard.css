@@ -1,0 +1,212 @@
+﻿h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-dark);
+}
+
+/* Grid layout */
+.dashboard-grid {
+    display: grid;
+    gap: 24px;
+}
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.dashboard-card {
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 0; /* Remove padding from card itself, header and body will have it */
+    box-shadow: 0 4px 15px rgba(200, 182, 255, 0.2); /* Softer shadow */
+    border: 1px solid rgba(255, 214, 255, 0.5); /* Light border */
+    overflow: hidden; /* Ensure header corners are clipped */
+}
+
+.dashboard-card-header {
+    background-color: var(--mimi-pink); /* Light pink from palette */
+    padding: 12px 16px; /* Adjusted padding */
+    border-radius: 8px 8px 0 0; /* Rounded top corners */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 214, 255, 0.8); /* Subtle border bottom */
+}
+
+.dashboard-card-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    color: var(--text-dark); /* Dark text color */
+}
+
+.dashboard-card-header h3 {
+    font-size: 18px; /* Slightly smaller for table headers */
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-dark); /* Dark text color */
+}
+
+.dashboard-card-value {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 8px 16px; /* Add horizontal padding */
+    color: var(--accent-purple); /* Use accent color for values */
+}
+
+.dashboard-card-description {
+    font-size: 14px; /* Increased from 12px */
+    color: var(--text-light);
+    margin: 0 16px 16px 16px;
+}
+/* Hottest Service Section */
+.hottest-service-section {
+    background-color: var(--periwinkle-light); /* A slightly different background to stand out */
+    padding: 12px 16px;
+    margin: 0 16px 16px 16px; /* Align with other card content */
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px; /* Slightly larger font */
+    font-weight: 500;
+    color: var(--text-dark);
+    border: 1px solid rgba(147, 51, 234, 0.2); /* Subtle border with accent color */
+}
+
+.hottest-service-title {
+    margin: 0;
+    font-weight: 600;
+    color: var(--accent-purple); /* Highlight title */
+}
+
+.hottest-service-value {
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+/* Tables */
+.dashboard-table-container {
+    overflow-x: auto;
+    padding: 16px; /* Padding for the table container within the card */
+}
+
+    .dashboard-table-container table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    .dashboard-table-container th,
+    .dashboard-table-container td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    .dashboard-table-container th {
+        color: var(--text-light); /* Lighter color for table headers */
+        border-bottom: 1px solid var(--mimi-pink); /* Consistent border color */
+        font-weight: 500; /* Slightly less bold */
+    }
+
+    .dashboard-table-container tr:not(:last-child) {
+        border-bottom: 1px solid var(--mimi-pink); /* Consistent border color */
+    }
+
+    .dashboard-table-container td.text-right {
+        text-align: right;
+    }
+
+/* Badges */
+.dashboard-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #111; /* Mặc định chữ đậm nếu không được ghi đè */
+}
+
+    .dashboard-badge.completed {
+        background-color: var(--periwinkle-light); /* Light blue-purple */
+        color: #1e1e1e; /* Gần như đen để dễ nhìn */
+    }
+
+    .dashboard-badge.pending {
+        background-color: var(--mauve-light); /* Light purple */
+        color: #2b2b2b; /* Gần đen */
+    }
+
+    .dashboard-badge.cancelled {
+        background-color: var(--mimi-pink); /* Light pink */
+        color: var(--cancelled-text-color); /* Màu đỏ đậm nổi bật trên nền hồng */
+    }
+
+/* Comment cell truncate */
+.dashboard-truncate {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.average-rating-display {
+    background-color: var(--periwinkle-light);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem; /* Increased from 0.875rem (14px) to 1rem (16px) */
+    padding: 12px 16px;
+    margin-top: 16px; /* Align with other card content */
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-dark);
+    border: 1px solid rgba(147, 51, 234, 0.2); /* Subtle border with accent color */
+}
+
+.star-display {
+    display: flex;
+}
+
+    .star-display i {
+        width: 1.25rem; /* Increased from 1rem (16px) to 1.25rem (20px) */
+        height: 1.25rem; /* Increased from 1rem (16px) to 1.25rem (20px) */
+        margin-right: 0.25rem; /* me-1 */
+    }
+
+.feedback-count {
+    color: var(--text-light);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .dashboard-card {
+        border-radius: 12px; /* Slightly larger radius for mobile */
+    }
+
+    .dashboard-card-header {
+        border-radius: 12px 12px 0 0;
+    }
+
+    .dashboard-card-value {
+        font-size: 20px;
+    }
+
+    .dashboard-card-description {
+        font-size: 11px;
+    }
+
+    .dashboard-table-container th,
+    .dashboard-table-container td {
+        padding: 8px;
+    }
+
+    .metric-grid {
+        grid-template-columns: 1fr; /* Stack cards on small screens */
+    }
+}

@@ -1,0 +1,98 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.Questions.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .question-card {
+        border-left: 4px solid;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        background-color: #fff;
+    }
+
+    .pending {
+        border-color: #67e8f9;
+    }
+
+    .answered {
+        border-color: #c4b5fd;
+    }
+
+    .pending .circle-customer,
+    .pending .circle-consultant {
+        background-color: #CEF4FF;
+    }
+
+    .answered .circle-customer,
+    .answered .circle-consultant {
+        background-color: #C8B6FF;
+    }
+
+    .meta {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .gradient-text {
+        background: linear-gradient(to right, #9333ea, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+    }
+</style>
+
+
+<h1 class="gradient-text mb-3" style="width:fit-content;padding:5px">Tất cả câu hỏi</h1>
+
+@foreach (var q in Model.Questions)
+{
+    var statusClass = q.Status == "Answered" ? "answered" : "pending";
+
+    <div class="question-card @statusClass d-flex col-12">
+        <div class="col-6">
+            <h6>Câu hỏi</h6>
+            <div class="d-flex col-12">
+
+                <div class="rounded-circle d-flex justify-content-center align-items-center col-1 circle-customer"
+                     style="width: 40px; height: 40px;
+                            margin: 0px 5px">
+                    @q.User.Username.ToUpper().FirstOrDefault()
+                </div>
+                <div class=" col-10">
+                    <div class="d-inline-flex flex-column">
+                        <span class="meta">@q.User.Username</span>
+                        <span class="meta">Created at: @q.CreatedAt.ToString("dd/MM/yyyy")</span>
+                    </div>
+                    <div class="mt-2">@q.QuestionText</div>
+                </div>
+            </div>
+        </div>
+        
+
+        @if (!string.IsNullOrEmpty(q.AnswerText))
+        {
+            <div class="col-6">
+                <h6>Câu trả lời</h6>
+                <div class="d-flex col-12">
+                    <div class="rounded-circle d-flex justify-content-center align-items-center col-1 circle-consultant"
+                         style="width: 40px; height: 40px;
+                                            margin: 0px 5px">
+                        @q.Consultant?.FullName?.ToUpper().FirstOrDefault()
+                    </div>
+                    <div class="col-10">
+                        <div class="d-inline-flex flex-column">
+                            <span class="meta">@q?.Consultant?.FullName</span>
+                            <span class="meta">Created at: @q?.AnsweredAt?.ToString("dd/MM/yyyy")</span>
+                        </div>
+                        <div class="mt-2">@q.AnswerText</div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+}

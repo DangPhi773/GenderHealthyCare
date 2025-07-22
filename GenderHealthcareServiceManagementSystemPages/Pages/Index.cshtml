@@ -1,10 +1,96 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Trang chủ";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Phần giới thiệu chính -->
+<section class="text-center max-w-4xl mx-auto py-5">
+    <div class="hero-badge">Chăm sóc sức khỏe toàn diện cho mọi người</div>
+
+    <h1 class="display-4 fw-bold mb-4">
+        Hệ thống quản lý <span class="gradient-text">Gender Healthcare</span> toàn diện
+    </h1>
+
+    <p class="lead text-muted mb-5">
+        Đơn giản hóa các dịch vụ chăm sóc sức khỏe với trọng tâm là chăm sóc toàn diện theo giới tính.
+        Chuyên nghiệp, an toàn và được thiết kế cho các nhu cầu chăm sóc sức khỏe hiện đại.
+    </p>
+
+    <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+        <a href="/Cus_Clinics" class="btn btn-lg text-white px-4" style="background: linear-gradient(to right, #9333ea, #ec4899);">
+            <i class="bi bi-geo-alt-fill me-2"></i> Tìm phòng khám
+        </a>
+        <a href="/Services" class="btn btn-outline-secondary btn-lg px-4">
+            <i class="bi bi-calendar-event me-2"></i> Xem dịch vụ
+        </a>
+    </div>
+</section>
+
+<!-- Phần tính năng -->
+<section class="text-center py-5">
+    <h2 class="h3 fw-bold mb-3">Tại sao chọn nền tảng của chúng tôi?</h2>
+    <p class="text-muted mb-5">Được xây dựng với các nhu cầu chăm sóc sức khỏe hiện đại, tập trung vào khả năng tiếp cận, bảo mật và trải nghiệm người dùng.</p>
+
+    <div class="row justify-content-center g-4">
+        <div class="col-md-4">
+            <div class="card shadow feature-card h-100">
+                <div class="card-body text-center">
+                    <div class="icon-circle purple-pink mb-4">
+                        <i class="bi bi-bullseye text-white fs-3"></i>
+                    </div>
+                    <h5 class="fw-semibold mb-2">Phương pháp tập trung</h5>
+                    <p class="text-muted">
+                        Quản lý chăm sóc sức khỏe chuyên biệt được thiết kế cho chăm sóc toàn diện theo giới tính, đảm bảo sự tôn trọng trong điều trị.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow feature-card h-100">
+                <div class="card-body text-center">
+                    <div class="icon-circle blue-purple mb-4">
+                        <i class="bi bi-shield-lock-fill text-white fs-3"></i>
+                    </div>
+                    <h5 class="fw-semibold mb-2">Bảo mật dữ liệu</h5>
+                    <p class="text-muted">
+                        Bảo mật cấp doanh nghiệp đảm bảo tính bảo mật và tuân thủ các quy định chăm sóc sức khỏe.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow feature-card h-100">
+                <div class="card-body text-center">
+                    <div class="icon-circle pink-purple mb-4">
+                        <i class="bi bi-heart-fill text-white fs-3"></i>
+                    </div>
+                    <h5 class="fw-semibold mb-2">Chăm sóc tận tâm</h5>
+                    <p class="text-muted">
+                        Cung cấp dịch vụ chăm sóc sức khỏe đầy cảm thông, tôn trọng nhu cầu cá nhân và thúc đẩy sức khỏe toàn diện.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Phần thống kê -->
+<section class="py-5">
+    <div class="rounded-4 bg-white bg-opacity-75 p-4 shadow text-center">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="h2 fw-bold text-purple">500+</div>
+                <div class="text-muted">Nhà cung cấp dịch vụ chăm sóc sức khỏe</div>
+            </div>
+            <div class="col-md-4">
+                <div class="h2 fw-bold text-pink">10K+</div>
+                <div class="text-muted">Bệnh nhân được phục vụ</div>
+            </div>
+            <div class="col-md-4">
+                <div class="h2 fw-bold text-blue">50+</div>
+                <div class="text-muted">Dịch vụ chuyên biệt</div>
+            </div>
+        </div>
+    </div>
+</section>

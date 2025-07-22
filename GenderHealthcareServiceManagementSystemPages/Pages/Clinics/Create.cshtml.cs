@@ -6,20 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObjects.Models;
+using Services.Interfaces;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.Clinics
 {
     public class CreateModel : PageModel
     {
-        private readonly GenderHealthcareContext _context;
+        private readonly IClinicService _iClinicService;
 
-        public CreateModel(GenderHealthcareContext context)
+        public CreateModel(IClinicService iClinicService)
         {
-            _context = context;
+            _iClinicService = iClinicService;
         }
 
         public IActionResult OnGet()
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (string.IsNullOrEmpty(role) || role != "Admin")
+            {
+                return RedirectToPage("/Unauthorized");
+            }
             return Page();
         }
 
@@ -34,8 +40,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Clinics
                 return Page();
             }
 
-            _context.Clinics.Add(Clinic);
-            await _context.SaveChangesAsync();
+            await _iClinicService.CreateAsync(Clinic);
 
             return RedirectToPage("./Index");
         }

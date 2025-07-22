@@ -1,0 +1,60 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.ConsultantQuestion.QuestionsFromCustomerModel
+@{
+    ViewData["Title"] = "Câu hỏi từ khách hàng";
+}
+<main class="py-4">
+    <div class="container">
+        <h2 class="h4 mb-4 text-primary">📨 Danh sách câu hỏi từ khách hàng</h2>
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-success">@TempData["Message"]</div>
+        }
+
+        @if (Model.CustomerQuestions.Any())
+        {
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Id</th>
+                        <th>Khách hàng</th>
+                        <th>Câu hỏi</th>
+                        <th>Ngày tạo</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var q in Model.CustomerQuestions)
+                    {
+                        <tr>
+                            <td>@q.QuestionId</td>
+                            <td>@q.User?.FullName</td>
+                            <td>@(q.QuestionText.Length > 60 ? q.QuestionText.Substring(0, 60) + "..." : q.QuestionText)</td>
+                            <td>@(q.CreatedAt.ToString("dd/MM/yyyy HH:mm"))</td>
+
+                            <td>
+                                @if (q.Status == "Answered")
+                                {
+                                    <span class="badge bg-success">Đã trả lời</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">Chưa trả lời</span>
+                                }
+                            </td>
+                            <td>
+                                <a asp-page="AnswerCustomerQuestion" asp-route-id="@q.QuestionId" class="btn btn-sm btn-primary">Trả lời</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info">Chưa có câu hỏi nào được gửi tới bạn.</div>
+        }
+    </div>
+</main>

@@ -1,0 +1,57 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager.DetailsModel
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0"><i class="bi bi-person-circle"></i> User Details</h3>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Role</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Role)</dd>
+
+                <dt class="col-sm-3">Gender</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Gender)</dd>
+
+                <dt class="col-sm-3">Date of Birth</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Dob)</dd>
+
+                <dt class="col-sm-3">Username</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Username)</dd>
+                
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Email)</dd>
+
+                <dt class="col-sm-3">Full Name</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.FullName)</dd>
+
+                <dt class="col-sm-3">Phone</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Phone)</dd>
+
+                <dt class="col-sm-3">Created At</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.CreatedAt)</dd>
+
+                <dt class="col-sm-3">Updated At</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.UpdatedAt)</dd>
+
+                <dt class="col-sm-3">Is Deleted</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.IsDeleted)</dd>
+                
+            </dl>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <a class="btn btn-outline-primary" asp-page="./Edit" asp-route-id="@Model.User.UserId">
+                <i class="bi bi-pencil-square"></i> Edit
+            </a>
+            <a class="btn btn-secondary" asp-page="./Index">
+                <i class="bi bi-arrow-left-circle"></i> Back to List
+            </a>
+        </div>
+    </div>
+</div>

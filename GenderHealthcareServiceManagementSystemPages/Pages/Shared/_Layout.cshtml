@@ -1,51 +1,670 @@
-﻿<!DOCTYPE html>
+﻿@using BusinessObjects.Models
+@inject DataAccessObjects.UserDAO UserDAO
+<!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/css/site.css?v=20250714" />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - GenderHealthcareServiceManagementSystemPages</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/GenderHealthcareServiceManagementSystemPages.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - Gender Healthcare</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="icon" type="image/png" href="~/Image/logo.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    @RenderSection("Styles", required: false)
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">GenderHealthcareServiceManagementSystemPages</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
+<body class="d-flex flex-column min-vh-100">
+    @{
+        var userId = Context.Session.GetString("UserId");
+        var userRole = Context.Session.GetString("Role");
+        User? currentUser = null;
+        bool isAdmin = false;
+
+        if (!string.IsNullOrEmpty(userId) && int.TryParse(userId, out int uid))
+        {
+            currentUser = await UserDAO.GetUserById(uid);
+            isAdmin = currentUser?.Role == "Admin";
+        }
+    }
+    <!-- Navbar -->
+    <nav class="navbar sticky-top">
+        <div class="container d-flex justify-content-between align-items-center py-3">
+            <div class="d-flex align-items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="text-purple-600" width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+                @if (userRole != null && userRole != "Customer")
+                {
+                    <span class="fs-4 fw-bold gradient-text text-decoration-none text-muted" style="pointer-events: none; opacity: 0.6;">
+                        Gender Healthcare
+                    </span>
+                }
+                else
+                {
+                    <a href="/" class="fs-4 fw-bold gradient-text text-decoration-none">Gender Healthcare</a>
+                }
+            </div>
+
+            <div class="d-none d-md-flex gap-4 nav-menu">
+                @if (userRole == "Admin")
+                {
+                    <!-- Admin/Manager/Staff Menu -->
+                    //Dashboard && Report (Phân tích)
+                    <div class="dropdown nav-dropdown">
+                        <a href="#" class="nav-link-custom dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bar-chart-fill me-1"></i> Phân tích
+                            <i class="bi bi-chevron-down ms-1 dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-custom">
+                            <li>
+                                <a href="/Admin/Dashboard" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-bar-chart-fill me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Thống kê</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a href="/Admin/Report" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-file-earmark-text-fill me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Báo Cáo</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    //User && Staff & Consultant (Người dùng)
+                    <div class="dropdown nav-dropdown">
+                        <a href="#" class="nav-link-custom dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-people-fill me-1"></i> Người dùng
+                            <i class="bi bi-chevron-down ms-1 dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-custom">
+                            <li>
+                                <a href="/Admin/UserManager" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-person-heart me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Người dùng</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-person-heart me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Khách hàng</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a href="#" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-person-fill me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Nhân viên</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/AdminManageConsultant/ManageConsultant" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-person-fill me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Tư vấn viên</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    //Cơ sở
+                    <a href="/Clinics/Index" class="nav-link-custom">
+                        <i class="bi bi-house-heart-fill me-1"></i> Cơ sở
+                    </a>
+
+                    //Consultation - Question && Test - Service (Dịch vụ)
+                    <div class="dropdown nav-dropdown">
+                        <a href="#" class="nav-link-custom dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-clipboard2-pulse-fill me-1"></i> Dịch vụ
+                            <i class="bi bi-chevron-down ms-1 dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-custom">
+                            <li>
+                                <a href="/Questions/Index" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-question-square-fill me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Hỏi đáp</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Consultations/Index" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-calendar-week-fill me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Lịch tư vấn</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a href="/ServiceManagement/Index" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-clipboard2-pulse-fill me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Gói dịch vụ</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/StaffTesting/Manage" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-eyedropper me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Lịch Xét nghiệm</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    //Blog && Feedback(chia sẻ)
+                    <div class="dropdown nav-dropdown">
+                        <a href="#" class="nav-link-custom dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-megaphone-fill me-1"></i> Chia sẻ
+                            <i class="bi bi-chevron-down ms-1 dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-custom">
+                            <li>
+                                <a href="/ManageBlog/AdminManagerBlogs" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-journal-text me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Blog</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Feedbacks/Index" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-star-fill me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Đánh giá</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                }
+
+                else if (userRole == "Consultant")
+                {
+                    <!-- Consultant Menu -->
+                    <a href="/Consultations/Index" class="nav-link-custom">
+                        <i class="bi bi-calendar-week-fill me-1"></i> Lịch tư vấn
+                    </a>
+                    <a href="/ConsultantQuestion/QuestionsFromCustomer" class="nav-link-custom">
+                        <i class="bi bi-question-square-fill me-1"></i> Hỏi đáp
+                    </a>
+                    <a href="/Feedbacks/Index" class="nav-link-custom">
+                        <i class="bi bi-star-fill me-1"></i> Đánh giá
+                    </a>
+                }
+                else if(userRole == "Staff")
+                {
+                    <!-- Staff Menu -->
+                    <a href="/StaffTesting/Manage" class="nav-link-custom">
+                        <i class="bi bi-calendar-week-fill me-1"></i> Lịch xét nghiệm
+                    </a>
+                    <a href="/ServiceManagement/Index" class="nav-link-custom">
+                        <i class="bi bi-question-square-fill me-1"></i> Dịch vụ
+                    </a>
+                    <div class="dropdown nav-dropdown">
+                        <a href="#" class="nav-link-custom dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-megaphone-fill me-1"></i> Chia sẻ
+                            <i class="bi bi-chevron-down ms-1 dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-custom">
+                            <li>
+                                <a href="/ManageBlog/AdminManagerBlogs" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-journal-text me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Blog</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Feedbacks/Index" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-star-fill me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Đánh giá</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                }
+                else
+                {
+                    <!-- User Menu (Customer, Guest, hoặc null) -->
+                    <a href="/Cus_Clinics" class="nav-link-custom">
+                        <i class="bi bi-hospital-fill me-1"></i> Phòng khám
+                    </a>
+
+                    @* <a href="/Services" class="nav-link-custom"> *@
+                    @*     <i class="bi bi-clipboard2-pulse-fill me-1"></i> Gói dịch vụ *@
+                    @* </a> *@
+
+                    <div class="dropdown nav-dropdown">
+                        <a href="#" class="nav-link-custom dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-megaphone-fill me-1"></i> Dịch vụ
+                            <i class="bi bi-chevron-down ms-1 dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-custom">
+                            <li>
+                                <a href="/Services" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-journal-text me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Gói dịch vụ</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/CustomerTesting/SelectService" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-journal-text me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Đăng ký dịch vụ</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/CustomerTesting/TrackingTesting" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-star-fill me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Theo dõi lịch xét nghiệm</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown nav-dropdown">
+                        <a href="#" class="nav-link-custom dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-chat-dots-fill me-1"></i> Tư vấn chuyên gia
+                            <i class="bi bi-chevron-down ms-1 dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-custom">
+                            <li>
+                                <a href="/ExpertConsultation/Question" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-chat-square-text me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Đặt câu hỏi cho tư vấn viên</div>
+                                        <small class="text-muted">Tư vấn cơ bản, phản hồi nhanh</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/ExpertConsultation/Booking/BookingConsultant" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-calendar-check me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Đặt lịch tư vấn</div>
+                                        <small class="text-muted">Tư vấn chuyên sâu với bác sĩ</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a href="/ExpertConsultation/MyQuestion" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-question-circle me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Lịch sử câu hỏi của tôi</div>
+                                        <small class="text-muted">Xem lại các câu hỏi đã gửi</small>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="/CustomerBlogs/CustomerBlogsPage" class="nav-link-custom">
+                        <i class="bi bi-info-circle-fill me-1"></i> Blog
+                    </a>
+                }
+            </div>
+
+
+            <!-- Login/User Info -->
+            @if (currentUser != null)
+            {
+                var profileLink = currentUser.Role == "Consultant" ? "/Consultant/Profile" : "/Profile";
+
+                <a href="@profileLink" class="btn btn-primary btn-sm" style="background: linear-gradient(to right, #9333ea, #ec4899); border: none;">
+                    <i class="bi bi-person-circle me-1"></i> @currentUser.Username
+                </a>
+            }
+
+            else
+            {
+                <a href="/Login" class="btn btn-primary btn-sm" style="background: linear-gradient(to right, #9333ea, #ec4899); border: none;">
+                    <i class="bi bi-person-circle me-1"></i> Đăng nhập
+                </a>
+            }
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="flex-grow-1">
+        <div class="container py-5">
+            @RenderBody()
+        </div>
+    </main>
+
+    <!-- Footer -->
+    @* <footer class="footer mt-auto"> *@
+    @*     <div class="container text-center d-flex flex-column flex-md-row justify-content-between align-items-center"> *@
+    @*         <div class="mb-2 mb-md-0 d-flex align-items-center gap-2"> *@
+    @*             <svg xmlns="http://www.w3.org/2000/svg" class="text-purple-400" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"> *@
+    @*                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" /> *@
+    @*             </svg> *@
+    @*             <span class="fw-semibold small">Gender Healthcare</span> *@
+    @*         </div> *@
+    @*         <div class="text-muted small d-flex flex-column flex-md-row align-items-center gap-2"> *@
+    @*             <span>© 2025 Gender Healthcare System. All rights reserved.</span> *@
+    @*             <a href="/Privacy" class="text-decoration-none text-white fw-semibold"> *@
+    @*                 Chính Sách Bảo Mật *@
+    @*             </a> *@
+    @*             <a href="/terms" class="text-decoration-none text-white fw-semibold "> *@
+    @*                 Điều Khoản Sử Dụng *@
+    @*             </a> *@
+    @*         </div> *@
+    @*     </div> *@
+    @* </footer> *@
+
+    <footer class="footer mt-auto py-5 bg-light border-top">
+        <div class="container">
+            <div class="row col-12">
+                <div class="col-md-12 col-lg-2 d-flex flex-column justify-content-center justify-content-lg-start align-items-center mb-4 mb-lg-0">
+                    <img src="~/Image/logo.png" alt="Gender Healthcare Logo" class="footer-logo mb-3">
+                    <div class="social-links mt-3 d-flex justify-content-evenly">
+                        <a href="#" class="social-icon col-3" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon col-3" aria-label="Zalo"><i class="bi bi-chat-fill"></i></a>
+                        <a href="#" class="social-icon col-3" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+                    <h5 class="text-primary fw-bold mb-3">Gender Healthcare</h5>
+
+                    <ul class="list-unstyled text-muted">
+                        <li><i class="bi bi-geo-alt-fill me-2 text-primary"></i> [Địa chỉ của phòng khám]</li>
+                        <li><i class="bi bi-telephone-fill me-2 text-primary"></i> [Số điện thoại hotline]</li>
+                        <li><i class="bi bi-envelope-fill me-2 text-primary"></i> [Email liên hệ]</li>
+                        <li><i class="bi bi-clock-fill me-2 text-primary"></i> Giờ làm việc: 8:00 - 17:00 (T2 - T7)</li>
                     </ul>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - GenderHealthcareServiceManagementSystemPages - <a asp-area="" asp-page="/Privacy">Privacy</a>
+                <div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+                    <h5 class="text-primary fw-bold mb-3">Liên Kết Nhanh</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/" class="text-decoration-none text-muted hover-primary">Trang chủ</a></li>
+                        <li><a href="/AboutUs" class="text-decoration-none text-muted hover-primary">Về chúng tôi</a></li>
+                        <li><a href="/Services" class="text-decoration-none text-muted hover-primary">Dịch vụ</a></li>
+                        <li><a href="/Cus_Clinics" class="text-decoration-none text-muted hover-primary">Phòng khám</a></li>
+                        <li><a href="/Blogs" class="text-decoration-none text-muted hover-primary">Tin tức & Blog</a></li>
+                        <li><a href="/Contact" class="text-decoration-none text-muted hover-primary">Liên hệ</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+                    <h5 class="text-primary fw-bold mb-3">Hỗ Trợ & Chính Sách</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/Privacy" class="text-decoration-none text-muted hover-primary">Chính sách bảo mật</a></li>
+                        <li><a href="/terms" class="text-decoration-none text-muted hover-primary">Điều khoản sử dụng</a></li>
+                        <li><a href="/FAQs" class="text-decoration-none text-muted hover-primary">Câu hỏi thường gặp</a></li>
+                        <li><a href="/BookingGuide" class="text-decoration-none text-muted hover-primary">Hướng dẫn đặt lịch</a></li>
+                        <li><a href="/Sitemap" class="text-decoration-none text-muted hover-primary">Sơ đồ trang web</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-12 col-lg-4">
+                    <h5 class="text-primary fw-bold mb-3">Tìm chúng tôi trên bản đồ</h5>
+                    <div class="map-container mb-3">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3918.6062369630317!2d106.8066654!3d10.8414157!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752731176b07b1%3A0xb752b24b379bae5e!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBGUFQgVFAuIEhDTQ!5e0!3m2!1svi!2s!4v1752827661250!5m2!1svi!2s"
+                                width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <p class="text-muted small">Liên hệ với chúng tôi để được tư vấn và hỗ trợ tốt nhất.</p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center text-muted small">
+                © 2025 Gender Healthcare System. Tất cả quyền được bảo lưu.
+            </div>
         </div>
     </footer>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-    @await RenderSectionAsync("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+<style>
+    .nav-menu .nav-link-custom {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 14px;
+        border-radius: 10px;
+        font-weight: 500;
+        color: #9333ea;
+        background-color: transparent;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .nav-menu .nav-link-custom i {
+            color: #9333ea;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .nav-menu .nav-link-custom:hover {
+            background: linear-gradient(to right, #a855f7, #ec4899);
+            color: white;
+            box-shadow: 0 0 12px rgba(236, 72, 153, 0.4);
+        }
+
+            .nav-menu .nav-link-custom:hover i {
+                color: white;
+            }
+    .nav-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-menu-custom {
+        display: none;
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        background: white;
+        min-width: 300px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(147, 51, 234, 0.1);
+        z-index: 9999;
+        overflow: hidden;
+        /* Add padding to prevent hover loss */
+        padding-top: 5px;
+        margin-top: -5px;
+    }
+
+    /* Show dropdown on hover - with better targeting */
+    .nav-dropdown:hover .dropdown-menu-custom,
+    .dropdown-menu-custom:hover {
+        display: block;
+        animation: fadeInDown 0.3s ease-out;
+    }
+
+    /* Keep dropdown visible when hovering over it */
+    .nav-dropdown:hover .dropdown-menu-custom {
+        display: block;
+    }
+
+    @@keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .dropdown-item-custom {
+        display: flex;
+        align-items: center;
+        padding: 15px 20px;
+        color: #374151;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border-bottom: 1px solid rgba(147, 51, 234, 0.1);
+        cursor: pointer;
+    }
+
+    .dropdown-item-custom:last-child {
+        border-bottom: none;
+    }
+
+    .dropdown-item-custom:hover {
+        background: linear-gradient(to right, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
+        color: #9333ea;
+        text-decoration: none;
+    }
+
+    .dropdown-item-custom i {
+        color: #9333ea;
+        font-size: 1.2rem;
+        min-width: 24px;
+    }
+
+    .dropdown-arrow {
+        transition: transform 0.3s ease;
+        font-size: 0.8rem;
+    }
+
+    .nav-dropdown:hover .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+
+    /* Alternative: Click-based dropdown using Bootstrap */
+    .dropdown-toggle::after {
+        display: none;
+    }
+    /* Custom CSS for Footer */
+    .footer {
+        background-color: #f8f9fa; /* Light background, similar to Bootstrap's .bg-light */
+        color: #495057; /* Darker text for readability */
+        padding-top: 3rem;
+        padding-bottom: 2rem;
+        border-top: 5px solid #9333ea; /* A strong border top matching your accent color */
+    }
+
+        .footer h5 {
+            color: #9333ea; /* Accent color for headings */
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+            .footer h5::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 60px; /* Underline for headings */
+                height: 3px;
+                background-color: #ec4899; /* Another accent color for the underline */
+            }
+
+        .footer ul {
+            padding-left: 0;
+            list-style: none;
+        }
+
+            .footer ul li {
+                margin-bottom: 0.75rem;
+            }
+
+                .footer ul li a {
+                    color: #6c757d; /* Muted text for links */
+                    text-decoration: none;
+                    transition: color 0.3s ease-in-out;
+                }
+
+                    .footer ul li a:hover,
+                    .hover-primary:hover {
+                        color: #9333ea; /* Hover effect with your primary accent color */
+                    }
+
+    .social-links .social-icon {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(to right, #9333ea, #ec4899); /* Gradient background for social icons */
+        color: white;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        margin-right: 0.75rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .social-links .social-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+    .map-container {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .footer-logo {
+        max-width: 180px; /* Tăng kích thước logo */
+        height: auto;
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 991.98px) { /* Cho màn hình nhỏ hơn lg (máy tính bảng và điện thoại) */
+        .footer-section {
+            text-align: center;
+        }
+
+            .footer-section h5::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+        .footer ul {
+            text-align: center;
+        }
+
+        .social-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            .social-links .social-icon {
+                margin: 0 0.5rem;
+            }
+        /* Logo và social links căn giữa trên màn hình nhỏ */
+        .footer .col-md-12.col-lg-3.d-flex {
+            justify-content: center !important;
+        }
+    }
+</style>

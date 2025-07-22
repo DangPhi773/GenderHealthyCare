@@ -1,0 +1,44 @@
+﻿@model BusinessObjects.Models.Clinic
+<div class="card-all mb-4 card-decor h-90 w-100">
+    <div class="card-all-body">
+        <div class="row d-flex justify-content-evenly">
+            <!-- Hình đại diện -->
+            <div class="rounded col-3">
+                <img src=""
+                     alt="Clinic Image"
+                     class="img-fluid rounded"
+                     style="width: 100%; height: 100%; object-fit: cover;" />
+            </div>
+
+            <!-- Thông tin -->
+            <div class="text-start col-8" style="padding:0">
+                <h6 class="fw-semibold text-truncate">@Model.Name</h6>
+                <p class="mb-1 text-muted small text-truncate"><i class="bi bi-telephone"></i> - @Model.Phone</p>
+                <p class="mb-1 text-muted small text-truncate"><i class="bi bi-envelope-at"></i> - @Model.Email</p>
+                <p class="mb-1 text-muted small text-truncate"><i class="bi bi-house-door"></i> - @Model.Address</p>
+                <p class="mb-0 text-muted small text-truncate">@Model.Description</p>
+            </div>
+        </div>
+    </div>
+    <a asp-page="Details" asp-route-id="@Model.ClinicId" class="card-button text-decoration-none" style="text-align:center;">
+        Xem thêm
+    </a>
+</div>
+
+<style>
+    .card-all{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem !important;
+    }
+    .card-all-body{
+        flex: 1 1 auto;
+        padding: 1rem 1rem;
+    }
+</style>

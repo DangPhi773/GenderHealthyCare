@@ -1,0 +1,207 @@
+﻿/* MyQuestions Page Specific Styles */
+
+/* Card Header */
+.my-questions-header {
+    background: var(--gradient-secondary);
+    margin: -2.5rem -2.5rem 2rem -2.5rem;
+    padding: 2rem 2.5rem 1.5rem 2.5rem;
+    border-radius: 20px 20px 0 0;
+    border-bottom: 3px solid var(--mimi-pink);
+}
+
+.my-questions-title {
+    color: var(--mauve-medium);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.my-questions-description {
+    color: var(--text-dark);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* Table Styles */
+.my-questions-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    margin-top: 1.5rem;
+}
+
+    .my-questions-table th,
+    .my-questions-table td {
+        padding: 15px;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .my-questions-table th {
+        background: var(--mauve-medium);
+        color: var(--white);
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+        .my-questions-table th:first-child {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .my-questions-table th:last-child {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+    .my-questions-table tbody tr {
+        background: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+        .my-questions-table tbody tr:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    .my-questions-table td {
+        border: none;
+        font-size: 0.95rem;
+        color: var(--text-dark);
+    }
+
+        .my-questions-table td:first-child {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .my-questions-table td:last-child {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--white) !important;
+}
+
+.status-pending {
+    background-color: var(--mimi-pink);
+}
+
+.status-answered {
+    background-color: var(--periwinkle-light)
+}
+
+/* No Questions Message */
+.no-questions-message {
+    text-align: center;
+    padding: 3rem;
+    background: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-top: 2rem;
+}
+
+    .no-questions-message a {
+        color: var(--mauve-medium);
+        text-decoration: underline;
+        font-weight: 600;
+    }
+
+        .no-questions-message a:hover {
+            color: var(--periwinkle-light);
+        }
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    .my-questions-table thead {
+        display: none; /* Hide table headers on small screens */
+    }
+
+    .my-questions-table,
+    .my-questions-table tbody,
+    .my-questions-table tr,
+    .my-questions-table td {
+        display: block;
+        width: 100%;
+    }
+
+        .my-questions-table tr {
+            margin-bottom: 15px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .my-questions-table td {
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+            border-bottom: 1px dashed #eee;
+        }
+
+            .my-questions-table td:last-child {
+                border-bottom: none;
+            }
+
+            .my-questions-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                width: calc(50% - 30px);
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: 600;
+                color: var(--mauve-medium);
+            }
+
+    .my-questions-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* Utility Classes (if not already in site.css) */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.btn-secondary.btn-sm {
+    background: var(--white);
+    color: var(--mauve-medium);
+    padding: 8px 16px;
+    border: 1px solid var(--mauve-medium);
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+}
+
+    .btn-secondary.btn-sm:hover {
+        background: var(--mauve-medium);
+        color: var(--white);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(200, 182, 255, 0.3);
+    }
