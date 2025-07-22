@@ -168,7 +168,6 @@ static async Task SeedAccountsAsync(IAccountService accountService, IConsultantI
             Console.WriteLine($"[SEED] Tài khoản {user.Username} đã tồn tại.");
         }
 
-        // Tạo ConsultantInfo nếu là tư vấn viên và chưa có
         if (exists != null && user.Role == "Consultant")
         {
             var existingInfo = await consultantInfoService.GetConsultantInfoByIdAsync(exists.UserId);

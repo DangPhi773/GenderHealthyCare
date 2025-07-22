@@ -37,7 +37,17 @@
                     <i class="bi bi-list-ul"></i>
                 </div>
                 <div class="stat-content">
-                    <div class="stat-number">@Model.Service.Count()</div>
+                    <div class="stat-number">
+                        @if (Model.Service != null && Model.Service.Any(s => s.IsDeleted == false))
+                        {
+                            @(Model.Service.Where(s => s.IsDeleted == false).Average(s => s.Price).ToString("N0"))
+                        }
+                        else
+                        {
+                            <span>0</span>
+                        }
+                        VND
+                    </div>                    
                     <div class="stat-label">Tổng dịch vụ</div>
                 </div>
             </div>
@@ -64,7 +74,19 @@
                     <i class="bi bi-currency-dollar"></i>
                 </div>
                 <div class="stat-content">
-                    <div class="stat-number">@Model.Service.Where(s => s.IsDeleted==false).Average(s => s.Price).ToString("N0")</div>
+                    <div class="stat-number">
+                        @{
+                            var activeServices = Model.Service.Where(s => s.IsDeleted == false);
+                            if (activeServices.Any())
+                            {
+                                @activeServices.Average(s => s.Price).ToString("N0")
+                            }
+                            else
+                            {
+                                <text>0</text>
+                            }
+                        }
+                    </div>
                     <div class="stat-label">Giá trung bình</div>
                 </div>
             </div>
