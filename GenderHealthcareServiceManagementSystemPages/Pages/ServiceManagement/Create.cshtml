@@ -930,55 +930,45 @@
         });
 
         // Form submission
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
 
-            // Validate required fields
-            let isValid = true;
+        // Validate required fields
+        let isValid = true;
 
-            if (!nameInput.value.trim() || nameInput.value.trim().length < 3) {
-                validateField(nameInput);
-                isValid = false;
+        if (!nameInput.value.trim() || nameInput.value.trim().length < 3) {
+            validateField(nameInput);
+            isValid = false;
+        }
+
+        if (!priceInput.value || parseFloat(priceInput.value) <= 0) {
+            validateField(priceInput);
+            isValid = false;
+        }
+
+        if (!isValid) {
+            // Scroll to first invalid field
+            const firstInvalid = document.querySelector('.form-control.invalid');
+            if (firstInvalid) {
+                firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstInvalid.focus();
             }
+            return;
+        }
 
-            if (!priceInput.value || parseFloat(priceInput.value) <= 0) {
-                validateField(priceInput);
-                isValid = false;
-            }
+        // Show loading state
+        submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
 
-            if (!isValid) {
-                // Scroll to first invalid field
-                const firstInvalid = document.querySelector('.form-control.invalid');
-                if (firstInvalid) {
-                    firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    firstInvalid.focus();
-                }
-                return;
-            }
+        // Submit form to backend
+        this.submit();
+    });
 
-            // Show loading state
-            submitBtn.classList.add('loading');
-            submitBtn.disabled = true;
-
-            // Simulate form submission (replace with actual form submission)
-            setTimeout(() => {
-                // Show success modal
-                document.getElementById('successModal').classList.add('show');
-                submitBtn.classList.remove('loading');
-                submitBtn.disabled = false;
-            }, 1500);
-
-            // Uncomment for actual form submission
-            // this.submit();
-        });
-
-        // Auto-resize textarea
         descInput.addEventListener('input', function() {
             this.style.height = 'auto';
             this.style.height = Math.min(this.scrollHeight, 300) + 'px';
         });
 
-        // Initialize
         updatePreview();
 
         // Keyboard shortcuts
