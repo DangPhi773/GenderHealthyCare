@@ -11,7 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/Manage.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/Manage.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +163,10 @@
       <workItem from="1752770025152" duration="598000" />
       <workItem from="1752770649217" duration="462000" />
       <workItem from="1752888019743" duration="343000" />
-      <workItem from="1753197185913" duration="4606000" />
+      <workItem from="1753197185913" duration="5807000" />
+      <workItem from="1753203456062" duration="431000" />
+      <workItem from="1753206916249" duration="35000" />
+      <workItem from="1753232507805" duration="1044000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <option name="closed" value="true" />
