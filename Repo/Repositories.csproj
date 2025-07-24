@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccessObjects\DataAccessObjects.csproj" />
-    <ProjectReference Include="..\Data\BusinessObjects.csproj" />
   </ItemGroup>
 
 </Project>

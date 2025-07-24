@@ -36,6 +36,7 @@ namespace DataAccessObjects
         {
             try
             {
+                service.CreatedAt = DateTime.Now;
                 await _context.Services.AddAsync(service);
                 await _context.SaveChangesAsync();
                 return true;
@@ -62,7 +63,6 @@ namespace DataAccessObjects
             }
         }
 
-        // Chuyển sang đánh dấu là đã xóa (IsDeleted = true)
         public async Task<bool> DeleteAsync(int id)
         {
             try

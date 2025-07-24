@@ -3,16 +3,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using BusinessObjects.Models;
 using Services.Interfaces;
+using GenderHealthcareServiceManagementSystemPages.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.ServiceManagement
 {
     public class DeleteModel : PageModel
     {
         private readonly IServiceService _serviceService;
+        private readonly IHubContext<SignalRServer> _hubContext;
 
-        public DeleteModel(IServiceService serviceService)
+
+        public DeleteModel(IServiceService serviceService, IHubContext<SignalRServer> hubContext)
         {
             _serviceService = serviceService;
+            _hubContext = hubContext;
         }
 
         [BindProperty]
@@ -54,6 +59,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ServiceManagement
                 ModelState.AddModelError(string.Empty, "Xóa dịch vụ thất bại.");
                 return Page();
             }
+            await _hubContext.Clients.All.SendAsync("ServiceUpdated", service);
 
             return RedirectToPage("./Index");
         }
