@@ -11,6 +11,13 @@
   <component name="ChangeListManager">
     <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccessObjects/TestDAO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccessObjects/TestDAO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/ScheduleTests.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/ScheduleTests.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/ScheduleTests.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/ScheduleTests.cshtml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repo/Interfaces/ITestRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repo/Interfaces/ITestRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repo/TestRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repo/TestRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Interfaces/ITestService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Interfaces/ITestService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/TestService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/TestService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,6 +174,16 @@
       <workItem from="1753203456062" duration="431000" />
       <workItem from="1753206916249" duration="35000" />
       <workItem from="1753232507805" duration="1044000" />
+      <workItem from="1753348102313" duration="362000" />
+      <workItem from="1753366947885" duration="35000" />
+      <workItem from="1753410811286" duration="130000" />
+      <workItem from="1753412315638" duration="42000" />
+      <workItem from="1753413692311" duration="2933000" />
+      <workItem from="1753423806945" duration="3000" />
+      <workItem from="1753433257108" duration="626000" />
+      <workItem from="1753434285284" duration="1244000" />
+      <workItem from="1753459096351" duration="295000" />
+      <workItem from="1753698728680" duration="4144000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <option name="closed" value="true" />
@@ -272,7 +289,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752769394071</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="workspace">
+      <option name="closed" value="true" />
+      <created>1753348147707</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1753348147707</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,6 +332,7 @@
     <MESSAGE value="fix role User" />
     <MESSAGE value="commit blog" />
     <MESSAGE value="edit blog page - change button Testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit blog page - change button Testing" />
+    <MESSAGE value="workspace" />
+    <option name="LAST_COMMIT_MESSAGE" value="workspace" />
   </component>
 </project>
