@@ -10,31 +10,74 @@
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
                 <div class="card shadow-lg p-4">
-                    <h3 class="text-center">Lịch hẹn đã xác nhận</h3>
+                    <h3 class="text-center mb-4 text-primary fw-bold">📋 Lịch hẹn đã xác nhận</h3>
+
                     @if (Model.ScheduledTests?.Count == 0)
                     {
-                        <div class="alert alert-info text-center">Không có lịch hẹn nào đã xác nhận.</div>
+                        <div class="alert alert-info text-center">
+                            Không có lịch hẹn nào đã xác nhận.
+                        </div>
                     }
                     else
                     {
-                        <form method="post" asp-page-handler="UpdateResult">
-                            @foreach (var test in Model.ScheduledTests)
-                            {
-                                <div class="mb-3">
-                                    <h5><strong>Dịch vụ:</strong> @test.Service.Description</h5>
-                                    <p><strong>Thời gian:</strong> @test.AppointmentTime.ToString("dd/MM/yyyy HH:mm")</p>
+                        @foreach (var test in Model.ScheduledTests)
+                        {
+                            <form method="post" asp-page-handler="UpdateResult" id="form-@test.TestId">
+                                <input type="hidden" name="TestId" value="@test.TestId" />
+                                <input type="hidden" name="Status" id="status-@test.TestId" />
 
+                                <div class="border rounded p-3 mb-4 bg-light shadow-sm">
+                                    <h5 class="mb-2 text-dark">
+                                        <strong>Dịch vụ:</strong> @test.Service.Description
+                                    </h5>
+                                    <p class="mb-3">
+                                        <strong>Thời gian:</strong> @test.AppointmentTime.ToString("dd/MM/yyyy HH:mm")
+                                    </p>
+
+                                    <!-- Textarea for Result -->
                                     <div class="mt-2">
                                         <label for="ResultInput_@test.TestId" class="form-label">Nhập kết quả:</label>
-                                        <textarea id="ResultInput_@test.TestId" name="Result" class="form-control" required></textarea>
-                                        <button name="Status" value="ResultAvailable" class="btn btn-warning mt-2">Gửi kết quả</button>
+                                        <textarea id="ResultInput_@test.TestId" name="TestResults[@test.TestId].Result" class="form-control"></textarea>
+                                    </div>
+
+                                    <!-- Textarea for Cancel Reason -->
+                                    <div class="mt-2">
+                                        <label for="CancelReasonInput_@test.TestId" class="form-label">Lý do hủy:</label>
+                                        <textarea id="CancelReasonInput_@test.TestId" name="TestResults[@test.TestId].CancelReason" class="form-control"></textarea>
+                                    </div>
+
+                                    <div class="text-end mt-3">
+                                        <!-- Buttons for Confirming or Cancelling -->
+                                        <button type="button" class="btn btn-success me-2" onclick="submitForm(@test.TestId, 'Completed')">
+                                            Gửi kết quả
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger" onclick="submitForm(@test.TestId, 'Cancelled')">
+                                            Huỷ lịch hẹn
+                                        </button>
                                     </div>
                                 </div>
-                            }
-                        </form>
+                            </form>
+                        }
                     }
                 </div>
             </div>
         </div>
     </div>
 </main>
+
+@section Scripts {
+    <script>
+        function submitForm(testId, status) {
+            const statusInput = document.getElementById('status-' + testId);
+            const form = document.getElementById('form-' + testId);
+
+            if (!statusInput || !form) {
+                alert('Không tìm thấy form hoặc input cho Test ID: ' + testId);
+                return;
+            }
+
+            statusInput.value = status; // Set the status value in hidden field
+            form.submit(); // Submit the form
+        }
+    </script>
+}

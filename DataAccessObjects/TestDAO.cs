@@ -77,6 +77,8 @@ namespace DataAccessObjects
         {
             return await _context.Tests
                 .Where(t => t.Status == "Scheduled")
+                .Include(t => t.User)
+                .Include(t => t.Service)
                 .ToListAsync();
         }
         
@@ -90,6 +92,40 @@ namespace DataAccessObjects
             _context.Tests.Update(test);
             await _context.SaveChangesAsync();
             return true;
+        }
+        
+        public async Task<bool> UpdateTestResultOrCancel(int testId, string result, string cancelReason)
+        {
+            var test = await _context.Tests.FindAsync(testId);
+            if (test == null)
+                return false;
+            
+            if (test.Status != "Scheduled")
+                return false;
+            
+            if (!string.IsNullOrEmpty(result))
+            {
+                test.Result = result;
+                test.Status = "Completed";
+            }
+            else if (!string.IsNullOrEmpty(cancelReason))
+            {
+                test.CancelReason = cancelReason;
+                test.Status = "Cancelled";
+            }
+            else
+            {
+                return false;
+            }
+            try
+            {
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false; 
+            }
         }
 
         public async Task<bool> IsAppointmentTimeTestingConflict(int userId, DateTime selectedTime)
