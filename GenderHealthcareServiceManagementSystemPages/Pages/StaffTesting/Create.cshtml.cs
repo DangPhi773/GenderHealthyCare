@@ -51,7 +51,6 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting
                 Test.Result = null;
                 Test.CancelReason = null;
             }
-
             await _testService.AddTest(Test);
 
             return RedirectToPage("./Index");
