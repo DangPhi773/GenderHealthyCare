@@ -109,6 +109,32 @@ namespace DataAccessObjects
 
             return false;
         }
+        public async Task<bool> UpdateTestFields(int testId, string? status = null, string? result = null, string? cancelReason = null)
+        {
+            var test = await _context.Tests.FindAsync(testId);
+            if (test == null) return false;
+
+            if (status != null)
+            {
+                test.Status = status;
+            }
+
+            if (result != null)
+            {
+                test.Result = result;
+            }
+
+            if (cancelReason != null)
+            {
+                test.CancelReason = cancelReason;
+            }
+
+            _context.Tests.Update(test);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
 
 
     }
