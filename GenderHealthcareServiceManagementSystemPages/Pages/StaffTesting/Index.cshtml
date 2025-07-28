@@ -1,0 +1,960 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting.IndexModel
+@{
+    ViewData["Title"] = "Quản lý xét nghiệm";
+
+}
+
+<main class="staff-testing-page">
+    <div class="container">
+        <div class="page-header">
+            <div class="header-content">
+                <div class="header-info">
+                    <div class="header-icon">
+                        <i class="bi bi-clipboard2-pulse"></i>
+                    </div>
+                    <div class="header-text">
+                        <h1>Quản lý xét nghiệm</h1>
+                        <p>Theo dõi và quản lý các xét nghiệm của bệnh nhân</p>
+                    </div>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">@Model.Test.Count()</div>
+                        <div class="stat-label">Tổng số</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">@Model.Test.Count(t => t.Status == "Completed")</div>
+                        <div class="stat-label">Hoàn thành</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">@Model.Test.Count(t => t.Status == "Pending")</div>
+                        <div class="stat-label">Chờ xử lý</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls-section">
+            <div class="search-filter-container">
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên bệnh nhân, dịch vụ...">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="bi bi-list"></i>
+                        Tất cả
+                    </button>
+                    <button class="filter-btn" data-filter="pending">
+                        <i class="bi bi-clock"></i>
+                        Chờ xử lý
+                    </button>
+                    <button class="filter-btn" data-filter="scheduled">
+                        <i class="bi bi-calendar-check"></i>
+                        Đã lên lịch
+                    </button>
+                    <button class="filter-btn" data-filter="in-progress">
+                        <i class="bi bi-arrow-clockwise"></i>
+                        Đang thực hiện
+                    </button>
+                    <button class="filter-btn" data-filter="resultavailable">
+                        <i class="bi bi-file-earmark-medical"></i>
+                        Có kết quả
+                    </button>
+                    <button class="filter-btn" data-filter="completed">
+                        <i class="bi bi-check-circle"></i>
+                        Hoàn thành
+                    </button>
+                    <button class="filter-btn" data-filter="cancelled">
+                        <i class="bi bi-x-circle"></i>
+                        Đã hủy
+                    </button>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <a asp-page="Create" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i>
+                    Tạo xét nghiệm mới
+                </a>
+                <button class="btn btn-secondary" id="exportBtn">
+                    <i class="bi bi-download"></i>
+                    Xuất Excel
+                </button>
+            </div>
+        </div>
+
+        <div class="tests-grid" id="testsGrid">
+            @if (Model.Test.Any())
+            {
+                @foreach (var item in Model.Test)
+                {
+                    <div class="test-card" data-status="@item.Status?.ToLower()" data-search="@item.User?.Email @item.Service?.Name">
+                        <div class="card-header_Test">
+                            <div class="patient-info">
+                                <div class="patient-avatar">
+                                    <i class="bi bi-person"></i>
+                                </div>
+                                <div class="patient-details">
+                                    <h3>@(item.User?.Email ?? "N/A")</h3>
+                                    <p>@(item.Service?.Name ?? "N/A")</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="status-badge @GetStatusClass(item.Status)">
+                            @Html.Raw(GetStatusIcon(item.Status))
+                            <span>@GetStatusText(item.Status)</span>
+                        </div>
+
+                        <div class="card-content">
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="bi bi-calendar-event"></i>
+                                        Thời gian hẹn
+                                    </div>
+                                    <div class="info-value">
+                                        @(item.AppointmentTime.ToString("dd/MM/yyyy HH:mm") ?? "Chưa xác định")
+                                    </div>
+                                </div>
+
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="bi bi-clipboard-data"></i>
+                                        Kết quả
+                                    </div>
+                                    <div class="info-value">
+                                        @if (!string.IsNullOrEmpty(item.Result))
+                                        {
+                                            <span class="result-text">@item.Result</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="no-data">Chưa có kết quả</span>
+                                        }
+                                    </div>
+                                </div>
+
+                                @if (!string.IsNullOrEmpty(item.CancelReason))
+                                {
+                                    <div class="info-item cancel-reason">
+                                        <div class="info-label">
+                                            <i class="bi bi-exclamation-triangle"></i>
+                                            Lý do hủy
+                                        </div>
+                                        <div class="info-value">
+                                            @item.CancelReason
+                                        </div>
+                                    </div>
+                                }
+
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="bi bi-calendar-plus"></i>
+                                        Ngày tạo
+                                    </div>
+                                    <div class="info-value">
+                                        @(item.CreatedAt?.ToString("dd/MM/yyyy") ?? "N/A")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-actions">
+                            <a asp-page="./Details" asp-route-id="@item.TestId" class="btn btn-info btn-sm">
+                                <i class="bi bi-eye"></i>
+                                Chi tiết
+                            </a>
+                            <a asp-page="./Edit" asp-route-id="@item.TestId" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil"></i>
+                                Sửa
+                            </a>
+                            <a asp-page="./Delete" asp-route-id="@item.TestId" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i>
+                                Xóa
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="bi bi-clipboard2-x"></i>
+                    </div>
+                    <h3>Chưa có xét nghiệm nào</h3>
+                    <p>Bắt đầu bằng cách tạo xét nghiệm mới cho bệnh nhân</p>
+                    <a asp-page="Create" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i>
+                        Tạo xét nghiệm đầu tiên
+                    </a>
+                </div>
+            }
+        </div>
+
+        <div class="no-results" id="noResults" style="display: none;">
+            <div class="no-results-icon">
+                <i class="bi bi-search"></i>
+            </div>
+            <h3>Không tìm thấy kết quả</h3>
+            <p>Thử thay đổi từ khóa tìm kiếm hoặc bộ lọc</p>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Đang tải...</p>
+        </div>
+    </div>
+</main>
+
+@functions {
+    private string GetStatusClass(string status)
+    {
+        return status?.ToLower() switch
+        {
+            "completed" => "completed",
+            "pending" => "pending",
+            "cancelled" => "cancelled",
+            "in-progress" => "in-progress",
+            "scheduled" => "scheduled", // New
+            "resultavailable" => "result-available", // New
+            _ => "unknown"
+        };
+    }
+
+    private string GetStatusIcon(string status)
+    {
+        return status?.ToLower() switch
+        {
+            "completed" => "<i class=\"bi bi-check-circle\"></i>",
+            "pending" => "<i class=\"bi bi-clock\"></i>",
+            "cancelled" => "<i class=\"bi bi-x-circle\"></i>",
+            "in-progress" => "<i class=\"bi bi-arrow-clockwise\"></i>",
+            "scheduled" => "<i class=\"bi bi-calendar-check\"></i>", // New
+            "resultavailable" => "<i class=\"bi bi-file-earmark-medical\"></i>", // New
+            _ => "<i class=\"bi bi-question-circle\"></i>"
+        };
+    }
+
+    private string GetStatusText(string status)
+    {
+        return status?.ToLower() switch
+        {
+            "completed" => "Hoàn thành",
+            "pending" => "Chờ xử lý",
+            "cancelled" => "Đã hủy",
+            "in-progress" => "Đang thực hiện",
+            "scheduled" => "Đã lên lịch", // New
+            "resultavailable" => "Có kết quả", // New
+            _ => "Không xác định"
+        };
+    }
+}
+
+<style>
+    /* Main Layout */
+    .staff-testing-page {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #FFD6FF 0%, #E7C6FF 25%, #C8B6FF 50%, #C2C9FF 75%, #BBD0FF 100%);
+        padding: 2rem 0;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    /* Header */
+    .page-header {
+        margin-bottom: 2rem;
+    }
+
+    .header-content {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .header-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .header-icon {
+        width: 4rem;
+        height: 4rem;
+        background: linear-gradient(135deg, #C8B6FF, #C2C9FF);
+        color: white;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+    }
+
+    .header-text h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #4A4A4A;
+        margin-bottom: 0.5rem;
+    }
+
+    .header-text p {
+        color: #6B6B6B;
+        margin: 0;
+    }
+
+    .header-stats {
+        display: flex;
+        gap: 2rem;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #C8B6FF;
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+        font-size: 0.875rem;
+        color: #6B6B6B;
+    }
+
+    /* Controls */
+    .controls-section {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .search-filter-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex: 1;
+    }
+
+    .search-box {
+        position: relative;
+        flex: 1;
+        max-width: 400px;
+    }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6B6B6B;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 2px solid #E7C6FF;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+            .search-box input:focus {
+                outline: none;
+                border-color: #C8B6FF;
+                box-shadow: 0 0 0 3px rgba(200, 182, 255, 0.1);
+            }
+
+    .filter-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .filter-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        border: 2px solid #E7C6FF;
+        background: white;
+        color: #6B6B6B;
+        border-radius: 12px;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .filter-btn:hover {
+            background: #E7C6FF;
+            color: #4A4A4A;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #C8B6FF, #C2C9FF);
+            color: white;
+            border-color: #C8B6FF;
+        }
+
+    .action-buttons {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 12px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #C8B6FF, #C2C9FF);
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #B8A6FF, #B2B9FF);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(200, 182, 255, 0.3);
+        }
+
+    .btn-secondary {
+        background: #E7C6FF;
+        color: #4A4A4A;
+    }
+
+        .btn-secondary:hover {
+            background: #D7B6FF;
+        }
+
+    .btn-sm {
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+    }
+
+    .btn-info {
+        background: linear-gradient(135deg, #C2C9FF, #BBD0FF);
+        color: white;
+    }
+
+    .btn-warning {
+        background: linear-gradient(135deg, #FFD6FF, #E7C6FF);
+        color: #4A4A4A;
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #ff9999, #ff7777);
+        color: white;
+    }
+
+    /* Tests Grid */
+    .tests-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .test-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+        .test-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+    .card-header_Test {
+        padding: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(231, 198, 255, 0.3);
+    }
+
+    .patient-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .patient-avatar {
+        width: 3rem;
+        height: 3rem;
+        background: linear-gradient(135deg, #E7C6FF, #C8B6FF);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+    }
+
+    .patient-details h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #4A4A4A;
+        margin-bottom: 0.25rem;
+    }
+
+    .patient-details p {
+        color: #6B6B6B;
+        font-size: 0.875rem;
+        margin: 0;
+    }
+
+    .status-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+        .status-badge.completed {
+            background: rgba(34, 197, 94, 0.1);
+            color: #059669;
+        }
+
+        .status-badge.pending {
+            background: rgba(251, 191, 36, 0.1);
+            color: #d97706;
+        }
+
+        .status-badge.cancelled {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+        }
+
+        .status-badge.in-progress {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+        }
+
+        /* New Status Styles */
+        .status-badge.scheduled {
+            background: rgba(147, 51, 234, 0.1); /* A shade of purple */
+            color: #7e22ce;
+        }
+
+        .status-badge.result-available {
+            background: rgba(6, 182, 212, 0.1); /* A shade of cyan */
+            color: #0891b2;
+        }
+
+        .status-badge.unknown {
+            background: rgba(107, 114, 128, 0.1);
+            color: #6b7280;
+        }
+
+    .card-content {
+        padding: 1.5rem;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .info-item {
+        background: rgba(231, 198, 255, 0.1);
+        padding: 1rem;
+        border-radius: 12px;
+        border-left: 3px solid #C8B6FF;
+    }
+
+        .info-item.cancel-reason {
+            grid-column: 1 / -1;
+            border-left-color: #ff7777;
+            background: rgba(255, 119, 119, 0.1);
+        }
+
+    .info-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #6B6B6B;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+        .info-label i {
+            color: #C8B6FF;
+        }
+
+    .info-value {
+        color: #4A4A4A;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .result-text {
+        color: #059669;
+        font-weight: 600;
+    }
+
+    .no-data {
+        color: #6B6B6B;
+        font-style: italic;
+    }
+
+    .card-actions {
+        padding: 1rem 1.5rem;
+        background: rgba(231, 198, 255, 0.05);
+        display: flex;
+        gap: 0.75rem;
+        justify-content: flex-end;
+    }
+
+    /* Empty State */
+    .empty-state {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 4rem 2rem;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .empty-icon {
+        width: 5rem;
+        height: 5rem;
+        background: linear-gradient(135deg, #E7C6FF, #C8B6FF);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin: 0 auto 1.5rem;
+    }
+
+    .empty-state h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #4A4A4A;
+        margin-bottom: 0.5rem;
+    }
+
+    .empty-state p {
+        color: #6B6B6B;
+        margin-bottom: 2rem;
+    }
+
+    /* No Results */
+    .no-results {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .no-results-icon {
+        width: 4rem;
+        height: 4rem;
+        background: linear-gradient(135deg, #E7C6FF, #C8B6FF);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin: 0 auto 1rem;
+    }
+
+    .no-results h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #4A4A4A;
+        margin-bottom: 0.5rem;
+    }
+
+    .no-results p {
+        color: #6B6B6B;
+    }
+
+    /* Loading */
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+        .loading-overlay.show {
+            display: flex;
+        }
+
+    .loading-spinner {
+        text-align: center;
+        color: white;
+    }
+
+    .spinner {
+        width: 3rem;
+        height: 3rem;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-top: 3px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .container {
+            padding: 0 0.5rem;
+        }
+
+        .header-content {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .header-stats {
+            justify-content: center;
+        }
+
+        .controls-section {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .search-filter-container {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .filter-buttons {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .action-buttons {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .tests-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .card-actions {
+            flex-direction: column;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .staff-testing-page {
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            padding: 1.5rem;
+        }
+
+        .header-text h1 {
+            font-size: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+        }
+
+        .controls-section {
+            padding: 1rem;
+        }
+
+        .test-card {
+            margin: 0 -0.5rem;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const testsGrid = document.getElementById('testsGrid');
+        const noResults = document.getElementById('noResults');
+        const exportBtn = document.getElementById('exportBtn');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // Search functionality
+        searchInput.addEventListener('input', function() {
+            currentSearch = this.value.toLowerCase();
+            filterTests();
+        });
+
+        // Filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active state
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                currentFilter = this.dataset.filter;
+                filterTests();
+            });
+        });
+
+        // Filter tests function
+        function filterTests() {
+            const testCards = document.querySelectorAll('.test-card');
+            let visibleCount = 0;
+
+            testCards.forEach(card => {
+                const status = card.dataset.status;
+                const searchText = card.dataset.search.toLowerCase();
+
+                const matchesFilter = currentFilter === 'all' || status === currentFilter;
+                const matchesSearch = currentSearch === '' || searchText.includes(currentSearch);
+
+                if (matchesFilter && matchesSearch) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show/hide no results
+            if (visibleCount === 0) {
+                testsGrid.style.display = 'none';
+                noResults.style.display = 'block';
+            } else {
+                testsGrid.style.display = 'grid';
+                noResults.style.display = 'none';
+            }
+        }
+
+        // Export functionality
+        exportBtn.addEventListener('click', function() {
+            showLoading();
+
+            // Simulate export process
+            setTimeout(() => {
+                hideLoading();
+                alert('Xuất file Excel thành công!');
+            }, 2000);
+        });
+
+        // Loading functions
+        function showLoading() {
+            loadingOverlay.classList.add('show');
+        }
+
+        function hideLoading() {
+            loadingOverlay.classList.remove('show');
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'f') {
+                e.preventDefault();
+                searchInput.focus();
+            }
+
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                currentSearch = '';
+                filterTests();
+            }
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe test cards
+        document.querySelectorAll('.test-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    });
+</script>

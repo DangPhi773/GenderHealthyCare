@@ -1,0 +1,67 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Test</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Test.AppointmentTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Test.AppointmentTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Test.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Test.Status)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Test.Result)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Test.Result)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Test.CancelReason)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Test.CancelReason)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Test.CreatedAt)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Test.CreatedAt)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Test.IsDeleted)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Test.IsDeleted)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Test.Service)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Test.Service.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Test.User)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Test.User.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Test.TestId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
