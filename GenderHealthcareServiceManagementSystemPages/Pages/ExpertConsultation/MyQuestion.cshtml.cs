@@ -30,6 +30,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ExpertConsultation
                  UserId = q.UserId,
                  Subject = q.QuestionText.Split('-')[0],
                  Content = q.QuestionText.Split('-')[1],
+                 Status = q.Status,
                  SubmissionDate = q.CreatedAt,
              }
             ).ToList();
