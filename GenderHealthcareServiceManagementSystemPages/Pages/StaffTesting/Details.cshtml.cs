@@ -6,16 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects.Models;
+using Services.Interfaces;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting
 {
     public class DetailsModel : PageModel
     {
-        private readonly BusinessObjects.Models.GenderHealthcareContext _context;
+        private readonly ITestService _testService;
 
-        public DetailsModel(BusinessObjects.Models.GenderHealthcareContext context)
+        public DetailsModel(ITestService testService)
         {
-            _context = context;
+            _testService = testService;
         }
 
         public Test Test { get; set; } = default!;
@@ -27,15 +28,13 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting
                 return NotFound();
             }
 
-            var test = await _context.Tests.FirstOrDefaultAsync(m => m.TestId == id);
+            var test = await _testService.GetTestById(id.Value);
             if (test == null)
             {
                 return NotFound();
             }
-            else
-            {
-                Test = test;
-            }
+            Test = test;
+
             return Page();
         }
     }
