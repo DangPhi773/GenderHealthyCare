@@ -179,30 +179,6 @@
                     Chỉnh sửa
                 </a>
 
-                @if (Model.Test.Status == "Pending")
-                {
-                    <button class="btn btn-success" onclick="scheduleTest()">
-                        <i class="bi bi-calendar-check"></i>
-                        Lên lịch
-                    </button>
-                }
-
-                @if (Model.Test.Status == "Scheduled")
-                {
-                    <button class="btn btn-info" onclick="markCompleted()">
-                        <i class="bi bi-check-circle"></i>
-                        Đánh dấu hoàn thành
-                    </button>
-                }
-
-                @if (Model.Test.Status != "Cancelled")
-                {
-                    <button class="btn btn-warning" onclick="cancelTest()">
-                        <i class="bi bi-x-circle"></i>
-                        Hủy lịch hẹn
-                    </button>
-                }
-
                 <a asp-page="./Index" class="btn btn-secondary">
                     <i class="bi bi-arrow-left"></i>
                     Quay lại danh sách
