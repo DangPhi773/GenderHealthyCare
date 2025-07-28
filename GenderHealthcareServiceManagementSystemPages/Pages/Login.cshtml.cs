@@ -94,7 +94,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
 
                 case "Manager":
                 case "Staff":
-                    return RedirectToPage("StaffTesting/Manage");
+                    return RedirectToPage("StaffTesting/Index");
 
                 case "Consultant":
                     return RedirectToPage("/Consultations/Index");
