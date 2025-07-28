@@ -7,6 +7,7 @@ using Repositories;
 using Repositories.Interfaces;
 using Services;
 using BusinessObjects.Configurations;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ builder.Services.AddScoped<ConsultationDAO>();
 builder.Services.AddScoped<QuestionDAO>();
 builder.Services.AddScoped<BlogDAO>();
 builder.Services.AddScoped<ReminderDAO>();
+builder.Services.AddScoped<ReportDAO>();
 
 // Register Repository
 builder.Services.AddScoped<ITestRepository, TestRepository>();
@@ -41,6 +43,7 @@ builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
 builder.Services.AddScoped<IReminderRepository, ReminderRepository>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
 
 
 // Register Services
@@ -56,6 +59,9 @@ builder.Services.AddScoped<IConsultationService, ConsultationService>();
 builder.Services.AddScoped<IReminderService, ReminderService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IBlogService, BlogService>();
+builder.Services.AddScoped<IReportService, ReportService>();
+
+builder.Services.AddScoped<IReportExportService, ReportExportService>();
 
 
 // Database

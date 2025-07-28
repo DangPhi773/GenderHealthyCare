@@ -1,0 +1,144 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.Admin.Reports.IndexModel
+@{
+    ViewData["Title"] = "Báo cáo";
+}
+
+<style>
+    body {
+        background: linear-gradient(to bottom right, #f9f3ff, #ffeaf7, #ebf0ff);
+    }
+
+    .gradient-text {
+        background: linear-gradient(to right, #9333ea, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+    }
+</style>
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<div class="container">
+    <div class="col-12 d-flex flex-column mb-3">
+        <h1 class="gradient-text" style="width:fit-content;padding:5px">@ViewData["Title"]</h1>
+        <p>Chào mừng bạn đến với mục báo cáo. Tại đây bạn có thể tạo và tải xuống các báo cáo khác nhau.</p>
+    </div>
+
+    <div class="report-card">
+        <div class="report-card-header">
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="text-start">
+                    <h3>Danh sách báo cáo</h3>
+                    <p class="description">Xem và tải về các báo cáo của hệ thống chăm sóc sức khỏe.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="report-card-content">
+            <a href="/Admin/Reports/Create" class="btn btn-gradient">
+                <i class="fas fa-plus"></i> Tạo báo cáo mới
+            </a>
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>Loại báo cáo</th>
+                        <th>Ngày tạo</th>
+                        <th>Người tạo</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Reports == null || !Model.Reports.Any())
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center">Không có báo cáo nào.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var report in Model.Reports)
+                        {
+                            <tr>
+                                <td>@report.ReportTypeName</td>
+                                <td>@report.CreatedDate</td>
+                                <td>@(report.CreatedBy ?? "UNKNOWN")</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a asp-page="/Admin/Reports/Index"
+                                           asp-page-handler="ExportFile"
+                                           asp-route-id="@report.ReportId"
+                                           class="btn btn-primary btn-sm">
+                                            Tải về
+                                        </a>
+                                        <a href="/Admin/Reports/Edit/1" class="btn btn-warning btn-sm">Sửa</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Report.css?v=20250714" />
+    <style>
+        .btn-gradient {
+            background: linear-gradient(to right, #9333ea, #ec4899);
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+            .btn-gradient:hover {
+                background: linear-gradient(to right, #7c3aed, #db2777);
+                color: white;
+                transform: translateY(-1px);
+            }
+
+        .btn-group .btn {
+            margin-right: 5px;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        .badge-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .badge-warning {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .report-card-header {
+            text-align: left;
+        }
+
+            .report-card-header h3 {
+                text-align: left;
+                margin-bottom: 5px;
+            }
+
+            .report-card-header .description {
+                text-align: left;
+                margin-bottom: 0;
+            }
+    </style>
+}
