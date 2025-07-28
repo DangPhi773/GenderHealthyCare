@@ -102,7 +102,6 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
                 case "Customer":
                 case "Guest":
                 default:
-                    //return RedirectToPage("/Index");
                     return RedirectToPage("/Index");
             }
         }
