@@ -6,38 +6,53 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObjects.Models;
+using Services.Interfaces;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting
 {
     public class CreateModel : PageModel
     {
-        private readonly BusinessObjects.Models.GenderHealthcareContext _context;
+        private readonly ITestService _testService;
+        private readonly IServiceService _serviceService;
+        private readonly IUserService _userService;
 
-        public CreateModel(BusinessObjects.Models.GenderHealthcareContext context)
+        public CreateModel(ITestService testService, IServiceService serviceService, IUserService userService)
         {
-            _context = context;
+            _testService = testService;
+            _serviceService = serviceService;
+            _userService = userService;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-        ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "Name");
-        ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email");
+            var services = await _serviceService.GetAvailableServicesAsync();
+            var users = await _userService.GetAllUsersAsync();
+
+            ViewData["ServiceId"] = new SelectList(services, "ServiceId", "Name");
+            ViewData["UserId"] = new SelectList(users, "UserId", "Email");
+
             return Page();
         }
 
         [BindProperty]
         public Test Test { get; set; } = default!;
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                var services = await _serviceService.GetAvailableServicesAsync();
+                var users = await _userService.GetAllUsersAsync();
+
+                ViewData["ServiceId"] = new SelectList(services, "ServiceId", "Name");
+                ViewData["UserId"] = new SelectList(users, "UserId", "Email");
+
+                Test.Status = "Pending";
+                Test.Result = null;
+                Test.CancelReason = null;
             }
 
-            _context.Tests.Add(Test);
-            await _context.SaveChangesAsync();
+            await _testService.AddTest(Test);
 
             return RedirectToPage("./Index");
         }
