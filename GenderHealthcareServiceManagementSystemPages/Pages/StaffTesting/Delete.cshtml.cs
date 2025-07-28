@@ -52,7 +52,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting
             if (test != null)
             {
                 Test = test;
-                _context.Tests.Remove(Test);
+                test.IsDeleted = true;
                 await _context.SaveChangesAsync();
             }
 
