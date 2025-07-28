@@ -26,7 +26,7 @@ namespace Repositories
 
         public Task<List<Test>> GetTestsByUserId(int id) => _dao.GetTestsByUserId(id);
         public Task<List<Test>> GetPendingTests() => _dao.GetPendingTests();
-        
+
         public Task<List<Test>> GetScheduledTests() => _dao.GetScheduledTests();
         public async Task<bool> UpdateTestStatus(int testId, string status)
         {
@@ -37,7 +37,28 @@ namespace Repositories
             return await _dao.UpdateTestResultOrCancel(testId, result, cancelReason );
         }
         public Task<bool> IsAppointmentTimeTestingConflict(int userId, DateTime selectedTime) => _dao.IsAppointmentTimeTestingConflict(userId, selectedTime);
+        public async Task<bool> UpdateTestFields(int testId, string? status = null, string? result = null, string? cancelReason = null)
+        {
+            var test = await _dao.GetTestById(testId);
+            if (test == null)
+            {
+                return false;
+            }
+            if (status != null)
+            {
+                test.Status = status;
+            }
+            if (result != null)
+            {
+                test.Result = result;
+            }
+            if (cancelReason != null)
+            {
+                test.CancelReason = cancelReason;
+            }
+            await _dao.UpdateTest(test);
+            return true;
 
-
+        }
     }
 }

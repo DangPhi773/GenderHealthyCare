@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects.Models;
+using Services.Interfaces;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting
 {
     public class EditModel : PageModel
     {
-        private readonly BusinessObjects.Models.GenderHealthcareContext _context;
+        private readonly ITestService _testService;
+        private readonly IUserService _userService;
+        private readonly IServiceService _serviceService;
 
-        public EditModel(BusinessObjects.Models.GenderHealthcareContext context)
+        public EditModel(ITestService testService, IUserService userService, IServiceService serviceService)
         {
-            _context = context;
+            _testService = testService;
+            _userService = userService;
+            _serviceService = serviceService;
         }
 
         [BindProperty]
@@ -24,55 +29,41 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var test =  await _context.Tests.FirstOrDefaultAsync(m => m.TestId == id);
-            if (test == null)
-            {
-                return NotFound();
-            }
+            var test = await _testService.GetTestById(id.Value);
+            if (test == null) return NotFound();
+
             Test = test;
-           ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "Name");
-           ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Email");
+            ViewData["ServiceId"] = new SelectList(await _serviceService.GetAvailableServicesAsync(), "ServiceId", "Name");
+            ViewData["UserId"] = new SelectList(await _userService.GetAllUsersAsync(), "UserId", "Email");
+
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            Console.WriteLine($"Updating Test: {Test.TestId}, Status: {Test.Status}, Result: {Test.Result}, CancelReason: {Test.CancelReason}");
 
-            _context.Attach(Test).State = EntityState.Modified;
+            //if (!ModelState.IsValid)
+            //{
+            //    ViewData["ServiceId"] = new SelectList(await _serviceService.GetAvailableServicesAsync(), "ServiceId", "Name");
+            //    ViewData["UserId"] = new SelectList(await _userService.GetAllUsersAsync(), "UserId", "Email");
+            //    return Page();
+            //}
+            bool updated = await _testService.UpdateTestFields(
+                Test.TestId,
+                Test.Status,
+                Test.Result,
+                Test.CancelReason
+            );
 
-            try
+            if (!updated)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TestExists(Test.TestId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound(); 
             }
 
             return RedirectToPage("./Index");
         }
-
-        private bool TestExists(int id)
-        {
-            return _context.Tests.Any(e => e.TestId == id);
-        }
     }
-}
+    }
