@@ -9,11 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="update css">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GenderHealthcareServiceManagementSystem/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Admin/UserManager/Edit.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/Admin/UserManager/Edit.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/Delete.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GenderHealthcareServiceManagementSystemPages/Pages/StaffTesting/Delete.cshtml.cs" afterDir="false" />
-    </list>
+    <list default="true" id="48121976-9e8e-4cb2-a7d7-c8625cfc6321" name="Changes" comment="update css" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
