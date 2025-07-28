@@ -18,6 +18,7 @@ namespace Repositories.Interfaces
         Task<List<Test>> GetPendingTests();
         Task<List<Test>> GetScheduledTests();
         Task<bool> UpdateTestStatus(int testId, string status);
+        Task<bool> UpdateTestResultOrCancel(int testId, string result, string cancelReason);
         Task<bool> IsAppointmentTimeTestingConflict(int userId, DateTime selectedTime);
         Task<bool> UpdateTestFields(int testId, string? status , string? result , string? cancelReason);
 

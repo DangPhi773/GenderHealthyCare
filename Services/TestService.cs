@@ -37,6 +37,14 @@ namespace Services
             
             return await _repo.UpdateTestStatus(testId, status);
         }
+        
+        public async Task<bool> UpdateTestResultOrCancel(int testId, string result, string cancelReason)
+        {
+
+            return await _repo.UpdateTestResultOrCancel(testId, result, cancelReason);
+        }
+        
+        
         public Task<bool> IsAppointmentTimeTestingConflict(int userId, DateTime selectedTime) => _repo.IsAppointmentTimeTestingConflict(userId, selectedTime);
 
         public async Task<bool> UpdateTestFields(int testId, string? status = null, string? result = null, string? cancelReason = null)

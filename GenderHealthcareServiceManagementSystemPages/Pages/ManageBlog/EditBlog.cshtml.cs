@@ -40,7 +40,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ManageBlog
 
             existingBlog.Title = Blog.Title;
             existingBlog.Content = Blog.Content;
-            existingBlog.UpdatedAt = DateTime.Now;
+            existingBlog.UpdatedAt = DateTime.UtcNow.AddHours(7);
 
             string? userIdStr = HttpContext.Session.GetString("UserId");
             if (int.TryParse(userIdStr, out int userId))

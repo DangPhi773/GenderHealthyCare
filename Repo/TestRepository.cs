@@ -32,6 +32,10 @@ namespace Repositories
         {
             return await _dao.UpdateTestStatus(testId, status);
         }
+        public async Task<bool> UpdateTestResultOrCancel(int testId, string result, string cancelReason)
+        {
+            return await _dao.UpdateTestResultOrCancel(testId, result, cancelReason );
+        }
         public Task<bool> IsAppointmentTimeTestingConflict(int userId, DateTime selectedTime) => _dao.IsAppointmentTimeTestingConflict(userId, selectedTime);
         public async Task<bool> UpdateTestFields(int testId, string? status = null, string? result = null, string? cancelReason = null)
         {
