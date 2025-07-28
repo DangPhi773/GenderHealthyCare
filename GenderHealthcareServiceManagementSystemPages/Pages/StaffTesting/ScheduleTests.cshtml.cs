@@ -29,6 +29,9 @@ public class ScheduleTests : PageModel
 
     [BindProperty]
     public string Result { get; set; }
+    
+    [BindProperty]
+    public string CancelReason { get; set; }
 
     public async Task<IActionResult> OnPostUpdateResultAsync()
     {
@@ -43,7 +46,7 @@ public class ScheduleTests : PageModel
             return RedirectToPage();
         }
 
-        var result = await _testService.UpdateTestStatus(TestId, Status);
+        var result = await _testService.UpdateTestResultOrCancel(TestId, Result, CancelReason);
 
         if (result)
             TempData["Success"] = "Kết quả đã được lưu!";
@@ -62,7 +65,7 @@ public class ScheduleTests : PageModel
             return RedirectToPage();
         }
         
-        var result = await _testService.UpdateTestStatus(TestId, "Completed");
+        var result = await _testService.UpdateTestResultOrCancel(TestId, Result, CancelReason);
 
         if (result)
         {

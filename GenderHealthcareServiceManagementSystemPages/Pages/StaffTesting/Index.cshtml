@@ -2,7 +2,6 @@
 @model GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting.IndexModel
 @{
     ViewData["Title"] = "Quản lý xét nghiệm";
-
 }
 
 <main class="staff-testing-page">
@@ -35,12 +34,13 @@
             </div>
         </div>
 
+        <div class="search-box">
+            <i class="bi bi-search"></i>
+            <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên bệnh nhân, dịch vụ...">
+        </div>
+
         <div class="controls-section">
             <div class="search-filter-container">
-                <div class="search-box">
-                    <i class="bi bi-search"></i>
-                    <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên bệnh nhân, dịch vụ...">
-                </div>
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">
                         <i class="bi bi-list"></i>
@@ -365,29 +365,29 @@
         max-width: 400px;
     }
 
-        .search-box i {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #6B6B6B;
-        }
+    .search-box i {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6B6B6B;
+    }
 
-        .search-box input {
-            width: 100%;
-            padding: 0.75rem 1rem 0.75rem 2.5rem;
-            border: 2px solid #E7C6FF;
-            border-radius: 12px;
-            font-size: 0.875rem;
-            background: white;
-            transition: all 0.3s ease;
-        }
+    .search-box input {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        border: 2px solid #E7C6FF;
+        border-radius: 12px;
+        font-size: 0.875rem;
+        background: white;
+        transition: all 0.3s ease;
+    }
 
-            .search-box input:focus {
-                outline: none;
-                border-color: #C8B6FF;
-                box-shadow: 0 0 0 3px rgba(200, 182, 255, 0.1);
-            }
+    .search-box input:focus {
+        outline: none;
+        border-color: #C8B6FF;
+        box-shadow: 0 0 0 3px rgba(200, 182, 255, 0.1);
+    }
 
     .filter-buttons {
         display: flex;
@@ -408,16 +408,16 @@
         transition: all 0.3s ease;
     }
 
-        .filter-btn:hover {
-            background: #E7C6FF;
-            color: #4A4A4A;
-        }
+    .filter-btn:hover {
+        background: #E7C6FF;
+        color: #4A4A4A;
+    }
 
-        .filter-btn.active {
-            background: linear-gradient(135deg, #C8B6FF, #C2C9FF);
-            color: white;
-            border-color: #C8B6FF;
-        }
+    .filter-btn.active {
+        background: linear-gradient(135deg, #C8B6FF, #C2C9FF);
+        color: white;
+        border-color: #C8B6FF;
+    }
 
     .action-buttons {
         display: flex;
@@ -443,20 +443,20 @@
         color: white;
     }
 
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #B8A6FF, #B2B9FF);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(200, 182, 255, 0.3);
-        }
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #B8A6FF, #B2B9FF);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(200, 182, 255, 0.3);
+    }
 
     .btn-secondary {
         background: #E7C6FF;
         color: #4A4A4A;
     }
 
-        .btn-secondary:hover {
-            background: #D7B6FF;
-        }
+    .btn-secondary:hover {
+        background: #D7B6FF;
+    }
 
     .btn-sm {
         padding: 0.5rem 1rem;
@@ -496,10 +496,10 @@
         transition: all 0.3s ease;
     }
 
-        .test-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-        }
+    .test-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
 
     .card-header_Test {
         padding: 1.5rem;
@@ -550,41 +550,41 @@
         font-weight: 500;
     }
 
-        .status-badge.completed {
-            background: rgba(34, 197, 94, 0.1);
-            color: #059669;
-        }
+    .status-badge.completed {
+        background: rgba(34, 197, 94, 0.1);
+        color: #059669;
+    }
 
-        .status-badge.pending {
-            background: rgba(251, 191, 36, 0.1);
-            color: #d97706;
-        }
+    .status-badge.pending {
+        background: rgba(251, 191, 36, 0.1);
+        color: #d97706;
+    }
 
-        .status-badge.cancelled {
-            background: rgba(239, 68, 68, 0.1);
-            color: #dc2626;
-        }
+    .status-badge.cancelled {
+        background: rgba(239, 68, 68, 0.1);
+        color: #dc2626;
+    }
 
-        .status-badge.in-progress {
-            background: rgba(59, 130, 246, 0.1);
-            color: #2563eb;
-        }
+    .status-badge.in-progress {
+        background: rgba(59, 130, 246, 0.1);
+        color: #2563eb;
+    }
 
-        /* New Status Styles */
-        .status-badge.scheduled {
-            background: rgba(147, 51, 234, 0.1); /* A shade of purple */
-            color: #7e22ce;
-        }
+    /* New Status Styles */
+    .status-badge.scheduled {
+        background: rgba(147, 51, 234, 0.1); /* A shade of purple */
+        color: #7e22ce;
+    }
 
-        .status-badge.result-available {
-            background: rgba(6, 182, 212, 0.1); /* A shade of cyan */
-            color: #0891b2;
-        }
+    .status-badge.result-available {
+        background: rgba(6, 182, 212, 0.1); /* A shade of cyan */
+        color: #0891b2;
+    }
 
-        .status-badge.unknown {
-            background: rgba(107, 114, 128, 0.1);
-            color: #6b7280;
-        }
+    .status-badge.unknown {
+        background: rgba(107, 114, 128, 0.1);
+        color: #6b7280;
+    }
 
     .card-content {
         padding: 1.5rem;
@@ -603,11 +603,11 @@
         border-left: 3px solid #C8B6FF;
     }
 
-        .info-item.cancel-reason {
-            grid-column: 1 / -1;
-            border-left-color: #ff7777;
-            background: rgba(255, 119, 119, 0.1);
-        }
+    .info-item.cancel-reason {
+        grid-column: 1 / -1;
+        border-left-color: #ff7777;
+        background: rgba(255, 119, 119, 0.1);
+    }
 
     .info-label {
         display: flex;
@@ -621,9 +621,9 @@
         letter-spacing: 0.5px;
     }
 
-        .info-label i {
-            color: #C8B6FF;
-        }
+    .info-label i {
+        color: #C8B6FF;
+    }
 
     .info-value {
         color: #4A4A4A;
@@ -736,9 +736,9 @@
         z-index: 1000;
     }
 
-        .loading-overlay.show {
-            display: flex;
-        }
+    .loading-overlay.show {
+        display: flex;
+    }
 
     .loading-spinner {
         text-align: center;
@@ -767,76 +767,76 @@
 
     /* Responsive */
     @@media (max-width: 768px) {
-        .container {
-            padding: 0 0.5rem;
-        }
+    .container {
+        padding: 0 0.5rem;
+    }
 
-        .header-content {
-            flex-direction: column;
-            text-align: center;
-        }
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
 
-        .header-stats {
-            justify-content: center;
-        }
+    .header-stats {
+        justify-content: center;
+    }
 
-        .controls-section {
-            flex-direction: column;
-            gap: 1rem;
-        }
+    .controls-section {
+        flex-direction: column;
+        gap: 1rem;
+    }
 
-        .search-filter-container {
-            flex-direction: column;
-            width: 100%;
-        }
+    .search-filter-container {
+        flex-direction: column;
+        width: 100%;
+    }
 
-        .filter-buttons {
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+    .filter-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
-        .action-buttons {
-            width: 100%;
-            justify-content: center;
-        }
+    .action-buttons {
+        width: 100%;
+        justify-content: center;
+    }
 
-        .tests-grid {
-            grid-template-columns: 1fr;
-        }
+    .tests-grid {
+        grid-template-columns: 1fr;
+    }
 
-        .info-grid {
-            grid-template-columns: 1fr;
-        }
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
 
-        .card-actions {
-            flex-direction: column;
-        }
+    .card-actions {
+        flex-direction: column;
+    }
     }
 
     @@media (max-width: 480px) {
-        .staff-testing-page {
-            padding: 1rem 0;
-        }
+    .staff-testing-page {
+        padding: 1rem 0;
+    }
 
-        .header-content {
-            padding: 1.5rem;
-        }
+    .header-content {
+        padding: 1.5rem;
+    }
 
-        .header-text h1 {
-            font-size: 1.5rem;
-        }
+    .header-text h1 {
+        font-size: 1.5rem;
+    }
 
-        .stat-number {
-            font-size: 1.5rem;
-        }
+    .stat-number {
+        font-size: 1.5rem;
+    }
 
-        .controls-section {
-            padding: 1rem;
-        }
+    .controls-section {
+        padding: 1rem;
+    }
 
-        .test-card {
-            margin: 0 -0.5rem;
-        }
+    .test-card {
+        margin: 0 -0.5rem;
+    }
     }
 </style>
 
