@@ -2,34 +2,65 @@
 @model GenderHealthcareServiceManagementSystemPages.Pages.ConsultantQuestion.AnswerCustomerQuestionModel
 @{
     ViewData["Title"] = "Trả lời câu hỏi";
+
+    var subject = Model.Question?.QuestionText?.Split("-")?[0]?.Trim() ?? "";
+    var content = Model.Question?.QuestionText?.Split("-")?.ElementAtOrDefault(1)?.Trim() ?? "";
 }
+
 <main class="py-4">
     <div class="container">
-        <h2 class="h4 text-primary mb-4">✍️ Trả lời câu hỏi từ khách hàng</h2>
-
-        @if (Model.Question != null)
-        {
-            <div class="mb-3">
-                <strong>Khách hàng:</strong> @Model.Question.User?.Username
-            </div>
-            <div class="mb-3">
-                <strong>Câu hỏi:</strong>
-                <p>@Model.Question.QuestionText</p>
+        <div class="card shadow-sm rounded-3">
+            <div class="card-header bg-primary text-white rounded-top">
+                <h5 class="mb-0"><i class="bi bi-pencil-square me-2"></i>Trả lời câu hỏi từ khách hàng</h5>
             </div>
 
-            <form method="post">
-                <div class="mb-3">
-                    <label for="AnswerText" class="form-label">Nội dung trả lời:</label>
-                    <textarea class="form-control" id="AnswerText" name="AnswerText" rows="5" required>@Model.AnswerText</textarea>
+            <div class="card-body">
+                @if (Model.Question != null)
+                {
+                    <div class="mb-3 row">
+                        <div class="col-md-6">
+                            <strong>Khách hàng:</strong> @Model.Question.User?.FullName
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Ngày gửi:</strong> @Model.Question.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                        </div>
+                    </div>
 
-                </div>
-                <button type="submit" class="btn btn-success">Trả lời</button>
-                <a asp-page="QuestionsFromCustomer" class="btn btn-secondary ms-2">Quay lại</a>
-            </form>
-        }
-        else
-        {
-            <div class="alert alert-danger">Không tìm thấy câu hỏi.</div>
-        }
+                    <div class="mb-3">
+                        <strong>Tiêu đề:</strong>
+                        <div class="border p-2 rounded bg-light">
+                            @subject
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Nội dung câu hỏi:</strong>
+                        <div class="border p-2 rounded bg-light">
+                            @content
+                        </div>
+                    </div>
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="AnswerText" class="form-label">Nội dung trả lời:</label>
+                            <textarea class="form-control" id="AnswerText" name="AnswerText" rows="5" required>@Model.AnswerText</textarea>
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-send-check me-1"></i> Gửi phản hồi
+                            </button>
+                            <a asp-page="QuestionsFromCustomer" class="btn btn-secondary ms-2">
+                                <i class="bi bi-arrow-left-circle me-1"></i> Quay lại
+                            </a>
+                        </div>
+                    </form>
+                }
+                else
+                {
+                    <div class="alert alert-danger">Không tìm thấy câu hỏi.</div>
+                }
+            </div>
+        </div>
     </div>
 </main>
