@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using BusinessObjects.Models;
 using global::Services.Interfaces;
+using Microsoft.AspNetCore.SignalR;
+using GenderHealthcareServiceManagementSystemPages.Hubs;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.ConsultantQuestion
 {
@@ -9,11 +11,13 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ConsultantQuestion
     {
         private readonly IQuestionService _questionService;
         private readonly IUserService _userService;
+        private readonly IHubContext<SignalRServer> _hubcontext;
 
-        public AnswerCustomerQuestionModel(IQuestionService questionService, IUserService userService)
+        public AnswerCustomerQuestionModel(IQuestionService questionService, IUserService userService, IHubContext<SignalRServer> hubContext)
         {
             _questionService = questionService;
             _userService = userService;
+            _hubcontext = hubContext;
         }
 
         [BindProperty]
@@ -48,6 +52,15 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ConsultantQuestion
             question.AnsweredAt = DateTime.UtcNow;
             question.Status = "Answered";
             await _questionService.UpdateQuestionAsync(question);
+
+            await _hubcontext.Clients.All.SendAsync("QuestionAnswered", new
+            {
+                QuestionId = question.QuestionId,
+                Answer = question.AnswerText,
+                Status = question.Status,
+                AnsweredAt = question.AnsweredAt?.ToString("HH:mm dd/MM/yyyy")
+            });
+
 
             TempData["Message"] = "Đã trả lời câu hỏi thành công.";
             return RedirectToPage("QuestionsFromCustomer");
