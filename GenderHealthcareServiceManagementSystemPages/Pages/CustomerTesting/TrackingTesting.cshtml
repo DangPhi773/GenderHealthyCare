@@ -22,10 +22,10 @@
                             <a href="?status=Pending" class="btn btn-outline-warning @("Pending" == Model.SelectedStatus ? "active" : "") rounded-pill px-3">
                                 ⏳ Chờ xử lý
                             </a>
-                            <a href="?status=In%20Progress" class="btn btn-outline-info @("In Progress" == Model.SelectedStatus ? "active" : "") rounded-pill px-3">
-                                🔄 Đang tiến hành
+                            <a href="?status=Scheduled" class="btn btn-outline-info @("Scheduled" == Model.SelectedStatus ? "active" : "") rounded-pill px-3">
+                                🔄 Đã được lên lịch 
                             </a>
-                            <a href="?status=Done" class="btn btn-outline-success @("Done" == Model.SelectedStatus ? "active" : "") rounded-pill px-3">
+                            <a href="?status=Completed" class="btn btn-outline-success @("Completed" == Model.SelectedStatus ? "active" : "") rounded-pill px-3">
                                 ✅ Đã hoàn thành
                             </a>
                             <a href="?status=ResultAvailable" class="btn btn-outline-purple @("ResultAvailable" == Model.SelectedStatus ? "active" : "") rounded-pill px-3">
@@ -120,8 +120,8 @@
         return status switch
         {
             "Pending" => "bg-warning text-dark",
-            "In Progress" => "bg-info text-white",
-            "Done" => "bg-success",
+            "Scheduled" => "bg-info text-white",
+            "Completed" => "bg-success",
             "ResultAvailable" => "bg-primary border border-purple-stronger text-white", 
             "Cancelled" => "bg-danger",
             _ => "bg-secondary",
@@ -133,8 +133,8 @@
         return status switch
         {
             "Pending" => "⏳ Chờ xử lý",
-            "In Progress" => "🔄 Đang tiến hành",
-            "Done" => "✅ Đã hoàn thành",
+            "Scheduled" => "🔄 Đã được lên lịch ",
+            "Completed" => "✅ Đã hoàn thành",
             "ResultAvailable" => "📄 Có kết quả",
             "Cancelled" => "❌ Đã hủy",
             _ => status,
@@ -143,31 +143,28 @@
 }
 
 <style>
-    /* Gradient cho tiêu đề chính */
     .text-gradient-primary {
-        background: linear-gradient(to right, #6f42c1, #0dcaf0); /* Tím sang xanh dương */
+        background: linear-gradient(to right, #6f42c1, #0dcaf0);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
-    /* Gradient cho card header */
     .bg-gradient-purple {
-        background: linear-gradient(to right, #9333ea, #ec4899); /* Gradient tím-hồng */
+        background: linear-gradient(to right, #9333ea, #ec4899); 
     }
 
-    /* Viền và đổ bóng cho card chính */
+
     .card.shadow-lg {
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
     }
 
-    /* Hiệu ứng hover cho list group items */
+ 
     .list-group-item:hover {
-        background-color: #f8f9fa; /* Màu nền nhẹ khi hover */
-        transform: translateX(3px); /* Dịch chuyển nhẹ sang phải */
+        background-color: #f8f9fa; 
+        transform: translateX(3px); 
         transition: all 0.2s ease-in-out;
     }
 
-    /* Badge trạng thái */
     .badge {
         padding: 0.5em 0.75em;
         border-radius: 0.5rem;
@@ -175,19 +172,17 @@
         font-size: 0.85em;
     }
 
-    /* Thêm class cho viền màu tím mạnh hơn */
+
     .border-purple-stronger {
-        border-color: #9333ea !important; /* Màu tím đậm từ gradient chính */
-        border-width: 2px !important; /* Tăng độ dày viền để dễ nhìn hơn */
+        border-color: #9333ea !important; 
+        border-width: 2px !important; 
     }
 
-    /* Màu cho badge có kết quả */
     .bg-success-subtle {
         background-color: #d1e7dd !important;
         color: #0f5132 !important;
     }
 
-    /* Tùy chỉnh màu outline button cho đẹp hơn */
     .btn-outline-warning {
         border-color: #ffc107;
         color: #ffc107;
@@ -208,9 +203,8 @@
             color: #fff;
         }
 
-    /* Thêm định nghĩa cho btn-outline-purple */
     .btn-outline-purple {
-        color: #6f42c1; /* Màu tím tương tự text-gradient-primary */
+        color: #6f42c1; 
         border-color: #6f42c1;
     }
 
@@ -219,7 +213,6 @@
             color: white;
         }
 
-    /* CSS cho animation khi không có lịch hẹn */
     @@keyframes fadeInUp {
         from {
             opacity: 0;

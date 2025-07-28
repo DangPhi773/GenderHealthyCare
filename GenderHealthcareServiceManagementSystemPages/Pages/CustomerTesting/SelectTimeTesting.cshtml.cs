@@ -50,7 +50,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.CustomerTesting
             }
 
             SelectedServiceIds = selectedIdsRaw.Split(',').Select(int.Parse).ToList();
-            TempData["SelectedServiceIds"] = selectedIdsRaw; // Preserve for next page
+            TempData["SelectedServiceIds"] = selectedIdsRaw; 
 
             var allServices = await _serviceService.GetAllAsync();
             SelectedServiceNames = allServices
