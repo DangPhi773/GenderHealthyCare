@@ -101,17 +101,10 @@
 
 .status-pending {
     background-color: var(--mimi-pink);
-    color: var(--mauve-medium);
 }
 
 .status-answered {
-    background-color: var(--periwinkle-light);
-    color: var(--periwinkle-dark);
-}
-
-.status-closed {
-    background-color: #e0e0e0;
-    color: #757575;
+    background-color: var(--periwinkle-light)
 }
 
 /* No Questions Message */

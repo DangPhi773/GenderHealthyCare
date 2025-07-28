@@ -1,29 +1,795 @@
 ﻿@page
 @model GenderHealthcareServiceManagementSystemPages.Pages.CustomerBlogs.CustomerBlogsPage
-
 @{
-    ViewData["Title"] = " Blogs ";
+    ViewData["Title"] = "Blogs";
 }
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Content</th>
-        <th>Created At</th>
-        <th>Details</th>
-    </tr>
-    </thead>
-    <tbody>
-    @for (int i = 0; i < Model.Blogs.Count; i++)
-    {
-        var blog = Model.Blogs[i];
-        <tr>
-            <td>@blog.Title</td>
-            <td>@(blog.Author?.FullName ?? "N/A")</td> <!-- Handle null Author -->
-            <td>@(blog.CreatedAt?.ToString("dd/MM/yyyy") ?? "N/A")</td> <!-- Handle null CreatedAt -->
-            <td>@blog.Content</td>
-        </tr>
+<main class="blogs-page">
+    <div class="container">
+        <div class="page-header">
+            <div class="header-content">
+                <div class="header-icon">
+                    <i class="bi bi-journal-text"></i>
+                </div>
+                <div class="header-text">
+                    <h1>Blog Cộng đồng</h1>
+                    <p>Chia sẻ kiến thức và kinh nghiệm về sức khỏe giới tính</p>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">@Model.Blogs.Count</div>
+                        <div class="stat-label">Bài viết</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">@Model.Blogs.Where(b => b.CreatedAt?.Date == DateTime.Today).Count()</div>
+                        <div class="stat-label">Hôm nay</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-filter-section">
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm bài viết...">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="bi bi-grid"></i>
+                        Tất cả
+                    </button>
+                    <button class="filter-btn" data-filter="recent">
+                        <i class="bi bi-clock"></i>
+                        Mới nhất
+                    </button>
+                    <button class="filter-btn" data-filter="popular">
+                        <i class="bi bi-star"></i> @* Changed icon from heart to star for popular, as likes are removed *@
+                        Nổi bật
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="blogs-grid" id="blogsGrid">
+            @if (Model.Blogs != null && Model.Blogs.Any())
+            {
+                @for (int i = 0; i < Model.Blogs.Count; i++)
+                {
+                    var blog = Model.Blogs[i];
+                    var cardClass = i % 3 == 0 ? "featured" : ""; @* Keep featured for subtle styling differences if desired *@
+
+                    <article class="blog-card @cardClass" data-blog-id="@blog.BlogId">
+                        <div class="card-header_Blog">
+                            <div class="author-info">
+                                <div class="author-avatar">
+                                    <i class="bi bi-person-circle"></i>
+                                </div>
+                                <div class="author-details">
+                                    <div class="author-name">@(blog.Author?.FullName ?? "Ẩn danh")</div>
+                                    <div class="publish-date">
+                                        <i class="bi bi-calendar3"></i>
+                                        @(blog.CreatedAt?.ToString("dd/MM/yyyy") ?? "N/A")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="blog-actions">
+                                @* Bookmark button kept if you still want users to bookmark blogs *@
+                                <button class="action-btn bookmark-btn" title="Lưu bài viết">
+                                    <i class="bi bi-bookmark"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-content">
+                            <h2 class="blog-title">@blog.Title</h2>
+                            <div class="blog-full-content">
+                                @* Renamed from blog-excerpt to reflect full content *@
+                                @if (!string.IsNullOrEmpty(blog.Content))
+                                {
+                                    @Html.Raw(blog.Content) @* Display full HTML content *@
+                                }
+                                else
+                                {
+                                    <span class="no-content">Nội dung đang được cập nhật...</span>
+                                }
+                            </div>
+                        </div>
+                    </article>
+                }
+            }
+            else
+            {
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="bi bi-journal-x"></i>
+                    </div>
+                    <h3>Chưa có bài viết nào</h3>
+                    <p>Hãy là người đầu tiên chia sẻ kinh nghiệm của bạn!</p>
+                    <button class="create-blog-btn">
+                        <i class="bi bi-plus-circle"></i>
+                        Tạo bài viết đầu tiên
+                    </button>
+                </div>
+            }
+        </div>
+
+        @if (Model.Blogs != null && Model.Blogs.Count > 6)
+        {
+            <div class="load-more-section">
+                <button class="load-more-btn" id="loadMoreBtn">
+                    <i class="bi bi-arrow-down-circle"></i>
+                    Xem thêm bài viết
+                </button>
+            </div>
+        }
+
+        <div class="floating-actions">
+            <button class="fab-main" id="fabMain">
+                <i class="bi bi-plus"></i>
+            </button>
+            <div class="fab-menu" id="fabMenu">
+                <button class="fab-item" title="Viết bài mới">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+                <button class="fab-item" title="Bài viết đã lưu">
+                    <i class="bi bi-bookmarks"></i>
+                </button>
+                <button class="fab-item" title="Bài viết của tôi">
+                    <i class="bi bi-person-lines-fill"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    /* Main Layout */
+    .blogs-page {
+        min-height: 100vh;
+        background: linear-gradient(#9333ea,#ec4899);
+        padding: 2rem 0;
     }
-    </tbody>
-</table>
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    /* Header Section */
+    .page-header {
+        margin-bottom: 2rem;
+    }
+
+    .header-content {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 214, 255, 0.3);
+        border-radius: 20px;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        box-shadow: 0 8px 32px rgba(200, 182, 255, 0.2);
+    }
+
+    .header-icon {
+        width: 4rem;
+        height: 4rem;
+        background: linear-gradient(#9333ea,#ec4899);
+        color: white;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        flex-shrink: 0;
+    }
+
+    .header-text {
+        flex: 1;
+    }
+
+        .header-text h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4A4A4A;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(#9333ea,#ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-text p {
+            color: #6B6B6B;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+    .header-stats {
+        display: flex;
+        gap: 2rem;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 1rem;
+        background: rgba(255, 214, 255, 0.3);
+        border-radius: 12px;
+        min-width: 80px;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #C8B6FF;
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+        color: #6B6B6B;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Search and Filter */
+    .search-filter-section {
+        margin-bottom: 2rem;
+    }
+
+    .search-container {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 214, 255, 0.3);
+        border-radius: 16px;
+        padding: 1.5rem;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        box-shadow: 0 4px 20px rgba(200, 182, 255, 0.1);
+    }
+
+    .search-box {
+        flex: 1;
+        position: relative;
+    }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #C8B6FF;
+            font-size: 1.1rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 2px solid rgba(200, 182, 255, 0.3);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+
+            .search-box input:focus {
+                outline: none;
+                border-color: #C8B6FF;
+                background: white;
+                box-shadow: 0 0 0 3px rgba(200, 182, 255, 0.1);
+            }
+
+    .filter-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .filter-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        border: 2px solid rgba(200, 182, 255, 0.3);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.8);
+        color: #6B6B6B;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(#9333ea,#ec4899);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(200, 182, 255, 0.3);
+        }
+
+    /* Blogs Grid */
+    .blogs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .blog-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 214, 255, 0.3);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(200, 182, 255, 0.1);
+    }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(200, 182, 255, 0.2);
+            border-color: rgba(200, 182, 255, 0.5);
+        }
+
+        /* Adjust featured card for full content display */
+        .blog-card.featured {
+            grid-column: span 2; /* Still spans two columns */
+        }
+
+    .card-header_Blog {
+        padding: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        border-bottom: 1px solid rgba(255, 214, 255, 0.3);
+    }
+
+    .author-info {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+    }
+
+    .author-avatar {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: linear-gradient(#9333ea,#ec4899);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+    }
+
+    .author-name {
+        font-weight: 600;
+        color: #4A4A4A;
+        font-size: 0.875rem;
+    }
+
+    .publish-date {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        color: #6B6B6B;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+    }
+
+    .blog-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .action-btn {
+        width: 2rem;
+        height: 2rem;
+        border: 1px solid rgba(200, 182, 255, 0.3);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.8);
+        color: #C8B6FF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .action-btn:hover {
+            background: #C8B6FF;
+            color: white;
+            transform: scale(1.1);
+        }
+
+    .card-content {
+        padding: 1.5rem;
+    }
+
+    .blog-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #4A4A4A;
+        margin-bottom: 1rem;
+        line-height: 1.4;
+    }
+
+    .blog-full-content { /* New style for full content */
+        color: #6B6B6B;
+        line-height: 1.6;
+        font-size: 0.875rem;
+    }
+
+        .blog-full-content img { /* Basic styling for images within content */
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+
+        .blog-full-content p {
+            margin-bottom: 1em;
+        }
+
+    .no-content {
+        color: #999;
+        font-style: italic;
+    }
+
+    /* Removed .card-footer as meta and read-more are gone */
+
+    /* Empty State */
+    .empty-state {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 4rem 2rem;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border: 2px dashed rgba(200, 182, 255, 0.3);
+        border-radius: 16px;
+    }
+
+    .empty-icon {
+        width: 4rem;
+        height: 4rem;
+        background: linear-gradient(#9333ea,#ec4899);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin: 0 auto 1rem;
+    }
+
+    .empty-state h3 {
+        color: #4A4A4A;
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .empty-state p {
+        color: #6B6B6B;
+        margin-bottom: 1.5rem;
+    }
+
+    .create-blog-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(#9333ea,#ec4899);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .create-blog-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(200, 182, 255, 0.3);
+        }
+
+    /* Load More */
+    .load-more-section {
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    .load-more-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(20px);
+        border: 2px solid rgba(200, 182, 255, 0.3);
+        border-radius: 12px;
+        color: #C8B6FF;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .load-more-btn:hover {
+            background: linear-gradient(#9333ea,#ec4899));
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(200, 182, 255, 0.3);
+        }
+
+    /* Floating Action Button */
+    .floating-actions {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 1000;
+    }
+
+    .fab-main {
+        width: 3.5rem;
+        height: 3.5rem;
+        background: linear-gradient(#9333ea,#ec4899);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        box-shadow: 0 8px 25px rgba(200, 182, 255, 0.3);
+        transition: all 0.3s ease;
+    }
+
+        .fab-main:hover {
+            transform: scale(1.1) rotate(45deg);
+            box-shadow: 0 12px 35px rgba(200, 182, 255, 0.4);
+        }
+
+    .fab-menu {
+        position: absolute;
+        bottom: 4.5rem;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+    }
+
+        .fab-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+    .fab-item {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(200, 182, 255, 0.3);
+        border-radius: 50%;
+        color: #C8B6FF;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(200, 182, 255, 0.2);
+    }
+
+        .fab-item:hover {
+            background: #C8B6FF;
+            color: white;
+            transform: scale(1.1);
+        }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .container {
+            padding: 0 0.5rem;
+        }
+
+        .header-content {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+        }
+
+        .header-stats {
+            justify-content: center;
+        }
+
+        .search-container {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .filter-buttons {
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .blogs-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .blog-card.featured {
+            grid-column: span 1;
+        }
+
+        .floating-actions {
+            bottom: 1rem;
+            right: 1rem;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .blogs-page {
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            padding: 1.5rem;
+        }
+
+        .header-text h1 {
+            font-size: 1.5rem;
+        }
+
+        .search-container {
+            padding: 1rem;
+        }
+
+        .card-header_Blog,
+        .card-content {
+            padding: 1rem;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const blogsGrid = document.getElementById('blogsGrid');
+        const blogCards = blogsGrid.querySelectorAll('.blog-card');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+
+            blogCards.forEach(card => {
+                const title = card.querySelector('.blog-title').textContent.toLowerCase();
+                const content = card.querySelector('.blog-full-content').textContent.toLowerCase(); 
+                const author = card.querySelector('.author-name').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || content.includes(searchTerm) || author.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.3s ease';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                const filter = this.dataset.filter;
+
+                blogCards.forEach(card => {
+                    switch(filter) {
+                        case 'all':
+                            card.style.display = 'block';
+                            break;
+                        case 'recent':
+                            const dateText = card.querySelector('.publish-date').textContent;
+                            const parts = dateText.trim().split(' ')[1].split('/');
+                            const cardDate = new Date(parts[2], parts[1] - 1, parts[0]); 
+                            const weekAgo = new Date();
+                            weekAgo.setDate(weekAgo.getDate() - 7);
+                            card.style.display = cardDate >= weekAgo ? 'block' : 'none';
+                            break;
+                        case 'popular':
+                            card.style.display = card.classList.contains('featured') ? 'block' : 'none';
+                            break;
+                    }
+                });
+            });
+        });
+
+        const fabMain = document.getElementById('fabMain');
+        const fabMenu = document.getElementById('fabMenu');
+
+        fabMain.addEventListener('click', function() {
+            fabMenu.classList.toggle('show');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!fabMain.contains(e.target) && !fabMenu.contains(e.target)) {
+                fabMenu.classList.remove('show');
+            }
+        });
+
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', function() {
+                this.innerHTML = '<i class="bi bi-hourglass-split"></i> Đang tải...';
+                this.disabled = true;
+
+                setTimeout(() => {
+                    this.innerHTML = '<i class="bi bi-arrow-down-circle"></i> Xem thêm bài viết';
+                    this.disabled = false;
+                }, 1500);
+            });
+        }
+
+        const bookmarkBtns = document.querySelectorAll('.bookmark-btn');
+        bookmarkBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('bookmarked');
+                const icon = this.querySelector('i');
+
+                if (this.classList.contains('bookmarked')) {
+                    icon.className = 'bi bi-bookmark-fill';
+                    this.style.background = '#C8B6FF';
+                    this.style.color = 'white';
+                } else {
+                    icon.className = 'bi bi-bookmark';
+                    this.style.background = '';
+                    this.style.color = '';
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideInUp 0.6s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        blogCards.forEach(card => {
+            observer.observe(card);
+        });
+    });
+
+
+    const style = document.createElement('style');
+    style.textContent = `
+    @@keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+    @@keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    `;
+    document.head.appendChild(style);
+</script>

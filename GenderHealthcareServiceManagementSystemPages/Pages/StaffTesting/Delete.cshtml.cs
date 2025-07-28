@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects.Models;
 
-namespace GenderHealthcareServiceManagementSystemPages.Pages.Feedbacks
+namespace GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting
 {
     public class DeleteModel : PageModel
     {
@@ -19,29 +19,24 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Feedbacks
         }
 
         [BindProperty]
-        public Feedback Feedback { get; set; } = default!;
+        public Test Test { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            var role = HttpContext.Session.GetString("Role");
-            if (string.IsNullOrEmpty(role) || role != "Admin" && role != "Staff")
-            {
-                return RedirectToPage("/Unauthorized");
-            }
             if (id == null)
             {
                 return NotFound();
             }
 
-            var feedback = await _context.Feedbacks.FirstOrDefaultAsync(m => m.FeedbackId == id);
+            var test = await _context.Tests.FirstOrDefaultAsync(m => m.TestId == id);
 
-            if (feedback == null)
+            if (test == null)
             {
                 return NotFound();
             }
             else
             {
-                Feedback = feedback;
+                Test = test;
             }
             return Page();
         }
@@ -53,11 +48,11 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Feedbacks
                 return NotFound();
             }
 
-            var feedback = await _context.Feedbacks.FindAsync(id);
-            if (feedback != null)
+            var test = await _context.Tests.FindAsync(id);
+            if (test != null)
             {
-                Feedback = feedback;
-                _context.Feedbacks.Remove(Feedback);
+                Test = test;
+                test.IsDeleted = true;
                 await _context.SaveChangesAsync();
             }
 

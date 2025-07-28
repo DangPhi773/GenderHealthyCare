@@ -1,0 +1,516 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting.EditModel
+@{
+    ViewData["Title"] = "Chỉnh sửa xét nghiệm";
+}
+
+<main class="edit-test-page">
+    <div class="container">
+        <!-- Header -->
+        <div class="page-header">
+            <div class="breadcrumb">
+                <a asp-page="./Index">Quản lý xét nghiệm</a>
+                <span>/</span>
+                <span>Chỉnh sửa</span>
+            </div>
+            <div class="header-content">
+                <div class="header-icon">
+                    <i class="bi bi-pencil-square"></i>
+                </div>
+                <div class="header-text">
+                    <h1>Chỉnh sửa xét nghiệm</h1>
+                    <p>Cập nhật thông tin xét nghiệm và trạng thái</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Card -->
+        <div class="form-card">
+            <form method="post" id="editTestForm">
+                <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+                <input type="hidden" asp-for="Test.TestId" />
+
+                <div class="form-sections">
+                    <!-- Thông tin cơ bản -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <i class="bi bi-info-circle"></i>
+                            <h3>Thông tin cơ bản</h3>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="bi bi-person"></i>
+                                    Bệnh nhân
+                                </label>
+                                <input type="text" class="form-input" value="@Model.Test.User?.Email" readonly />
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="bi bi-heart-pulse"></i>
+                                    Dịch vụ xét nghiệm
+                                </label>
+                                <input type="text" class="form-input" value="@Model.Test.Service?.Name" readonly />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Lịch hẹn và trạng thái -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <i class="bi bi-calendar-check"></i>
+                            <h3>Lịch hẹn và trạng thái</h3>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="bi bi-clock"></i>
+                                    Thời gian hẹn
+                                </label>
+                                <input type="datetime-local" class="form-input" value="@Model.Test.AppointmentTime.ToString("yyyy-MM-ddTHH:mm")" readonly />
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="Test.Status" class="form-label">
+                                    <i class="bi bi-flag"></i>
+                                    Trạng thái
+                                </label>
+                                <select asp-for="Test.Status" class="form-select" id="statusSelect">
+                                    <option value="Pending">Chờ xử lý</option>
+                                    <option value="Scheduled">Đã lên lịch</option>
+                                    <option value="Completed">Hoàn thành</option>
+                                    <option value="ResultAvailable">Có kết quả</option>
+                                    <option value="Cancelled">Đã hủy</option>
+                                </select>
+                                <span asp-validation-for="Test.Status" class="validation-error"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kết quả và ghi chú -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <i class="bi bi-file-text"></i>
+                            <h3>Kết quả và ghi chú</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Test.Result" class="form-label">
+                                <i class="bi bi-clipboard-data"></i>
+                                Kết quả xét nghiệm
+                            </label>
+                            <textarea asp-for="Test.Result" class="form-textarea" rows="4"
+                                      placeholder="Nhập kết quả xét nghiệm chi tiết..."></textarea>
+                            <span asp-validation-for="Test.Result" class="validation-error"></span>
+                        </div>
+
+                        <div class="form-group" id="cancelReasonGroup" style="display: none;">
+                            <label asp-for="Test.CancelReason" class="form-label">
+                                <i class="bi bi-x-circle"></i>
+                                Lý do hủy
+                            </label>
+                            <textarea asp-for="Test.CancelReason" class="form-textarea" rows="3"
+                                      placeholder="Nhập lý do hủy xét nghiệm..."></textarea>
+                            <span asp-validation-for="Test.CancelReason" class="validation-error"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="saveBtn">
+                        <i class="bi bi-check-circle"></i>
+                        <span>Lưu thay đổi</span>
+                    </button>
+                    <a asp-page="./Details" asp-route-id="@Model.Test.TestId" class="btn btn-secondary">
+                        <i class="bi bi-eye"></i>
+                        Xem chi tiết
+                    </a>
+                    <a asp-page="./Index" class="btn btn-outline">
+                        <i class="bi bi-arrow-left"></i>
+                        Quay lại danh sách
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<style>
+    /* Main Layout */
+    .edit-test-page {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #FFD6FF 0%, #E7C6FF 25%, #C8B6FF 50%, #C2C9FF 75%, #BBD0FF 100%);
+        padding: 2rem 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    /* Header */
+    .page-header {
+        margin-bottom: 2rem;
+    }
+
+    .breadcrumb {
+        font-size: 0.875rem;
+        color: #6B6B6B;
+        margin-bottom: 1rem;
+    }
+
+        .breadcrumb a {
+            color: #8B5CF6;
+            text-decoration: none;
+        }
+
+            .breadcrumb a:hover {
+                text-decoration: underline;
+            }
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid rgba(200, 182, 255, 0.3);
+        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.1);
+    }
+
+    .header-icon {
+        width: 3rem;
+        height: 3rem;
+        background: linear-gradient(135deg, #C8B6FF, #C2C9FF);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    .header-text h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #4A4A4A;
+        margin-bottom: 0.5rem;
+    }
+
+    .header-text p {
+        color: #6B6B6B;
+        margin: 0;
+    }
+
+    /* Form Card */
+    .form-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 2rem;
+        border: 1px solid rgba(200, 182, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
+    }
+
+    /* Form Sections */
+    .form-sections {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .form-section {
+        background: rgba(255, 214, 255, 0.1);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 214, 255, 0.3);
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid rgba(200, 182, 255, 0.2);
+    }
+
+        .section-header i {
+            color: #8B5CF6;
+            font-size: 1.25rem;
+        }
+
+        .section-header h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #4A4A4A;
+            margin: 0;
+        }
+
+    /* Form Grid */
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+        .form-group:has(.form-textarea) {
+            grid-column: 1 / -1;
+        }
+
+    /* Form Elements */
+    .form-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: #4A4A4A;
+        font-size: 0.875rem;
+    }
+
+        .form-label i {
+            color: #8B5CF6;
+            font-size: 1rem;
+        }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        padding: 0.75rem 1rem;
+        border: 2px solid rgba(200, 182, 255, 0.3);
+        border-radius: 8px;
+        font-size: 0.875rem;
+        background: rgba(255, 255, 255, 0.8);
+        transition: all 0.3s ease;
+    }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #C8B6FF;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(200, 182, 255, 0.1);
+        }
+
+    .form-textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    /* Validation */
+    .validation-summary {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        color: #DC2626;
+    }
+
+    .validation-error {
+        color: #DC2626;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+    }
+
+    /* Action Buttons */
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        padding-top: 1.5rem;
+        border-top: 2px solid rgba(200, 182, 255, 0.2);
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #C8B6FF, #C2C9FF);
+        color: white;
+    }
+
+        .btn-primary:hover:not(:disabled) {
+            background: linear-gradient(135deg, #B8A6EF, #B2B9EF);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(200, 182, 255, 0.3);
+        }
+
+    .btn-secondary {
+        background: linear-gradient(135deg, #E7C6FF, #FFD6FF);
+        color: #4A4A4A;
+    }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #D7B6EF, #EFC6EF);
+        }
+
+    .btn-outline {
+        background: transparent;
+        color: #6B6B6B;
+        border: 2px solid rgba(200, 182, 255, 0.3);
+    }
+
+        .btn-outline:hover {
+            background: rgba(200, 182, 255, 0.1);
+            border-color: #C8B6FF;
+            color: #4A4A4A;
+        }
+
+    .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none !important;
+    }
+
+    /* Loading State */
+    .btn.loading {
+        position: relative;
+        color: transparent;
+    }
+
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+    @@keyframes spin {
+        to
+
+    {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .container
+
+    {
+        padding: 0 0.5rem;
+    }
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusSelect = document.getElementById('statusSelect');
+        const cancelReasonGroup = document.getElementById('cancelReasonGroup');
+        const saveBtn = document.getElementById('saveBtn');
+        const form = document.getElementById('editTestForm');
+
+        // Show/hide cancel reason based on status
+        function toggleCancelReason() {
+            if (statusSelect.value === 'Cancelled') {
+                cancelReasonGroup.style.display = 'block';
+                cancelReasonGroup.querySelector('textarea').required = true;
+            } else {
+                cancelReasonGroup.style.display = 'none';
+                cancelReasonGroup.querySelector('textarea').required = false;
+                cancelReasonGroup.querySelector('textarea').value = '';
+            }
+        }
+
+        // Initial check
+        toggleCancelReason();
+
+        // Listen for status changes
+        statusSelect.addEventListener('change', toggleCancelReason);
+
+        // Form submission with loading state
+        form.addEventListener('submit', function(e) {
+            saveBtn.classList.add('loading');
+            saveBtn.disabled = true;
+
+            // Re-enable after 3 seconds in case of error
+            setTimeout(() => {
+                saveBtn.classList.remove('loading');
+                saveBtn.disabled = false;
+            }, 3000);
+        });
+
+        // Auto-resize textareas
+        const textareas = document.querySelectorAll('.form-textarea');
+        textareas.forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = this.scrollHeight + 'px';
+            });
+        });
+
+        // Form validation feedback
+        const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.checkValidity()) {
+                    this.style.borderColor = '#10B981';
+                } else {
+                    this.style.borderColor = '#EF4444';
+                }
+            });
+            input.addEventListener('input', function() {
+                this.style.borderColor = '';
+            });
+        });
+    });
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

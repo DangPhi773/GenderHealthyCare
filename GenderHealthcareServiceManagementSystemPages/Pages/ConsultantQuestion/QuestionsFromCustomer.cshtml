@@ -3,10 +3,16 @@
 @{
     ViewData["Title"] = "Câu hỏi từ khách hàng";
 }
-<main class="py-4">
-    <div class="container">
-        <h2 class="h4 mb-4 text-primary">📨 Danh sách câu hỏi từ khách hàng</h2>
 
+<div class="card question-detail-card rounded-4 shadow">
+    <div class="card-header question-detail-header rounded-top">
+        <h1 class="card-title question-detail-title " style="color: #9333EA;">
+            <i class="bi bi-inbox me-2"></i> Danh sách câu hỏi từ khách hàng
+        </h1>
+        <p class="question-detail-description">Chi tiết các câu hỏi mà khách hàng đã gửi đến bạn và trạng thái phản hồi.</p>
+    </div>
+
+    <div class="card-body question-detail-body">
         @if (TempData["Message"] != null)
         {
             <div class="alert alert-success">@TempData["Message"]</div>
@@ -14,47 +20,109 @@
 
         @if (Model.CustomerQuestions.Any())
         {
-            <table class="table table-bordered table-hover align-middle">
-                <thead class="table-light">
-                    <tr>
-                        <th>Id</th>
-                        <th>Khách hàng</th>
-                        <th>Câu hỏi</th>
-                        <th>Ngày tạo</th>
-                        <th>Trạng thái</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var q in Model.CustomerQuestions)
-                    {
-                        <tr>
-                            <td>@q.QuestionId</td>
-                            <td>@q.User?.FullName</td>
-                            <td>@(q.QuestionText.Length > 60 ? q.QuestionText.Substring(0, 60) + "..." : q.QuestionText)</td>
-                            <td>@(q.CreatedAt.ToString("dd/MM/yyyy HH:mm"))</td>
+            @foreach (var q in Model.CustomerQuestions)
+            {
+                var subject = q.QuestionText?.Split("-")?[0]?.Trim() ?? "";
+                var content = q.QuestionText?.Split("-")?.ElementAtOrDefault(1)?.Trim() ?? "";
+                var statusLower = q.Status?.ToLower() ?? "";
+                var statusText = statusLower switch
+                {
+                    "pending" => "🕒 Chờ phản hồi",
+                    "answered" => "✅ Đã trả lời",
+                    _ => q.Status
+                };
 
-                            <td>
-                                @if (q.Status == "Answered")
+                <div class="card mb-4 shadow-sm rounded-4 question-card">
+                    <div class="card-header rounded-top question-card-header">
+                        <h5 class="card-title mb-0" style="color: #9333EA;">
+                            <i class="bi bi-question-circle me-2"></i>@subject
+                        </h5>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-md-6"><strong>Người gửi:</strong> @q.User?.FullName</div>
+                            <div class="col-md-6"><strong>Ngày gửi:</strong> @q.CreatedAt.ToString("dd/MM/yyyy HH:mm")</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <strong>Ngày trả lời:</strong>
+                                @if (q.AnsweredAt != null)
                                 {
-                                    <span class="badge bg-success">Đã trả lời</span>
+                                    <span>@q.AnsweredAt.Value.ToString("dd/MM/yyyy HH:mm")</span>
                                 }
                                 else
                                 {
-                                    <span class="badge bg-warning text-dark">Chưa trả lời</span>
+                                    <span>Chưa có</span>
                                 }
-                            </td>
-                            <td>
-                                <a asp-page="AnswerCustomerQuestion" asp-route-id="@q.QuestionId" class="btn btn-sm btn-primary">Trả lời</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Trạng thái:</strong>
+                                <span class="status-badge @("status-" + statusLower)">@statusText</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <h6 class="mb-2"><i class="bi bi-file-text me-2"></i>Nội dung câu hỏi</h6>
+                            <div class="content-box border p-3 rounded bg-light">
+                                <p class="mb-0">@content</p>
+                            </div>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(q.AnswerText))
+                        {
+                            <div class="mt-4">
+                                <h6 class="mb-2"><i class="bi bi-chat-dots me-2"></i>Phản hồi từ bạn</h6>
+                                <div class="answer-box border p-3 rounded bg-white">
+                                    <p class="mb-2">@q.AnswerText</p>
+                                    <small class="text-muted">Phản hồi vào: @q.AnsweredAt?.ToString("dd/MM/yyyy HH:mm")</small>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="text-end mt-3">
+                            <a asp-page="AnswerCustomerQuestion" asp-route-id="@q.QuestionId" class="btn btn-sm btn-primary">
+                                <i class="bi bi-reply"></i> Trả lời
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
         }
         else
         {
-            <div class="alert alert-info">Chưa có câu hỏi nào được gửi tới bạn.</div>
+            <div class="alert alert-info mt-3">
+                <i class="bi bi-info-circle me-2"></i> Chưa có câu hỏi nào được gửi tới bạn.
+            </div>
         }
     </div>
-</main>
+</div>
+
+@section Styles {
+    <style>
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 0.75rem;
+            color: #fff;
+            text-transform: none;
+        }
+
+
+        .status-pending {
+            background-color: #0d6efd; 
+        }
+
+        .status-answered {
+            background-color: #198754; 
+        }
+
+        .question-card {
+            border: 1px solid #dee2e6;
+        }
+    </style>
+}
+
+}

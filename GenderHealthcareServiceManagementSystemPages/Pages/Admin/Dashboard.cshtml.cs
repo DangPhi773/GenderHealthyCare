@@ -23,6 +23,11 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin
 
         public async Task<IActionResult> OnGet(int? reviewCount, DateTime? startDate, DateTime? endDate)
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (string.IsNullOrEmpty(role) || role != "Admin")
+            {
+                return RedirectToPage("/Unauthorized");
+            }
             Metrics = new List<Metric>
             {
                 new("Total Requests", "1,234", "+20.1% from last month"),

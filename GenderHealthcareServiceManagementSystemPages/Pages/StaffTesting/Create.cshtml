@@ -1,0 +1,600 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting.CreateModel
+@{
+    ViewData["Title"] = "Tạo xét nghiệm mới";
+}
+
+<main class="create-test-page">
+    <div class="container">
+        <!-- Header -->
+        <div class="page-header">
+            <div class="breadcrumb">
+                <a asp-page="./Index">Quản lý xét nghiệm</a>
+                <span>/</span>
+                <span>Tạo mới</span>
+            </div>
+            <div class="header-content">
+                <div class="header-icon">
+                    <i class="bi bi-plus-circle"></i>
+                </div>
+                <div class="header-text">
+                    <h1>Tạo xét nghiệm mới</h1>
+                    <p>Điền thông tin để tạo lịch xét nghiệm cho bệnh nhân</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <form method="post" class="test-form" id="createTestForm">
+                <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+                <!-- Section 1: Thông tin bệnh nhân -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <div class="section-title">
+                            <h3>Thông tin bệnh nhân</h3>
+                            <p>Chọn bệnh nhân và dịch vụ xét nghiệm</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label asp-for="Test.UserId" class="form-label">
+                                <i class="bi bi-person-circle"></i>
+                                Bệnh nhân
+                            </label>
+                            <select asp-for="Test.UserId" class="form-select" asp-items="ViewBag.UserId">
+                                <option value="">-- Chọn bệnh nhân --</option>
+                            </select>
+                            <span asp-validation-for="Test.UserId" class="validation-message"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Test.ServiceId" class="form-label">
+                                <i class="bi bi-heart-pulse"></i>
+                                Dịch vụ xét nghiệm
+                            </label>
+                            <select asp-for="Test.ServiceId" class="form-select" asp-items="ViewBag.ServiceId">
+                                <option value="">-- Chọn dịch vụ --</option>
+                            </select>
+                            <span asp-validation-for="Test.ServiceId" class="validation-message"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Lịch hẹn -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="bi bi-calendar-event"></i>
+                        </div>
+                        <div class="section-title">
+                            <h3>Thời gian xét nghiệm</h3>
+                            <p>Chọn ngày và giờ thực hiện xét nghiệm</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label asp-for="Test.AppointmentTime" class="form-label">
+                                <i class="bi bi-clock"></i>
+                                Thời gian hẹn
+                            </label>
+                            <input asp-for="Test.AppointmentTime" type="datetime-local" class="form-input" />
+                            <span asp-validation-for="Test.AppointmentTime" class="validation-message"></span>
+                            <div class="input-hint">
+                                <i class="bi bi-info-circle"></i>
+                                Chọn thời gian phù hợp với lịch làm việc của phòng khám
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Thông tin bổ sung -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="bi bi-file-text"></i>
+                        </div>
+                        <div class="section-title">
+                            <h3>Thông tin bổ sung</h3>
+                            <p>Kết quả và ghi chú (có thể điền sau)</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label asp-for="Test.Result" class="form-label">
+                                <i class="bi bi-clipboard-data"></i>
+                                Kết quả xét nghiệm
+                            </label>
+                            <textarea asp-for="Test.Result" class="form-textarea" rows="4" placeholder="Nhập kết quả xét nghiệm (có thể để trống)"></textarea>
+                            <span asp-validation-for="Test.Result" class="validation-message"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Test.CancelReason" class="form-label">
+                                <i class="bi bi-exclamation-triangle"></i>
+                                Lý do hủy
+                            </label>
+                            <textarea asp-for="Test.CancelReason" class="form-textarea" rows="3" placeholder="Chỉ điền khi cần hủy lịch hẹn"></textarea>
+                            <span asp-validation-for="Test.CancelReason" class="validation-message"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <i class="bi bi-check-circle"></i>
+                        <span>Tạo xét nghiệm</span>
+                    </button>
+                    <a asp-page="./Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i>
+                        Quay lại danh sách
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<style>
+    /* Main Layout */
+    .create-test-page {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #FFD6FF 0%, #E7C6FF 25%, #C8B6FF 50%, #C2C9FF 75%, #BBD0FF 100%);
+        padding: 2rem 0;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    /* Header */
+    .page-header {
+        margin-bottom: 2rem;
+    }
+
+    .breadcrumb {
+        font-size: 0.875rem;
+        color: #6B46C1;
+        margin-bottom: 1rem;
+    }
+
+        .breadcrumb a {
+            color: #8B5CF6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+            .breadcrumb a:hover {
+                color: #7C3AED;
+                text-decoration: underline;
+            }
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        padding: 1.5rem;
+        border-radius: 16px;
+        border: 1px solid rgba(200, 182, 255, 0.3);
+        box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
+    }
+
+    .header-icon {
+        width: 3.5rem;
+        height: 3.5rem;
+        background: linear-gradient(135deg, #C8B6FF, #C2C9FF);
+        color: white;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        flex-shrink: 0;
+    }
+
+    .header-text h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #4C1D95;
+        margin-bottom: 0.5rem;
+    }
+
+    .header-text p {
+        color: #7C3AED;
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    /* Form Container */
+    .form-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 2rem;
+        border: 1px solid rgba(200, 182, 255, 0.2);
+        box-shadow: 0 20px 40px rgba(139, 92, 246, 0.1);
+    }
+
+    /* Form Sections */
+    .form-section {
+        margin-bottom: 2.5rem;
+        padding: 1.5rem;
+        background: rgba(255, 214, 255, 0.1);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 214, 255, 0.3);
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .section-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: linear-gradient(135deg, #E7C6FF, #C8B6FF);
+        color: #4C1D95;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+    }
+
+    .section-title h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #4C1D95;
+        margin-bottom: 0.25rem;
+    }
+
+    .section-title p {
+        color: #7C3AED;
+        margin: 0;
+        font-size: 0.875rem;
+    }
+
+    /* Form Grid */
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
+
+    /* Form Elements */
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: #4C1D95;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+        .form-label i {
+            color: #8B5CF6;
+        }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        padding: 0.875rem 1rem;
+        border: 2px solid rgba(200, 182, 255, 0.3);
+        border-radius: 12px;
+        font-size: 0.875rem;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #C8B6FF;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 0 3px rgba(200, 182, 255, 0.1);
+        }
+
+    .form-textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .input-hint {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+        font-size: 0.75rem;
+        color: #7C3AED;
+        background: rgba(231, 198, 255, 0.2);
+        padding: 0.5rem 0.75rem;
+        border-radius: 8px;
+    }
+
+        .input-hint i {
+            color: #8B5CF6;
+        }
+
+    /* Validation */
+    .validation-summary {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        color: #DC2626;
+    }
+
+    .validation-message {
+        color: #DC2626;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+        .validation-message::before {
+            content: "⚠";
+        }
+
+    /* Form Actions */
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(200, 182, 255, 0.2);
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.875rem 1.5rem;
+        border-radius: 12px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #C8B6FF, #C2C9FF);
+        color: white;
+        box-shadow: 0 4px 15px rgba(200, 182, 255, 0.4);
+    }
+
+        .btn-primary:hover:not(:disabled) {
+            background: linear-gradient(135deg, #B8A6EF, #B2B9EF);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(200, 182, 255, 0.5);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+    .btn-secondary {
+        background: rgba(255, 255, 255, 0.8);
+        color: #4C1D95;
+        border: 1px solid rgba(200, 182, 255, 0.3);
+    }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.95);
+            color: #3730A3;
+            border-color: #C8B6FF;
+        }
+
+    /* Loading State */
+    .btn.loading {
+        pointer-events: none;
+    }
+
+        .btn.loading span {
+            opacity: 0;
+        }
+
+        .btn.loading::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+    @@keyframes spin {
+        0%
+
+    {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .container
+
+    {
+        padding: 0 0.5rem;
+    }
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .form-container {
+        padding: 1.5rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .section-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    }
+
+    @@media (max-width: 480px) {
+        .create-test-page
+
+    {
+        padding: 1rem 0;
+    }
+
+    .form-container {
+        padding: 1rem;
+        border-radius: 16px;
+    }
+
+    .form-section {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('createTestForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Form validation
+        const inputs = form.querySelectorAll('input, select, textarea');
+
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+
+            input.addEventListener('input', function() {
+                if (this.classList.contains('error')) {
+                    validateField(this);
+                }
+            });
+        });
+
+        function validateField(field) {
+            const value = field.value.trim();
+            const isRequired = field.hasAttribute('data-val-required') || field.required;
+
+            if (isRequired && !value) {
+                field.style.borderColor = '#EF4444';
+                field.classList.add('error');
+            } else {
+                field.style.borderColor = '#10B981';
+                field.classList.remove('error');
+            }
+        }
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            // Add loading state
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+
+            // Validate all fields
+            let hasErrors = false;
+            inputs.forEach(input => {
+                validateField(input);
+                if (input.classList.contains('error')) {
+                    hasErrors = true;
+                }
+            });
+
+            if (hasErrors) {
+                e.preventDefault();
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+
+                // Scroll to first error
+                const firstError = form.querySelector('.error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstError.focus();
+                }
+            }
+        });
+
+        // Auto-resize textareas
+        const textareas = document.querySelectorAll('.form-textarea');
+        textareas.forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = this.scrollHeight + 'px';
+            });
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                form.submit();
+            }
+
+            if (e.key === 'Escape') {
+                const activeElement = document.activeElement;
+                if (activeElement && activeElement.tagName !== 'BODY') {
+                    activeElement.blur();
+                }
+            }
+        });
+    });
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

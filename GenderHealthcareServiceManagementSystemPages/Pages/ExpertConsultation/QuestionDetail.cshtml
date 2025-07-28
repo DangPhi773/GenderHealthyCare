@@ -68,3 +68,30 @@
 @section Styles {
     <link href="~/css/QuestionDetail.css?v=20250714" rel="stylesheet" />
 }
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/SignalRServer")
+            .build();
+
+        connection.on("QuestionAnswered", (data) => {
+            const questionId = parseInt("@Model.Question.Id");
+            if (data.QuestionId === questionId) {
+                const answerSection = `
+                    <div class="detail-section mt-4">
+                        <h3 class="section-title"><i class="bi bi-chat-dots me-2"></i>Phản hồi từ chuyên gia</h3>
+                        <div class="answer-box">
+                            <p>${data.Answer}</p>
+                            <small class="text-muted">Phản hồi vào: ${data.AnsweredAt}</small>
+                        </div>
+                    </div>
+                `;
+                document.querySelector(".no-answer-alert")?.remove();
+                document.querySelector(".card-body").insertAdjacentHTML("beforeend", answerSection);
+            }
+        });
+
+        connection.start().catch(err => console.error("[SignalR Connection Error]:", err));
+    </script>
+}

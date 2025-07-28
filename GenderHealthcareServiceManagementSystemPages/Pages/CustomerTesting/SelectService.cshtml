@@ -108,7 +108,7 @@
     }
 
     .service-card {
-        cursor: pointer; /* Giữ cursor pointer cho cả card để báo hiệu có thể click */
+        cursor: pointer;
         transition: transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease, background 0.2s ease;
         position: relative;
     }
@@ -121,25 +121,21 @@
         .service-card.checked {
             border: 2px solid #9333ea;
             background: linear-gradient(to bottom right, #f3e8ff, #fdf2f8);
-            /* --- THÊM DÒNG NÀY ĐỂ CÓ BOX SHADOW KHI CHỌN DỊCH VỤ --- */
-            box-shadow: 0 12px 40px rgba(147, 51, 234, 0.4), /* Bóng lớn hơn, đậm hơn */
-            0 6px 20px rgba(236, 72, 153, 0.25)!important; /* Bóng nhỏ hơn, đậm hơn */
+            box-shadow: 0 12px 40px rgba(147, 51, 234, 0.4), 0 6px 20px rgba(236, 72, 153, 0.25) !important;
         }
 
-    /* --- New CSS for the Register Button --- */
     .btn-service-register {
-        /* Màu sắc ban đầu */
         color: #9333ea;
         border: 1px solid #c084fc;
         background-color: transparent;
-        transition: all 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+        transition: all 0.3s ease;
         padding: .5rem 1rem;
         font-size: 1rem;
         cursor: pointer;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 100%; /* Đảm bảo nút chiếm toàn bộ chiều rộng của footer */
+        width: 100%;
     }
 
         .btn-service-register:hover {
@@ -149,16 +145,14 @@
         }
 
     .btn-service-register-registered {
-        /* Màu xanh lá cây sau khi đăng ký */
         color: white;
-        background: linear-gradient(to right, #28a745, #218838); /* Gradient xanh lá cây */
+        background: linear-gradient(to right, #28a745, #218838);
         border: 1px solid #28a745;
-        cursor: default; /* Thay đổi con trỏ chuột */
+        cursor: default;
     }
 
         .btn-service-register-registered:hover {
-            color: white;
-            background: linear-gradient(to right, #28a745, #218838); /* Giữ nguyên màu khi hover */
+            background: linear-gradient(to right, #28a745, #218838);
             border-color: #28a745;
         }
 </style>
@@ -167,146 +161,56 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Khởi tạo Toastr options (tùy chọn)
             toastr.options = {
-                "closeButton": true,
-                "progressBar": true,
-                "positionClass": "toast-top-right",
-                "timeOut": "3000",
-                "extendedTimeOut": "1000",
-                "preventDuplicates": true
+                closeButton: true,
+                progressBar: true,
+                positionClass: "toast-top-right",
+                timeOut: 3000
             };
 
-            // Logic cho checkbox và card highlight
-            document.querySelectorAll('.service-checkbox').forEach(cb => {
-                const card = cb.closest('.service-card');
-                const registerButton = card.querySelector('.btn-service-register');
-
-                // Đồng bộ trạng thái checkbox và giao diện card/button khi tải trang
-                if (cb.checked) {
+            const updateUI = (checkbox, card, button) => {
+                if (checkbox.checked) {
                     card.classList.add('checked');
-                    if (registerButton) { // Ensure button exists
-                        registerButton.classList.remove('btn-service-register');
-                        registerButton.classList.add('btn-service-register-registered');
-                        registerButton.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>Đã đăng ký dịch vụ này';
-                        registerButton.style.pointerEvents = 'none'; // Vô hiệu hóa nút sau khi đăng ký
-                        registerButton.style.opacity = '0.7';
-                    }
+                    button.classList.remove('btn-service-register');
+                    button.classList.add('btn-service-register-registered');
+                    button.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>Đã đăng ký dịch vụ này';
+                    button.style.pointerEvents = 'none';
+                    button.style.opacity = '0.7';
+                    toastr.success('Dịch vụ đã được chọn!', 'Thông báo');
+                } else {
+                    card.classList.remove('checked');
+                    button.classList.add('btn-service-register');
+                    button.classList.remove('btn-service-register-registered');
+                    button.innerHTML = '<i class="bi bi-calendar-check me-2"></i>Đăng ký dịch vụ này';
+                    button.style.pointerEvents = 'auto';
+                    button.style.opacity = '1';
+                    toastr.info('Đã bỏ chọn dịch vụ.', 'Thông báo');
                 }
+            };
 
-                // Event listener cho checkbox (nếu có click trực tiếp vào checkbox)
-                cb.addEventListener('change', function () {
-                    if (this.checked) {
-                        card.classList.add('checked');
-                        if (registerButton && !registerButton.classList.contains('btn-service-register-registered')) {
-                            // Cập nhật nút khi checkbox được chọn thủ công
-                            registerButton.classList.remove('btn-service-register');
-                            registerButton.classList.add('btn-service-register-registered');
-                            registerButton.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>Đã đăng ký dịch vụ này';
-                            registerButton.style.pointerEvents = 'none';
-                            registerButton.style.opacity = '0.7';
-                            toastr.success('Dịch vụ đã được chọn!', 'Thông báo');
-                        }
-                    } else {
-                        card.classList.remove('checked');
-                        if (registerButton && registerButton.classList.contains('btn-service-register-registered')) {
-                            // Đặt lại nút khi checkbox được bỏ chọn
-                            registerButton.classList.remove('btn-service-register-registered');
-                            registerButton.classList.add('btn-service-register');
-                            registerButton.innerHTML = '<i class="bi bi-calendar-check me-2"></i>Đăng ký dịch vụ này';
-                            registerButton.style.pointerEvents = 'auto';
-                            registerButton.style.opacity = '1';
-                            toastr.info('Đã bỏ chọn dịch vụ.', 'Thông báo');
-                        }
-                    }
-                });
-            });
-
-            // Logic cho nút "Đăng ký dịch vụ này"
             document.querySelectorAll('.btn-service-register').forEach(button => {
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
                     const serviceId = this.dataset.serviceId;
                     const checkbox = document.getElementById(`serviceCheckbox_${serviceId}`);
-                    const card = this.closest('.service-card');
+                    const card = checkbox.closest('.service-card');
 
-                    // Chỉ xử lý nếu nút chưa ở trạng thái "đã đăng ký"
-                    if (!this.classList.contains('btn-service-register-registered')) {
-                        // Kích hoạt checkbox liên quan
-                        checkbox.checked = true;
-                        checkbox.dispatchEvent(new Event('change')); // Kích hoạt sự kiện change của checkbox
-
-                        // Thay đổi giao diện nút
-                        this.classList.remove('btn-service-register');
-                        this.classList.add('btn-service-register-registered');
-                        this.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>Đã đăng ký dịch vụ này';
-                        this.style.pointerEvents = 'none'; // Vô hiệu hóa nút
-                        this.style.opacity = '0.7';
-
-                        // Highlight card
-                        card.classList.add('checked');
-
-                        toastr.success('Bạn đã chọn dịch vụ thành công!', 'Thành công!');
-
-                        // TODO: Nếu bạn muốn gửi AJAX request ngay lập tức khi người dùng click nút
-                        // thay vì chỉ khi nhấn nút "Tiếp tục đặt lịch", bạn có thể đặt logic AJAX ở đây.
-                        // Ví dụ:
-                        // fetch('/api/registerService', {
-                        //     method: 'POST',
-                        //     headers: {
-                        //         'Content-Type': 'application/json'
-                        //     },
-                        //     body: JSON.stringify({ serviceId: serviceId, action: 'select' })
-                        // })
-                        // .then(response => response.json())
-                        // .then(data => {
-                        //     if (data.success) {
-                        //         toastr.success('Dịch vụ đã được lưu tạm thời.', 'Thành công');
-                        //     } else {
-                        //         toastr.error('Có lỗi khi lưu dịch vụ.', 'Lỗi');
-                        //         // Nếu có lỗi, rollback trạng thái nút và checkbox
-                        //         checkbox.checked = false;
-                        //         checkbox.dispatchEvent(new Event('change'));
-                        //     }
-                        // })
-                        // .catch(error => {
-                        //     console.error('Lỗi AJAX:', error);
-                        //     toastr.error('Lỗi kết nối server.', 'Lỗi');
-                        //     checkbox.checked = false;
-                        //     checkbox.dispatchEvent(new Event('change'));
-                        // });
-
-                    } else {
-                        // Nếu nút đã ở trạng thái "đã đăng ký", bạn có thể cho phép bỏ chọn
-                        // hoặc hiển thị thông báo. Ở đây, tôi sẽ cho phép bỏ chọn.
-                        checkbox.checked = false;
-                        checkbox.dispatchEvent(new Event('change')); // Kích hoạt sự kiện change của checkbox
-
-                        this.classList.remove('btn-service-register-registered');
-                        this.classList.add('btn-service-register');
-                        this.innerHTML = '<i class="bi bi-calendar-check me-2"></i>Đăng ký dịch vụ này';
-                        this.style.pointerEvents = 'auto'; // Cho phép click lại
-                        this.style.opacity = '1';
-
-                        card.classList.remove('checked');
-
-                        toastr.info('Bạn đã bỏ chọn dịch vụ.', 'Thông báo');
-                    }
+                    checkbox.checked = !checkbox.checked;
+                    updateUI(checkbox, card, this);
                 });
             });
 
-            // Xử lý khi click vào bất kỳ đâu trên card (trừ nút)
-            // Đảm bảo click vào card cũng bật/tắt checkbox
             document.querySelectorAll('.service-card').forEach(card => {
-                card.addEventListener('click', function(event) {
-                    // Tránh xử lý click nếu event target là nút đăng ký
-                    if (event.target.closest('.btn-service-register')) {
-                        return;
-                    }
+                card.addEventListener('click', function (event) {
+                    if (event.target.closest('.btn-service-register')) return;
+
                     const checkbox = this.querySelector('.service-checkbox');
-                    if (checkbox) {
-                        checkbox.checked = !checkbox.checked;
-                        checkbox.dispatchEvent(new Event('change')); // Kích hoạt sự kiện change của checkbox
-                    }
+                    const button = this.querySelector('.btn-service-register, .btn-service-register-registered');
+
+                    checkbox.checked = !checkbox.checked;
+                    updateUI(checkbox, this, button);
                 });
             });
         });

@@ -5,14 +5,17 @@ using BusinessObjects.ViewModels;
 using Services.Interfaces;
 using BusinessObjects.Models;
 using Services;
+using GenderHealthcareServiceManagementSystemPages.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.ExpertConsultation
 {
-    public class QuestionModel(IQuestionService service, IUserService userService, IConsultantInfoService consultantInfoService) : PageModel
+    public class QuestionModel(IQuestionService service, IUserService userService, IConsultantInfoService consultantInfoService, IHubContext<SignalRServer> hubContext) : PageModel
     {
         private readonly IQuestionService _service = service;
         private readonly IUserService _userService = userService;
         private readonly IConsultantInfoService _consultantInfoService = consultantInfoService;
+        private readonly IHubContext<SignalRServer> _hubContext = hubContext ;
 
         [BindProperty]
         public QuestionRequest QuestionRequest { get; set; } = new();
@@ -41,7 +44,12 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ExpertConsultation
 
             // Xử lý logic gửi câu hỏi
             await _service.AddQuestionAsync(QuestionRequest, int.Parse(HttpContext.Session.GetString("UserId")!));
-            
+            await _hubContext.Clients.All.SendAsync("Questions", new
+            {
+                Subject = QuestionRequest.Subject,
+                Content = QuestionRequest.Content,
+                SentAt = DateTime.Now.ToString("HH:mm dd/MM/yyyy")
+            });
             // Simulate processing time
             await Task.Delay(1000);
 

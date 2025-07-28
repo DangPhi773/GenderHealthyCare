@@ -9,10 +9,12 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
     public class RegisterModel : PageModel
     {
         private readonly IAccountService _accountService;
+        private readonly IEmailService _emailService;
 
-        public RegisterModel(IAccountService accountService)
+        public RegisterModel(IAccountService accountService, IEmailService emailService)
         {
             _accountService = accountService;
+            _emailService = emailService;
         }
 
         [BindProperty]
@@ -35,7 +37,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
                     var state = ModelState[key];
                     foreach (var error in state.Errors)
                     {
-                        Console.WriteLine($"❌ Model Error: {key} - {error.ErrorMessage}");
+                        Console.WriteLine($"Model Error: {key} - {error.ErrorMessage}");
                     }
                 }
 
@@ -44,12 +46,20 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
             }
 
             User.Role = "Customer";
+            User.IsDeleted = true; //waiting to be confirmed otp
             User.CreatedAt = DateTime.Now;
             User.UpdatedAt = DateTime.Now;
 
             if (await _accountService.RegisterAsync(User))
             {
-                return RedirectToPage("/Login");
+                var otp = new Random().Next(100000, 999999).ToString();
+                HttpContext.Session.SetString("RegisterOtp", otp);
+                HttpContext.Session.SetString("RegisterEmail", User.Email);
+
+                await _emailService.SendEmailAsync(User.Email, "Mã OTP xác nhận",
+                    $"Mã OTP của bạn là: {otp}");
+
+                return RedirectToPage("OtpConfirmation");
             }
 
             Message = "Tên đăng nhập hoặc email đã tồn tại.";

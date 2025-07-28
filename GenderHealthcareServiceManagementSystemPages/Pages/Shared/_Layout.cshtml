@@ -22,6 +22,7 @@
 
     @RenderSection("Styles", required: false)
 </head>
+
 <body class="d-flex flex-column min-vh-100">
     @{
         var userId = Context.Session.GetString("UserId");
@@ -100,23 +101,23 @@
                                     </div>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#" class="dropdown-item dropdown-item-custom">
-                                    <i class="bi bi-person-heart me-3"></i>
-                                    <div>
-                                        <div class="fw-semibold">Khách hàng</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <a href="#" class="dropdown-item dropdown-item-custom">
-                                    <i class="bi bi-person-fill me-3"></i>
-                                    <div>
-                                        <div class="fw-semibold">Nhân viên</div>
-                                    </div>
-                                </a>
-                            </li>
+                            @* <li> *@
+                            @*     <a href="#" class="dropdown-item dropdown-item-custom"> *@
+                            @*         <i class="bi bi-person-heart me-3"></i> *@
+                            @*         <div> *@
+                            @*             <div class="fw-semibold">Khách hàng</div> *@
+                            @*         </div> *@
+                            @*     </a> *@
+                            @* </li> *@
+                            @* <li><hr class="dropdown-divider"></li> *@                    
+                            @* <li> *@
+                            @*     <a href="#" class="dropdown-item dropdown-item-custom"> *@
+                            @*         <i class="bi bi-person-fill me-3"></i> *@
+                            @*         <div> *@
+                            @*             <div class="fw-semibold">Nhân viên</div> *@
+                            @*         </div> *@
+                            @*     </a> *@
+                            @* </li> *@
                             <li>
                                 <a href="/AdminManageConsultant/ManageConsultant" class="dropdown-item dropdown-item-custom">
                                     <i class="bi bi-person-fill me-3"></i>
@@ -166,7 +167,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="dropdown-item dropdown-item-custom">
+                                <a href="/StaffTesting/" class="dropdown-item dropdown-item-custom">
                                     <i class="bi bi-eyedropper me-3"></i>
                                     <div>
                                         <div class="fw-semibold">Lịch Xét nghiệm</div>
@@ -220,10 +221,10 @@
                 else if(userRole == "Staff")
                 {
                     <!-- Staff Menu -->
-                    <a href="/StaffTesting/Manage" class="nav-link-custom">
+                    <a href="/StaffTesting/Index" class="nav-link-custom">
                         <i class="bi bi-calendar-week-fill me-1"></i> Lịch xét nghiệm
                     </a>
-                    <a href="#" class="nav-link-custom">
+                    <a href="/ServiceManagement/Index" class="nav-link-custom">
                         <i class="bi bi-question-square-fill me-1"></i> Dịch vụ
                     </a>
                     <div class="dropdown nav-dropdown">
@@ -435,7 +436,7 @@
                 <div class="col-md-12 col-lg-4">
                     <h5 class="text-primary fw-bold mb-3">Tìm chúng tôi trên bản đồ</h5>
                     <div class="map-container mb-3">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.64601140081!2d106.68962637451739!3d10.762916989381666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1e7ad81831%3A0x6b4a68c07659b850!2sHo%20Chi%20Minh%20City%20University%20of%20Science!5e0!3m2!1sen!2s!4v1718012345678!5m2!1sen!2s"
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3918.6062369630317!2d106.8066654!3d10.8414157!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752731176b07b1%3A0xb752b24b379bae5e!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBGUFQgVFAuIEhDTQ!5e0!3m2!1svi!2s!4v1752827661250!5m2!1svi!2s"
                                 width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <p class="text-muted small">Liên hệ với chúng tôi để được tư vấn và hỗ trợ tốt nhất.</p>
