@@ -32,6 +32,11 @@ public class ScheduleTests : PageModel
 
     public async Task<IActionResult> OnPostUpdateResultAsync()
     {
+        var role = HttpContext.Session.GetString("Role");
+        if (string.IsNullOrEmpty(role) || role != "Admin" && role != "Staff")
+        {
+            return RedirectToPage("/Unauthorized");
+        }
         if (string.IsNullOrEmpty(Result))
         {
             TempData["Error"] = "Kết quả không thể để trống!";

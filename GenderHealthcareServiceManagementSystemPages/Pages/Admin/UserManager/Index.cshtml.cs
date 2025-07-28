@@ -20,9 +20,15 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager
 
         public IList<User> User { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (string.IsNullOrEmpty(role) || role != "Admin")
+            {
+                return RedirectToPage("/Unauthorized");
+            }
             User = await _context.Users.ToListAsync();
+            return Page();
         }
     }
 }

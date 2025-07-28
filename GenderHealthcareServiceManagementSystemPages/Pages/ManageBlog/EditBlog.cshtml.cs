@@ -19,6 +19,11 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ManageBlog
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (string.IsNullOrEmpty(role) || role != "Admin" && role != "Staff")
+            {
+                return RedirectToPage("/Unauthorized");
+            }
             Blog = await _blogService.GetByIdAsync(id);
             if (Blog == null) return NotFound();
             return Page();

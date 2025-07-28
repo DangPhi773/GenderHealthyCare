@@ -21,6 +21,11 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ManageBlog
 
         public async Task<IActionResult> OnGetAsync()
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (string.IsNullOrEmpty(role) || role != "Admin" && role != "Staff")
+            {
+                return RedirectToPage("/Unauthorized");
+            }
             // Kiểm tra đăng nhập
             string? userIdStr = HttpContext.Session.GetString("UserId");
             if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out int userId))

@@ -71,3 +71,5 @@ secrets.json
 
 # Logs
 *.log
+
+.idea/

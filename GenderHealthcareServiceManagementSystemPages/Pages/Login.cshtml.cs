@@ -59,6 +59,12 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
             var user = await _accountService.LoginAsync(Username, Password);
             if (user != null)
             {
+                if (user?.IsDeleted == true)
+                {
+                    Console.WriteLine("[LoginModel][OnPostAsync] Đăng nhập thất bại.");
+                    Message = "Tài khoản này không hoạt động";
+                    return RedirectToPage("/Login");
+                }
                 Console.WriteLine($"[LoginModel][OnPostAsync] Đăng nhập thành công cho UserId: {user.UserId}");
 
                 HttpContext.Session.SetString("UserId", user.UserId.ToString());
@@ -84,13 +90,13 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages
             switch (role)
             {
                 case "Admin":
-                case "Manager":
-                case "Staff":
-                    //return RedirectToPage("/Admin/Dashboard");
                     return RedirectToPage("/Admin/Dashboard");
 
+                case "Manager":
+                case "Staff":
+                    return RedirectToPage("StaffTesting/Manage");
+
                 case "Consultant":
-                    //return RedirectToPage("/Consultations/Index");
                     return RedirectToPage("/Consultations/Index");
 
                 case "Customer":
