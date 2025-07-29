@@ -40,4 +40,9 @@ public class ConsultationRepository(ConsultationDAO dao) : IConsultationReposito
     {
         return _dao.GetConsultationsByUserIdAsync(userId);
     }
+
+    public async Task<List<Consultation>> GetAllConsultationsAsync()
+    {
+        return await _dao.GetAllConsultationsAsync();
+    }
 }

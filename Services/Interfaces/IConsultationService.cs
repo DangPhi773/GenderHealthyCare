@@ -19,4 +19,5 @@ public interface IConsultationService
     Task<bool> UpdateNotesAsync(int ConsultationId, string Notes);
     Task UpdateStatus(Consultation consultation);
     Task<List<Consultation>> GetConsultationsByUserId(int userId);
+    Task<List<Consultation>> GetAllConsultationsAsync();
 }

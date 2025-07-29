@@ -110,4 +110,9 @@ public class ConsultationService(IConsultationRepository repo) : IConsultationSe
     {
         return _repo.GetConsultationsByUserIdAsync(userId);
     }
+
+    public async Task<List<Consultation>> GetAllConsultationsAsync()
+    {
+        return await _repo.GetAllConsultationsAsync();
+    }
 }
