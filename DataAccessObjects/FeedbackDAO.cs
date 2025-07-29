@@ -17,12 +17,15 @@ namespace DataAccessObjects
             _context = context;
         }
 
-        public async Task<List<Feedback>> GetAllFeedback()
+        public async Task<List<Feedback>> GetAllFeedback(DateTime? from, DateTime? to)
         {
             return await _context.Feedbacks
                 .Include(f => f.User)
                 .Include(f => f.Consultant)
                 .Include(f => f.Service)
+                .Where(f => (from == null || f.CreatedAt >= from) &&
+                                           (to == null || f.CreatedAt <= to) &&
+                                                                      (f.IsDeleted == null || f.IsDeleted == false))
                 .ToListAsync();
         }
 

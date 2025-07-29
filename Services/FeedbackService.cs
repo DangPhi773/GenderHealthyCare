@@ -19,7 +19,7 @@ namespace Services
             _repo = repo;
         }
 
-        public async Task<List<Feedback>> GetAllFeedback() => await _repo.GetAllFeedback();
+        public async Task<List<Feedback>> GetAllFeedback(DateTime? from = null, DateTime? to = null) => await _repo.GetAllFeedback(from, to);
         public Task<Feedback?> GetFeedbackById(int id) => _repo.GetFeedbackById(id);
         public Task AddFeedback(Feedback feedback) => _repo.AddFeedback(feedback);
         public Task UpdateFeedback(Feedback feedback) => _repo.UpdateFeedback(feedback);

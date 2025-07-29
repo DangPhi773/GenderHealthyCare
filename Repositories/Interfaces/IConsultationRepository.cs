@@ -16,5 +16,5 @@ public interface IConsultationRepository
     Task<Consultation?> GetConsultationById(int consultationId);
     Task<bool> UpdateConsultation(Consultation consultation);
     Task<List<Consultation>> GetConsultationsByUserIdAsync(int userId);
-    Task<List<Consultation>> GetAllConsultationsAsync();
+    Task<List<Consultation>> GetAllConsultationsAsync(DateTime? from = null, DateTime? to = null);
 }

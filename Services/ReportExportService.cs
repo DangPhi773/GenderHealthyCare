@@ -11,7 +11,7 @@ using Repositories.Interfaces;
 using Services.Interfaces;
 
 namespace Services;
-public class ReportExportService(ITestRepository _testRepository) : IReportExportService
+public class ReportExportService(ITestRepository _testRepository, IConsultationRepository _consultationRepository, IFeedbackRepository _feedbackRepository) : IReportExportService
 {
     public byte[] ExportToExcel<T>(List<T> data, string sheetName)
     {
@@ -87,16 +87,44 @@ public class ReportExportService(ITestRepository _testRepository) : IReportExpor
                 if (format == "excel")
                     return ExportToExcel(testData, "Test Summary");
                 else
-                    return ExportToPdf(testData, "Test Summary",
-                        new() {
-                    { "Tên bệnh nhân", x => x.User.FullName },
-                    { "Tên dịch vụ", x => x.Service.Name },
-                    { "Ngày", x => x.AppointmentTime },
-                    { "Trạng thái", x => x.Status },
-                    { "Kết quả", x => x.Result },
-                });
+                    return ExportToPdf(testData, "Test Summary", new() 
+                    {
+                        { "Tên bệnh nhân", x => x.User.FullName },
+                        { "Tên dịch vụ", x => x.Service.Name },
+                        { "Ngày", x => x.AppointmentTime },
+                        { "Trạng thái", x => x.Status },
+                        { "Kết quả", x => x.Result },
+                    });
 
-            case "UserActivity":
+            case "ConsultationSummary":
+                var consultationData = await _consultationRepository.GetAllConsultationsAsync(from, to);
+                if (consultationData == null || !consultationData.Any())
+                    throw new InvalidOperationException("Không có dữ liệu để xuất báo cáo.");
+                if (format == "excel")
+                    return ExportToExcel(consultationData, "Consultation Summary");
+                else
+                        return ExportToPdf(consultationData, "Consultation Summary", new()
+                    {
+                        { "Tên bệnh nhân", x => x.User.FullName },
+                        { "Chuyên gia tư vấn", x => x.Consultant.FullName },
+                        { "Ngày", x => x.AppointmentTime },
+                        { "Trạng thái", x => x.Status },
+                        { "Ghi chú", x => x.Notes },
+                    });
+            case "FeedbackSummary":
+                var feedbackData = await _feedbackRepository.GetAllFeedback(from, to);
+                if (feedbackData == null || !feedbackData.Any())
+                    throw new InvalidOperationException("Không có dữ liệu để xuất báo cáo.");
+                if (format == "excel")
+                    return ExportToExcel(feedbackData, "Feedback Summary");
+                else
+                    return ExportToPdf(feedbackData, "Feedback Summary", new()
+                    {
+                        { "Tên bệnh nhân", x => x.User.FullName },
+                        { "Đánh giá", x => x.Rating },
+                        { "Nhận xét", x => x.FeedbackText },
+                        { "Ngày", x => x.CreatedAt },
+                    });
 
             default:
                 throw new ArgumentException("Loại báo cáo không hợp lệ.");

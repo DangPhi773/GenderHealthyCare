@@ -9,7 +9,7 @@ namespace Repositories.Interfaces
 {
     public interface IFeedbackRepository
     {
-        Task<List<Feedback>> GetAllFeedback();
+        Task<List<Feedback>> GetAllFeedback(DateTime? from = null, DateTime? to = null);
         Task<Feedback?> GetFeedbackById(int id);
         Task AddFeedback(Feedback feedback);
         Task UpdateFeedback(Feedback feedback);
