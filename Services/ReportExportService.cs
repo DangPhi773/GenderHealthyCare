@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Wordprocessing;
 using QuestPDF.Fluent;
+using Repositories.Interfaces;
 using Services.Interfaces;
 
 namespace Services;
-public class ReportExportService : IReportExportService
+public class ReportExportService(ITestRepository _testRepository) : IReportExportService
 {
     public byte[] ExportToExcel<T>(List<T> data, string sheetName)
     {
@@ -27,7 +28,13 @@ public class ReportExportService : IReportExportService
         {
             for (int c = 0; c < props.Length; c++)
             {
-                ws.Cell(r + 2, c + 1).Value = (XLCellValue)props[c].GetValue(data[r]);
+                var value = props[c].GetValue(data[r]);
+                if (value is DateTime dt)
+                    ws.Cell(r + 2, c + 1).Value = dt.ToString("dd/MM/yyyy");
+                else
+                    ws.Cell(r + 2, c + 1).Value = value?.ToString();
+
+                ws.Cell(r + 2, c + 1).Value = value?.ToString();
             }
         }
 
@@ -47,8 +54,11 @@ public class ReportExportService : IReportExportService
                 page.Content().Table(table =>
                 {
                     var headers = columnMap.Keys.ToList();
-                    foreach (var _ in headers)
-                        table.ColumnsDefinition(c => c.RelativeColumn());
+                    table.ColumnsDefinition(columns =>
+                    {
+                        foreach (var _ in headers)
+                            columns.RelativeColumn();
+                    });
 
                     table.Header(h =>
                     {
@@ -65,4 +75,32 @@ public class ReportExportService : IReportExportService
             });
         }).GeneratePdf();
     }
+
+    public async Task<byte[]> GenerateReportAsync(string type, DateTime? from, DateTime? to, string format)
+    {
+        switch (type)
+        {
+            case "TestSummary":
+                var testData = await _testRepository.GetAllTest(from, to);
+                if (testData == null || !testData.Any())
+                    throw new InvalidOperationException("Không có dữ liệu để xuất báo cáo.");
+                if (format == "excel")
+                    return ExportToExcel(testData, "Test Summary");
+                else
+                    return ExportToPdf(testData, "Test Summary",
+                        new() {
+                    { "Tên bệnh nhân", x => x.User.FullName },
+                    { "Tên dịch vụ", x => x.Service.Name },
+                    { "Ngày", x => x.AppointmentTime },
+                    { "Trạng thái", x => x.Status },
+                    { "Kết quả", x => x.Result },
+                });
+
+            case "UserActivity":
+
+            default:
+                throw new ArgumentException("Loại báo cáo không hợp lệ.");
+        }
+    }
+
 }

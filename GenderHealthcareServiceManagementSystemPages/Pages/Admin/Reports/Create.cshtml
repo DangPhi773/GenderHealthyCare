@@ -17,6 +17,14 @@
     }
 </style>
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
 <div class="container">
     <div class="col-12 d-flex flex-column mb-3">
         <h1 class="gradient-text" style="width:fit-content;padding:5px">@ViewData["Title"]</h1>
@@ -36,7 +44,6 @@
                         <label for="reportType" class="form-label">Loại báo cáo *</label>
                         <select class="form-select" asp-for="ReportType" required>
                             <option value="">Chọn loại báo cáo</option>
-                            <option value="UserActivity">Báo cáo tổng hợp hoạt động người dùng</option>
                             <option value="TestSummary">Báo cáo kết quả xét nghiệm</option>
                             <option value="ConsultationSummary">Báo cáo tư vấn y tế</option>
                             <option value="FeedbackSummary">Báo cáo phản hồi người dùng</option>
@@ -59,10 +66,12 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="dateRange" class="form-label">Khoảng thời gian</label>
-                        <select asp-for="DateRange" class="form-select">
+                        <select class="form-select" id="dateRange" name="DateRange">
                             <option value="week">Tuần này</option>
                             <option value="month" selected>Tháng này</option>
                             <option value="year">Năm này</option>
+                            <option value="all">Toàn bộ</option>
+                            <option value="custom">Tùy chọn</option>
                         </select>
                     </div>
 
@@ -72,16 +81,6 @@
                             <option value="pdf" selected>PDF</option>
                             <option value="excel">Excel</option>
                         </select>
-                    </div>
-                </div>
-
-                <div class="mb-4">
-                    <h5 class="mb-3">Tùy chọn báo cáo</h5>
-                    <div class="form-check mb-2">
-                        <input asp-for="AutoEmail" class="form-check-input" type="checkbox" />
-                        <label class="form-check-label" for="autoEmail">
-                            Tự động gửi email khi hoàn thành
-                        </label>
                     </div>
                 </div>
 
@@ -100,29 +99,46 @@
 
 @section Scripts {
     <script>
-        // Auto-fill dates based on date range selection
         document.getElementById('dateRange').addEventListener('change', function () {
             const today = new Date();
-            const fromDate = document.getElementById('fromDate');
-            const toDate = document.getElementById('toDate');
+            const fromInput = document.getElementById('FromDate');
+            const toInput = document.getElementById('ToDate');
+
+            let fromDate, toDate;
 
             switch (this.value) {
                 case 'week':
-                    const weekStart = new Date(today.setDate(today.getDate() - today.getDay()));
-                    const weekEnd = new Date(today.setDate(today.getDate() - today.getDay() + 6));
-                    fromDate.value = weekStart.toISOString().split('T')[0];
-                    toDate.value = weekEnd.toISOString().split('T')[0];
+                    const firstDayOfWeek = new Date(today);
+                    firstDayOfWeek.setDate(today.getDate() - today.getDay());
+                    const lastDayOfWeek = new Date(firstDayOfWeek);
+                    lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
+                    fromDate = firstDayOfWeek;
+                    toDate = lastDayOfWeek;
                     break;
+
                 case 'month':
-                    const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-                    const monthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-                    fromDate.value = monthStart.toISOString().split('T')[0];
-                    toDate.value = monthEnd.toISOString().split('T')[0];
+                    fromDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                    toDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
                     break;
-                // Add more cases as needed
+
+                case 'year':
+                    fromDate = new Date(today.getFullYear(), 0, 1);
+                    toDate = new Date(today.getFullYear(), 11, 31);
+                    break;
+
+                case 'all':
+                    fromInput.value = '';
+                    toInput.value = '';
+                    return;
+                case 'custom':
+                    return;
             }
+
+            fromInput.value = fromDate.toISOString().split('T')[0];
+            toInput.value = toDate.toISOString().split('T')[0];
         });
     </script>
+
 }
 
 @section Styles {

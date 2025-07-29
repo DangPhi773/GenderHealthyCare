@@ -16,7 +16,7 @@ public class ReportRepository(ReportDAO dao) : IReportRepository
         await _dao.AddAsync(report);
     }
 
-    public async Task DeleteReportAsync(string reportId)
+    public async Task DeleteReportAsync(int reportId)
     {
         await _dao.DeleteAsync(reportId);
     }

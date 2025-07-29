@@ -9,4 +9,5 @@ public interface IReportExportService
 {
     byte[] ExportToExcel<T>(List<T> data, string sheetName);
     byte[] ExportToPdf<T>(List<T> data, string title, Dictionary<string, Func<T, object>> columnMap);
+    Task<byte[]> GenerateReportAsync(string type, DateTime? from, DateTime? to, string format);
 }

@@ -17,11 +17,20 @@ namespace DataAccessObjects
             _context = context;
         }
 
-        public async Task<List<Test>> GetAllTest()
+        public async Task<List<Test>> GetAllTest(DateTime? from, DateTime? to)
         {
+            if (from == null || to == null)
+            {
+                return await _context.Tests
+                    .Include(t => t.User)
+                    .Include(t => t.Service)
+                    .Where(t => t.IsDeleted != true)
+                    .ToListAsync();
+            }
             return await _context.Tests
                 .Include(t => t.User)
                 .Include(t => t.Service)
+                .Where(t => t.IsDeleted != true && t.AppointmentTime >= from && t.AppointmentTime <= to)
                 .ToListAsync();
         }
 
@@ -72,7 +81,7 @@ namespace DataAccessObjects
                 .Include(t => t.Service)
                 .ToListAsync();
         }
-        
+
         public async Task<List<Test>> GetScheduledTests()
         {
             return await _context.Tests
@@ -81,28 +90,28 @@ namespace DataAccessObjects
                 .Include(t => t.Service)
                 .ToListAsync();
         }
-        
+
         public async Task<bool> UpdateTestStatus(int testId, string status)
         {
             var test = await _context.Tests.FindAsync(testId);
             if (test == null) return false;
 
             test.Status = status;
-            
+
             _context.Tests.Update(test);
             await _context.SaveChangesAsync();
             return true;
         }
-        
+
         public async Task<bool> UpdateTestResultOrCancel(int testId, string result, string cancelReason)
         {
             var test = await _context.Tests.FindAsync(testId);
             if (test == null)
                 return false;
-            
+
             if (test.Status != "Scheduled")
                 return false;
-            
+
             if (!string.IsNullOrEmpty(result))
             {
                 test.Result = result;
@@ -124,7 +133,7 @@ namespace DataAccessObjects
             }
             catch (Exception ex)
             {
-                return false; 
+                return false;
             }
         }
 
@@ -139,7 +148,7 @@ namespace DataAccessObjects
                 if (test.AppointmentTime.Date == selectedTime.Date &&
                     Math.Abs((test.AppointmentTime - selectedTime).TotalMinutes) < 120)
                 {
-                    return true; 
+                    return true;
                 }
             }
 
@@ -170,8 +179,6 @@ namespace DataAccessObjects
 
             return true;
         }
-
-
 
     }
 }

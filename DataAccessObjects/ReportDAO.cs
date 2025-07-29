@@ -32,7 +32,7 @@ public class ReportDAO
         _context.Reports.Update(report);
         await _context.SaveChangesAsync();
     }
-    public async Task DeleteAsync(string id)
+    public async Task DeleteAsync(int id)
     {
         var report = await _context.Reports.FindAsync(id);
         if (report != null)

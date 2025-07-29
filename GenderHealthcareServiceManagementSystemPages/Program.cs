@@ -9,8 +9,9 @@ using Services;
 using BusinessObjects.Configurations;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 
+using QuestPDF.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
-
+QuestPDF.Settings.License = LicenseType.Community;
 // Razor Pages + SignalR
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR();

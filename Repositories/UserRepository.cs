@@ -27,9 +27,6 @@ namespace Repositories
         {
             return await _dao.AddUserAndReturnIdAsync(user);
         }
-
-
-        
         public async Task<List<User>> GetUsersAsync()
         {
             return await _dao.GetUsersAsync();
@@ -39,5 +36,6 @@ namespace Repositories
         {
             return await _dao.DeleteUserAsync(userId);
         }
+
     }
 }

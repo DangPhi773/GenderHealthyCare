@@ -6,12 +6,16 @@ using System.Text;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.Reports
 {
-    public class CreateModel(IReportService service, IWebHostEnvironment env) : PageModel
+    public class CreateModel(IReportService reportService, IReportExportService reportExportService, IWebHostEnvironment env) : PageModel
     {
-        private readonly IReportService _service = service;
+        private readonly IReportService _reportService = reportService;
+        private readonly IReportExportService _reportExportService = reportExportService;
         private readonly IWebHostEnvironment _env = env;
         [BindProperty]
         public string ReportType { get; set; } = string.Empty;
+
+        [BindProperty]
+        public string DateRange { get; set; } = "month";
 
         [BindProperty]
         public DateTime? FromDate { get; set; }
@@ -20,13 +24,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.Reports
         public DateTime? ToDate { get; set; }
 
         [BindProperty]
-        public string DateRange { get; set; } = "month";
-
-        [BindProperty]
         public string ExportFormat { get; set; } = "pdf";
-
-        [BindProperty]
-        public bool AutoEmail { get; set; }
 
         public void OnGet()
         {
@@ -44,7 +42,10 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.Reports
 
             try
             {
-                byte[] fileBytes;
+                byte[] fileBytes = await _reportExportService.GenerateReportAsync(
+                                ReportType,
+                                FromDate, ToDate, ExportFormat.ToLower()
+                            );
                 string ext;
                 string mime;
 
@@ -52,13 +53,11 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.Reports
                 {
                     ext = "xlsx";
                     mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                    fileBytes = Encoding.UTF8.GetBytes("Fake Excel Content");
                 }
                 else
                 {
                     ext = "pdf";
                     mime = "application/pdf";
-                    fileBytes = Encoding.UTF8.GetBytes("Fake PDF Report Content");
                 }
 
                 string folderPath = Path.Combine(_env.WebRootPath, "reports");
@@ -78,7 +77,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.Reports
                     IsDeleted = false
                 };
 
-                await _service.AddReportAsync(report);
+                await _reportService.AddReportAsync(report);
 
                 TempData["SuccessMessage"] = "Báo cáo đã được tạo thành công!";
                 return RedirectToPage("/Admin/Reports/Index");
@@ -89,5 +88,6 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.Reports
                 return Page();
             }
         }
+
     }
 }

@@ -9,7 +9,7 @@ namespace Services.Interfaces
 {
     public interface ITestService
     {
-        Task<List<Test>> GetAllTest();
+        Task<List<Test>> GetAllTest(DateTime? from = null, DateTime? to = null);
         Task<Test?> GetTestById(int id);
         Task AddTest(Test test);
         Task UpdateTest(Test test);

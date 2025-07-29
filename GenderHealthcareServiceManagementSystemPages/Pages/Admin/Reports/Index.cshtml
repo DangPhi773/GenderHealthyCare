@@ -17,7 +17,6 @@
     }
 </style>
 
-
 @if (TempData["SuccessMessage"] != null)
 {
     <div class="alert alert-success">@TempData["SuccessMessage"]</div>
@@ -47,12 +46,14 @@
             <a href="/Admin/Reports/Create" class="btn btn-gradient">
                 <i class="fas fa-plus"></i> Tạo báo cáo mới
             </a>
+
             <table class="report-table">
                 <thead>
                     <tr>
                         <th>Loại báo cáo</th>
-                        <th>Ngày tạo</th>
+                        <th>File</th>
                         <th>Người tạo</th>
+                        <th>Ngày tạo</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
@@ -69,17 +70,16 @@
                         {
                             <tr>
                                 <td>@report.ReportTypeName</td>
-                                <td>@report.CreatedDate</td>
+                                <td>@(report.FilePath)</td>
                                 <td>@(report.CreatedBy ?? "UNKNOWN")</td>
+                                <td>@report.CreatedDate</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a asp-page="/Admin/Reports/Index"
-                                           asp-page-handler="ExportFile"
-                                           asp-route-id="@report.ReportId"
-                                           class="btn btn-primary btn-sm">
+                                        <button onclick="downloadReport(@report.ReportId, '@report.FilePath')"
+                                                class="btn btn-primary btn-sm">
                                             Tải về
-                                        </a>
-                                        <a href="/Admin/Reports/Edit/1" class="btn btn-warning btn-sm">Sửa</a>
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-sm" onclick="confirmDeleteReport(@report.ReportId, '@report.ReportTypeName')">Xóa</button>
                                     </div>
                                 </td>
                             </tr>
@@ -90,6 +90,101 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmModalLabel">File không hợp lệ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>File báo cáo "<span id="reportName"></span>" không tồn tại hoặc đã bị xóa.</p>
+                <p><strong>Bạn có muốn xóa bản ghi này khỏi danh sách không?</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" onclick="deleteReport()">Xóa bản ghi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let currentReportId = 0;
+        let currentReportName = '';
+
+        async function downloadReport(reportId, filePath) {
+            try {
+                const downloadUrl = `/Admin/Reports/Index?handler=ExportFile&id=${reportId}`;
+
+                const response = await fetch(downloadUrl, {
+                    method: 'GET',
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+
+                    const fileName = filePath.split('/').pop();
+
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                } else if (response.status === 404) {
+                    currentReportId = reportId;
+                    currentReportName = filePath.split('/').pop();
+                    document.getElementById('reportName').textContent = currentReportName;
+
+                    const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+                    modal.show();
+                } else {
+                    alert('Có lỗi xảy ra khi tải file. Vui lòng thử lại.');
+                }
+            } catch (error) {
+                console.error('Error downloading report:', error);
+                alert('Có lỗi xảy ra khi tải file. Vui lòng thử lại.');
+            }
+        }
+
+
+        async function deleteReport() {
+            try {
+                const response = await fetch(`/Admin/Reports/Index?handler=DeleteExportFile&id=${currentReportId}`, {
+                    method: 'POST',
+                });
+
+                console.log(response);
+                if (response.ok) {
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmModal'));
+                    modal.hide();
+
+                    location.reload();
+                } else {
+                    alert('Có lỗi xảy ra khi xóa báo cáo. Vui lòng thử lại.');
+                }
+            } catch (error) {
+                console.error('Error deleting report:', error);
+                alert('Có lỗi xảy ra khi xóa báo cáo. Vui lòng thử lại.');
+            }
+        }
+
+        function confirmDeleteReport(reportId, reportName) {
+            currentReportId = reportId;
+            currentReportName = reportName;
+            document.getElementById('reportName').textContent = reportName;
+
+            const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+            modal.show();
+        }
+    </script>
+}
 
 @section Styles {
     <link rel="stylesheet" href="~/css/Report.css?v=20250714" />
@@ -140,5 +235,14 @@
                 text-align: left;
                 margin-bottom: 0;
             }
+
+        .modal-content {
+            border-radius: 10px;
+        }
+
+        .modal-header {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-bottom: 1px solid #dee2e6;
+        }
     </style>
 }

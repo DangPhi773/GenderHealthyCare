@@ -12,5 +12,5 @@ public interface IReportRepository
     Task<Report> GetReportByIdAsync(int reportId);
     Task AddReportAsync(Report report);
     Task UpdateReportAsync(Report report);
-    Task DeleteReportAsync(string reportId);
+    Task DeleteReportAsync(int reportId);
 }

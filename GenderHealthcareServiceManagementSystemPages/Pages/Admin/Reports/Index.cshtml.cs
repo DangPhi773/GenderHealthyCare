@@ -7,6 +7,7 @@ using Services.Interfaces;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.Reports
 {
+    [IgnoreAntiforgeryToken]
     public class IndexModel(IReportService reportService, IReportExportService exportService, IWebHostEnvironment env) : PageModel
     {
         private readonly IReportService _reportService = reportService;
@@ -22,8 +23,8 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.Reports
             {
                 return RedirectToPage("/Unauthorized");
             }
-            Reports = await _reportService.GetAllReportDisplayModelsAsync();
 
+            Reports = await _reportService.GetAllReportDisplayModelsAsync();
             return Page();
         }
 
@@ -31,7 +32,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.Reports
         {
             var report = await _reportService.GetReportByIdAsync(id);
             if (report == null || report.IsDeleted == true)
-                return NotFound();
+                return NotFound("Báo cáo không tồn tại.");
 
             var role = HttpContext.Session.GetString("Role");
             if (string.IsNullOrEmpty(role) || role != "Admin")
@@ -43,11 +44,70 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.Reports
             var filePath = Path.Combine(folderPath, report.ReportData);
 
             if (!System.IO.File.Exists(filePath))
-                return NotFound();
+            {
+                return NotFound("File báo cáo không tồn tại.");
+            }
 
-            var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
-            var contentType = GetContentType(filePath);
-            return File(fileBytes, contentType, report.ReportData);
+            try
+            {
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+                var contentType = GetContentType(filePath);
+                return File(fileBytes, contentType, report.ReportData);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Có lỗi xảy ra khi đọc file.");
+            }
+        }
+
+        public async Task<IActionResult> OnPostDeleteExportFileAsync(int id)
+        {
+            try
+            {
+                var role = HttpContext.Session.GetString("Role");
+                if (string.IsNullOrEmpty(role) || role != "Admin")
+                {
+                    return RedirectToPage("/Unauthorized");
+                }
+
+                var report = await _reportService.GetReportByIdAsync(id);
+                if (report == null)
+                {
+                    return new JsonResult(new { success = false, message = "Báo cáo không tồn tại." })
+                    {
+                        StatusCode = 404
+                    };
+                }
+
+                // Xóa file vật lý nếu tồn tại
+                var folderPath = Path.Combine(_env.WebRootPath, "reports");
+                var filePath = Path.Combine(folderPath, report.ReportData);
+                if (System.IO.File.Exists(filePath))
+                {
+                    try
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Không thể xóa file: {ex.Message}");
+                    }
+                }
+
+                // Xóa record trong database (soft delete)
+                await _reportService.DeleteReportAsync(id);
+
+                TempData["SuccessMessage"] = "Đã xóa báo cáo thành công.";
+                return new JsonResult(new { success = true, message = "Đã xóa báo cáo thành công." });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi xóa báo cáo: {ex.Message}");
+                return new JsonResult(new { success = false, message = "Có lỗi xảy ra khi xóa báo cáo." })
+                {
+                    StatusCode = 500
+                };
+            }
         }
 
         private string GetContentType(string path)

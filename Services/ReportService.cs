@@ -35,7 +35,7 @@ public class ReportService(IReportRepository repo, IUserRepository userRepo) : I
         await _reportRepository.UpdateReportAsync(report);
     }
 
-    public async Task DeleteReportAsync(string reportId)
+    public async Task DeleteReportAsync(int reportId)
     {
         await _reportRepository.DeleteReportAsync(reportId);
     }
@@ -55,6 +55,7 @@ public class ReportService(IReportRepository repo, IUserRepository userRepo) : I
             {
                 ReportId = report.ReportId,
                 ReportTypeName = ConvertReportTypeToString(report.ReportType),
+                FilePath = report.ReportData,
                 CreatedDate = report.CreatedAt ?? DateTime.MinValue,
                 CreatedBy = user?.Username,
             };
@@ -68,8 +69,8 @@ public class ReportService(IReportRepository repo, IUserRepository userRepo) : I
         {
             "UserActivity" => "Báo cáo tổng hợp hoạt động người dùng",
             "TestSummary" => "Báo cáo kết quả xét nghiệm",
-            "HealthConsultation" => "Báo cáo tư vấn y tế",
-            "ServiceUsage" => "Báo cáo sử dụng dịch vụ y tế",
+            "ConsultationSummary" => "Báo cáo tư vấn y tế",
+            "FeedbackSummary" => "Báo cáo phản hồi người dùng",
             _ => "Unknown"
         };
     }
