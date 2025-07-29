@@ -17,13 +17,28 @@
 
                     <div class="mb-3">
                         <label asp-for="User.Role" class="form-label fw-bold">Role</label>
-                        <input asp-for="User.Role" class="form-control shadow-sm rounded" />
+                        <div class="mb-3">
+                            <select asp-for="User.Role" class="form-select shadow-sm rounded">
+                                <option value="">-- Chọn vai trò --</option>
+                                <option value="Guest">Guest</option>
+                                <option value="Customer">Customer</option>
+                                <option value="Consultant">Consultant</option>
+                                <option value="Staff">Staff</option>
+                                <option value="Manager">Manager</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                            <span asp-validation-for="User.Role" class="text-danger"></span>
+                        </div>
                         <span asp-validation-for="User.Role" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
                         <label asp-for="User.Gender" class="form-label fw-bold">Gender</label>
-                        <input asp-for="User.Gender" class="form-control shadow-sm rounded" />
+                        <select asp-for="User.Gender" class="form-select shadow-sm rounded">
+                            <option value="">-- Chọn giới tính --</option>
+                            <option value="Male">Nam</option>
+                            <option value="Female">Nữ</option>
+                        </select>
                         <span asp-validation-for="User.Gender" class="text-danger"></span>
                     </div>
 
@@ -35,13 +50,13 @@
 
                     <div class="mb-3">
                         <label asp-for="User.Username" class="form-label fw-bold">Username</label>
-                        <input asp-for="User.Username" class="form-control shadow-sm rounded" />
+                        <input readonly asp-for="User.Username" class="form-control shadow-sm rounded" />
                         <span asp-validation-for="User.Username" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
                         <label asp-for="User.Email" class="form-label fw-bold">Email</label>
-                        <input asp-for="User.Email" class="form-control shadow-sm rounded" />
+                        <input readonly asp-for="User.Email" class="form-control shadow-sm rounded" />
                         <span asp-validation-for="User.Email" class="text-danger"></span>
                     </div>
 
@@ -71,7 +86,11 @@
 
                     <div class="mb-3">
                         <label asp-for="User.IsDeleted" class="form-label fw-bold">Is Deleted</label>
-                        <input asp-for="User.IsDeleted" class="form-control shadow-sm rounded" />
+                        <select asp-for="User.IsDeleted" class="form-select shadow-sm rounded">
+                            <option value="">-- Chọn trạng thái --</option>
+                            <option value="false">Hoạt động</option>
+                            <option value="true">Đã xóa</option>
+                        </select>
                         <span asp-validation-for="User.IsDeleted" class="text-danger"></span>
                     </div>
 
@@ -187,5 +206,17 @@
         width: 100%;
         margin-top: 1rem;
     }
+
+        .form-select {
+            font-size: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+        }
+
+            .form-select:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
     }
 </style>

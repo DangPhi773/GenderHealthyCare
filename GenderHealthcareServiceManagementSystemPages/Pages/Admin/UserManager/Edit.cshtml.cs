@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects.Models;
+using Services.Interfaces;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager
 {
     public class EditModel : PageModel
     {
-        private readonly BusinessObjects.Models.GenderHealthcareContext _context;
+        private readonly IUserService _userService;
 
-        public EditModel(BusinessObjects.Models.GenderHealthcareContext context)
+        public EditModel(IUserService userService)
         {
-            _context = context;
+            _userService = userService;
         }
 
         [BindProperty]
@@ -34,7 +35,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager
                 return NotFound();
             }
 
-            var user =  await _context.Users.FirstOrDefaultAsync(m => m.UserId == id);
+            var user = await _userService.GetUserById(id.Value);
             if (user == null)
             {
                 return NotFound();
@@ -47,35 +48,37 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+      
+
+
+            var existingUser = await _userService.GetUserById(User.UserId);
+            if (existingUser == null)
             {
+                return NotFound();
+            }
+            existingUser.FullName = User.FullName;
+            existingUser.Email = User.Email;
+            existingUser.Role = User.Role;
+            existingUser.IsDeleted = User.IsDeleted;
+            existingUser.Gender = User.Gender;
+            existingUser.Dob = User.Dob;
+            existingUser.Phone = User.Phone;
+            existingUser.UpdatedAt = DateTime.UtcNow;
+
+            var result = await _userService.UpdateUser(existingUser);
+            if (!result)
+            {
+                ModelState.AddModelError("", "Failed to update user.");
                 return Page();
             }
-
-            _context.Attach(User).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(User.UserId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
             return RedirectToPage("./Index");
         }
 
-        private bool UserExists(int id)
-        {
-            return _context.Users.Any(e => e.UserId == id);
-        }
+
     }
 }
+
+
+
+
+

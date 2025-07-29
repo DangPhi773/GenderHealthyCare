@@ -6,16 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects.Models;
+using Services.Interfaces;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager
 {
     public class IndexModel : PageModel
     {
-        private readonly BusinessObjects.Models.GenderHealthcareContext _context;
+        private readonly IUserService _userService;
 
-        public IndexModel(BusinessObjects.Models.GenderHealthcareContext context)
+        public IndexModel(IUserService userService )
         {
-            _context = context;
+            _userService = userService;
         }
 
         public IList<User> User { get;set; } = default!;
@@ -27,7 +28,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager
             {
                 return RedirectToPage("/Unauthorized");
             }
-            User = await _context.Users.ToListAsync();
+            User = await _userService.GetAllUsersAsync();
             return Page();
         }
     }
