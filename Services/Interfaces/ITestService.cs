@@ -9,7 +9,7 @@ namespace Services.Interfaces
 {
     public interface ITestService
     {
-        Task<List<Test>> GetAllTest();
+        Task<List<Test>> GetAllTest(DateTime? from = null, DateTime? to = null);
         Task<Test?> GetTestById(int id);
         Task AddTest(Test test);
         Task UpdateTest(Test test);
@@ -18,7 +18,9 @@ namespace Services.Interfaces
         Task<List<Test>> GetPendingTests();
         Task<List<Test>> GetScheduledTests();
         Task<bool> UpdateTestStatus(int testId, string status);
+        Task<bool> UpdateTestResultOrCancel(int testId, string result, string cancelReason);
         Task<bool> IsAppointmentTimeTestingConflict(int userId, DateTime selectedTime);
+        Task<bool> UpdateTestFields(int testId, string? status = null, string? result = null, string? cancelReason = null);
 
     }
 }

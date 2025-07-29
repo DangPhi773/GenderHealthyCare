@@ -4,88 +4,788 @@
     ViewData["Title"] = "Lịch sử tư vấn";
 }
 
-<main class="py-5">
+<main class="consultation-history-page">
     <div class="container">
-        <div class="card shadow-lg p-4 bg-white">
-            <div class="text-center mb-4">
-                <h2 class="h4 fw-bold text-primary">📋 Lịch sử tư vấn</h2>
-                <p class="text-muted">Danh sách các buổi tư vấn bạn đã đăng ký.</p>
+        <!-- Header Section -->
+        <div class="page-header">
+            <div class="breadcrumb">
+                <a href="/">Trang chủ</a>
+                <span>/</span>
+                <span>Lịch sử tư vấn</span>
             </div>
-
-            @if (Model.Consultations.Count == 0)
-            {
-                <div class="alert alert-info text-center fw-semibold">
-                    Bạn chưa có buổi tư vấn nào.
+            <div class="header-content">
+                <div class="header-icon">
+                    <i class="bi bi-chat-dots"></i>
                 </div>
-            }
-            else
-            {
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead class="table-light">
-                            <tr>
-                                <th>#</th>
-                                <th>Tư vấn viên</th>
-                                <th>Thời gian</th>
-                                <th>Link họp</th>
-                                <th>Ghi chú</th>
-                                <th>Trạng thái</th>
-                                <th>Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var consultation in Model.Consultations.OrderByDescending(c => c.AppointmentTime))
+                <div class="header-text">
+                    <h1>Lịch sử tư vấn</h1>
+                    <p>Theo dõi và quản lý các buổi tư vấn của bạn</p>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">@Model.Consultations.Count</div>
+                        <div class="stat-label">Tổng số</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">@Model.Consultations.Count(c => c.Status == "Completed")</div>
+                        <div class="stat-label">Hoàn thành</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">@Model.Consultations.Count(c => c.Status == "Pending")</div>
+                        <div class="stat-label">Chờ xử lý</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-controls">
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm theo tư vấn viên...">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-status="all">
+                        <i class="bi bi-list"></i>
+                        Tất cả
+                    </button>
+                    <button class="filter-btn" data-status="Pending">
+                        <i class="bi bi-clock"></i>
+                        Chờ xử lý
+                    </button>
+                    <button class="filter-btn" data-status="Confirmed">
+                        <i class="bi bi-check-circle"></i>
+                        Đã xác nhận
+                    </button>
+                    <button class="filter-btn" data-status="Completed">
+                        <i class="bi bi-check-all"></i>
+                        Hoàn thành
+                    </button>
+                    <button class="filter-btn" data-status="Cancelled">
+                        <i class="bi bi-x-circle"></i>
+                        Đã hủy
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Section -->
+        @if (Model.Consultations.Count == 0)
+        {
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="bi bi-calendar-x"></i>
+                </div>
+                <h3>Chưa có buổi tư vấn nào</h3>
+                <p>Bạn chưa đăng ký buổi tư vấn nào. Hãy đặt lịch tư vấn để được hỗ trợ tốt nhất.</p>
+                <a href="/consultation" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i>
+                    Đặt lịch tư vấn
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="consultations-grid" id="consultationsGrid">
+                @foreach (var consultation in Model.Consultations.OrderByDescending(c => c.AppointmentTime))
+                {
+                    <div class="consultation-card" data-status="@consultation.Status">
+                        <div class="card-header_Consultation">
+                            <div class="consultant-info">
+                                <div class="consultant-avatar">
+                                    <i class="bi bi-person-circle"></i>
+                                </div>
+                                <div class="consultant-details">
+                                    <h4>@(consultation.Consultant?.FullName ?? "Chưa phân công")</h4>
+                                    <p>ID: #@consultation.ConsultationId</p>
+                                </div>
+                            </div>
+                            <div class="status-badge status-@consultation.Status.ToLower()">
+                                @switch (consultation.Status)
+                                {
+                                    case "Pending":
+                                        <i class="bi bi-clock"></i>
+                                        <span>Chờ xử lý</span>
+                                        break;
+                                    case "Confirmed":
+                                        <i class="bi bi-check-circle"></i>
+                                        <span>Đã xác nhận</span>
+                                        break;
+                                    case "Completed":
+                                        <i class="bi bi-check-all"></i>
+                                        <span>Hoàn thành</span>
+                                        break;
+                                    case "Cancelled":
+                                        <i class="bi bi-x-circle"></i>
+                                        <span>Đã hủy</span>
+                                        break;
+                                    default:
+                                        <i class="bi bi-question-circle"></i>
+                                        <span>@consultation.Status</span>
+                                        break;
+                                }
+                            </div>
+                        </div>
+
+                        <div class="card-content">
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="bi bi-calendar-event"></i>
+                                        Thời gian
+                                    </div>
+                                    <div class="info-value">
+                                        @consultation.AppointmentTime.ToString("HH:mm - dd/MM/yyyy")
+                                    </div>
+                                </div>
+
+                                @if (!string.IsNullOrEmpty(consultation.MeetingLink))
+                                {
+                                    <div class="info-item">
+                                        <div class="info-label">
+                                            <i class="bi bi-camera-video"></i>
+                                            Link họp
+                                        </div>
+                                        <div class="info-value">
+                                            <a href="@consultation.MeetingLink" target="_blank" class="meeting-link">
+                                                <i class="bi bi-box-arrow-up-right"></i>
+                                                Tham gia cuộc họp
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+
+                                @if (!string.IsNullOrEmpty(consultation.Notes))
+                                {
+                                    <div class="info-item full-width">
+                                        <div class="info-label">
+                                            <i class="bi bi-sticky"></i>
+                                            Ghi chú
+                                        </div>
+                                        <div class="info-value notes">
+                                            @consultation.Notes
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="card-actions">
+                            @if (consultation.Status == "Completed" || Model.FeedbackStatus.GetValueOrDefault(consultation.ConsultationId))
                             {
-                                <tr>
-                                    <td>@consultation.ConsultationId</td>
-                                    <td>@consultation.Consultant?.FullName</td>
-                                    <td>@consultation.AppointmentTime.ToString("HH:mm dd/MM/yyyy")</td>
-                                    <td>
-                                        @if (!string.IsNullOrEmpty(consultation.MeetingLink))
+                                <form method="post" asp-page-handler="SetConsultationId" class="feedback-form">
+                                    <input type="hidden" name="consultationId" value="@consultation.ConsultationId" />
+                                    <button type="submit" class="btn@(Model.FeedbackStatus.GetValueOrDefault(consultation.ConsultationId) ? "btn-secondary" : "btn-primary")" @(Model.FeedbackStatus.GetValueOrDefault(consultation.ConsultationId) ? "disabled" : "")>
+                                        @if (Model.FeedbackStatus.GetValueOrDefault(consultation.ConsultationId))
                                         {
-                                            <a href="@consultation.MeetingLink" target="_blank">Tham gia</a>
+                                            <i class="bi bi-check-circle"></i>
+                                            <span>Đã đánh giá</span>
                                         }
                                         else
                                         {
-                                            <span class="text-muted fst-italic">Chưa có</span>
+                                            <i class="bi bi-star"></i>
+                                            <span>Đánh giá</span>
                                         }
-                                    </td>
-                                    <td>@consultation.Notes</td>
-                                    <td>
-                                        @switch (consultation.Status)
-                                        {
-                                            case "Pending":
-                                                <span class="badge bg-warning text-dark">⏳ Pending</span>
-                                                break;
-                                            case "In Progress":
-                                                <span class="badge bg-info text-white">🔄 In Progress</span>
-                                                break;
-                                            case "Completed":
-                                                <span class="badge bg-success">✅ Hoàn tất</span>
-                                                break;
-                                            default:
-                                                <span class="badge bg-secondary">@consultation.Status</span>
-                                                break;
-                                        }
-                                    </td>
-                                    <td>
-                                        @if (consultation.Status == "Completed" || Model.FeedbackStatus.GetValueOrDefault(consultation.ConsultationId))
-                                        {
-                                            <form method="post" asp-page-handler="SetConsultationId">
-                                                <input type="hidden" name="consultationId" value="@consultation.ConsultationId" />
-                                                <button type="submit" class="btn btn-sm btn-outline-@(Model.FeedbackStatus.GetValueOrDefault(consultation.ConsultationId) ? "secondary" : "primary")">
-                                                    @(Model.FeedbackStatus.GetValueOrDefault(consultation.ConsultationId) ? "Đã đánh giá" : "Đánh giá")
-                                                </button>
-                                            </form>
-                                        }
-                                    </td>
-
-                                </tr>
+                                    </button>
+                                </form>
                             }
-                        </tbody>
-                    </table>
-                </div>
-            }
-        </div>
+
+                            @if (consultation.Status == "Confirmed" && !string.IsNullOrEmpty(consultation.MeetingLink))
+                            {
+                                <a href="@consultation.MeetingLink" target="_blank" class="btn btn-success">
+                                    <i class="bi bi-camera-video"></i>
+                                    Tham gia ngay
+                                </a>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
     </div>
 </main>
+
+<style>
+    /* Main Layout */
+    .consultation-history-page {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #FFD6FF 0%, #E7C6FF 25%, #C8B6FF 50%, #C2C9FF 75%, #BBD0FF 100%);
+        padding: 2rem 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    /* Header */
+    .page-header {
+        margin-bottom: 2rem;
+    }
+
+    .breadcrumb {
+        font-size: 0.875rem;
+        color: #6B6B6B;
+        margin-bottom: 1rem;
+    }
+
+        .breadcrumb a {
+            color: #C8B6FF;
+            text-decoration: none;
+        }
+
+            .breadcrumb a:hover {
+                text-decoration: underline;
+            }
+
+    .header-content {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .header-icon {
+        width: 4rem;
+        height: 4rem;
+        background: linear-gradient(135deg, #C8B6FF, #C2C9FF);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        flex-shrink: 0;
+    }
+
+    .header-text {
+        flex: 1;
+    }
+
+        .header-text h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4A4A4A;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-text p {
+            color: #6B6B6B;
+            margin: 0;
+        }
+
+    .header-stats {
+        display: flex;
+        gap: 2rem;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #C8B6FF;
+    }
+
+    .stat-label {
+        font-size: 0.875rem;
+        color: #6B6B6B;
+    }
+
+    /* Filter Section */
+    .filter-section {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .filter-controls {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .search-box {
+        position: relative;
+        flex: 1;
+        min-width: 250px;
+    }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6B6B6B;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 2px solid #E7C6FF;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+            .search-box input:focus {
+                outline: none;
+                border-color: #C8B6FF;
+                box-shadow: 0 0 0 3px rgba(200, 182, 255, 0.1);
+            }
+
+    .filter-buttons {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border: 2px solid #E7C6FF;
+        background: white;
+        color: #6B6B6B;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .filter-btn:hover {
+            border-color: #C8B6FF;
+            background: #F8F9FF;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #C8B6FF, #C2C9FF);
+            color: white;
+            border-color: transparent;
+        }
+
+    /* Empty State */
+    .empty-state {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 4rem 2rem;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .empty-icon {
+        width: 5rem;
+        height: 5rem;
+        background: linear-gradient(135deg, #E7C6FF, #C8B6FF);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin: 0 auto 1.5rem;
+    }
+
+    .empty-state h3 {
+        color: #4A4A4A;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .empty-state p {
+        color: #6B6B6B;
+        margin-bottom: 2rem;
+    }
+
+    /* Consultations Grid */
+    .consultations-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .consultation-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        animation: slideInUp 0.6s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+        .consultation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+    @@keyframes slideInUp {
+        to
+
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    .card-header_Consultation {
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(231, 198, 255, 0.3);
+    }
+
+    .consultant-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .consultant-avatar {
+        width: 3rem;
+        height: 3rem;
+        background: linear-gradient(135deg, #E7C6FF, #C8B6FF);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .consultant-details h4 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #4A4A4A;
+        margin-bottom: 0.25rem;
+    }
+
+    .consultant-details p {
+        font-size: 0.875rem;
+        color: #6B6B6B;
+        margin: 0;
+    }
+
+    .status-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .status-pending {
+        background: #FFF3CD;
+        color: #856404;
+    }
+
+    .status-confirmed {
+        background: #D1ECF1;
+        color: #0C5460;
+    }
+
+    .status-completed {
+        background: #D4EDDA;
+        color: #155724;
+    }
+
+    .status-cancelled {
+        background: #F8D7DA;
+        color: #721C24;
+    }
+
+    .card-content {
+        padding: 1.5rem;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .info-item {
+        background: #F8F9FF;
+        padding: 1rem;
+        border-radius: 8px;
+        border-left: 3px solid #E7C6FF;
+    }
+
+        .info-item.full-width {
+            grid-column: 1 / -1;
+        }
+
+    .info-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #6B6B6B;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+    }
+
+        .info-label i {
+            color: #C8B6FF;
+        }
+
+    .info-value {
+        color: #4A4A4A;
+        font-size: 0.875rem;
+    }
+
+        .info-value.notes {
+            line-height: 1.5;
+        }
+
+    .meeting-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #C8B6FF;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+        .meeting-link:hover {
+            color: #C2C9FF;
+            text-decoration: underline;
+        }
+
+    .card-actions {
+        padding: 1rem 1.5rem;
+        background: rgba(248, 249, 255, 0.5);
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #C8B6FF, #C2C9FF);
+        color: white;
+    }
+
+        .btn-primary:hover:not(:disabled) {
+            background: linear-gradient(135deg, #B8A6FF, #B2B9FF);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(200, 182, 255, 0.3);
+        }
+
+    .btn-secondary {
+        background: #F3F4F6;
+        color: #6B6B6B;
+        border: 1px solid #D1D5DB;
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, #10B981, #059669);
+        color: white;
+    }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+
+    .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .container
+
+    {
+        padding: 0 0.5rem;
+    }
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .header-stats {
+        justify-content: center;
+    }
+
+    .filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        min-width: auto;
+    }
+
+    .filter-buttons {
+        justify-content: center;
+    }
+
+    .consultations-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-actions {
+        flex-direction: column;
+    }
+
+    }
+
+    @@media (max-width: 480px) {
+        .consultation-history-page
+
+    {
+        padding: 1rem 0;
+    }
+
+    .header-content {
+        padding: 1.5rem;
+    }
+
+    .header-text h1 {
+        font-size: 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .consultation-card {
+        margin: 0 0.5rem;
+    }
+
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const consultationCards = document.querySelectorAll('.consultation-card');
+
+        // Search functionality
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            filterConsultations(searchTerm, getActiveFilter());
+        });
+
+        // Filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                const status = this.dataset.status;
+                const searchTerm = searchInput.value.toLowerCase();
+                filterConsultations(searchTerm, status);
+            });
+        });
+
+        function getActiveFilter() {
+            const activeButton = document.querySelector('.filter-btn.active');
+            return activeButton ? activeButton.dataset.status : 'all';
+        }
+
+        function filterConsultations(searchTerm, status) {
+            consultationCards.forEach(card => {
+                const consultantName = card.querySelector('.consultant-details h4').textContent.toLowerCase();
+                const cardStatus = card.dataset.status;
+
+                const matchesSearch = consultantName.includes(searchTerm);
+                const matchesStatus = status === 'all' || cardStatus === status;
+
+                if (matchesSearch && matchesStatus) {
+                    card.style.display = 'block';
+                    card.style.animation = 'slideInUp 0.3s ease forwards';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Animate cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.animationDelay = `${index * 0.1}s`;
+                        entry.target.classList.add('animate');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        consultationCards.forEach(card => {
+            observer.observe(card);
+        });
+
+        // Loading states for buttons
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            if (button.type === 'submit') {
+                button.addEventListener('click', function() {
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<i class="bi bi-hourglass-split"></i> Đang xử lý...';
+                    this.disabled = true;
+
+                    // Re-enable after form submission (fallback)
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        this.disabled = false;
+                    }, 3000);
+                });
+            }
+        });
+    });
+</script>

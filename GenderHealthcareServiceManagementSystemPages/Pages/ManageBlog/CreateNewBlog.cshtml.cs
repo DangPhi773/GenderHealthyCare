@@ -53,8 +53,8 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ManageBlog
             if (!ModelState.IsValid) return Page();
 
             Blog.AuthorId = userId;
-            Blog.CreatedAt = DateTime.Now;
-            Blog.UpdatedAt = DateTime.Now;
+            Blog.CreatedAt = DateTime.UtcNow.AddHours(7);
+            Blog.UpdatedAt = DateTime.UtcNow.AddHours(7);
             Blog.IsDeleted = false;
 
             await _blogService.AddAsync(Blog);

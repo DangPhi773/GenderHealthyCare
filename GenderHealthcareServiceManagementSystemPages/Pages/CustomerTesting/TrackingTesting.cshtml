@@ -3,108 +3,110 @@
 @{
     ViewData["Title"] = "Theo dõi tình trạng xét nghiệm";
 }
+
 <main class="py-5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="card shadow-lg p-4 border-0 rounded-4 bg-light">
-                    <div class="mb-4 text-center">
-                        <h2 class="h4 fw-bold text-gradient">Lịch sử & Trạng thái xét nghiệm</h2>
-                        <p class="text-muted">Theo dõi các dịch vụ bạn đã đăng ký và tình trạng xử lý.</p>
+                    <div class="mb-5 text-center">
+                        <h2 class="h4 fw-bold text-gradient-primary">Theo dõi tình trạng xét nghiệm của bạn</h2>
+                        <p class="text-muted opacity-75">Cập nhật liên tục về lịch sử và trạng thái xử lý các dịch vụ xét nghiệm đã đăng ký.</p>
                     </div>
 
-                    <form method="get" class="mb-4 d-flex flex-wrap align-items-center gap-2 justify-content-center">
-                        <label class="form-label mb-0 me-2">Lọc theo trạng thái:</label>
-                        <select name="status" class="form-select w-auto border-purple text-purple" onchange="this.form.submit()">
-                            <option value="">-- Tất cả --</option>
-                            <option value="Pending" selected="@("Pending" == Model.SelectedStatus)">Pending</option>
-                            <option value="In Progress" selected="@("In Progress" == Model.SelectedStatus)">In Progress</option>
-                            <option value="Done" selected="@("Done" == Model.SelectedStatus)">Done</option>
-                            <option value="ResultAvailable" selected="@("ResultAvailable" == Model.SelectedStatus)">ResultAvailable</option>
-                        </select>
+                    <form method="get" class="mb-4 d-flex flex-wrap gap-3 justify-content-center">
+                        <div class="btn-group" role="group" aria-label="Lọc theo trạng thái">
+                            <a href="?status=" class="btn btn-outline-primary @(string.IsNullOrEmpty(Model.SelectedStatus) ? "active" : "") rounded-pill px-3">
+                                Tất cả
+                            </a>
+                            <a href="?status=Pending" class="btn btn-outline-warning @("Pending" == Model.SelectedStatus ? "active" : "") rounded-pill px-3">
+                                ⏳ Chờ xử lý
+                            </a>
+                            <a href="?status=Scheduled" class="btn btn-outline-info @("Scheduled" == Model.SelectedStatus ? "active" : "") rounded-pill px-3">
+                                🔄 Đã được lên lịch 
+                            </a>
+                            <a href="?status=Completed" class="btn btn-outline-success @("Completed" == Model.SelectedStatus ? "active" : "") rounded-pill px-3">
+                                ✅ Đã hoàn thành
+                            </a>
+                            <a href="?status=ResultAvailable" class="btn btn-outline-purple @("ResultAvailable" == Model.SelectedStatus ? "active" : "") rounded-pill px-3">
+                                📄 Có kết quả
+                            </a>
+                            <a href="?status=Cancelled" class="btn btn-outline-danger @("Cancelled" == Model.SelectedStatus ? "active" : "") rounded-pill px-3">
+                                ❌ Đã hủy
+                            </a>
+                        </div>
                     </form>
 
                     @if (Model.UserTests.Count == 0)
                     {
-                        <div class="alert alert-info text-center fw-semibold rounded-3">
-                            Bạn chưa có lịch xét nghiệm nào.
+                        <div class="alert alert-info text-center fw-semibold rounded-3 py-4 my-5 animate__animated animate__fadeInUp">
+                            <i class="bi bi-info-circle fs-3 me-2"></i>
+                            <h4 class="alert-heading mb-2">Bạn chưa có lịch xét nghiệm nào!</h4>
+                            <p class="mb-0">Hãy bắt đầu đặt lịch ngay hôm nay để theo dõi sức khỏe của mình.</p>
+                            <a href="/CustomerTesting/SelectService" class="btn btn-primary mt-3 rounded-pill px-4">Đặt lịch mới <i class="bi bi-plus-circle ms-2"></i></a>
                         </div>
                     }
                     else
                     {
-                        var groupedTests = Model.UserTests
-                        .GroupBy(t => t.AppointmentTime)
-                        .OrderByDescending(g => g.Key);
+                        <div class="row">
+                            @{
+                                var groupedTests = Model.UserTests
+                                .GroupBy(t => t.AppointmentTime)
+                                .OrderByDescending(g => g.Key);
+                            }
 
-                        foreach (var group in groupedTests)
-                        {
-                            <div class="mb-4 p-3 border border-purple-subtle rounded-4 shadow-sm bg-white">
-                                <h5 class="fw-bold text-primary mb-3">
-                                    🕒 Thời gian: @group.Key.ToString("HH:mm dd/MM/yyyy")
-                                </h5>
-
-                                <div class="table-responsive">
-                                    <table class="table table-hover align-middle mb-0 text-center">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th class="text-purple">Dịch vụ</th>
-                                                <th class="text-purple">Trạng thái</th>
-                                                <th class="text-purple">Kết quả</th>
-                                                <th class="text-purple">Thao tác</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var test in group)
-                                            {
-                                                <tr>
-                                                    <td class="text-center">@test.Service?.Name</td>
-                                                    <td class="text-center">
-                                                        @switch (test.Status)
-                                                        {
-                                                            case "Pending":
-                                                                <span class="badge bg-warning text-dark">⏳ Pending</span>
-                                                                break;
-                                                            case "In Progress":
-                                                                <span class="badge bg-info text-white">🔄 In Progress</span>
-                                                                break;
-                                                            case "Done":
-                                                                <span class="badge bg-success">✅ Done</span>
-                                                                break;
-                                                            case "ResultAvailable":
-                                                                <span class="badge bg-primary">📄 Có kết quả</span>
-                                                                break;
-                                                            default:
-                                                                <span class="badge bg-secondary">@test.Status</span>
-                                                                break;
-                                                        }
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @if (string.IsNullOrEmpty(test.Result))
-                                                        {
-                                                            <span class="text-muted fst-italic">Chưa có</span>
-                                                        }
-                                                        else
-                                                        {
-                                                            @test.Result
-                                                        }
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @if (test.Status == "ResultAvailable")
-                                                        {
-                                                            <form method="post" asp-page-handler="SetTestSession" asp-route-testId="@test.TestId" class="d-inline">
-                                                                <button type="submit" class="btn btn-sm btn-outline-@(Model.FeedbackStatus.GetValueOrDefault(test.TestId) ? "secondary" : "primary") rounded-pill">
-                                                                    @(Model.FeedbackStatus.GetValueOrDefault(test.TestId) ? "Đã đánh giá" : "Đánh giá")
-                                                                </button>
-                                                            </form>
-                                                        }
-                                                    </td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
+                            @foreach (var group in groupedTests)
+                            {
+                                <div class="col-12 mb-4 animate__animated animate__fadeInUp">
+                                    <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+                                        <div class="card-header bg-gradient-purple text-white p-3 d-flex justify-content-between align-items-center">
+                                            <h5 class="mb-0 fw-bold">
+                                                <i class="bi bi-calendar-check me-2"></i>Ngày hẹn: @group.Key.ToString("HH:mm dd/MM/yyyy")
+                                            </h5>
+                                            <span class="badge bg-light text-primary py-2 px-3 rounded-pill">
+                                                @group.Count() xét nghiệm
+                                            </span>
+                                        </div>
+                                        <div class="card-body p-0">
+                                            <ul class="list-group list-group-flush">
+                                                @foreach (var test in group)
+                                                {
+                                                    <li class="list-group-item d-flex align-items-center py-3 px-4">
+                                                        <div class="flex-grow-1">
+                                                            <h6 class="mb-1 fw-bold text-dark">
+                                                                <i class="bi bi-clipboard-pulse me-2 text-primary"></i>@test.Service?.Name
+                                                            </h6>
+                                                            <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
+                                                                <span class="badge @GetStatusBadgeClass(test.Status)">
+                                                                    @GetStatusText(test.Status)
+                                                                </span>
+                                                                @if (!string.IsNullOrEmpty(test.Result))
+                                                                {
+                                                                    <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                                                        Kết quả: @test.Result
+                                                                    </span>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-shrink-0 ms-auto">
+                                                            @if (test.Status == "ResultAvailable")
+                                                            {
+                                                                <form method="post" asp-page-handler="SetTestSession" asp-route-testId="@test.TestId" class="d-inline">
+                                                                    <button type="submit" class="btn btn-sm @(Model.FeedbackStatus.GetValueOrDefault(test.TestId) ? "btn-outline-secondary" : "btn-primary") rounded-pill px-3">
+                                                                        @(Model.FeedbackStatus.GetValueOrDefault(test.TestId) ? "Đã đánh giá" : "Đánh giá")
+                                                                        <i class="bi bi-star-fill ms-2"></i>
+                                                                    </button>
+                                                                </form>
+                                                            }
+                                                        </div>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     }
                 </div>
             </div>
@@ -112,14 +114,122 @@
     </div>
 </main>
 
+@functions {
+    string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Pending" => "bg-warning text-dark",
+            "Scheduled" => "bg-info text-white",
+            "Completed" => "bg-success",
+            "ResultAvailable" => "bg-primary border border-purple-stronger text-white", 
+            "Cancelled" => "bg-danger",
+            _ => "bg-secondary",
+        };
+    }
+
+    string GetStatusText(string status)
+    {
+        return status switch
+        {
+            "Pending" => "⏳ Chờ xử lý",
+            "Scheduled" => "🔄 Đã được lên lịch ",
+            "Completed" => "✅ Đã hoàn thành",
+            "ResultAvailable" => "📄 Có kết quả",
+            "Cancelled" => "❌ Đã hủy",
+            _ => status,
+        };
+    }
+}
+
 <style>
-    .text-gradient {
-        background: linear-gradient(to right, #a855f7, #ec4899);
+    .text-gradient-primary {
+        background: linear-gradient(to right, #6f42c1, #0dcaf0);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
-    .border-purple-subtle {
-        border-color: #e9d5ff !important;
+    .bg-gradient-purple {
+        background: linear-gradient(to right, #9333ea, #ec4899); 
     }
+
+
+    .card.shadow-lg {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+    }
+
+ 
+    .list-group-item:hover {
+        background-color: #f8f9fa; 
+        transform: translateX(3px); 
+        transition: all 0.2s ease-in-out;
+    }
+
+    .badge {
+        padding: 0.5em 0.75em;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        font-size: 0.85em;
+    }
+
+
+    .border-purple-stronger {
+        border-color: #9333ea !important; 
+        border-width: 2px !important; 
+    }
+
+    .bg-success-subtle {
+        background-color: #d1e7dd !important;
+        color: #0f5132 !important;
+    }
+
+    .btn-outline-warning {
+        border-color: #ffc107;
+        color: #ffc107;
+    }
+
+        .btn-outline-warning.active {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+    .btn-outline-info {
+        border-color: #0dcaf0;
+        color: #0dcaf0;
+    }
+
+        .btn-outline-info.active {
+            background-color: #0dcaf0;
+            color: #fff;
+        }
+
+    .btn-outline-purple {
+        color: #6f42c1; 
+        border-color: #6f42c1;
+    }
+
+        .btn-outline-purple:hover, .btn-outline-purple.active {
+            background-color: #6f42c1;
+            color: white;
+        }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translate3d(0, 20px, 0);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    .animate__fadeInUp {
+        animation-name: fadeInUp;
+        animation-duration: 0.6s;
+        animation-fill-mode: both;
+    }
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> 
 </style>

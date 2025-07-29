@@ -18,7 +18,7 @@ namespace Repositories
             _dao = dao;
         }
 
-        public async Task<List<Feedback>> GetAllFeedback() => await _dao.GetAllFeedback();
+        public async Task<List<Feedback>> GetAllFeedback(DateTime? from = null, DateTime? to = null) => await _dao.GetAllFeedback(from, to);
         public Task<Feedback?> GetFeedbackById(int id) => _dao.GetFeedbackById(id);
         public Task AddFeedback(Feedback feedback) => _dao.AddFeedback(feedback);
         public Task UpdateFeedback(Feedback feedback) => _dao.UpdateFeedback(feedback);

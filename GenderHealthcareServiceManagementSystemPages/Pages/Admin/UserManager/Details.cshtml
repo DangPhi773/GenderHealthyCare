@@ -5,47 +5,68 @@
     ViewData["Title"] = "User Details";
 }
 
-<div class="container mt-4">
-    <div class="card shadow-sm border-0">
-        <div class="card-header bg-primary text-white">
-            <h3 class="mb-0"><i class="bi bi-person-circle"></i> User Details</h3>
+<div class="container my-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-primary text-white rounded-top-4">
+            <h3 class="mb-0 d-flex align-items-center">
+                <i class="bi bi-person-circle me-2"></i> User Details
+            </h3>
         </div>
-        <div class="card-body">
-            <dl class="row">
-                <dt class="col-sm-3">Role</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Role)</dd>
+        <div class="card-body px-5 py-4">
+            <div class="row gy-3">
+                @* Row 1 *@
+                <div class="col-md-6">
+                    <label class="fw-bold text-secondary">Role</label>
+                    <div>@Html.DisplayFor(model => model.User.Role)</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="fw-bold text-secondary">Gender</label>
+                    <div>@Html.DisplayFor(model => model.User.Gender)</div>
+                </div>
 
-                <dt class="col-sm-3">Gender</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Gender)</dd>
+                @* Row 2 *@
+                <div class="col-md-6">
+                    <label class="fw-bold text-secondary">Date of Birth</label>
+                    <div>@Html.DisplayFor(model => model.User.Dob)</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="fw-bold text-secondary">Username</label>
+                    <div>@Html.DisplayFor(model => model.User.Username)</div>
+                </div>
 
-                <dt class="col-sm-3">Date of Birth</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Dob)</dd>
+                @* Row 3 *@
+                <div class="col-md-6">
+                    <label class="fw-bold text-secondary">Email</label>
+                    <div>@Html.DisplayFor(model => model.User.Email)</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="fw-bold text-secondary">Full Name</label>
+                    <div>@Html.DisplayFor(model => model.User.FullName)</div>
+                </div>
 
-                <dt class="col-sm-3">Username</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Username)</dd>
-                
+                @* Row 4 *@
+                <div class="col-md-6">
+                    <label class="fw-bold text-secondary">Phone</label>
+                    <div>@Html.DisplayFor(model => model.User.Phone)</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="fw-bold text-secondary">Created At</label>
+                    <div>@Html.DisplayFor(model => model.User.CreatedAt)</div>
+                </div>
 
-                <dt class="col-sm-3">Email</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Email)</dd>
-
-                <dt class="col-sm-3">Full Name</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.FullName)</dd>
-
-                <dt class="col-sm-3">Phone</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.Phone)</dd>
-
-                <dt class="col-sm-3">Created At</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.CreatedAt)</dd>
-
-                <dt class="col-sm-3">Updated At</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.UpdatedAt)</dd>
-
-                <dt class="col-sm-3">Is Deleted</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.User.IsDeleted)</dd>
-                
-            </dl>
+                @* Row 5 *@
+                <div class="col-md-6">
+                    <label class="fw-bold text-secondary">Updated At</label>
+                    <div>@Html.DisplayFor(model => model.User.UpdatedAt)</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="fw-bold text-secondary">Is Deleted</label>
+                    <div>@Html.DisplayFor(model => model.User.IsDeleted)</div>
+                </div>
+            </div>
         </div>
-        <div class="card-footer d-flex justify-content-between">
+
+        <div class="card-footer bg-light d-flex justify-content-between rounded-bottom-4 px-4 py-3">
             <a class="btn btn-outline-primary" asp-page="./Edit" asp-route-id="@Model.User.UserId">
                 <i class="bi bi-pencil-square"></i> Edit
             </a>

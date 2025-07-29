@@ -5,87 +5,100 @@
     ViewData["Title"] = "Edit User";
 }
 
-<h2 class="mt-4 mb-4"><i class="bi bi-pencil-square"></i> Edit User Information</h2>
+<h2 class="mt-4 mb-4 text-center text-primary"><i class="bi bi-pencil-square"></i> Edit User Information</h2>
 
 <div class="row">
     <div class="col-md-8 offset-md-2">
-        <div class="card shadow-sm">
+        <div class="card shadow-lg border-0 rounded-lg">
             <div class="card-body">
                 <form method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
                     <input type="hidden" asp-for="User.UserId" />
 
                     <div class="mb-3">
-                        <label asp-for="User.Role" class="form-label fw-bold"></label>
-                        <input asp-for="User.Role" class="form-control" />
+                        <label asp-for="User.Role" class="form-label fw-bold">Role</label>
+                        <div class="mb-3">
+                            <select asp-for="User.Role" class="form-select shadow-sm rounded">
+                                <option value="">-- Chọn vai trò --</option>
+                                <option value="Guest">Guest</option>
+                                <option value="Customer">Customer</option>
+                                <option value="Consultant">Consultant</option>
+                                <option value="Staff">Staff</option>
+                                <option value="Manager">Manager</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                            <span asp-validation-for="User.Role" class="text-danger"></span>
+                        </div>
                         <span asp-validation-for="User.Role" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="User.Gender" class="form-label fw-bold"></label>
-                        <input asp-for="User.Gender" class="form-control" />
+                        <label asp-for="User.Gender" class="form-label fw-bold">Gender</label>
+                        <select asp-for="User.Gender" class="form-select shadow-sm rounded">
+                            <option value="">-- Chọn giới tính --</option>
+                            <option value="Male">Nam</option>
+                            <option value="Female">Nữ</option>
+                        </select>
                         <span asp-validation-for="User.Gender" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="User.Dob" class="form-label fw-bold"></label>
-                        <input asp-for="User.Dob" type="date" class="form-control" />
+                        <label asp-for="User.Dob" class="form-label fw-bold">Date of Birth</label>
+                        <input asp-for="User.Dob" type="date" class="form-control shadow-sm rounded" />
                         <span asp-validation-for="User.Dob" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="User.Username" class="form-label fw-bold"></label>
-                        <input asp-for="User.Username" class="form-control" />
+                        <label asp-for="User.Username" class="form-label fw-bold">Username</label>
+                        <input readonly asp-for="User.Username" class="form-control shadow-sm rounded" />
                         <span asp-validation-for="User.Username" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="User.PasswordHash" class="form-label fw-bold"></label>
-                        <input asp-for="User.PasswordHash" class="form-control" />
-                        <span asp-validation-for="User.PasswordHash" class="text-danger"></span>
-                    </div>
-
-                    <div class="mb-3">
-                        <label asp-for="User.Email" class="form-label fw-bold"></label>
-                        <input asp-for="User.Email" class="form-control" />
+                        <label asp-for="User.Email" class="form-label fw-bold">Email</label>
+                        <input readonly asp-for="User.Email" class="form-control shadow-sm rounded" />
                         <span asp-validation-for="User.Email" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="User.FullName" class="form-label fw-bold"></label>
-                        <input asp-for="User.FullName" class="form-control" />
+                        <label asp-for="User.FullName" class="form-label fw-bold">Full Name</label>
+                        <input asp-for="User.FullName" class="form-control shadow-sm rounded" />
                         <span asp-validation-for="User.FullName" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="User.Phone" class="form-label fw-bold"></label>
-                        <input asp-for="User.Phone" class="form-control" />
+                        <label asp-for="User.Phone" class="form-label fw-bold">Phone Number</label>
+                        <input asp-for="User.Phone" class="form-control shadow-sm rounded" />
                         <span asp-validation-for="User.Phone" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="User.CreatedAt" class="form-label fw-bold"></label>
-                        <input asp-for="User.CreatedAt" class="form-control" readonly />
+                        <label asp-for="User.CreatedAt" class="form-label fw-bold">Created At</label>
+                        <input asp-for="User.CreatedAt" class="form-control shadow-sm rounded" readonly />
                         <span asp-validation-for="User.CreatedAt" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="User.UpdatedAt" class="form-label fw-bold"></label>
-                        <input asp-for="User.UpdatedAt" class="form-control" readonly />
+                        <label asp-for="User.UpdatedAt" class="form-label fw-bold">Updated At</label>
+                        <input asp-for="User.UpdatedAt" class="form-control shadow-sm rounded" readonly />
                         <span asp-validation-for="User.UpdatedAt" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="User.IsDeleted" class="form-label fw-bold"></label>
-                        <input asp-for="User.IsDeleted" class="form-control" />
+                        <label asp-for="User.IsDeleted" class="form-label fw-bold">Is Deleted</label>
+                        <select asp-for="User.IsDeleted" class="form-select shadow-sm rounded">
+                            <option value="">-- Chọn trạng thái --</option>
+                            <option value="false">Hoạt động</option>
+                            <option value="true">Đã xóa</option>
+                        </select>
                         <span asp-validation-for="User.IsDeleted" class="text-danger"></span>
                     </div>
 
                     <div class="d-flex justify-content-between mt-4">
-                        <a asp-page="./Index" class="btn btn-outline-secondary">
+                        <a asp-page="./Index" class="btn btn-outline-secondary rounded-pill">
                             <i class="bi bi-arrow-left-circle"></i> Back to List
                         </a>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary rounded-pill">
                             <i class="bi bi-save2"></i> Save Changes
                         </button>
                     </div>
@@ -98,3 +111,112 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<style>
+    .card {
+        border-radius: 12px;
+    }
+
+    .card-body {
+        background-color: #f8f9fa;
+        padding: 2rem;
+    }
+
+    .form-label {
+        font-size: 1rem;
+        color: #495057;
+    }
+
+    .form-control {
+        font-size: 1rem;
+        padding: 0.75rem;
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 30px;
+    }
+
+    .btn-outline-secondary {
+        border-color: #6c757d;
+        color: #6c757d;
+        background-color: transparent;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #e2e6ea;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .mb-3 {
+        margin-bottom: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .fw-bold {
+        font-weight: bold;
+    }
+
+    .text-danger {
+        font-size: 0.875rem;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+    .rounded {
+        border-radius: 8px;
+    }
+
+    .rounded-pill {
+        border-radius: 50px;
+    }
+
+    @@media (max-width: 768px) {
+    .col-md-8 {
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+        .form-select {
+            font-size: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+        }
+
+            .form-select:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+    }
+</style>

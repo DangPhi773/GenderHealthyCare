@@ -126,3 +126,18 @@
     }
 
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/signalrserver") 
+        .build();
+
+    connection.start()
+        .then(() => console.log("SignalR connected"))
+        .catch(err => console.error("SignalR connection error: ", err));
+
+    connection.on("ServiceUpdated", function (updatedService) {
+        alert("Dịch vụ đã được cập nhật: " + updatedService.name);
+        location.reload();
+    });
+</script>

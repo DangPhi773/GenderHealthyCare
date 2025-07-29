@@ -33,7 +33,7 @@ public class ConsultationDAO(GenderHealthcareContext context)
     public async Task<List<Consultation>> GetConsultationsByUserIdAsync(int userId)
     {
         return await _context.Consultations
-            .Include(c => c.Consultant) 
+            .Include(c => c.Consultant)
             .Where(c => c.UserId == userId)
             .OrderByDescending(c => c.AppointmentTime)
             .ToListAsync();
@@ -150,5 +150,14 @@ public class ConsultationDAO(GenderHealthcareContext context)
         {
             throw new Exception(ex.Message);
         }
+    }
+    public async Task<List<Consultation>> GetAllConsultationsAsync(DateTime? from, DateTime? to)
+    {
+        return await _context.Consultations
+            .Include(c => c.Consultant)
+            .Include(c => c.User)
+            .Where(c => (!from.HasValue || c.AppointmentTime >= from.Value) &&
+                                   (!to.HasValue || c.AppointmentTime <= to.Value))
+            .ToListAsync();
     }
 }

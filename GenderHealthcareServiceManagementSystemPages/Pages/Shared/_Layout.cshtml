@@ -22,6 +22,7 @@
 
     @RenderSection("Styles", required: false)
 </head>
+
 <body class="d-flex flex-column min-vh-100">
     @{
         var userId = Context.Session.GetString("UserId");
@@ -75,7 +76,7 @@
                             </li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
-                                <a href="/Admin/Report" class="dropdown-item dropdown-item-custom">
+                                <a href="/Admin/Reports/Index" class="dropdown-item dropdown-item-custom">
                                     <i class="bi bi-file-earmark-text-fill me-3"></i>
                                     <div>
                                         <div class="fw-semibold">Báo Cáo</div>
@@ -100,23 +101,23 @@
                                     </div>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#" class="dropdown-item dropdown-item-custom">
-                                    <i class="bi bi-person-heart me-3"></i>
-                                    <div>
-                                        <div class="fw-semibold">Khách hàng</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <a href="#" class="dropdown-item dropdown-item-custom">
-                                    <i class="bi bi-person-fill me-3"></i>
-                                    <div>
-                                        <div class="fw-semibold">Nhân viên</div>
-                                    </div>
-                                </a>
-                            </li>
+                            @* <li> *@
+                            @*     <a href="#" class="dropdown-item dropdown-item-custom"> *@
+                            @*         <i class="bi bi-person-heart me-3"></i> *@
+                            @*         <div> *@
+                            @*             <div class="fw-semibold">Khách hàng</div> *@
+                            @*         </div> *@
+                            @*     </a> *@
+                            @* </li> *@
+                            @* <li><hr class="dropdown-divider"></li> *@                    
+                            @* <li> *@
+                            @*     <a href="#" class="dropdown-item dropdown-item-custom"> *@
+                            @*         <i class="bi bi-person-fill me-3"></i> *@
+                            @*         <div> *@
+                            @*             <div class="fw-semibold">Nhân viên</div> *@
+                            @*         </div> *@
+                            @*     </a> *@
+                            @* </li> *@
                             <li>
                                 <a href="/AdminManageConsultant/ManageConsultant" class="dropdown-item dropdown-item-custom">
                                     <i class="bi bi-person-fill me-3"></i>
@@ -166,7 +167,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/StaffTesting/Manage" class="dropdown-item dropdown-item-custom">
+                                <a href="/StaffTesting/" class="dropdown-item dropdown-item-custom">
                                     <i class="bi bi-eyedropper me-3"></i>
                                     <div>
                                         <div class="fw-semibold">Lịch Xét nghiệm</div>
@@ -220,7 +221,7 @@
                 else if(userRole == "Staff")
                 {
                     <!-- Staff Menu -->
-                    <a href="/StaffTesting/Manage" class="nav-link-custom">
+                    <a href="/StaffTesting/Index" class="nav-link-custom">
                         <i class="bi bi-calendar-week-fill me-1"></i> Lịch xét nghiệm
                     </a>
                     <a href="/ServiceManagement/Index" class="nav-link-custom">
@@ -326,7 +327,14 @@
                                     <i class="bi bi-question-circle me-3"></i>
                                     <div>
                                         <div class="fw-semibold">Lịch sử câu hỏi của tôi</div>
-                                        <small class="text-muted">Xem lại các câu hỏi đã gửi</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/CustomerConsultation/ShowUserConsultations" class="dropdown-item dropdown-item-custom">
+                                    <i class="bi bi-question-circle me-3"></i>
+                                    <div>
+                                        <div class="fw-semibold">Lịch sử đặt lịch tư vấn</div>
                                     </div>
                                 </a>
                             </li>

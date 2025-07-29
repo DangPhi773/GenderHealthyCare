@@ -2,17 +2,23 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using BusinessObjects.Models;
-using Services.Interfaces; // 👈 cần thêm namespace này
+using Services.Interfaces;
+using Microsoft.AspNetCore.SignalR;
+using GenderHealthcareServiceManagementSystemPages.Hubs;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.ServiceManagement
 {
     public class EditModel : PageModel
     {
         private readonly IServiceService _serviceService;
+        private readonly IHubContext<SignalRServer> _hubContext;
 
-        public EditModel(IServiceService serviceService)
+
+        public EditModel(IServiceService serviceService, IHubContext<SignalRServer> hubContext)
         {
             _serviceService = serviceService;
+            _hubContext = hubContext;
+
         }
 
         [BindProperty]
@@ -56,14 +62,25 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.ServiceManagement
             existingService.Name = Service.Name;
             existingService.Description = Service.Description;
             existingService.Price = Service.Price;
+            existingService.IsDeleted = Service.IsDeleted;
+
 
             var success = await _serviceService.UpdateAsync(existingService);
+
 
             if (!success)
             {
                 ModelState.AddModelError(string.Empty, "Cập nhật thất bại. Vui lòng thử lại.");
                 return Page();
             }
+            await _hubContext.Clients.All.SendAsync("ServiceUpdated", new
+            {
+                id = existingService.ServiceId,
+                name = existingService.Name,
+                description = existingService.Description,
+                price = existingService.Price,
+                isDeleted = existingService.IsDeleted
+            });
 
             return RedirectToPage("./Index");
         }

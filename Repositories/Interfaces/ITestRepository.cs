@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repositories.Interfaces
 {
     public interface ITestRepository
     {
-        Task<List<Test>> GetAllTest();
+        Task<List<Test>> GetAllTest(DateTime? from, DateTime? to);
         Task<Test?> GetTestById(int id);
         Task AddTest(Test test);
         Task UpdateTest(Test test);
@@ -18,7 +19,8 @@ namespace Repositories.Interfaces
         Task<List<Test>> GetPendingTests();
         Task<List<Test>> GetScheduledTests();
         Task<bool> UpdateTestStatus(int testId, string status);
+        Task<bool> UpdateTestResultOrCancel(int testId, string result, string cancelReason);
         Task<bool> IsAppointmentTimeTestingConflict(int userId, DateTime selectedTime);
-
+        Task<bool> UpdateTestFields(int testId, string? status, string? result, string? cancelReason);
     }
 }

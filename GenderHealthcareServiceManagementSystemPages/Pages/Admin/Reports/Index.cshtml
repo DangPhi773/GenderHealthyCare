@@ -1,0 +1,248 @@
+﻿@page
+@model GenderHealthcareServiceManagementSystemPages.Pages.Admin.Reports.IndexModel
+@{
+    ViewData["Title"] = "Báo cáo";
+}
+
+<style>
+    body {
+        background: linear-gradient(to bottom right, #f9f3ff, #ffeaf7, #ebf0ff);
+    }
+
+    .gradient-text {
+        background: linear-gradient(to right, #9333ea, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+    }
+</style>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<div class="container">
+    <div class="col-12 d-flex flex-column mb-3">
+        <h1 class="gradient-text" style="width:fit-content;padding:5px">@ViewData["Title"]</h1>
+        <p>Chào mừng bạn đến với mục báo cáo. Tại đây bạn có thể tạo và tải xuống các báo cáo khác nhau.</p>
+    </div>
+
+    <div class="report-card">
+        <div class="report-card-header">
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="text-start">
+                    <h3>Danh sách báo cáo</h3>
+                    <p class="description">Xem và tải về các báo cáo của hệ thống chăm sóc sức khỏe.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="report-card-content">
+            <a href="/Admin/Reports/Create" class="btn btn-gradient">
+                <i class="fas fa-plus"></i> Tạo báo cáo mới
+            </a>
+
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>Loại báo cáo</th>
+                        <th>File</th>
+                        <th>Người tạo</th>
+                        <th>Ngày tạo</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Reports == null || !Model.Reports.Any())
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center">Không có báo cáo nào.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var report in Model.Reports)
+                        {
+                            <tr>
+                                <td>@report.ReportTypeName</td>
+                                <td>@(report.FilePath)</td>
+                                <td>@(report.CreatedBy ?? "UNKNOWN")</td>
+                                <td>@report.CreatedDate</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button onclick="downloadReport(@report.ReportId, '@report.FilePath')"
+                                                class="btn btn-primary btn-sm">
+                                            Tải về
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-sm" onclick="confirmDeleteReport(@report.ReportId, '@report.ReportTypeName')">Xóa</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmModalLabel">File không hợp lệ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>File báo cáo "<span id="reportName"></span>" không tồn tại hoặc đã bị xóa.</p>
+                <p><strong>Bạn có muốn xóa bản ghi này khỏi danh sách không?</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" onclick="deleteReport()">Xóa bản ghi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let currentReportId = 0;
+        let currentReportName = '';
+
+        async function downloadReport(reportId, filePath) {
+            try {
+                const downloadUrl = `/Admin/Reports/Index?handler=ExportFile&id=${reportId}`;
+
+                const response = await fetch(downloadUrl, {
+                    method: 'GET',
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+
+                    const fileName = filePath.split('/').pop();
+
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                } else if (response.status === 404) {
+                    currentReportId = reportId;
+                    currentReportName = filePath.split('/').pop();
+                    document.getElementById('reportName').textContent = currentReportName;
+
+                    const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+                    modal.show();
+                } else {
+                    alert('Có lỗi xảy ra khi tải file. Vui lòng thử lại.');
+                }
+            } catch (error) {
+                console.error('Error downloading report:', error);
+                alert('Có lỗi xảy ra khi tải file. Vui lòng thử lại.');
+            }
+        }
+
+
+        async function deleteReport() {
+            try {
+                const response = await fetch(`/Admin/Reports/Index?handler=DeleteExportFile&id=${currentReportId}`, {
+                    method: 'POST',
+                });
+
+                console.log(response);
+                if (response.ok) {
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmModal'));
+                    modal.hide();
+
+                    location.reload();
+                } else {
+                    alert('Có lỗi xảy ra khi xóa báo cáo. Vui lòng thử lại.');
+                }
+            } catch (error) {
+                console.error('Error deleting report:', error);
+                alert('Có lỗi xảy ra khi xóa báo cáo. Vui lòng thử lại.');
+            }
+        }
+
+        function confirmDeleteReport(reportId, reportName) {
+            currentReportId = reportId;
+            currentReportName = reportName;
+            document.getElementById('reportName').textContent = reportName;
+
+            const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+            modal.show();
+        }
+    </script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Report.css?v=20250714" />
+    <style>
+        .btn-gradient {
+            background: linear-gradient(to right, #9333ea, #ec4899);
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+            .btn-gradient:hover {
+                background: linear-gradient(to right, #7c3aed, #db2777);
+                color: white;
+                transform: translateY(-1px);
+            }
+
+        .btn-group .btn {
+            margin-right: 5px;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        .badge-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .badge-warning {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .report-card-header {
+            text-align: left;
+        }
+
+            .report-card-header h3 {
+                text-align: left;
+                margin-bottom: 5px;
+            }
+
+            .report-card-header .description {
+                text-align: left;
+                margin-bottom: 0;
+            }
+
+        .modal-content {
+            border-radius: 10px;
+        }
+
+        .modal-header {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-bottom: 1px solid #dee2e6;
+        }
+    </style>
+}
