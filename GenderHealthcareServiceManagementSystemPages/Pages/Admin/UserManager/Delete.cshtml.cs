@@ -6,22 +6,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects.Models;
+using Services.Interfaces;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager
 {
     public class DeleteModel : PageModel
     {
-        private readonly GenderHealthcareContext _context;
+        private readonly IUserService _userService;
 
-        public DeleteModel(GenderHealthcareContext context)
+        public DeleteModel( IUserService userService)
         {
-            _context = context;
+            _userService = userService;
         }
 
         [BindProperty]
         public User User { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             var role = HttpContext.Session.GetString("Role");
             if (string.IsNullOrEmpty(role) || role != "Admin")
@@ -33,7 +34,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager
                 return NotFound();
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(m => m.UserId == id);
+            var user = await _userService.GetUserById(id);
 
             if (user == null)
             {
@@ -46,19 +47,18 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var user = await _context.Users.FindAsync(id);
+            var user = await _userService.GetUserById(id);
             if (user != null)
             {
-                User = user;
-                user.IsDeleted = true;
-                await _context.SaveChangesAsync();
+                
+                await _userService.DeleteUserAsync(id);
             }
 
             return RedirectToPage("./Index");

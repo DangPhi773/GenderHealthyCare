@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessObjects.Models;
+using Services.Interfaces;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager
 {
     public class CreateModel : PageModel
     {
-        private readonly BusinessObjects.Models.GenderHealthcareContext _context;
-
-        public CreateModel(BusinessObjects.Models.GenderHealthcareContext context)
+        private readonly IUserService _userService;
+        public CreateModel(IUserService userService)
         {
-            _context = context;
+            _userService = userService;
         }
 
         public IActionResult OnGet()
@@ -38,10 +38,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager
             {
                 return Page();
             }
-
-            _context.Users.Add(User);
-            await _context.SaveChangesAsync();
-
+            await _userService.AddUserAsync(User);
             return RedirectToPage("./Index");
         }
     }

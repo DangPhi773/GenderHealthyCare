@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects.Models;
+using Services.Interfaces;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager
 {
     public class DetailsModel : PageModel
     {
-        private readonly BusinessObjects.Models.GenderHealthcareContext _context;
-
-        public DetailsModel(BusinessObjects.Models.GenderHealthcareContext context)
+        private readonly IUserService _userService;
+        public DetailsModel(IUserService userService )
         {
-            _context = context;
+            _userService = userService;
         }
 
         public User User { get; set; } = default!;
@@ -32,7 +32,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager
                 return NotFound();
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(m => m.UserId == id);
+            var user = await _userService.GetUserById(id.Value);
             if (user == null)
             {
                 return NotFound();

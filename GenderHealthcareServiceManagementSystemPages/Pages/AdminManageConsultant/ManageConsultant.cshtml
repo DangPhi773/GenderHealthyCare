@@ -6,17 +6,20 @@
     bool isViewingDeleted = Model.ShowDeleted;
 }
 
-<main class="py-4">
+<main class="py-4" style="background-color: #FFF0FA; min-height: 100vh;">
     <div class="container">
         <h2 class="h4 text-primary mb-4">👨‍⚕️ Danh sách tư vấn viên @(isViewingDeleted ? "(Đã xóa)" : "")</h2>
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-4">
             @if (!isViewingDeleted)
             {
-                <a asp-page="AddNewConsultantInfo" class="btn btn-success">➕ Thêm mới tư vấn viên</a>
+                <a asp-page="AddNewConsultantInfo" class="btn btn-success">
+                    <i class="bi bi-person-plus-fill"></i> Thêm mới tư vấn viên
+                </a>
             }
             <a asp-page="./ManageConsultant" asp-route-ShowDeleted="@(isViewingDeleted ? "false" : "true")"
-               class="btn btn-secondary">
+               class="btn btn-outline-secondary">
+                <i class="bi @(isViewingDeleted ? "bi-person-lines-fill" : "bi-archive-fill")"></i>
                 @(isViewingDeleted ? "Các consultant hiện tại" : "Các consultant đã xóa")
             </a>
         </div>
@@ -28,54 +31,56 @@
 
         @if (Model.Consultants.Any())
         {
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th>STT</th>
-                            <th>Họ tên</th>
-                            <th>Email</th>
-                            <th>Ngày sinh</th>
-                            <th>Chuyên môn</th>
-                            <th>Chứng chỉ</th>
-                            <th>Số năm kinh nghiệm</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var c in Model.Consultants)
-                        {
-                            <tr>
-                                <td>@(++index)</td>
-                                <td>@c.User.FullName</td>
-                                <td>@c.User.Email</td>
-                                <td>@(c.User.Dob?.ToString("dd/MM/yyyy") ?? "Chưa có")</td>
-                                <td>@c.ConsultantInfo.Specialization</td>
-                                <td>@c.ConsultantInfo.Qualifications</td>
-                                <td>@c.ConsultantInfo.ExperienceYears</td>
-                                <td class="d-flex gap-1">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                @foreach (var c in Model.Consultants)
+                {
+                    <div class="col">
+                        <div class="card shadow-sm border-0 h-100" style="background-color: #FFD6FF;">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex align-items-center mb-3">
+                                    <img src="@(c.ConsultantInfo.ProfileImage != null ? $"data:image/jpeg;base64,{Convert.ToBase64String(c.ConsultantInfo.ProfileImage)}" : "https://3di-info.com/wp-content/uploads/2023/11/Rachel-Potts-profile-image-360x360.webp")"
+                                         class="rounded-circle me-3" alt="Avatar"
+                                         style="width: 60px; height: 60px; object-fit: cover;">
+                                    <div>
+                                        <h5 class="mb-0 text-dark">@c.User.FullName</h5>
+                                        <small class="text-muted">@c.User.Email</small>
+                                    </div>
+                                </div>
+                                <p class="mb-1"><strong>Ngày sinh:</strong> @(c.User.Dob?.ToString("dd/MM/yyyy") ?? "Chưa có")</p>
+                                <p class="mb-1"><strong>Chuyên môn:</strong> @c.ConsultantInfo.Specialization</p>
+                                <p class="mb-1"><strong>Chứng chỉ:</strong> @c.ConsultantInfo.Qualifications</p>
+                                <p class="mb-3"><strong>Kinh nghiệm:</strong> @c.ConsultantInfo.ExperienceYears năm</p>
+
+                                <div class="mt-auto d-flex gap-2">
                                     @if (!isViewingDeleted)
                                     {
-                                        <a asp-page="EditConsultant" asp-route-id="@c.User.UserId" class="btn btn-sm btn-warning">✏️ Chỉnh sửa</a>
+                                        <a asp-page="EditConsultant" asp-route-id="@c.User.UserId"
+                                           class="btn btn-sm btn-warning w-50"><i class="bi bi-pencil-fill"></i> Sửa</a>
                                         <form method="post" asp-page-handler="Delete" asp-route-id="@c.User.UserId"
+                                              class="w-50"
                                               onsubmit="return confirm('Bạn có chắc muốn xóa tư vấn viên này?');">
-                                            <button type="submit" class="btn btn-sm btn-danger">🗑️ Xóa</button>
+                                            <button type="submit" class="btn btn-sm btn-danger w-100">
+                                                <i class="bi bi-trash-fill"></i> Xóa
+                                            </button>
                                         </form>
                                     }
                                     else
                                     {
                                         <span class="text-muted">Đã xóa</span>
                                     }
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         }
         else
         {
-            <div class="alert alert-info">Không có tư vấn viên nào @(isViewingDeleted ? "đã xóa" : "hiện tại") trong hệ thống.</div>
+            <div class="alert alert-info mt-4">
+                Không có tư vấn viên nào @(isViewingDeleted ? "đã xóa" : "hiện tại") trong hệ thống.
+            </div>
         }
     </div>
 </main>
+

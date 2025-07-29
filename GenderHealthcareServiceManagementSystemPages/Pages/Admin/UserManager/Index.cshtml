@@ -2,57 +2,89 @@
 @model GenderHealthcareServiceManagementSystemPages.Pages.Admin.UserManager.IndexModel
 
 @{
-    ViewData["Title"] = "User Management";
+    ViewData["Title"] = "Quản lý người dùng";
+    string GetRoleBadgeClass(string role) => role switch
+    {
+        "Guest" => "secondary",
+        "Customer" => "success",
+        "Consultant" => "purple",
+        "Staff" => "info",
+        "Manager" => "warning",
+        "Admin" => "danger",
+        _ => "dark"
+    };
 }
 
 <div class="container mt-4">
-    <h2 class="text-center text-primary mb-4">Manage Users</h2>
+    <h2 class="text-center text-primary mb-4">Quản lý người dùng</h2>
 
     <div class="d-flex justify-content-end mb-3">
-        <a asp-page="Create" class="btn btn-success">+ Create New</a>
+        <a asp-page="Create" class="btn btn-success"><i class="bi bi-plus-lg"></i> Tạo người dùng mới</a>
     </div>
 
     <div class="table-responsive">
-        <table class="table table-bordered table-hover table-striped align-middle text-center">
+        <table class="table table-bordered table-hover align-middle text-center">
             <thead class="table-dark">
-            <tr>
-                <th>@Html.DisplayNameFor(model => model.User[0].Role)</th>
-                <th>@Html.DisplayNameFor(model => model.User[0].Gender)</th>
-                <th>@Html.DisplayNameFor(model => model.User[0].Dob)</th>
-                <th>@Html.DisplayNameFor(model => model.User[0].Username)</th>
-                <th>@Html.DisplayNameFor(model => model.User[0].Email)</th>
-                <th>@Html.DisplayNameFor(model => model.User[0].FullName)</th>
-                <th>@Html.DisplayNameFor(model => model.User[0].Phone)</th>
-                <th>@Html.DisplayNameFor(model => model.User[0].CreatedAt)</th>
-                <th>@Html.DisplayNameFor(model => model.User[0].UpdatedAt)</th>
-                
-                <th>Actions</th>
-            </tr>
+                <tr>
+                    <th>Quyền</th>
+                    <th>Giới tính</th>
+                    <th>Ngày sinh</th>
+                    <th>Tên đăng nhập</th>
+                    <th>Email</th>
+                    <th>Họ tên</th>
+                    <th>Số điện thoại</th>
+                    <th>Ngày tạo</th>
+                    <th>Ngày cập nhật</th>
+                    <th>Đã xóa?</th>
+                    <th>Thao tác</th>
+                </tr>
             </thead>
             <tbody>
-            @foreach (var item in Model.User)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Role)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Gender)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Dob)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Username)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                    <td>@Html.DisplayFor(modelItem => item.FullName)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Phone)</td>
-                    <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
-                    <td>@Html.DisplayFor(modelItem => item.UpdatedAt)</td>
-                    
-                    <td>
-                        <div class="d-flex justify-content-center gap-2">
-                            <a asp-page="./Edit" asp-route-id="@item.UserId" class="btn btn-sm btn-primary">Edit</a>
-                            <a asp-page="./Details" asp-route-id="@item.UserId" class="btn btn-sm btn-info">Details</a>
-                            <a asp-page="./Delete" asp-route-id="@item.UserId" class="btn btn-sm btn-danger">Delete</a>
-                        </div>
-                    </td>
-                </tr>
-            }
+                @foreach (var item in Model.User)
+                {
+                    var badgeClass = GetRoleBadgeClass(item.Role);
+                    <tr>
+                        <td><span class="badge bg-@badgeClass">@item.Role</span></td>
+                        <td>@item.Gender</td>
+                        <td>@item.Dob?.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Username</td>
+                        <td>@item.Email</td>
+                        <td>@item.FullName</td>
+                        <td>@item.Phone</td>
+                        <td>@item.CreatedAt?.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@item.UpdatedAt?.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>
+                            @if (item.IsDeleted == true)
+                            {
+                                <span class="text-danger">✔</span>
+                            }
+                            else
+                            {
+                                <span class="text-success">✘</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-center gap-2">
+                                <a asp-page="./Edit" asp-route-id="@item.UserId" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil-square"></i> Sửa
+                                </a>
+                                <a asp-page="./Details" asp-route-id="@item.UserId" class="btn btn-sm btn-info">
+                                    <i class="bi bi-info-circle"></i> Chi tiết
+                                </a>
+                                <a asp-page="./Delete" asp-route-id="@item.UserId" class="btn btn-sm btn-danger">
+                                    <i class="bi bi-trash"></i> Xóa
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
 </div>
+
+<style>
+    .badge.bg-purple {
+        background-color: rebeccapurple;
+    }
+</style>
