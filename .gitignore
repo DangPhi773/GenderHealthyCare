@@ -73,3 +73,4 @@ secrets.json
 *.log
 
 .idea/
+/GenderHealthcareServiceManagementSystemPages/appsettings.json
