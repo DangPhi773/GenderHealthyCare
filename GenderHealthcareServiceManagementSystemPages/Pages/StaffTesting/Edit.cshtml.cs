@@ -49,7 +49,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting
             return status switch
             {
                 "Pending" => "Đang chờ",
-                "Scheduled" => "Đã lên lịch",
+                "Scheduled" => "Đã xác nhận",
                 "Completed" => "Đã hoàn tất",
                 "ResultAvailable" => "Có kết quả",
                 "Cancelled" => "Đã hủy",
