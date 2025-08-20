@@ -160,14 +160,11 @@
                             </div>
                         </div>
 
+                        
+
                         <div class="card-actions">
-                            <a asp-page="./Details" asp-route-id="@item.TestId" class="btn btn-info btn-sm">
-                                <i class="bi bi-eye"></i>
-                                Chi tiết
-                            </a>
-                            <a asp-page="./Edit" asp-route-id="@item.TestId" class="btn btn-warning btn-sm">
-                                <i class="bi bi-pencil"></i>
-                                Cập Nhật
+                            <a class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#detailsModal-@item.TestId">
+                                <i class="bi bi-eye"></i> Chi tiết
                             </a>
                             <a asp-page="./Delete" asp-route-id="@item.TestId" class="btn btn-danger btn-sm">
                                 <i class="bi bi-trash"></i>
@@ -175,6 +172,156 @@
                             </a>
                         </div>
                     </div>
+                    
+                    <!-- Modal tách khỏi .test-card để tránh overflow:hidden -->
+                    <div class="modal fade" id="detailsModal-@item.TestId" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><i class="bi bi-info-circle"></i> Chi tiết xét nghiệm</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <!-- Header -->
+                                        <div class="page-header">
+                                            <div class="breadcrumb">
+                                                <a asp-page="./Index">Quản lý xét nghiệm</a>
+                                                <span>/</span>
+                                                <span>Chỉnh sửa</span>
+                                            </div>
+                                            <div class="header-content">
+                                                <div class="header-icon">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </div>
+                                                <div class="header-text">
+                                                    <h1>Chỉnh sửa xét nghiệm</h1>
+                                                    <p>Cập nhật thông tin xét nghiệm và trạng thái</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Form Card -->
+                                        <div class="form-card">
+                                            <form method="post" id="editTestForm">
+                                                <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+                                                <input type="hidden" asp-for="EditTest.TestId" value="@item.TestId" />
+                                                <div class="form-sections">
+                                                    <!-- Thông tin cơ bản -->
+                                                    <div class="form-section-1">
+                                                        <div class="section-header">
+                                                            <i class="bi bi-info-circle"></i>
+                                                            <h3>Thông tin cơ bản</h3>
+                                                        </div>
+
+                                                        <div class="form-grid">
+                                                            <div class="form-group">
+                                                                <label class="form-label">
+                                                                    <i class="bi bi-person"></i>
+                                                                    Bệnh nhân
+                                                                </label>
+                                                                <div class="form-input">@item.User?.Email</div>
+                                                            </div>
+
+
+                                                            <div class="form-group">
+                                                                <label class="form-label">
+                                                                    <i class="bi bi-heart-pulse"></i>
+                                                                    Dịch vụ xét nghiệm
+                                                                </label>
+                                                                <div class="form-input">@item.Service?.Name</div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Lịch hẹn và trạng thái -->
+                                                    <div class="form-section-2">
+                                                        <div class="section-header">
+                                                            <i class="bi bi-calendar-check"></i>
+                                                            <h3>Lịch hẹn và trạng thái</h3>
+                                                        </div>
+
+                                                        <div class="form-grid">
+                                                            <div class="form-group">
+                                                                <label asp-for="EditTest.AppointmentTime" class="form-label">
+                                                                    <i class="bi bi-clock"></i>
+                                                                    Thời gian hẹn
+                                                                </label>
+                                                                <input type="datetime-local" asp-for="EditTest.AppointmentTime" class="form-input" value="@item.AppointmentTime.ToString("yyyy-MM-ddTHH:mm")" />
+                                                                <span asp-validation-for="EditTest.AppointmentTime" class="validation-error"></span>
+                                                            </div>
+
+
+                                                            <div class="form-group">
+                                                                <label asp-for="EditTest.Status" class="form-label">
+                                                                    <i class="bi bi-flag"></i>
+                                                                    Trạng thái
+                                                                </label>
+                                                                <select asp-for="EditTest.Status" class="form-select" id="statusSelect">
+                                                                    <option value="Pending">Chờ xử lý</option>
+                                                                    <option value="Scheduled">Đã lên lịch</option>
+                                                                    <option value="Completed">Hoàn thành</option>
+                                                                    <option value="ResultAvailable">Có kết quả</option>
+                                                                    <option value="Cancelled">Đã hủy</option>
+                                                                </select>
+                                                                <span asp-validation-for="EditTest.Status" class="validation-error"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Kết quả và ghi chú -->
+                                                    <div class="form-section">
+                                                        <div class="section-header">
+                                                            <i class="bi bi-file-text"></i>
+                                                            <h3>Kết quả và ghi chú</h3>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label asp-for="EditTest.Result" class="form-label">
+                                                                <i class="bi bi-clipboard-data"></i>
+                                                                Kết quả xét nghiệm
+                                                            </label>
+                                                            <textarea asp-for="EditTest.Result" class="form-textarea" rows="4"
+                                                                      placeholder="Nhập kết quả xét nghiệm chi tiết..."></textarea>
+                                                            <span asp-validation-for="EditTest.Result" class="validation-error"></span>
+                                                        </div>
+
+                                                        <div class="form-group" id="cancelReasonGroup" style="display: none;">
+                                                            <label asp-for="EditTest.CancelReason" class="form-label">
+                                                                <i class="bi bi-x-circle"></i>
+                                                                Lý do hủy
+                                                            </label>
+                                                            <textarea asp-for="EditTest.CancelReason" class="form-textarea" rows="3"
+                                                                      placeholder="Nhập lý do hủy xét nghiệm..."></textarea>
+                                                            <span asp-validation-for="EditTest.CancelReason" class="validation-error"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Action Buttons -->
+                                                <div class="form-actions">
+                                                    <button type="submit" class="btn btn-primary" id="saveBtn">
+                                                        <i class="bi bi-check-circle"></i>
+                                                        <span>Lưu thay đổi</span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary" onclick="testForm()">
+                                                        <i class="bi bi-bug"></i>
+                                                        Test Form
+                                                    </button>
+                                                    <a asp-page="./Index" class="btn btn-outline">
+                                                        <i class="bi bi-arrow-left"></i>
+                                                        Quay lại danh sách
+                                                    </a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 }
             }
             else
@@ -206,6 +353,20 @@
         <div class="loading-spinner">
             <div class="spinner"></div>
             <p>Đang tải...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1050;">
+        <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <i class="bi bi-check-circle me-2"></i>
+                <strong class="me-auto">Thành công</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Cập nhật xét nghiệm thành công!
+            </div>
         </div>
     </div>
 </main>
@@ -765,6 +926,192 @@
         }
     }
 
+    /* Modal Form Styles */
+    .modal-content {
+        border-radius: 16px;
+        border: none;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+        background: linear-gradient(135deg, #C8B6FF, #C2C9FF);
+        color: white;
+        border-radius: 16px 16px 0 0;
+        border-bottom: none;
+        padding: 1.5rem;
+    }
+
+    .modal-title {
+        font-weight: 600;
+        font-size: 1.25rem;
+    }
+
+    .modal-body {
+        padding: 0;
+    }
+
+    .form-card {
+        background: white;
+        border-radius: 0 0 16px 16px;
+        padding: 2rem;
+    }
+
+    .form-sections {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .form-section-1,
+    .form-section-2,
+    .form-section {
+        background: rgba(231, 198, 255, 0.05);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid rgba(231, 198, 255, 0.2);
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid rgba(200, 182, 255, 0.3);
+    }
+
+    .section-header i {
+        color: #C8B6FF;
+        font-size: 1.25rem;
+    }
+
+    .section-header h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #4A4A4A;
+        margin: 0;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: #4A4A4A;
+        margin-bottom: 0.75rem;
+    }
+
+    .form-label i {
+        color: #C8B6FF;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #E7C6FF;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        background: white;
+        transition: all 0.3s ease;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+        outline: none;
+        border-color: #C8B6FF;
+        box-shadow: 0 0 0 3px rgba(200, 182, 255, 0.1);
+    }
+
+    /* Custom styling for datetime-local input */
+    input[type="datetime-local"] {
+        font-family: inherit;
+        color: #4A4A4A;
+    }
+
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+        background-color: #C8B6FF;
+        border-radius: 4px;
+        cursor: pointer;
+        padding: 2px;
+    }
+
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
+        background-color: #B8A6FF;
+    }
+
+    .form-textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .validation-error {
+        color: #dc2626;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+        display: block;
+    }
+
+    .validation-summary {
+        background: rgba(220, 38, 38, 0.1);
+        border: 1px solid rgba(220, 38, 38, 0.3);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        color: #dc2626;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(231, 198, 255, 0.3);
+    }
+
+    .btn-outline {
+        background: transparent;
+        border: 2px solid #E7C6FF;
+        color: #6B6B6B;
+    }
+
+    .btn-outline:hover {
+        background: #E7C6FF;
+        color: #4A4A4A;
+    }
+
+    /* Toast Styles */
+    .toast {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        border: none;
+    }
+
+    .toast-header {
+        border-radius: 12px 12px 0 0;
+        border-bottom: none;
+        padding: 1rem;
+    }
+
+    .toast-body {
+        padding: 1rem;
+        color: #4A4A4A;
+    }
+
     /* Responsive */
     @@media (max-width: 768px) {
     .container {
@@ -810,6 +1157,29 @@
 
     .card-actions {
         flex-direction: column;
+    }
+
+    /* Modal responsive */
+    .modal-dialog {
+        margin: 1rem;
+        max-width: calc(100% - 2rem);
+    }
+
+    .form-card {
+        padding: 1rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+        justify-content: center;
     }
     }
 
@@ -956,5 +1326,177 @@
             card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(card);
         });
+
+        // Modal form handling
+        document.querySelectorAll('[data-bs-target^="#detailsModal-"]').forEach(button => {
+            button.addEventListener('click', function() {
+                const modalId = this.getAttribute('data-bs-target');
+                const testId = modalId.replace('#detailsModal-', '');
+                const modal = document.querySelector(modalId);
+                
+                if (modal) {
+                    // Populate form with current data
+                    const form = modal.querySelector('#editTestForm');
+                    if (form) {
+                        const testCard = this.closest('.test-card');
+                        const status = testCard.querySelector('.status-badge span').textContent.trim();
+                        const appointmentTimeText = testCard.querySelector('.info-item:has(.info-label:contains("Thời gian hẹn")) .info-value')?.textContent.trim() || '';
+                        const result = testCard.querySelector('.result-text')?.textContent || '';
+                        const cancelReason = testCard.querySelector('.cancel-reason .info-value')?.textContent || '';
+                        
+                        // Set form values
+                        console.log('Populating form with data:', { testId, status, appointmentTimeText, result, cancelReason });
+                        
+                        const testIdInput = form.querySelector('input[asp-for="EditTest.TestId"]');
+                        const appointmentTimeInput = form.querySelector('input[asp-for="EditTest.AppointmentTime"]');
+                        const statusSelect = form.querySelector('select[asp-for="EditTest.Status"]');
+                        const resultTextarea = form.querySelector('textarea[asp-for="EditTest.Result"]');
+                        const cancelReasonTextarea = form.querySelector('textarea[asp-for="EditTest.CancelReason"]');
+                        
+                        if (testIdInput) testIdInput.value = testId;
+                        if (appointmentTimeInput) {
+                            // Convert dd/MM/yyyy HH:mm to yyyy-MM-ddTHH:mm format
+                            const appointmentTime = convertToDateTimeLocal(appointmentTimeText);
+                            appointmentTimeInput.value = appointmentTime;
+                        }
+                        if (statusSelect) statusSelect.value = getStatusValue(status);
+                        if (resultTextarea) resultTextarea.value = result;
+                        if (cancelReasonTextarea) cancelReasonTextarea.value = cancelReason;
+                        
+                        console.log('Form values set:', {
+                            testId: testIdInput?.value,
+                            appointmentTime: appointmentTimeInput?.value,
+                            status: statusSelect?.value,
+                            result: resultTextarea?.value,
+                            cancelReason: cancelReasonTextarea?.value
+                        });
+                        
+                        // Debug: Log the actual HTML of the form
+                        console.log('Form HTML:', form.innerHTML);
+                        
+                        // Show/hide cancel reason based on status
+                        toggleCancelReasonGroup(getStatusValue(status));
+                    }
+                }
+            });
+        });
+
+        // Form submission handling
+        document.addEventListener('submit', function(e) {
+            if (e.target.matches('#editTestForm')) {
+                console.log('Form submitted');
+                
+                // Log form data before submission
+                const formData = new FormData(e.target);
+                for (let [key, value] of formData.entries()) {
+                    console.log(`${key}: ${value}`);
+                }
+                
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Đang lưu...';
+                
+                // Re-enable after a delay (in case of validation errors)
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }, 3000);
+            }
+        });
+
+        // Show success toast if redirected from successful update
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('updated') === 'true') {
+            const toast = new bootstrap.Toast(document.getElementById('successToast'));
+            toast.show();
+        }
+
+        // Handle status change in modal
+        document.addEventListener('change', function(e) {
+            if (e.target.matches('select[name="EditTest.Status"]')) {
+                toggleCancelReasonGroup(e.target.value);
+            }
+        });
+
+        function toggleCancelReasonGroup(status) {
+            // Find cancel reason group in the currently open modal
+            const openModal = document.querySelector('.modal.show');
+            if (openModal) {
+                const cancelReasonGroup = openModal.querySelector('#cancelReasonGroup');
+                if (cancelReasonGroup) {
+                    if (status === 'Cancelled') {
+                        cancelReasonGroup.style.display = 'block';
+                    } else {
+                        cancelReasonGroup.style.display = 'none';
+                    }
+                }
+            }
+        }
+
+        function getStatusValue(statusText) {
+            const statusMap = {
+                'Chờ xử lý': 'Pending',
+                'Đã lên lịch': 'Scheduled',
+                'Hoàn thành': 'Completed',
+                'Có kết quả': 'ResultAvailable',
+                'Đã hủy': 'Cancelled'
+            };
+            return statusMap[statusText] || 'Pending';
+        }
+
+        function convertToDateTimeLocal(dateTimeStr) {
+            if (!dateTimeStr || dateTimeStr === 'Chưa xác định') {
+                return '';
+            }
+            
+            // Parse dd/MM/yyyy HH:mm format
+            const parts = dateTimeStr.split(' ');
+            if (parts.length !== 2) return '';
+            
+            const dateParts = parts[0].split('/');
+            const timeParts = parts[1].split(':');
+            
+            if (dateParts.length !== 3 || timeParts.length !== 2) return '';
+            
+            const day = dateParts[0];
+            const month = dateParts[1];
+            const year = dateParts[2];
+            const hour = timeParts[0];
+            const minute = timeParts[1];
+            
+            // Return in yyyy-MM-ddTHH:mm format
+            return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${hour.padStart(2, '0')}:${minute.padStart(2, '0')}`;
+        }
+
+        function testForm() {
+            const openModal = document.querySelector('.modal.show');
+            if (openModal) {
+                const form = openModal.querySelector('#editTestForm');
+                if (form) {
+                    console.log('Testing form submission...');
+                    
+                    // Set some test values
+                    const testIdInput = form.querySelector('input[asp-for="EditTest.TestId"]');
+                    const appointmentTimeInput = form.querySelector('input[asp-for="EditTest.AppointmentTime"]');
+                    const statusSelect = form.querySelector('select[asp-for="EditTest.Status"]');
+                    const resultTextarea = form.querySelector('textarea[asp-for="EditTest.Result"]');
+                    
+                    if (testIdInput) testIdInput.value = '1';
+                    if (appointmentTimeInput) appointmentTimeInput.value = '2025-01-15T10:30';
+                    if (statusSelect) statusSelect.value = 'Completed';
+                    if (resultTextarea) resultTextarea.value = 'Test result from debug';
+                    
+                    console.log('Test values set, submitting form...');
+                    form.submit();
+                }
+            }
+        }
     });
 </script>
+
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
