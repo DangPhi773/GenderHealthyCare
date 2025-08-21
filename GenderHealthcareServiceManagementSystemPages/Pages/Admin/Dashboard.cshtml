@@ -19,6 +19,67 @@
 
 <div class="dashboard-grid">
     <h1 class="gradient-text mb-3" style="width:fit-content;padding:5px">Thống kê</h1>
+    <form method="get" class="row g-2 mb-4">
+        <div class="col-md-3">
+            <label for="sortType" class="form-label">Lọc theo</label>
+            <select id="sortType" name="SortType" class="form-select">
+                <option value="">-- Tất cả --</option>
+                @if (Model.SortType == "day")
+                {
+                    <option value="day" selected>Ngày</option>
+                }
+                else
+                {
+                    <option value="day">Ngày</option>
+                }
+                @if (Model.SortType == "month")
+                {
+                    <option value="month" selected>Tháng</option>
+                }
+                else
+                {
+                    <option value="month">Tháng</option>
+                }
+                @if (Model.SortType == "year")
+                {
+                    <option value="year" selected>Năm</option>
+                }
+                else
+                {
+                    <option value="year">Năm</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="selectedDate" class="form-label">Chọn ngày/tháng/năm</label>
+            <input id="selectedDate" name="SelectedDate" type="date" class="form-control" value="@(Model.SelectedDate?.ToString("yyyy-MM-dd"))" />
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">Lọc</button>
+        </div>
+    </form>
+    <div class="metric-grid mb-4">
+        <div class="dashboard-card">
+            <div class="dashboard-card-header">
+                <span class="dashboard-card-title">Tổng số lượng xét nghiệm</span>
+            </div>
+            <div class="dashboard-card-value" style="font-size:2rem">@Model.TotalTestCount</div>
+        </div>
+        <div class="dashboard-card">
+            <div class="dashboard-card-header">
+                <span class="dashboard-card-title">Số lượng từng loại xét nghiệm</span>
+            </div>
+            <ul class="list-group list-group-flush">
+                @foreach (var item in Model.TestCountByType)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>@item.ServiceName</span>
+                        <span class="badge bg-primary rounded-pill">@item.Count</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
 
     <!-- Các chỉ số tổng quát -->
     <div class="metric-grid">
@@ -127,7 +188,7 @@
 
 
             <!-- Filter Controls for Feedback -->
-           @*  <div class="feedback-filters">
+            @*  <div class="feedback-filters">
                 <form method="get" class="filter-form">
                     <div class="filter-group">
                         <label for="reviewCount">Số đánh giá:</label>
@@ -141,8 +202,8 @@
                         <label for="endDate">Đến ngày:</label>
                         <input type="date" id="endDate" name="endDate" value="@(Model.EndDate?.ToString("yyyy-MM-dd"))" class="form-control" onchange="this.form.submit()" />
                     </div> *@
-                    @* Keep existing query parameters if any, e.g., for other sections of the dashboard *@
-                  @*   @foreach (var queryParam in Context.Request.Query)
+            @* Keep existing query parameters if any, e.g., for other sections of the dashboard *@
+            @*   @foreach (var queryParam in Context.Request.Query)
                     {
                         @if (queryParam.Key != "reviewCount" && queryParam.Key != "startDate" && queryParam.Key != "endDate")
                         {
@@ -193,6 +254,57 @@
                                     <td class="text-right">@feedback.CreatedAt</td>
                                 </tr>
                             }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bảng danh sách xét nghiệm -->
+    <div class="card mt-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Danh sách xét nghiệm</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Mã XN</th>
+                            <th>Tên xét nghiệm</th>
+                            <th>Bệnh nhân</th>
+                            <th>Ngày hẹn</th>
+                            <th>Trạng thái</th>
+                            <th>Chuyên gia phụ trách</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.TestsWithConsultants.Any())
+                        {
+                            @foreach (var test in Model.TestsWithConsultants)
+                            {
+                                <tr>
+                                    <td>XN-@test.TestId</td>
+                                    <td>@test.TestName</td>
+                                    <td>@test.PatientName</td>
+                                    <td>@test.AppointmentTime.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>
+                                        <span class="badge @(test.Status == "Hoàn thành" ? "bg-success" :
+                                                                                                     test.Status == "Đang xử lý" ? "bg-warning" :
+                                                                                                     "bg-secondary")">
+                                    @test.Status
+                                </span>
+                            </td>
+                            @* <td>@test.ConsultantName</td> *@
+                        </tr>
+                                                }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center">Không có dữ liệu xét nghiệm</td>
+                            </tr>
                         }
                     </tbody>
                 </table>
