@@ -1,0 +1,150 @@
+@model BusinessObjects.Models.Test
+
+@{
+    var status = Model?.Status ?? "Pending";
+    var statusClass = status switch
+    {
+        "Pending" => "pending",
+        "Scheduled" => "scheduled",
+        "Completed" => "completed",
+        "ResultAvailable" => "result-available",
+        "Cancelled" => "cancelled",
+        _ => "pending"
+    };
+
+    var statusText = status switch
+    {
+        "Pending" => "Chờ xử lý",
+        "Scheduled" => "Đã lên lịch",
+        "Completed" => "Hoàn thành",
+        "ResultAvailable" => "Có kết quả",
+        "Cancelled" => "Đã hủy",
+        _ => "Chờ xử lý"
+    };
+
+    var statusIcon = status switch
+    {
+        "Pending" => "bi-clock",
+        "Scheduled" => "bi-calendar-check",
+        "Completed" => "bi-check-circle",
+        "ResultAvailable" => "bi-file-earmark-check",
+        "Cancelled" => "bi-x-circle",
+        _ => "bi-clock"
+    };
+}
+
+<div class="content-grid">
+    <!-- Patient & Service Info -->
+    <div class="info-card patient-info">
+        <div class="card-header_Test">
+            <div class="card-icon">
+                <i class="bi bi-person-circle"></i>
+            </div>
+            <h3>Thông tin bệnh nhân</h3>
+        </div>
+        <div class="card-content">
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="bi bi-envelope"></i>
+                    Email
+                </div>
+                <div class="info-value">
+                    @(Model.User?.Email ?? "Chưa có thông tin")
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="bi bi-heart-pulse"></i>
+                    Dịch vụ
+                </div>
+                <div class="info-value service-name">
+                    @(Model.Service?.Name ?? "Chưa có thông tin")
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appointment Details -->
+    <div class="info-card appointment-info">
+        <div class="card-header_Test">
+            <div class="card-icon">
+                <i class="bi bi-calendar-event"></i>
+            </div>
+            <h3>Thông tin lịch hẹn</h3>
+        </div>
+        <div class="card-content">
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="bi bi-flag"></i>
+                    Trạng thái
+                </div>
+                <div class="info-value">
+                    <span class="status-badge @statusClass">
+                        <i class="bi @statusIcon"></i>
+                        <span>@statusText</span>
+                    </span>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="bi bi-clock"></i>
+                    Thời gian hẹn
+                </div>
+                <div class="info-value appointment-time">
+                    @(Model.AppointmentTime.ToString("dd/MM/yyyy HH:mm") ?? "Chưa xác định")
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">
+                    <i class="bi bi-calendar-plus"></i>
+                    Ngày tạo
+                </div>
+                <div class="info-value">
+                    @(Model.CreatedAt?.ToString("dd/MM/yyyy HH:mm") ?? "Chưa có thông tin")
+                </div>
+            </div>
+
+            @if (string.Equals(status, "Cancelled", System.StringComparison.OrdinalIgnoreCase) && !string.IsNullOrWhiteSpace(Model?.CancelReason))
+            {
+                <div class="info-item cancel-reason">
+                    <div class="info-label">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        Lý do hủy
+                    </div>
+                    <div class="info-value">
+                        @Model.CancelReason
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Test Results -->
+    <div class="info-card result-info">
+        <div class="card-header_Test">
+            <div class="card-icon">
+                <i class="bi bi-file-earmark-medical"></i>
+            </div>
+            <h3>Kết quả xét nghiệm</h3>
+        </div>
+        <div class="card-content">
+            @if (!string.IsNullOrEmpty(Model.Result))
+            {
+                <div class="result-content">
+                    <div class="result-text">@Model.Result</div>
+                </div>
+            }
+            else
+            {
+                <div class="no-result">
+                    <div class="no-result-icon">
+                        <i class="bi bi-file-earmark-x"></i>
+                    </div>
+                    <p>Chưa có kết quả xét nghiệm</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
