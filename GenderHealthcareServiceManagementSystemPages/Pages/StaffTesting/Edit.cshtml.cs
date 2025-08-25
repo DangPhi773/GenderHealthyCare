@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using BusinessObjects.Models;
 using Services.Interfaces;
 using Services;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting
 {
@@ -48,7 +49,7 @@ namespace GenderHealthcareServiceManagementSystemPages.Pages.StaffTesting
             return status switch
             {
                 "Pending" => "Đang chờ",
-                "Scheduled" => "Đã lên lịch",
+                "Scheduled" => "Đã xác nhận",
                 "Completed" => "Đã hoàn tất",
                 "ResultAvailable" => "Có kết quả",
                 "Cancelled" => "Đã hủy",

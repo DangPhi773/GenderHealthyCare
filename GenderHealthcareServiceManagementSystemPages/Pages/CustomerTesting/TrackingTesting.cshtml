@@ -23,7 +23,7 @@
                                 ⏳ Chờ xử lý
                             </a>
                             <a href="?status=Scheduled" class="btn btn-outline-info @("Scheduled" == Model.SelectedStatus ? "active" : "") rounded-pill px-3">
-                                🔄 Đã được lên lịch 
+                                🔄 Đã được xác nhận 
                             </a>
                             <a href="?status=Completed" class="btn btn-outline-success @("Completed" == Model.SelectedStatus ? "active" : "") rounded-pill px-3">
                                 ✅ Đã hoàn thành
@@ -133,7 +133,7 @@
         return status switch
         {
             "Pending" => "⏳ Chờ xử lý",
-            "Scheduled" => "🔄 Đã được lên lịch ",
+            "Scheduled" => "🔄 Đã được xác nhận ",
             "Completed" => "✅ Đã hoàn thành",
             "ResultAvailable" => "📄 Có kết quả",
             "Cancelled" => "❌ Đã hủy",

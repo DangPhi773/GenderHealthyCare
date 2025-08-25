@@ -322,7 +322,9 @@ public partial class GenderHealthcareContext : DbContext
 
         modelBuilder.Entity<Service>(entity =>
         {
-            entity.HasKey(e => e.ServiceId).HasName("PK__Services__3E0DB8AF19551F50");
+            entity.HasKey(e => e.ServiceId).HasName("PK__Service__3E0DB8AF1C8C5C85");
+
+            entity.ToTable("Service");
 
             entity.Property(e => e.ServiceId).HasColumnName("service_id");
             entity.Property(e => e.CreatedAt)
@@ -330,13 +332,19 @@ public partial class GenderHealthcareContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.Description).HasColumnName("description");
-            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+            entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
             entity.Property(e => e.Price)
-                .HasColumnType("decimal(10, 2)")
+                .HasColumnType("decimal(18, 2)")
                 .HasColumnName("price");
+            entity.Property(e => e.ConsultantId).HasColumnName("consultant_id");
+
+            entity.HasOne(d => d.Consultant)
+                .WithMany()
+                .HasForeignKey(d => d.ConsultantId)
+                .HasConstraintName("FK_Service_Users_ConsultantId");
         });
 
         modelBuilder.Entity<Test>(entity =>

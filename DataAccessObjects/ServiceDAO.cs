@@ -18,7 +18,7 @@ namespace DataAccessObjects
 
         public async Task<List<Service>> GetAllAsync()
         {
-            return await _context.Services.ToListAsync();
+            return await _context.Services.Include(s => s.Consultant).ToListAsync();
         }
         public async Task<List<Service>> GetAvailableServicesAsync()
         {
