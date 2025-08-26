@@ -7,7 +7,6 @@ A web-based Razor Pages application that helps manage health-related services su
 - ASP.NET Core Razor Pages
 - Entity Framework Core
 - SQL Server
-- ClosedXML (Excel export)
 - QuestPDF (PDF generation)
 - Bootstrap 5
 - LINQ & Async/Await for data handling
